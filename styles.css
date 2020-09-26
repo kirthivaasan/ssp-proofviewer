@@ -27,3 +27,32 @@ body {
 #navbar li a:hover {
     background-color: #111;
 }
+
+#proof_wrapper {
+    margin: 0% 0% 0% 1%;
+    font-size: 11.5pt;
+    width: 60%;
+    height: 88%;
+    border: 1px solid gray;
+    overflow: auto;
+    background: white;
+    float: left;
+
+}
+
+.proofstep {
+    margin:  0 0 0 0;
+    padding: 10px 0 10px 10px;
+    border: 1px solid gray;
+    width: 100%;
+    height: 400px;
+}
+
+.proofstep:hover {
+    background-color: #e3e3e3;
+}
+
+#proof_title {
+    margin: 20px 0% 10px 1%;
+    font-size: 20px;
+}
