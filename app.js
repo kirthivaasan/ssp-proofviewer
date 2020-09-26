@@ -159,7 +159,7 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
 	    var target_proofstep_id = 'proofstep_' + cell.value;
 	    var proofstep_div = document.getElementById(target_proofstep_id)
 	    if (!isElementInViewport(proofstep_div)) {
-		proofstep_div.scrollIntoView({ behavior: 'instant', block: 'center' });
+		proofstep_div.scrollIntoView({ behavior: 'smooth', block: 'center' });
 	    }
 	}
 
