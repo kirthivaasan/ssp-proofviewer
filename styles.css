@@ -49,10 +49,14 @@ body {
 }
 
 .proofstep:hover {
-    background-color: #e3e3e3;
+    background-color: #ededed;
 }
 
 #proof_title {
     margin: 20px 0% 10px 1%;
     font-size: 20px;
+}
+
+.graph_container {
+    padding: 20px;
 }

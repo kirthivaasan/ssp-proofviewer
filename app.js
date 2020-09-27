@@ -19,20 +19,121 @@ function isElementInViewport (el) {
 }
 
 // app drawing
-function draw_graph(container_div, graph) {
+function draw_graph(container, pkg_callgraph) {
     if (!mxClient.isBrowserSupported()) {
 	return -1;
     }
 
     var graph = new mxGraph(container);
 
+    // graph.setCellsResizable(false);
+    // graph.setResizeContainer(true);
+    // graph.cellsMovable = false;
+
+    graph.setCellsResizable(true);
+    graph.setResizeContainer(false);
+    graph.cellsMovable = true;
+
+    this.graph = graph;
+
+    // styling
+    var style = graph.getStylesheet().getDefaultVertexStyle();
+    style[mxConstants.STYLE_STROKECOLOR] = 'gray';
+    style[mxConstants.STYLE_STROKE] = 'gray';
+    style[mxConstants.STYLE_ROUNDED] = true;
+    style[mxConstants.STYLE_FILLCOLOR] = '#FFFFFF';
+    style[mxConstants.STYLE_FONTCOLOR] = 'black';
+    style[mxConstants.STYLE_FONTSIZE] = '12';
+    style[mxConstants.STYLE_SPACING] = 4;
+
+    // edge style
+    style = graph.getStylesheet().getDefaultEdgeStyle();
+    style[mxConstants.STYLE_STROKECOLOR] = '#0C0C0C';
+    style[mxConstants.STYLE_LABEL_BACKGROUNDCOLOR] = 'white';
+    style[mxConstants.STYLE_ROUNDED] = true;
+    style[mxConstants.STYLE_FONTCOLOR] = 'black';
+    style[mxConstants.STYLE_FONTSIZE] = '10';
+    style[mxConstants.STYLE_STROKEWIDTH] = '1.25';
+
+
     var parent = graph.getDefaultParent();
     var doc = mxUtils.createXmlDocument();
 
-    graph.getModel().beginUpdate();
+    graph.convertValueToString = function(cell)
+    {
+	if (mxUtils.isNode(cell.value)) {
+	    if (cell.value.nodeName.toLowerCase() == 'package') {
+		var name = cell.getAttribute('name', '');
+		if (name != null && name.length > 0) {
+		    return name;
+		}
+		return 'Unnamed Package';
+	    } else if (cell.value.nodeName.toLowerCase() == 'oracle') {
+		var oracle_name = cell.getAttribute('oracle_name', '');
+		return oracle_name;
+	    }
+	}
+	return '';
+    };
 
+
+    var packages = new Map();
+    var config_x = 0;
+    var config_y = 0;
+    var width = 90;
+    var height = 40;
+
+    graph.getModel().beginUpdate();
     try {
-	// v = graph.insertVertex(parent, null, pkg, config_x, config_y, width, height);
+
+	// add invisible interface node
+	var v = graph.insertVertex(parent, null, pkg, config_x, config_y, 0, 4*height);
+	v.style = 'fillColor=none;strokeColor=none;';
+	v.value = '';
+	packages.set('@oracles_interface', v);
+
+	// add rest of packages
+	for (node in pkg_callgraph.graph) {
+	    config_x += width + width/2;
+	    config_y += height;
+
+	    var pkg = doc.createElement('Package');
+	    pkg.setAttribute('name', node);
+	    var v = graph.insertVertex(parent, null, pkg, config_x, config_y, width, height);
+	    packages.set(node, v);
+	}
+
+	// add edges
+	for (node in pkg_callgraph.graph) {
+	    var neighbours = pkg_callgraph.graph[node];
+	    var src_node = packages.get(node);
+
+	    for (let nb of neighbours) {
+		var pkg_name = nb[0];
+		var oracle_name = nb[1];
+		var v1 = packages.get(pkg_name);
+		var e1 = doc.createElement("Oracle");
+	    	e1.setAttribute('oracle_name', oracle_name);
+
+		var style = 'edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;';
+		var edge = graph.insertEdge(parent, null, e1, src_node, v1, style);
+	    }
+	}
+
+	var src_node = packages.get('@oracles_interface');
+	for (var i = 0; i < pkg_callgraph.oracles.length; i++) {
+	    var el = pkg_callgraph.oracles[i];
+	    var pkg_name = el[0];
+	    var oracle_name = el[1];
+	    var e1 = doc.createElement("Oracle");
+	    e1.setAttribute('oracle_name', oracle_name);
+
+	    var v1 = packages.get(pkg_name);
+	    var style = 'edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;';
+	    var edge = graph.insertEdge(parent, null, e1, src_node, v1, style);
+
+	}
+
     } finally {
 	graph.getModel().endUpdate();
     }
@@ -153,14 +254,34 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
 	updateProofStep(graph);
     });
 
+
     function updateProofStep(graph) {
 	var cell = graph.getSelectionCell();
 	if (cell != null) {
 	    var target_proofstep_id = 'proofstep_' + cell.value;
-	    var proofstep_div = document.getElementById(target_proofstep_id)
+	    var proofstep_div = document.getElementById(target_proofstep_id);
 	    if (!isElementInViewport(proofstep_div)) {
 		proofstep_div.scrollIntoView({ behavior: 'smooth', block: 'center' });
 	    }
+
+	    var test_pkg = {
+		"oracles":[["b", "GET"]],
+		"graph":
+		{
+		    "b": [["c", "SET"]],
+		    "c": []
+		}
+	    };
+
+	    var graph_container = document.createElement('div');
+	    graph_container.setAttribute('id', target_proofstep_id + '_graph');
+	    graph_container.setAttribute('class', 'graph_container');
+
+	    proofstep_div.innerHTML = "";
+	    proofstep_div.appendChild(graph_container);
+	    draw_graph(graph_container, test_pkg);
+
+
 	}
 
     }
