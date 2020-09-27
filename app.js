@@ -19,7 +19,7 @@ function isElementInViewport (el) {
 }
 
 // app drawing
-function draw_graph(container_div) {
+function draw_graph(container_div, graph) {
     if (!mxClient.isBrowserSupported()) {
 	return -1;
     }
@@ -166,30 +166,3 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
     }
 
 }
-
-var test_proof_name = "Yao's Garbled Circuits";
-
-var test_prooftree = {"a" : {"parent": null},
-		      "b" : {"parent": "a"},
-		      "c" : {"parent": "a"},
-		      "d" : {"parent": "c"},
-		      "e" : {"parent": "d"}
-		     };
-
-var pkgs = {"Enc": {"oracles":
-		    [
-			{"name": "ENC",
-			 "params": ["x"],
-			 "code": "k <- GET();c <-$ f.enc(k, x);return c;"
-			}
-		    ]
-		   },
-	    "Prf": {"oracles": []},
-	    "Key": {"oracles": []}
-	   };
-
-function main() {
-    add_proof_tree_window(test_proof_name, test_prooftree, 300, 300, 1600, 600);
-}
-
-main();
