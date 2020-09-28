@@ -563,7 +563,7 @@ function tests_driver() {
     console.log('rewrite_test6 result: ' + rewrite_test6());
 }
 
-tests_driver();
+// tests_driver();
 
 // example package json
 var prf0_pkg = {

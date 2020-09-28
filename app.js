@@ -143,6 +143,10 @@ function draw_graph(container, pkg_callgraph) {
 function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_x, wnd_y) {
     var tb = document.createElement('div');
 
+    mxGraph.prototype.collapsedImage = new mxImage(mxClient.imageBasePath + '/collapsed.gif', 9, 9);
+    mxGraph.prototype.expandedImage = new mxImage(mxClient.imageBasePath + '/expanded.gif', 9, 9);
+
+
     var wnd = new mxWindow('Proof Tree', tb, wnd_x, wnd_y, wnd_width, wnd_height, true, true);
     wnd.setMaximizable(true);
     wnd.setVisible(true);
@@ -152,6 +156,19 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
     graph.setTooltips(true);
     graph.setPanning(true);
     graph.setCellsResizable(false);
+    graph.keepEdgesInBackground = true;
+
+    var style = graph.getStylesheet().getDefaultVertexStyle();
+    style[mxConstants.STYLE_SHAPE] = 'treenode';
+    style[mxConstants.STYLE_GRADIENTCOLOR] = 'white';
+    style[mxConstants.STYLE_SHADOW] = true;
+    style[mxConstants.STYLE_FONTCOLOR] = 'black';
+    style[mxConstants.STYLE_FONTSIZE] = '12';
+
+
+    style = graph.getStylesheet().getDefaultEdgeStyle();
+    style[mxConstants.STYLE_EDGE] = mxEdgeStyle.TopToBottom;
+    style[mxConstants.STYLE_ROUNDED] = true;
 
     var rubberband = new mxRubberband(graph);
     new mxKeyHandler(graph);
@@ -173,18 +190,52 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
 	}
     };
 
+    // Below is code used directly from mxgraph/examples tree.html
+    // condition for showing folding icon
+    graph.isCellFoldable = function(cell)
+    {
+	return this.model.getOutgoingEdges(cell).length > 0;
+    };
 
-    var style = graph.getStylesheet().getDefaultVertexStyle();
-    style[mxConstants.STYLE_STROKECOLOR] = 'gray';
-    style[mxConstants.STYLE_STROKE] = 'gray';
-    style[mxConstants.STYLE_ROUNDED] = false;
-    style[mxConstants.STYLE_FILLCOLOR] = '#b5d3f1';
-    style[mxConstants.STYLE_FONTCOLOR] = 'black';
-    style[mxConstants.STYLE_FONTSIZE] = '12';
-    style[mxConstants.STYLE_SPACING] = 4;
 
-    style = graph.getStylesheet().getDefaultEdgeStyle();
-    style[mxConstants.STYLE_STROKECOLOR] = '#0C0C0C';
+    // position folding icon
+    graph.cellRenderer.getControlBounds = function(state)
+    {
+	if (state.control != null)
+	{
+	    var oldScale = state.control.scale;
+	    var w = state.control.bounds.width / oldScale;
+	    var h = state.control.bounds.height / oldScale;
+	    var s = state.view.scale;
+
+	    return new mxRectangle(state.x + state.width / 2 - w / 2 * s,
+				   state.y + state.height + TreeNodeShape.prototype.segment * s - h / 2 * s,
+				   w * s, h * s);
+	}
+
+	return null;
+    };
+
+    // Implements the click on a folding icon
+    graph.foldCells = function(collapse, recurse, cells)
+    {
+    	this.model.beginUpdate();
+    	try
+    	{
+    	    toggleSubtree(this, cells[0], !collapse);
+    	    this.model.setCollapsed(cells[0], collapse);
+
+    	    // Executes the layout for the new graph since
+    	    // changes to visiblity and collapsed state do
+    	    // not trigger a layout in the current manager.
+    	    layout.execute(graph.getDefaultParent());
+    	}
+    	finally
+    	{
+    	    this.model.endUpdate();
+    	}
+    };
+
 
     // lookup for node names to their mxCell objects
     var nodes_lookup = {};
@@ -250,9 +301,32 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
     }
 
 
+    // Updates the visible state of a given subtree taking into
+    // account the collapsed state of the traversed branches
+    function toggleSubtree(graph, cell, show)
+    {
+	show = (show != null) ? show : true;
+	var cells = [];
+
+	graph.traverse(cell, true, function(vertex)
+		       {
+			   if (vertex != cell)
+			   {
+			       cells.push(vertex);
+			   }
+
+			   // Stops recursion if a collapsed cell is seen
+			   return vertex == cell || !graph.isCellCollapsed(vertex);
+		       });
+
+	graph.toggleCells(show, cells, true);
+    };
+
+
     graph.getSelectionModel().addListener(mxEvent.CHANGE, function(sender, evt){
-	updateProofStep(graph);
+    	updateProofStep(graph);
     });
+
 
 
     function updateProofStep(graph) {
@@ -264,22 +338,22 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
 		proofstep_div.scrollIntoView({ behavior: 'smooth', block: 'center' });
 	    }
 
-	    var test_pkg = {
-		"oracles":[["b", "GET"]],
-		"graph":
-		{
-		    "b": [["c", "SET"]],
-		    "c": []
-		}
-	    };
+	    // var test_pkg = {
+	    // 	"oracles":[["b", "GET"]],
+	    // 	"graph":
+	    // 	{
+	    // 	    "b": [["c", "SET"]],
+	    // 	    "c": []
+	    // 	}
+	    // };
 
-	    var graph_container = document.createElement('div');
-	    graph_container.setAttribute('id', target_proofstep_id + '_graph');
-	    graph_container.setAttribute('class', 'graph_container');
+	    // var graph_container = document.createElement('div');
+	    // graph_container.setAttribute('id', target_proofstep_id + '_graph');
+	    // graph_container.setAttribute('class', 'graph_container');
 
-	    proofstep_div.innerHTML = "";
-	    proofstep_div.appendChild(graph_container);
-	    draw_graph(graph_container, test_pkg);
+	    // proofstep_div.innerHTML = "";
+	    // proofstep_div.appendChild(graph_container);
+	    // draw_graph(graph_container, test_pkg);
 
 
 	}
