@@ -308,18 +308,23 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
 	show = (show != null) ? show : true;
 	var cells = [];
 
-	graph.traverse(cell, true, function(vertex)
-		       {
-			   if (vertex != cell)
-			   {
+	graph.traverse(cell, true, function(vertex) {
+			   if (vertex != cell) {
 			       cells.push(vertex);
+			       document.getElementById("proofstep_" + vertex.value).style.display = "none";
 			   }
-
 			   // Stops recursion if a collapsed cell is seen
 			   return vertex == cell || !graph.isCellCollapsed(vertex);
-		       });
+	});
 
 	graph.toggleCells(show, cells, true);
+
+	if (show) {
+	    for (let vertex of cells) {
+		console.log(vertex);
+		document.getElementById("proofstep_" + vertex.value).style.display = "block";
+	    }
+	}
     };
 
 
