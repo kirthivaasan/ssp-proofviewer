@@ -1,4 +1,14 @@
 // utils
+function buildTable(table_id, nrows, ncols) {
+    var newTable = document.createElement("table");
+    for (var i = 0; i < nrows; i++) {
+	var row = newTable.insertRow();
+	for (var j = 0; j < ncols; j++) {
+	    row.insertCell(j);
+	}
+    }
+    return newTable;
+}
 
 // https://stackoverflow.com/questions/123999/how-can-i-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
 function isElementInViewport (el) {
@@ -19,7 +29,7 @@ function isElementInViewport (el) {
 }
 
 // app drawing
-function draw_graph(container, pkg_callgraph) {
+function draw_graph(container, pkg_callgraph, config=null) {
     if (!mxClient.isBrowserSupported()) {
 	return -1;
     }
@@ -78,24 +88,30 @@ function draw_graph(container, pkg_callgraph) {
 
 
     var packages = new Map();
-    var config_x = 0;
-    var config_y = 0;
     var width = 90;
     var height = 40;
 
+
+    var DEFAULT_X = 200;
+    var DEFAULT_Y = 0;
+    var config_x = DEFAULT_X/2;
+    var config_y = DEFAULT_Y/2;
+
+
     graph.getModel().beginUpdate();
     try {
-
 	// add invisible interface node
-	var v = graph.insertVertex(parent, null, pkg, config_x, config_y, 0, 4*height);
+	var v = graph.insertVertex(parent, null, pkg, config_x, config_y, 20, 4*height);
 	v.style = 'fillColor=none;strokeColor=none;';
 	v.value = '';
 	packages.set('@oracles_interface', v);
 
 	// add rest of packages
 	for (node in pkg_callgraph.graph) {
-	    config_x += width + width/2;
-	    config_y += height;
+	    // config_x += width + width/2;
+	    // config_y += height;
+	    config_x = config[node].x + DEFAULT_X;
+	    config_y = config[node].y + DEFAULT_Y;
 
 	    var pkg = doc.createElement('Package');
 	    pkg.setAttribute('name', node);
@@ -138,16 +154,126 @@ function draw_graph(container, pkg_callgraph) {
 	graph.getModel().endUpdate();
     }
 
+    graph.getSelectionModel().addListener(mxEvent.CHANGE, function(sender, evt){
+	    updateOracles(graph);
+    });
+
+    function updateOracles(graph) {
+	// graph.container.focus();
+	var cell = graph.getSelectionCell();
+	console.log(cell.getAttribute('name'));
+    }
+
 }
 
-function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_x, wnd_y) {
-    var tb = document.createElement('div');
+function add_proofstep(nodes_lookup, graph, step, proof) {
+    var proofstep_container = document.createElement('div');
+    proofstep_container.setAttribute('class', 'proofstep');
+    proofstep_container.setAttribute('id', 'proofstep_'+step);
 
+    // onmouseover is problematic, use onmouseenter instead
+    proofstep_container.onmouseenter = function(val){
+	// highlight proofstep node in prooftree graph
+	var cellname = val.target.id.substr("proofstep_".length);
+	if (cellname in nodes_lookup) {
+	    var cell = nodes_lookup[cellname];
+	    graph.selectionModel.setCells([cell]);
+	}
+    };
+
+    var text = document.createElement('p');
+    text.innerHTML = "Proofstep: " + step;
+    proofstep_container.appendChild(text);
+
+    proof_wrapper.appendChild(proofstep_container);
+
+    // test adding graphs
+    // var test_pkg = {
+    // 	"oracles": [["DH", "GENDH,EXP"], ["DKDF1", "EXTRACT,EXPAND"], ["DKDF2", "EXTRACT,EXPAND"], ["DKDF3", "EXTRACT,EXPAND"], ["KDF", "EXTRACT,EXPAND"], ["HMAC", "EXPAND"]],
+    // "graph": {
+    // 	"DH": [["KEY0-dh", "SET_dh"]],
+    // 	"DKDF1": [["KEY2", "GET/HON"]],
+    // 	"DKDF2": [["KEY3", "GET/HON"]],
+    // 	"DKDF3": [["KEY4", "GET/HON"]],
+    // 	"KDF": [["KEY5", "GET/HON"]],
+    // 	"HMAC": [["TH1", "HASH"], ["KEY6", "SET_binder"]],
+    // 	"KEY0-dh": [["LOG1", "UNQ_dh"]],
+    // 	"KEY2": [["LOG2", "UNQ_psk"]],
+    // 	"KEY3": [["LOG3", "UNQ"]],
+    // 	"KEY4": [["LOG4", "UNQ"]],
+    // 	"KEY5": [["LOG5", "UNQ"]],
+    // 	"KEY6": [["LOG6", "UNQ_binder"]],
+    // 	"LOG1": [],
+    // 	"LOG2": [],
+    // 	"LOG3": [],
+    // 	"LOG4": [],
+    // 	"LOG5": [],
+    // 	"LOG6": [],
+    // 	"TH1": []
+    // }
+    // };
+
+    // proofstep_container.innerHTML = "";
+
+    var target_proofstep_id = 'proofstep_'+ step;
+    var graphs = proof.prooftree[step].graphs;
+
+    var nrows = graphs.length;
+    var ncols = graphs.reduce((acc, e) => e.length > acc? e.length : acc, 0);
+
+    var table = buildTable(target_proofstep_id + '_table', nrows, ncols);
+
+    var mono_pkgs = proof.monolithic_pkgs;
+    var mod_pkgs = proof.modular_pkgs;
+
+    for (var i = 0; i < graphs.length; i++) {
+    	for (var j = 0; j < graphs[i].length; j++) {
+    	    var pkg_name = graphs[i][j];
+    	    var pkg = proof.monolithic_pkgs[pkg];
+
+	    if (pkg_name in mod_pkgs) {
+		var pkg = mod_pkgs[pkg_name];
+    		var cg = new CallGraph(pkg);
+    		var config = auto_graph_layout(cg);
+		draw_graph(table.rows[i].cells[j], cg, config);
+
+	    } else if (pkg_name in mono_pkgs) {
+		// var pkg = mono_pkgs[pkg_name];
+    		// var cg = new CallGraph(pkg);
+    		// var config = auto_graph_layout(cg);
+		// draw_graph(table.rows[i].cells[j], cg, config);
+
+	    } else {
+		console.log('Couldn\'t find pkg name: ' + pkg_name);
+	    }
+
+    	}
+    }
+
+
+
+    // console.log(test_pkg);
+    // var test_pkg = new CallGraph(test_pkg);
+    // var config = auto_graph_layout(test_pkg);
+
+    // console.log(config);
+
+    // draw_graph(table.rows[0].cells[0], test_pkg, config);
+    // draw_graph(table.rows[0].cells[1], test_pkg, config);
+    // draw_graph(table.rows[1].cells[0], test_pkg, config);
+    // draw_graph(table.rows[1].cells[1], test_pkg, config);
+
+    proofstep_container.appendChild(table);
+}
+
+function add_proof(proof, wnd_pos) {
+    var prooftree = proof.prooftree;
+
+    var tb = document.createElement('div');
     mxGraph.prototype.collapsedImage = new mxImage(mxClient.imageBasePath + '/collapsed.gif', 9, 9);
     mxGraph.prototype.expandedImage = new mxImage(mxClient.imageBasePath + '/expanded.gif', 9, 9);
 
-
-    var wnd = new mxWindow('Proof Tree', tb, wnd_x, wnd_y, wnd_width, wnd_height, true, true);
+    var wnd = new mxWindow('Proof Tree', tb, wnd_pos.x, wnd_pos.y, wnd_pos.width, wnd_pos.height, true, true);
     wnd.setMaximizable(true);
     wnd.setVisible(true);
     wnd.setResizable(true);
@@ -165,7 +291,6 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
     style[mxConstants.STYLE_FONTCOLOR] = 'black';
     style[mxConstants.STYLE_FONTSIZE] = '12';
 
-
     style = graph.getStylesheet().getDefaultEdgeStyle();
     style[mxConstants.STYLE_EDGE] = mxEdgeStyle.TopToBottom;
     style[mxConstants.STYLE_ROUNDED] = true;
@@ -181,9 +306,7 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
     layout.levelDistance = 30;
     layout.nodeDistance = 10;
 
-
     var layoutMgr = new mxLayoutManager(graph);
-
     layoutMgr.getLayout = function(cell) {
 	if (cell.getChildCount() > 0) {
 	    return layout;
@@ -192,17 +315,14 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
 
     // Below is code used directly from mxgraph/examples tree.html
     // condition for showing folding icon
-    graph.isCellFoldable = function(cell)
-    {
+    graph.isCellFoldable = function(cell) {
 	return this.model.getOutgoingEdges(cell).length > 0;
     };
-
 
     // position folding icon
     graph.cellRenderer.getControlBounds = function(state)
     {
-	if (state.control != null)
-	{
+	if (state.control != null) {
 	    var oldScale = state.control.scale;
 	    var w = state.control.bounds.width / oldScale;
 	    var h = state.control.bounds.height / oldScale;
@@ -212,7 +332,6 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
 				   state.y + state.height + TreeNodeShape.prototype.segment * s - h / 2 * s,
 				   w * s, h * s);
 	}
-
 	return null;
     };
 
@@ -273,33 +392,15 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
 
 
     // Add proof title
-    var proof_title = document.getElementById("proof_title");
-    proof_title.innerHTML = proofname;
+    // var proof_title = document.getElementById("proof_title");
+    // proof_title.innerHTML = proof.name;
 
     var proof_wrapper = document.getElementById("proof_wrapper");
 
     // Add all proofsteps
     for (step in prooftree) {
-	var proofstep_container = document.createElement('div');
-	proofstep_container.setAttribute('class', 'proofstep');
-	proofstep_container.setAttribute('id', 'proofstep_'+step);
-
-	proofstep_container.onmouseover = function(val){
-	    // highlight proofstep node in prooftree graph
-	    var cellname = val.target.id.substr("proofstep_".length);
-	    if (cellname in nodes_lookup) {
-		var cell = nodes_lookup[cellname];
-		graph.selectionModel.setCells([cell]);
-	    }
-	};
-
-	var text = document.createElement('p');
-	text.innerHTML = "Proofstep: " + step;
-	proofstep_container.appendChild(text);
-
-	proof_wrapper.appendChild(proofstep_container);
+	add_proofstep(nodes_lookup, graph, step, proof);
     }
-
 
     // Updates the visible state of a given subtree taking into
     // account the collapsed state of the traversed branches
@@ -309,12 +410,12 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
 	var cells = [];
 
 	graph.traverse(cell, true, function(vertex) {
-			   if (vertex != cell) {
-			       cells.push(vertex);
-			       document.getElementById("proofstep_" + vertex.value).style.display = "none";
-			   }
-			   // Stops recursion if a collapsed cell is seen
-			   return vertex == cell || !graph.isCellCollapsed(vertex);
+	    if (vertex != cell) {
+		cells.push(vertex);
+		document.getElementById("proofstep_" + vertex.value).style.display = "none";
+	    }
+	    // Stops recursion if a collapsed cell is seen
+	    return vertex == cell || !graph.isCellCollapsed(vertex);
 	});
 
 	graph.toggleCells(show, cells, true);
@@ -333,7 +434,6 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
     });
 
 
-
     function updateProofStep(graph) {
 	var cell = graph.getSelectionCell();
 	if (cell != null) {
@@ -342,27 +442,8 @@ function add_proof_tree_window(proofname, prooftree, wnd_height, wnd_width, wnd_
 	    if (!isElementInViewport(proofstep_div)) {
 		proofstep_div.scrollIntoView({ behavior: 'smooth', block: 'center' });
 	    }
-
-	    // var test_pkg = {
-	    // 	"oracles":[["b", "GET"]],
-	    // 	"graph":
-	    // 	{
-	    // 	    "b": [["c", "SET"]],
-	    // 	    "c": []
-	    // 	}
-	    // };
-
-	    // var graph_container = document.createElement('div');
-	    // graph_container.setAttribute('id', target_proofstep_id + '_graph');
-	    // graph_container.setAttribute('class', 'graph_container');
-
-	    // proofstep_div.innerHTML = "";
-	    // proofstep_div.appendChild(graph_container);
-	    // draw_graph(graph_container, test_pkg);
-
-
 	}
-
     }
+
 
 }

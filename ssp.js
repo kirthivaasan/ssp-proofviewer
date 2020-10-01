@@ -292,7 +292,30 @@ function CallGraph(pkg_data) {
 	return {"oracles": oracles_copy, "graph": g};
 
     }
+
+    this.getLevelsHelper = function(res, lvl) {
+	if (lvl.length > 0) {
+	    res.push(lvl);
+	    var next_lvl = new Set()
+	    for (let node of lvl) {
+	    	var nbs = this.graph[node];
+	    	for (let nb of nbs)
+	    	    next_lvl.add(nb[0]);
+	    }
+	    next_lvl = Array.from(next_lvl);
+	    this.getLevelsHelper(res, next_lvl);
+	}
+    }
+
+    this.getLevels = function() {
+	var roots = this.oracles.map(e => e[0], []);
+	var result = [];
+	this.getLevelsHelper(result, roots);
+	return result;
+    }
+
 }
+// end CallGraph class
 
 function graphsEqual(g1, g2) {
     var g1_oracles = new Set(g1.oracles.map(e => e[0] + '.' + e[1], []));
@@ -562,6 +585,40 @@ function tests_driver() {
     console.log('rewrite_test5 result: ' + rewrite_test5());
     console.log('rewrite_test6 result: ' + rewrite_test6());
 }
+
+function auto_graph_layout(g) {
+    var levels = g.getLevels();
+    var x = 0;
+    var y = 0;
+    var layout = {};
+
+    for (var i = 0; i < levels.length; i++) {
+	var lvl = levels[i];
+	y = 60;
+	for (var j = 0; j < lvl.length; j++) {
+	    var node = lvl[j];
+    	    layout[node] = {"x": x, "y": y};
+	    y += 50;
+	}
+	x += 90 + 70;
+    }
+
+    for (var i = 0; i < levels.length; i++) {
+	var lvl = levels[i];
+	for (var j = 0; j < lvl.length; j++) {
+	    var node = lvl[j];
+	    var nbs = g.graph[node];
+	}
+    }
+
+    // var btree_width = levels.reduce((e, acc) => e.length > acc ? e.length : acc, 0);
+    // console.log('tree_width: ' + tree_width);
+
+    // layout["@interface"] = {x: , y: };
+
+    return layout;
+}
+
 
 // tests_driver();
 
