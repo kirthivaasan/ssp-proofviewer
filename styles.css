@@ -29,10 +29,10 @@ body {
 }
 
 #proof_wrapper {
-    margin: 0% 0% 0% 1%;
+    margin: 0% 0% 0% 0.4%;
     font-size: 11.5pt;
     width: 60%;
-    height: 88%;
+    height: 95%;
     border: 0.5px solid gray;
     overflow: auto;
     background: white;
@@ -45,28 +45,72 @@ body {
 .proofstep {
     margin:  0 0 0 0;
     /* padding: 10px 0 10px 10px; */
-    border: 0.5px solid gray;
+    /* border: 0.5px solid gray; */
     width: 99.9%;
     overflow: auto;
-
     scrollbar-width: thin;
     scrollbar-color: #bcbcbc white;
 
 }
 
 .proofstep:hover {
-    background-color: #ededed;
+    border: 1px dotted #4d7fb0;
+    background-color: #efefef;
 }
 
 #proof_title {
-    margin: 20 0% 20 1%;
-    font-size: 16px;
-    color: #434343;
+    /* margin: 20 0% 20 1%; */
+    /* font-size: 16px; */
+    /* color: #434343; */
 }
 
+#oracle_wrapper {
+    /* margin: 0% 0% 0% 1%; */
+    padding: 10px;
+    font-size: 11.5pt;
+    font-family: Courier New;
+    /* width: 39%; */
+    width: 38%;
 
-/* * { */
-/*   scrollbar-width: thin; */
-/*   scrollbar-color: #bcbcbc white; */
+    height: 93%;
+    border: 0.5px solid gray;
+    overflow: auto;
+    background: white;
+    float: left;
+    scrollbar-width: thin;
+    scrollbar-color: #bcbcbc white;
+}
 
-/* } */
+.package_def_container {
+    width: 100%;
+    /* height: 100px; */
+    overflow: auto;
+    background-color: #ededed;
+    float: left;
+    margin: 2px;
+}
+
+.oracle_def_container {
+    margin: 1% 0 0 1%;
+    width: 49%;
+    height: 200px;
+    background-color: #898989;
+    float: left;
+}
+
+.package_def_title {
+    border-bottom: 4px double #333;
+}
+
+@keyframes highlight {
+    0% {
+        background: #c3d7ee;
+    }
+    100% {
+        background: none;
+    }
+}
+
+.highlight {
+    animation: highlight 2s;
+}

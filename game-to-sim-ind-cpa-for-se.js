@@ -69,12 +69,13 @@ function driver() {
 
 	"Ideal":
 	{
-	    "oracles": [
+	    "oracles":
+	    {
+		"ENC":
 		{
-		    "name": "ENC",
 		    "code": ""
 		}
-	    ]
+	    }
 	}
 
     };

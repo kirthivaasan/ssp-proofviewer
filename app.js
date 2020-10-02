@@ -29,7 +29,7 @@ function isElementInViewport (el) {
 }
 
 // app drawing
-function draw_graph(container, pkg_callgraph, config=null) {
+function draw_graph(proof, container, pkg_callgraph, config=null) {
     if (!mxClient.isBrowserSupported()) {
 	return -1;
     }
@@ -158,10 +158,20 @@ function draw_graph(container, pkg_callgraph, config=null) {
 	    updateOracles(graph);
     });
 
+
     function updateOracles(graph) {
 	// graph.container.focus();
 	var cell = graph.getSelectionCell();
-	console.log(cell.getAttribute('name'));
+	var pkg_name = cell.getAttribute('name');
+	var pkg_def_div = document.getElementById('package_def_container_'+pkg_name);
+
+	pkg_def_div.setAttribute('class', 'package_def_container highlight');
+	setTimeout(function () {pkg_def_div.className = "package_def_container"}, 2000);
+
+	if (!isElementInViewport(pkg_def_div)) {
+	    pkg_def_div.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	}
+
     }
 
 }
@@ -187,34 +197,6 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 
     proof_wrapper.appendChild(proofstep_container);
 
-    // test adding graphs
-    // var test_pkg = {
-    // 	"oracles": [["DH", "GENDH,EXP"], ["DKDF1", "EXTRACT,EXPAND"], ["DKDF2", "EXTRACT,EXPAND"], ["DKDF3", "EXTRACT,EXPAND"], ["KDF", "EXTRACT,EXPAND"], ["HMAC", "EXPAND"]],
-    // "graph": {
-    // 	"DH": [["KEY0-dh", "SET_dh"]],
-    // 	"DKDF1": [["KEY2", "GET/HON"]],
-    // 	"DKDF2": [["KEY3", "GET/HON"]],
-    // 	"DKDF3": [["KEY4", "GET/HON"]],
-    // 	"KDF": [["KEY5", "GET/HON"]],
-    // 	"HMAC": [["TH1", "HASH"], ["KEY6", "SET_binder"]],
-    // 	"KEY0-dh": [["LOG1", "UNQ_dh"]],
-    // 	"KEY2": [["LOG2", "UNQ_psk"]],
-    // 	"KEY3": [["LOG3", "UNQ"]],
-    // 	"KEY4": [["LOG4", "UNQ"]],
-    // 	"KEY5": [["LOG5", "UNQ"]],
-    // 	"KEY6": [["LOG6", "UNQ_binder"]],
-    // 	"LOG1": [],
-    // 	"LOG2": [],
-    // 	"LOG3": [],
-    // 	"LOG4": [],
-    // 	"LOG5": [],
-    // 	"LOG6": [],
-    // 	"TH1": []
-    // }
-    // };
-
-    // proofstep_container.innerHTML = "";
-
     var target_proofstep_id = 'proofstep_'+ step;
     var graphs = proof.prooftree[step].graphs;
 
@@ -235,33 +217,13 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 		var pkg = mod_pkgs[pkg_name];
     		var cg = new CallGraph(pkg);
     		var config = auto_graph_layout(cg);
-		draw_graph(table.rows[i].cells[j], cg, config);
-
-	    } else if (pkg_name in mono_pkgs) {
-		// var pkg = mono_pkgs[pkg_name];
-    		// var cg = new CallGraph(pkg);
-    		// var config = auto_graph_layout(cg);
-		// draw_graph(table.rows[i].cells[j], cg, config);
-
+		draw_graph(proof, table.rows[i].cells[j], cg, config);
 	    } else {
 		console.log('Couldn\'t find pkg name: ' + pkg_name);
 	    }
 
     	}
     }
-
-
-
-    // console.log(test_pkg);
-    // var test_pkg = new CallGraph(test_pkg);
-    // var config = auto_graph_layout(test_pkg);
-
-    // console.log(config);
-
-    // draw_graph(table.rows[0].cells[0], test_pkg, config);
-    // draw_graph(table.rows[0].cells[1], test_pkg, config);
-    // draw_graph(table.rows[1].cells[0], test_pkg, config);
-    // draw_graph(table.rows[1].cells[1], test_pkg, config);
 
     proofstep_container.appendChild(table);
 }
@@ -390,17 +352,43 @@ function add_proof(proof, wnd_pos) {
     graph.container.style.cursor = 'move';
     graph.setPanning(true);
 
-
-    // Add proof title
-    // var proof_title = document.getElementById("proof_title");
-    // proof_title.innerHTML = proof.name;
-
     var proof_wrapper = document.getElementById("proof_wrapper");
+
+    // var proof_details = document.createElement('div');
+    // proof_details.innerHTML = "<h3>" + proof.name + "</h3>";
+    // proof_wrapper.appendChild(proof_details);
 
     // Add all proofsteps
     for (step in prooftree) {
 	add_proofstep(nodes_lookup, graph, step, proof);
     }
+
+    // Add mono defs in oracle wrapper pane
+    var oracle_wrapper = document.getElementById("oracle_wrapper");
+    var mono_pkgs = proof.monolithic_pkgs;
+
+    for (pkg_name in mono_pkgs) {
+	var oracles = mono_pkgs[pkg_name].oracles;
+	var package_def_container = document.createElement('div');
+	package_def_container.setAttribute('class', 'package_def_container');
+	package_def_container.setAttribute('id', 'package_def_container_'+pkg_name);
+
+	var title = document.createElement('p');
+	title.innerHTML = pkg_name;
+	title.setAttribute('class', 'package_def_title');
+
+	package_def_container.appendChild(title);
+	oracle_wrapper.appendChild(package_def_container);
+
+	for (orc in oracles) {
+	    var orc_def = document.createElement('div');
+	    orc_def.setAttribute('class', 'oracle_def_container');
+	    orc_def.innerHTML = orc;
+
+	    package_def_container.appendChild(orc_def);
+	}
+    }
+
 
     // Updates the visible state of a given subtree taking into
     // account the collapsed state of the traversed branches
