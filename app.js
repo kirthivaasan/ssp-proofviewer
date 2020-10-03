@@ -395,7 +395,9 @@ function add_proof(proof, wnd_pos) {
 
 	    var orc_title = document.createElement('div');
 	    orc_title.setAttribute('class', 'oracle_title');
-	    orc_title.innerHTML = orc + parse_params(oracles[orc].params);
+
+	    // orc_title.innerHTML = orc + parse_oracle_signature(orc, oracles[orc].params);
+	    orc_title.innerHTML = parse_oracle_signature(orc, oracles[orc].params);
 	    orc_container.appendChild(orc_title);
 
 	    var orc_def = document.createElement('div');

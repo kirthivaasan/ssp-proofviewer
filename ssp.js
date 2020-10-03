@@ -643,9 +643,9 @@ function isUpperCase(str) {
    return str === str.toUpperCase();
 }
 
-function parse_params(params) {
-    var parsed_params = params.map(e => '\\(' + e + '\\)');
-    return "(" + parsed_params.join(",") + ")";
+function parse_oracle_signature(name, params) {
+    var oracle_name = "\\mathsf\{" + name + "\}";
+    return '\\(' + oracle_name + '(' + params.join(',') + ')' + '\\)';
 }
 
 function parse_pseudocode(code) {
@@ -662,8 +662,9 @@ function parse_pseudocode(code) {
 		var html_frag = PCODE_SYMBOLS[tok];
 		html += html_frag;
 
-	    } else if (isUpperCase(tok)) {
-		html += tok;
+	    } else if (isUpperCase(tok)) { // assuming it is an oracle if its uppercase
+		html += "\\(\\mathsf\{" + tok + "\}\\)";
+
 	    } else {
 		html += "\\(" + tok + "\\)";
 	    }
