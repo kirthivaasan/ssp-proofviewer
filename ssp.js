@@ -621,19 +621,49 @@ function auto_graph_layout(g) {
 
 
 var PSEUDOCODE_KEYWORDS = {
-    "@assert": "<strong>assert</strong>",
+    "@assert": "<div class=\"pcode_bold\">assert</div>",
     "@bin" : "{0, 1}",
     "@bot": "&#8869",
     "@neq" : "&#8800;",
     "@gets" : "&larr;",
     "@sample" : "&larr;$",
-    "@pcindent" : "&nbsp;&nbsp;&nbsp;&nbsp;",
-    "@return" : "<strong>return</strong>"
+    "@if" : "<div class=\"pcode_bold\">if</div>",
+    "@then" : "<div class=\"pcode_bold\">then</div>",
+    "@else" : "<div class=\"pcode_bold\">else</div>",
+    "@for" : "<div class=\"pcode_bold\">for</div>",
+    "@>" : "&nbsp;&nbsp;&nbsp;&nbsp;",
+    "@return" : "<div class=\"pcode_bold\">return</div>"
 };
 
-function pseudocode_to_html(code) {
-
+function isUpperCase(str) {
+   return str === str.toUpperCase();
 }
 
+function parse_params(params) {
+    var parsed_params = params.map(e => '\\(' + e + '\\)');
+    return "(" + parsed_params.join(",") + ")";
+}
+
+function parse_pseudocode(code) {
+     var html = "";
+    var lines = code.split(';');
+    for (let line of lines) {
+	var tokens = line.split(' ');
+	for (let tok of tokens) {
+	    if (tok in PSEUDOCODE_KEYWORDS) {
+		var html_frag = PSEUDOCODE_KEYWORDS[tok];
+		html += html_frag;
+	    } else if (isUpperCase(tok)) {
+		html += tok;
+	    } else {
+		html += "\\(" + tok + "\\)";
+	    }
+	    html += " ";
+	}
+	html += "<br>";
+    }
+
+    return html;
+}
 
 // tests_driver();

@@ -21,7 +21,8 @@ function isElementInViewport (el) {
     var rect = el.getBoundingClientRect();
 
     return (
-        rect.top >= 0 || rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+        rect.top >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
     );
 
     // return (
@@ -30,6 +31,7 @@ function isElementInViewport (el) {
     //     rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
     //     rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
     // );
+
 }
 
 // app drawing
@@ -164,7 +166,6 @@ function draw_graph(proof, container, pkg_callgraph, config=null) {
 
 
     function updateOracles(graph) {
-	// graph.container.focus();
 	var cell = graph.getSelectionCell();
 	var pkg_name = cell.getAttribute('name');
 	var pkg_def_div = document.getElementById('package_def_container_'+pkg_name);
@@ -172,10 +173,7 @@ function draw_graph(proof, container, pkg_callgraph, config=null) {
 	pkg_def_div.setAttribute('class', 'package_def_container highlight');
 	setTimeout(function () {pkg_def_div.className = "package_def_container"}, 2000);
 
-	if (!isElementInViewport(pkg_def_div)) {
-	    pkg_def_div.scrollIntoView({ behavior: 'smooth', block: 'center' });
-	}
-
+	pkg_def_div.scrollIntoView({ behavior: 'smooth'});
     }
 
 }
@@ -397,22 +395,11 @@ function add_proof(proof, wnd_pos) {
 
 	    var orc_title = document.createElement('div');
 	    orc_title.setAttribute('class', 'oracle_title');
-	    orc_title.innerHTML = orc;
-
+	    orc_title.innerHTML = orc + parse_params(oracles[orc].params);
 	    orc_container.appendChild(orc_title);
 
 	    var orc_def = document.createElement('div');
-
-	    var code = oracles[orc].code;
-	    var lines = code.split(';');
-
-	    // todo replace this with ssp code parser
-	    var html_code = "\\(";
-	    for (let line of lines) {
-		html_code += line + "<br>";
-	    }
-	    html_code += "\\)";
-
+	    var html_code = parse_pseudocode(oracles[orc].code);
 	    console.log(html_code);
 	    orc_def.innerHTML = html_code;
 	    orc_container.appendChild(orc_def);
@@ -460,9 +447,12 @@ function add_proof(proof, wnd_pos) {
 	    var target_proofstep_id = 'proofstep_' + cell.value;
 	    var proofstep_div = document.getElementById(target_proofstep_id);
 
+	    console.log(target_proofstep_id + ' in viewport: ' + isElementInViewport(proofstep_div))
+
 	    if (!isElementInViewport(proofstep_div)) {
-		proofstep_div.scrollIntoView({ behavior: 'smooth'}); // ,block: 'center'
+	    	proofstep_div.scrollIntoView({ behavior: 'smooth'}); // ,block: 'center'
 	    }
+	    // proofstep_div.scrollIntoView({ behavior: 'smooth'});
 	}
     }
 

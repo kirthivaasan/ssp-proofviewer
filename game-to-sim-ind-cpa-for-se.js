@@ -8,7 +8,8 @@ function driver() {
 	    {
 		"ENC":
 		{
-		    "code": ""
+		    "code": "k @gets KEY(); c @sample enc_k(m); @return c",
+		    "params": ["m"]
 		}
 	    }
 	},
@@ -19,7 +20,8 @@ function driver() {
 	    {
 		"ENC" :
 		{
-		    "code": ""
+		    "code": "@if k= @bot @then; @> k @sample \\{0,1\\}^\\lambda;",
+		    "params": ["m"]
 		}
 	    }
 	},
@@ -30,13 +32,14 @@ function driver() {
 	    {
 		"GET" :
 		{
-		    // "code": "\text{assert} k \\neq \\bot; k = {0, 1)"
-		    "code": "a^2 + b^2; k = 0^\\lambda"
+		    "code": "",
+		    "params": []
 		},
 
 		"SAMPLE" :
 		{
-		    "code": ""
+		    "code": "",
+		    "params": []
 		}
 
 	    }
@@ -50,7 +53,8 @@ function driver() {
 	    {
 		"ENC" :
 		{
-		    "code": ""
+		    "code": "",
+		    "params": ["m"]
 		}
 	    }
 	},
@@ -62,7 +66,8 @@ function driver() {
 	    {
 		"ENC" :
 		{
-		    "code": ""
+		    "code": "",
+		    "params": ["m"]
 		}
 	    }
 	},
@@ -74,7 +79,8 @@ function driver() {
 	    {
 		"ENC":
 		{
-		    "code": ""
+		    "code": "",
+		    "params": ["m"]
 		}
 	    }
 	}
@@ -110,29 +116,44 @@ function driver() {
 	{
 	    "parent": null,
 	    "text": [],
-	    "graphs": [["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"]]
+	    "graphs": [["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"]]
 	},
 
 	"Lemma1" :
 	{
 	    "parent": "Theorem",
 	    "text": [],
-	    "graphs": [[]]
+	    "graphs": [["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"]]
 	},
 
 	"Lemma2" :
 	{
 	    "parent": "Theorem",
 	    "text": [],
-	    "graphs": [[]]
-
+	    "graphs": [["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"]]
 	},
 
 	"Lemma3" :
 	{
 	    "parent": "Lemma2",
 	    "text": [],
-	    "graphs": [[]]
+	    "graphs": [["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"]]
 	}
 
     };
