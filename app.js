@@ -21,11 +21,15 @@ function isElementInViewport (el) {
     var rect = el.getBoundingClientRect();
 
     return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+        rect.top >= 0 || rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
     );
+
+    // return (
+    //     rect.top >= 0 &&
+    //     rect.left >= 0 &&
+    //     rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
+    //     rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+    // );
 }
 
 // app drawing
@@ -51,7 +55,7 @@ function draw_graph(proof, container, pkg_callgraph, config=null) {
     style[mxConstants.STYLE_STROKECOLOR] = 'gray';
     style[mxConstants.STYLE_STROKE] = 'gray';
     style[mxConstants.STYLE_ROUNDED] = true;
-    style[mxConstants.STYLE_FILLCOLOR] = '#FFFFFF';
+    style[mxConstants.STYLE_FILLCOLOR] = 'white';
     style[mxConstants.STYLE_FONTCOLOR] = 'black';
     style[mxConstants.STYLE_FONTSIZE] = '12';
     style[mxConstants.STYLE_SPACING] = 4;
@@ -208,6 +212,9 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
     var mono_pkgs = proof.monolithic_pkgs;
     var mod_pkgs = proof.modular_pkgs;
 
+    // must appendChild before calling draw_graph
+    proofstep_container.appendChild(table);
+
     for (var i = 0; i < graphs.length; i++) {
     	for (var j = 0; j < graphs[i].length; j++) {
     	    var pkg_name = graphs[i][j];
@@ -217,7 +224,10 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 		var pkg = mod_pkgs[pkg_name];
     		var cg = new CallGraph(pkg);
     		var config = auto_graph_layout(cg);
-		draw_graph(proof, table.rows[i].cells[j], cg, config);
+		var graph_cell = table.rows[i].cells[j];
+
+		draw_graph(proof, graph_cell, cg, config);
+
 	    } else {
 		console.log('Couldn\'t find pkg name: ' + pkg_name);
 	    }
@@ -225,7 +235,8 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
     	}
     }
 
-    proofstep_container.appendChild(table);
+
+
 }
 
 function add_proof(proof, wnd_pos) {
@@ -381,11 +392,32 @@ function add_proof(proof, wnd_pos) {
 	oracle_wrapper.appendChild(package_def_container);
 
 	for (orc in oracles) {
-	    var orc_def = document.createElement('div');
-	    orc_def.setAttribute('class', 'oracle_def_container');
-	    orc_def.innerHTML = orc;
+	    var orc_container = document.createElement('div');
+	    orc_container.setAttribute('class', 'oracle_container');
 
-	    package_def_container.appendChild(orc_def);
+	    var orc_title = document.createElement('div');
+	    orc_title.setAttribute('class', 'oracle_title');
+	    orc_title.innerHTML = orc;
+
+	    orc_container.appendChild(orc_title);
+
+	    var orc_def = document.createElement('div');
+
+	    var code = oracles[orc].code;
+	    var lines = code.split(';');
+
+	    // todo replace this with ssp code parser
+	    var html_code = "\\(";
+	    for (let line of lines) {
+		html_code += line + "<br>";
+	    }
+	    html_code += "\\)";
+
+	    console.log(html_code);
+	    orc_def.innerHTML = html_code;
+	    orc_container.appendChild(orc_def);
+
+	    package_def_container.appendChild(orc_container);
 	}
     }
 
@@ -427,8 +459,9 @@ function add_proof(proof, wnd_pos) {
 	if (cell != null) {
 	    var target_proofstep_id = 'proofstep_' + cell.value;
 	    var proofstep_div = document.getElementById(target_proofstep_id);
+
 	    if (!isElementInViewport(proofstep_div)) {
-		proofstep_div.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		proofstep_div.scrollIntoView({ behavior: 'smooth'}); // ,block: 'center'
 	    }
 	}
     }

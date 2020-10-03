@@ -30,7 +30,8 @@ function driver() {
 	    {
 		"GET" :
 		{
-		    "code": ""
+		    // "code": "\text{assert} k \\neq \\bot; k = {0, 1)"
+		    "code": "a^2 + b^2; k = 0^\\lambda"
 		},
 
 		"SAMPLE" :
@@ -109,24 +110,21 @@ function driver() {
 	{
 	    "parent": null,
 	    "text": [],
-	    "graphs": [["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1"]]
+	    "graphs": [["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"]]
 	},
 
 	"Lemma1" :
 	{
 	    "parent": "Theorem",
 	    "text": [],
-	    "graphs": [["Gind-cpa^0", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1"]]
+	    "graphs": [[]]
 	},
 
 	"Lemma2" :
 	{
 	    "parent": "Theorem",
 	    "text": [],
-	    "graphs": [["Gind-cpa^0", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1"]]
+	    "graphs": [[]]
 
 	},
 
@@ -134,8 +132,7 @@ function driver() {
 	{
 	    "parent": "Lemma2",
 	    "text": [],
-	    "graphs": [["Gind-cpa^0", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1"]]
+	    "graphs": [[]]
 	}
 
     };

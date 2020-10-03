@@ -620,36 +620,20 @@ function auto_graph_layout(g) {
 }
 
 
+var PSEUDOCODE_KEYWORDS = {
+    "@assert": "<strong>assert</strong>",
+    "@bin" : "{0, 1}",
+    "@bot": "&#8869",
+    "@neq" : "&#8800;",
+    "@gets" : "&larr;",
+    "@sample" : "&larr;$",
+    "@pcindent" : "&nbsp;&nbsp;&nbsp;&nbsp;",
+    "@return" : "<strong>return</strong>"
+};
+
+function pseudocode_to_html(code) {
+
+}
+
+
 // tests_driver();
-
-// example package json
-var prf0_pkg = {
-    "name": "Prf^0_f",
-    "oracle_specs":
-    [
-	{
-	    "name": "EVAL",
-	    "params": ["x"],
-	    "code": ""
-	}
-
-    ]
-};
-
-var keys_pkg = {
-    "name": "Keys",
-    "oracle_specs":
-    [
-	{
-	    "name": "GET",
-	    "params": [],
-	    "code": ""
-	},
-	{
-	    "name": "SAMPLE",
-	    "params": [],
-	    "code": ""
-	}
-
-    ]
-};
