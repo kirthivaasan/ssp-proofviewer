@@ -620,18 +620,22 @@ function auto_graph_layout(g) {
 }
 
 
-var PSEUDOCODE_KEYWORDS = {
-    "@assert": "<div class=\"pcode_bold\">assert</div>",
+var PCODE_SYMBOLS = {
     "@bin" : "{0, 1}",
     "@bot": "&#8869",
     "@neq" : "&#8800;",
     "@gets" : "&larr;",
     "@sample" : "&larr;$",
+    "@>" : "&nbsp;&nbsp;&nbsp;&nbsp;" // an indent
+
+};
+
+var PCODE_TEXT = {
+    "@assert": "<div class=\"pcode_bold\">assert</div>",
     "@if" : "<div class=\"pcode_bold\">if</div>",
     "@then" : "<div class=\"pcode_bold\">then</div>",
     "@else" : "<div class=\"pcode_bold\">else</div>",
     "@for" : "<div class=\"pcode_bold\">for</div>",
-    "@>" : "&nbsp;&nbsp;&nbsp;&nbsp;",
     "@return" : "<div class=\"pcode_bold\">return</div>"
 };
 
@@ -645,14 +649,19 @@ function parse_params(params) {
 }
 
 function parse_pseudocode(code) {
-     var html = "";
+    var html = "";
     var lines = code.split(';');
     for (let line of lines) {
 	var tokens = line.split(' ');
 	for (let tok of tokens) {
-	    if (tok in PSEUDOCODE_KEYWORDS) {
-		var html_frag = PSEUDOCODE_KEYWORDS[tok];
+	    if (tok in PCODE_TEXT) {
+		tok = tok.substr(1);
+		html += "\\(\\textbf\{" + tok + "\}\\)";
+
+	    } else if (tok in PCODE_SYMBOLS) {
+		var html_frag = PCODE_SYMBOLS[tok];
 		html += html_frag;
+
 	    } else if (isUpperCase(tok)) {
 		html += tok;
 	    } else {
