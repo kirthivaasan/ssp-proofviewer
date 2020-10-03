@@ -92,22 +92,19 @@ function draw_graph(proof, container, pkg_callgraph, config=null) {
 	return '';
     };
 
-
     var packages = new Map();
     var width = 90;
     var height = 40;
-
 
     var DEFAULT_X = 200;
     var DEFAULT_Y = 0;
     var config_x = DEFAULT_X/2;
     var config_y = DEFAULT_Y/2;
 
-
     graph.getModel().beginUpdate();
     try {
 	// add invisible interface node
-	var v = graph.insertVertex(parent, null, pkg, config_x, config_y, 20, 4*height);
+	var v = graph.insertVertex(parent, null, pkg, config_x, config_y, 20, 2*height);
 	v.style = 'fillColor=none;strokeColor=none;';
 	v.value = '';
 	packages.set('@oracles_interface', v);
@@ -167,7 +164,13 @@ function draw_graph(proof, container, pkg_callgraph, config=null) {
 
     function updateOracles(graph) {
 	var cell = graph.getSelectionCell();
+
 	var pkg_name = cell.getAttribute('name');
+
+	if (pkg_name == undefined) {
+	    return -1;
+	}
+
 	var pkg_def_div = document.getElementById('package_def_container_'+pkg_name);
 
 	pkg_def_div.setAttribute('class', 'package_def_container highlight');
@@ -194,7 +197,7 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
     };
 
     var text = document.createElement('p');
-    text.innerHTML = "Proofstep: " + step;
+    text.innerHTML = step;
     proofstep_container.appendChild(text);
 
     proof_wrapper.appendChild(proofstep_container);
@@ -211,7 +214,11 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
     var mod_pkgs = proof.modular_pkgs;
 
     // must appendChild before calling draw_graph
-    proofstep_container.appendChild(table);
+    var proofstep_graphs = document.createElement('div');
+    proofstep_graphs.setAttribute('class', 'proofstep_graphs');
+
+    proofstep_graphs.appendChild(table);
+    proofstep_container.appendChild(proofstep_graphs);
 
     for (var i = 0; i < graphs.length; i++) {
     	for (var j = 0; j < graphs[i].length; j++) {
@@ -222,9 +229,9 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 		var pkg = mod_pkgs[pkg_name];
     		var cg = new CallGraph(pkg);
     		var config = auto_graph_layout(cg);
-		var graph_cell = table.rows[i].cells[j];
 
-		draw_graph(proof, graph_cell, cg, config);
+		var table_cell = table.rows[i].cells[j];
+		draw_graph(proof, table_cell, cg, config);
 
 	    } else {
 		console.log('Couldn\'t find pkg name: ' + pkg_name);
@@ -396,7 +403,6 @@ function add_proof(proof, wnd_pos) {
 	    var orc_title = document.createElement('div');
 	    orc_title.setAttribute('class', 'oracle_title');
 
-	    // orc_title.innerHTML = orc + parse_oracle_signature(orc, oracles[orc].params);
 	    orc_title.innerHTML = parse_oracle_signature(orc, oracles[orc].params);
 	    orc_container.appendChild(orc_title);
 
@@ -448,13 +454,9 @@ function add_proof(proof, wnd_pos) {
 	if (cell != null) {
 	    var target_proofstep_id = 'proofstep_' + cell.value;
 	    var proofstep_div = document.getElementById(target_proofstep_id);
-
-	    console.log(target_proofstep_id + ' in viewport: ' + isElementInViewport(proofstep_div))
-
 	    if (!isElementInViewport(proofstep_div)) {
 	    	proofstep_div.scrollIntoView({ behavior: 'smooth'}); // ,block: 'center'
 	    }
-	    // proofstep_div.scrollIntoView({ behavior: 'smooth'});
 	}
     }
 

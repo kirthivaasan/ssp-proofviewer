@@ -31,7 +31,7 @@ body {
 #proof_wrapper {
     margin: 0% 0% 0% 0.4%;
     font-size: 11.5pt;
-    width: 60%;
+    width: 58.42%;
     height: 95%;
     /* border: 0.5px solid gray; */
     overflow: auto;
@@ -42,14 +42,25 @@ body {
     scrollbar-color: #bcbcbc white;
 }
 
+.proofstep_graphs > table {
+    /* border: 1px solid black; */
+}
+
+.proofstep_graphs tr td {
+    /* border: 1px solid black; */
+}
+
+.proofstep_graphs {
+    width: 100%;
+    overflow: auto;
+    scrollbar-color: #bcbcbc white;
+    scrollbar-width: thin;
+    padding: 20 0 20 0;
+}
+
 .proofstep {
     margin:  0 0 0 0;
-    /* padding: 10px 0 10px 10px; */
-    /* border: 0.5px solid gray; */
-    /* width: 99.9%; */
-    overflow: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #bcbcbc white;
+    width: 100%;
 }
 
 .proofstep:hover {
@@ -65,7 +76,7 @@ body {
 #oracle_wrapper {
     padding: 10px;
     font-size: 11.5pt;
-    width: 38%;
+    width: 40%;
     height: 93%;
     border: 0.5px solid gray;
     overflow: auto;

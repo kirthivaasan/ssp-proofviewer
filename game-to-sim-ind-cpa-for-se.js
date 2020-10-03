@@ -95,6 +95,11 @@ function driver() {
 	    {
 		"Enc^0": [["Key", "GET"]],
 		"Key": []
+	    },
+
+	    "layout":
+	    {
+
 	    }
 	},
 
@@ -116,44 +121,29 @@ function driver() {
 	{
 	    "parent": null,
 	    "text": [],
-	    "graphs": [["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"]]
+	    "graphs": [["Gind-cpa^0", "Gind-cpa^0", "Gind-cpa^0", "Gind-cpa^0"],
+		       ["Gind-cpa^1", "Gind-cpa^1", "Gind-cpa^1"]]
 	},
 
 	"Lemma1" :
 	{
 	    "parent": "Theorem",
 	    "text": [],
-	    "graphs": [["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"]]
+	    "graphs": [[]]
 	},
 
 	"Lemma2" :
 	{
 	    "parent": "Theorem",
 	    "text": [],
-	    "graphs": [["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"]]
+	    "graphs": [[]]
 	},
 
 	"Lemma3" :
 	{
 	    "parent": "Lemma2",
 	    "text": [],
-	    "graphs": [["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa^1", "Gind-cpa^1"]]
+	    "graphs": [[]]
 	}
 
     };
