@@ -35,20 +35,20 @@ function isElementInViewport (el) {
 }
 
 // app drawing
-function draw_graph(proof, container, pkg_callgraph, config=null) {
+function draw_graph(proof, container, pkg_callgraph, config) {
     if (!mxClient.isBrowserSupported()) {
 	return -1;
     }
 
     var graph = new mxGraph(container);
 
-    // graph.setCellsResizable(false);
-    // graph.setResizeContainer(true);
-    // graph.cellsMovable = false;
+    graph.setCellsResizable(false);
+    graph.setResizeContainer(true);
+    graph.cellsMovable = false;
 
-    graph.setCellsResizable(true);
-    graph.setResizeContainer(false);
-    graph.cellsMovable = true;
+    // graph.setCellsResizable(true);
+    // graph.setResizeContainer(false);
+    // graph.cellsMovable = true;
 
     this.graph = graph;
 
@@ -70,6 +70,7 @@ function draw_graph(proof, container, pkg_callgraph, config=null) {
     style[mxConstants.STYLE_FONTCOLOR] = 'black';
     style[mxConstants.STYLE_FONTSIZE] = '10';
     style[mxConstants.STYLE_STROKEWIDTH] = '1.25';
+    style[mxConstants.STYLE_EDGE] = mxEdgeStyle.ElbowConnector;
 
 
     var parent = graph.getDefaultParent();
@@ -93,35 +94,35 @@ function draw_graph(proof, container, pkg_callgraph, config=null) {
     };
 
     var packages = new Map();
-    var width = 90;
-    var height = 40;
 
     var DEFAULT_X = 200;
+    DEFAULT_X = 0;
     var DEFAULT_Y = 0;
-    var config_x = DEFAULT_X/2;
-    var config_y = DEFAULT_Y/2;
+
+    var nodes_cfg = config.nodes;
 
     graph.getModel().beginUpdate();
     try {
-	// add invisible interface node
-	var v = graph.insertVertex(parent, null, pkg, config_x, config_y, 20, 2*height);
+	// add invisible adversary package
+	var orc_cfg = nodes_cfg['@oracles_interface'];
+	var v = graph.insertVertex(parent, null, pkg, orc_cfg.x, orc_cfg.y, orc_cfg.width, orc_cfg.height);
 	v.style = 'fillColor=none;strokeColor=none;';
 	v.value = '';
 	packages.set('@oracles_interface', v);
 
 	// add rest of packages
 	for (node in pkg_callgraph.graph) {
-	    // config_x += width + width/2;
-	    // config_y += height;
-	    config_x = config[node].x + DEFAULT_X;
-	    config_y = config[node].y + DEFAULT_Y;
+	    var node_cfg = nodes_cfg[node];
+	    config_x = node_cfg.x + DEFAULT_X;
+	    config_y = node_cfg.y + DEFAULT_Y;
 
 	    var pkg = doc.createElement('Package');
 	    pkg.setAttribute('name', node);
-	    var v = graph.insertVertex(parent, null, pkg, config_x, config_y, width, height);
+	    var v = graph.insertVertex(parent, null, pkg, config_x, config_y, node_cfg.width, node_cfg.height);
 	    packages.set(node, v);
 	}
 
+	var edges_cfg = config.edges;
 	// add edges
 	for (node in pkg_callgraph.graph) {
 	    var neighbours = pkg_callgraph.graph[node];
@@ -134,11 +135,16 @@ function draw_graph(proof, container, pkg_callgraph, config=null) {
 		var e1 = doc.createElement("Oracle");
 	    	e1.setAttribute('oracle_name', oracle_name);
 
-		var style = 'edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;';
-		var edge = graph.insertEdge(parent, null, e1, src_node, v1, style);
+		var edge_style = 'exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;';
+		if (edges_cfg != null) {
+		    edge_style = edges_cfg[node][pkg_name];
+		}
+
+		var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
 	    }
 	}
 
+	// add adversary edges
 	var src_node = packages.get('@oracles_interface');
 	for (var i = 0; i < pkg_callgraph.oracles.length; i++) {
 	    var el = pkg_callgraph.oracles[i];
@@ -148,8 +154,12 @@ function draw_graph(proof, container, pkg_callgraph, config=null) {
 	    e1.setAttribute('oracle_name', oracle_name);
 
 	    var v1 = packages.get(pkg_name);
-	    var style = 'edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;';
-	    var edge = graph.insertEdge(parent, null, e1, src_node, v1, style);
+	    var edge_style = 'exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;';
+	    if (edges_cfg != null) {
+		edge_style = edges_cfg['@oracles_interface'][pkg_name];
+	    }
+
+	    var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
 
 	}
 
@@ -228,7 +238,13 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 	    if (pkg_name in mod_pkgs) {
 		var pkg = mod_pkgs[pkg_name];
     		var cg = new CallGraph(pkg);
-    		var config = auto_graph_layout(cg);
+
+		var config = null;
+		if ("layout" in pkg) {
+		    config = pkg.layout;
+		} else {
+    		    config = auto_graph_layout(cg);
+		}
 
 		var table_cell = table.rows[i].cells[j];
 		draw_graph(proof, table_cell, cg, config);
@@ -240,11 +256,15 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
     	}
     }
 
-
-
 }
 
-function add_proof(proof, wnd_pos) {
+function add_proof(proof, wnd_pos, wrapper_width) {
+    var proof_wrapper = document.getElementById('proof_wrapper');
+    var oracle_wrapper = document.getElementById('oracle_wrapper');
+
+    proof_wrapper.style.width = wrapper_width.proof_width;
+    oracle_wrapper.style.width = wrapper_width.oracle_width;
+
     var prooftree = proof.prooftree;
 
     var tb = document.createElement('div');
@@ -408,7 +428,6 @@ function add_proof(proof, wnd_pos) {
 
 	    var orc_def = document.createElement('div');
 	    var html_code = parse_pseudocode(oracles[orc].code);
-	    console.log(html_code);
 	    orc_def.innerHTML = html_code;
 	    orc_container.appendChild(orc_def);
 
@@ -437,7 +456,6 @@ function add_proof(proof, wnd_pos) {
 
 	if (show) {
 	    for (let vertex of cells) {
-		console.log(vertex);
 		document.getElementById("proofstep_" + vertex.value).style.display = "block";
 	    }
 	}

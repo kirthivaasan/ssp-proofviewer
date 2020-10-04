@@ -588,19 +588,20 @@ function tests_driver() {
 
 function auto_graph_layout(g) {
     var levels = g.getLevels();
-    var x = 0;
+    var x = 50;
     var y = 0;
-    var layout = {};
+    var node_layout = {};
 
     for (var i = 0; i < levels.length; i++) {
 	var lvl = levels[i];
 	y = 60;
 	for (var j = 0; j < lvl.length; j++) {
 	    var node = lvl[j];
-    	    layout[node] = {"x": x, "y": y};
+    	    node_layout[node] = {"x": x, "y": y, "width": 90, "height": 40};
 	    y += 50;
 	}
 	x += 90 + 70;
+
     }
 
     for (var i = 0; i < levels.length; i++) {
@@ -611,12 +612,8 @@ function auto_graph_layout(g) {
 	}
     }
 
-    // var btree_width = levels.reduce((e, acc) => e.length > acc ? e.length : acc, 0);
-    // console.log('tree_width: ' + tree_width);
-
-    // layout["@interface"] = {x: , y: };
-
-    return layout;
+    node_layout["@oracles_interface"] = {"x": 0, "y": y/2, "height": y, "width": 0};
+    return {"nodes": node_layout, "edges": null};
 }
 
 
@@ -662,7 +659,7 @@ function parse_pseudocode(code) {
 		var html_frag = PCODE_SYMBOLS[tok];
 		html += html_frag;
 
-	    } else if (isUpperCase(tok)) { // assuming it is an oracle if its uppercase
+	    } else if (isUpperCase(tok)) { // assuming all uppercase strings are oracles
 		html += "\\(\\mathsf\{" + tok + "\}\\)";
 
 	    } else {

@@ -20,7 +20,7 @@ function driver() {
 	    {
 		"ENC" :
 		{
-		    "code": "@if k= @bot @then; @> k @sample \\{0,1\\}^\\lambda;",
+		    "code": "",
 		    "params": ["m"]
 		}
 	    }
@@ -32,13 +32,13 @@ function driver() {
 	    {
 		"GET" :
 		{
-		    "code": "",
+		    "code": "@assert k \\neq @bot;@return k;",
 		    "params": []
 		},
 
 		"SAMPLE" :
 		{
-		    "code": "",
+		    "code": "@if k= @bot @then;@> k @sample \\{0,1\\}^\\lambda;",
 		    "params": []
 		}
 
@@ -99,7 +99,24 @@ function driver() {
 
 	    "layout":
 	    {
-
+		"nodes":
+		{
+		    "@oracles_interface":{"x":80,"y":50,"width":30,"height":100},
+		    "Enc^0":{"x":160,"y":110,"width":90,"height":40},
+		    "Key":{"x":320,"y":60,"width":90,"height":40}
+		},
+		"edges":
+		{
+		    "@oracles_interface":
+		    {
+			"Key":"exitX=0.8;exitY=0.4;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;",
+			"Enc^0":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
+		    },
+		    "Enc^0":
+		    {
+			"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0.2;entryY=0.6;entryDx=0;entryDy=0;"
+		    }
+		}
 	    }
 	},
 
@@ -110,10 +127,30 @@ function driver() {
 	    {
 		"Enc^1": [["Key", "GET"]],
 		"Key": []
+	    },
+
+	    "layout":
+	    {
+		"nodes":
+		{
+		    "@oracles_interface":{"x":80,"y":50,"width":30,"height":100},
+		    "Enc^1":{"x":160,"y":110,"width":90,"height":40},
+		    "Key":{"x":320,"y":60,"width":90,"height":40}
+		},
+		"edges":
+		{
+		    "@oracles_interface":
+		    {
+			"Key":"exitX=0.8;exitY=0.4;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;",
+			"Enc^1":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
+		    },
+		    "Enc^1":
+		    {
+			"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0.2;entryY=0.6;entryDx=0;entryDy=0;"
+		    }
+		}
 	    }
 	}
-
-
     };
 
     var prooftree = {
@@ -156,7 +193,8 @@ function driver() {
     }
 
     var wnd_pos = {height: 300, width: 300, x: 1600, y: 600}
-    add_proof(proof, wnd_pos);
+    var wrapper_width = {proof_width: '51%', oracle_width: '30%'}
+    add_proof(proof, wnd_pos, wrapper_width);
 }
 
 driver();
