@@ -45,6 +45,7 @@ function draw_graph(proof, container, pkg_callgraph, config) {
     graph.setCellsResizable(false);
     graph.setResizeContainer(true);
     graph.cellsMovable = false;
+    graph.cellsEditable = false;
 
     // graph.setCellsResizable(true);
     // graph.setResizeContainer(false);
@@ -184,7 +185,10 @@ function draw_graph(proof, container, pkg_callgraph, config) {
 	var pkg_def_div = document.getElementById('package_def_container_'+pkg_name);
 
 	pkg_def_div.setAttribute('class', 'package_def_container highlight');
-	setTimeout(function () {pkg_def_div.className = "package_def_container"}, 2000);
+	setTimeout(function () {
+	    graph.selectionModel.setCells([]);
+	    pkg_def_div.className = "package_def_container"
+	}, 2000);
 
 	pkg_def_div.scrollIntoView({ behavior: 'smooth'});
     }
@@ -242,6 +246,7 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 		var config = null;
 		if ("layout" in pkg) {
 		    config = pkg.layout;
+		    // config = auto_graph_layout(cg);
 		} else {
     		    config = auto_graph_layout(cg);
 		}
@@ -418,19 +423,46 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 
 	for (orc in oracles) {
 	    var orc_container = document.createElement('div');
-	    orc_container.setAttribute('class', 'oracle_container');
+	    orc_container.setAttribute('class', 'oracle-container');
+	    orc_container.setAttribute('id', 'oracle-container-' + pkg_name + '.' + orc);
 
 	    var orc_title = document.createElement('div');
-	    orc_title.setAttribute('class', 'oracle_title');
+	    orc_title.setAttribute('class', 'oracle-title');
 
 	    orc_title.innerHTML = parse_oracle_signature(orc, oracles[orc].params);
 	    orc_container.appendChild(orc_title);
 
 	    var orc_def = document.createElement('div');
-	    var html_code = parse_pseudocode(oracles[orc].code);
-	    orc_def.innerHTML = html_code;
-	    orc_container.appendChild(orc_def);
 
+	    var deps = find_mono_pkg_dependencies(proof.modular_pkgs, pkg_name);
+	    // console.log(pkg_name + ' deps ' + deps);
+
+	    var html_code = parse_pseudocode(pkg_name, orc, deps, oracles[orc].code);
+
+	    orc_def.innerHTML = html_code;
+
+	    var orc_calls = orc_def.getElementsByClassName('pcode-oracle-call')
+
+	    for (let callee_div of orc_calls) {
+		callee_div.onclick = function(val) {
+		    console.log(this.id);
+		    var toks = this.id.split('_');
+		    console.log(toks);
+
+		    var target_div_id = 'oracle-container-' + toks[2];
+		    var target_div = document.getElementById(target_div_id);
+
+		    target_div.setAttribute('class', 'oracle-container highlight');
+		    setTimeout(function () {
+		    	target_div.className = "oracle-container"
+		    }, 2000);
+
+		    target_div.scrollIntoView({ behavior: 'smooth'});
+		}
+	    }
+
+
+	    orc_container.appendChild(orc_def);
 	    package_def_container.appendChild(orc_container);
 	}
     }

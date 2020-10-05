@@ -8,7 +8,7 @@ function driver() {
 	    {
 		"ENC":
 		{
-		    "code": "k @gets KEY(); c @sample enc_k(m); @return c",
+		    "code": "k @gets GET(); c @sample enc_k(m); @return c",
 		    "params": ["m"]
 		}
 	    }
@@ -20,7 +20,7 @@ function driver() {
 	    {
 		"ENC" :
 		{
-		    "code": "",
+		    "code": "k @gets GET(); c @sample enc_k(0^{|m|}); @return c",
 		    "params": ["m"]
 		}
 	    }
@@ -30,33 +30,19 @@ function driver() {
 	{
 	    "oracles":
 	    {
+		"SAMPLE" :
+		{
+		    "code": "@assert k = @bot;k @sample \\{0,1\\}^\\lambda;",
+		    "params": []
+		},
+
 		"GET" :
 		{
 		    "code": "@assert k \\neq @bot;@return k;",
 		    "params": []
-		},
-
-		"SAMPLE" :
-		{
-		    "code": "@if k= @bot @then;@> k @sample \\{0,1\\}^\\lambda;",
-		    "params": []
-		}
-
-	    }
-
-	},
-
-
-	"Zeroer":
-	{
-	    "oracles":
-	    {
-		"ENC" :
-		{
-		    "code": "",
-		    "params": ["m"]
 		}
 	    }
+
 	},
 
 
@@ -66,8 +52,8 @@ function driver() {
 	    {
 		"ENC" :
 		{
-		    "code": "",
-		    "params": ["m"]
+		    "code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
+		    "params": ["\\ell"]
 		}
 	    }
 	},
@@ -79,7 +65,7 @@ function driver() {
 	    {
 		"ENC":
 		{
-		    "code": "",
+		    "code": "c @gets ENC(|m|);@return c;",
 		    "params": ["m"]
 		}
 	    }
@@ -99,24 +85,7 @@ function driver() {
 
 	    "layout":
 	    {
-		"nodes":
-		{
-		    "@oracles_interface":{"x":80,"y":50,"width":30,"height":100},
-		    "Enc^0":{"x":160,"y":110,"width":90,"height":40},
-		    "Key":{"x":320,"y":60,"width":90,"height":40}
-		},
-		"edges":
-		{
-		    "@oracles_interface":
-		    {
-			"Key":"exitX=0.8;exitY=0.4;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;",
-			"Enc^0":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
-		    },
-		    "Enc^0":
-		    {
-			"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0.2;entryY=0.6;entryDx=0;entryDy=0;"
-		    }
-		}
+		"nodes":{"@oracles_interface":{"x":0,"y":60,"width":1,"height":90},"Enc^0":{"x":90,"y":110,"width":90,"height":40},"Key":{"x":240,"y":60,"width":90,"height":40}},"edges":{"@oracles_interface":{"Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.4;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Enc^0":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Enc^0":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0.2;entryY=0.6;entryDx=0;entryDy=0;"}}
 	    }
 	},
 
@@ -131,24 +100,22 @@ function driver() {
 
 	    "layout":
 	    {
-		"nodes":
-		{
-		    "@oracles_interface":{"x":80,"y":50,"width":30,"height":100},
-		    "Enc^1":{"x":160,"y":110,"width":90,"height":40},
-		    "Key":{"x":320,"y":60,"width":90,"height":40}
-		},
-		"edges":
-		{
-		    "@oracles_interface":
-		    {
-			"Key":"exitX=0.8;exitY=0.4;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;",
-			"Enc^1":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
-		    },
-		    "Enc^1":
-		    {
-			"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0.2;entryY=0.6;entryDx=0;entryDy=0;"
-		    }
-		}
+		"nodes":{"@oracles_interface":{"x":0,"y":60,"width":1,"height":90},"Enc^1":{"x":90,"y":110,"width":90,"height":40},"Key":{"x":240,"y":60,"width":90,"height":40}},"edges":{"@oracles_interface":{"Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.4;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Enc^1":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Enc^1":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0.2;entryY=0.6;entryDx=0;entryDy=0;"}}
+	    }
+	},
+
+	"Gind-cpa-sim":
+	{
+	    "oracles": [["Sim", "SAMPLE"], ["Ideal", "ENC"]],
+	    "graph":
+	    {
+		"Ideal": [["Sim", "ENC"]],
+		"Sim": []
+	    },
+
+	    "layout":
+	    {
+		"nodes":{"@oracles_interface":{"x":0,"y":60,"width":1,"height":100},"Ideal":{"x":130,"y":100,"width":60,"height":50},"Sim":{"x":260,"y":60,"width":90,"height":90}},"edges":{"@oracles_interface":{"Sim":"exitX=1;exitY=0.2;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Ideal":"entryX=0;entryY=0.5;entryPerimeter=1;exitX=0.8;exitY=0.6;exitDx=0;exitDy=0;"},"Ideal":{"Sim":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}}
 	    }
 	}
     };
@@ -158,8 +125,8 @@ function driver() {
 	{
 	    "parent": null,
 	    "text": [],
-	    "graphs": [["Gind-cpa^0", "Gind-cpa^0", "Gind-cpa^0", "Gind-cpa^0"],
-		       ["Gind-cpa^1", "Gind-cpa^1", "Gind-cpa^1"]]
+	    "graphs": [["Gind-cpa^0", "Gind-cpa^1"],
+		       ["Gind-cpa^0", "Gind-cpa-sim"]]
 	},
 
 	"Lemma1" :

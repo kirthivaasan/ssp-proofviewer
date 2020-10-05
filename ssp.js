@@ -636,8 +636,19 @@ var PCODE_TEXT = {
     "@return" : "<div class=\"pcode_bold\">return</div>"
 };
 
-function isUpperCase(str) {
-   return str === str.toUpperCase();
+function is_oracle_call(str) {
+    var lp_pos = str.indexOf('(');
+    if (lp_pos < 0) {
+	return false;
+    }
+    str = str.substr(0, lp_pos);
+    return str === str.toUpperCase();
+}
+
+function parse_oracle_call(str) {
+    var lp_pos = str.indexOf('(');
+    orc = str.substr(0, lp_pos);
+    return "\\(\\mathsf{" + orc + "}" + str.substr(lp_pos) + '\\)';
 }
 
 function parse_oracle_signature(name, params) {
@@ -645,7 +656,9 @@ function parse_oracle_signature(name, params) {
     return '\\(' + oracle_name + '(' + params.join(',') + ')' + '\\)';
 }
 
-function parse_pseudocode(code) {
+function parse_pseudocode(src_pkg, orc, pkg_dependencies, code) {
+    if (code == "") {return "";}
+
     var html = "";
     var lines = code.split(';');
     for (let line of lines) {
@@ -659,8 +672,20 @@ function parse_pseudocode(code) {
 		var html_frag = PCODE_SYMBOLS[tok];
 		html += html_frag;
 
-	    } else if (isUpperCase(tok)) { // assuming all uppercase strings are oracles
-		html += "\\(\\mathsf\{" + tok + "\}\\)";
+	    } else if (is_oracle_call(tok)) { // assuming all uppercase strings are oracles
+		var oracle_call_html = parse_oracle_call(tok);
+		var orc_call_name = tok.substr(0, tok.indexOf('('));
+
+		// find pkg where orc_call is from
+		var pkg_name = "";
+		for (let dep of pkg_dependencies) {
+		    if (dep[1] == orc_call_name) {
+			pkg_name = dep[0];
+		    }
+		}
+
+		var pcode_oracle_id = "pcode-oracle-call_" + src_pkg + "." + orc + "_" + pkg_name + "." + orc_call_name;
+		html += '<div id="' + pcode_oracle_id + '" class="pcode-oracle-call">' + oracle_call_html + '</div>';
 
 	    } else {
 		html += "\\(" + tok + "\\)";
@@ -674,3 +699,18 @@ function parse_pseudocode(code) {
 }
 
 // tests_driver();
+
+// finds monolithic package dependencies
+// by searching modular games where they are used
+// returns the first occurence (doesn't guarantee collisions)
+// there should be a better way to do this :)
+function find_mono_pkg_dependencies(all_modular_pkgs, mono_pkg_name) {
+    for (mod_pkg in all_modular_pkgs) {
+	var mod_pkg_def = all_modular_pkgs[mod_pkg];
+	if (pkg_name in mod_pkg_def.graph) {
+	    var nbs = mod_pkg_def.graph[pkg_name];
+	    return nbs;
+	}
+    }
+    return -1; // todo should throw error
+}
