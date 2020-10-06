@@ -40,17 +40,20 @@ body {
     scrollbar-color: #bcbcbc white;
 }
 
+.proofstep_graphs {
+    margin: 1% 0 0 5%;
+}
+
 .proofstep_graphs > table {
     /* border: 1px solid black; */
 }
 
 .proofstep_graphs tr td {
     /* border: 1px solid black; */
-    padding: 0 40 0 40;
+    padding: 0 20 0 20;
 }
 
 .proofstep_graphs {
-    width: 100%;
     overflow: auto;
     scrollbar-color: #bcbcbc white;
     scrollbar-width: thin;
@@ -76,6 +79,8 @@ body {
 .proofstep-text {
     font-size: 15px;
     padding: 20 0 10 20;
+    /* display: none; */
+    margin: 0;
 }
 
 #proof_title {
@@ -150,4 +155,10 @@ body {
 
 .border-highlight {
     border: 2px solid #4d7fb0;
+}
+
+.inlining_container {
+    overflow: auto;
+    /* margin: 2% 20 20 0; */
+    padding: 0 0 0 5%;
 }

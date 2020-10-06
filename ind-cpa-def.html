@@ -72,8 +72,32 @@
 		{
 		    "ENC" :
 		    {
-			"code": "k @gets GET(); c @sample enc_k(0^{|m|}); @return c",
+			"code": "k @gets GET();c @sample enc_k(0^{|m|}); @return c",
 			"params": ["m"]
+		    }
+		}
+	    },
+
+	    "Enc^0-Lr":
+	    {
+		"oracles":
+		{
+		    "ENC":
+		    {
+			"code": "k @gets GET();c @sample enc_k(m_0); @return c",
+			"params": ["m_0", "m_1"]
+		    }
+		}
+	    },
+
+	    "Enc^1-Lr":
+	    {
+		"oracles":
+		{
+		    "ENC":
+		    {
+			"code": "k @gets GET();c @sample enc_k(m_1); @return c",
+			"params": ["m_0", "m_1"]
 		    }
 		}
 	    },
@@ -129,6 +153,36 @@
 		{
 		    "nodes":{"@oracles_interface":{"x":0,"y":60,"width":1,"height":90},"Enc^1":{"x":90,"y":110,"width":90,"height":40},"Key":{"x":240,"y":60,"width":90,"height":40}},"edges":{"@oracles_interface":{"Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.4;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Enc^1":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Enc^1":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0.2;entryY=0.6;entryDx=0;entryDy=0;"}}
 		}
+	    },
+
+	    "Gind-cpa^0-Lr":
+	    {
+		"oracles": [["Key", "SAMPLE"], ["Enc^0-Lr", "ENC"]],
+		"graph":
+		{
+		    "Enc^0-Lr": [["Key", "GET"]],
+		    "Key": []
+		},
+
+		"layout":
+		{
+		    "nodes":{"@oracles_interface":{"x":0,"y":60,"width":1,"height":90},"Enc^0-Lr":{"x":90,"y":110,"width":90,"height":40},"Key":{"x":240,"y":60,"width":90,"height":40}},"edges":{"@oracles_interface":{"Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.4;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Enc^0-Lr":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Enc^0-Lr":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0.2;entryY=0.6;entryDx=0;entryDy=0;"}}
+		}
+	    },
+
+	    "Gind-cpa^1-Lr":
+	    {
+		"oracles": [["Key", "SAMPLE"], ["Enc^1-Lr", "ENC"]],
+		"graph":
+		{
+		    "Enc^1-Lr": [["Key", "GET"]],
+		    "Key": []
+		},
+
+		"layout":
+		{
+		    "nodes":{"@oracles_interface":{"x":0,"y":60,"width":1,"height":90},"Enc^1-Lr":{"x":90,"y":110,"width":90,"height":40},"Key":{"x":240,"y":60,"width":90,"height":40}},"edges":{"@oracles_interface":{"Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.4;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Enc^1-Lr":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Enc^1-Lr":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0.2;entryY=0.6;entryDx=0;entryDy=0;"}}
+		}
 	    }
 
 	},
@@ -144,7 +198,14 @@
 		    },
 		    {
 			"graphs": [["Gind-cpa^0", "Gind-cpa^1"]]
-		    }
+		    },
+		    {
+			"text": "Another equivalent notion of IND-CPA called Left-Righ IND-CPA. In this setup, the ENC oracle expects two messages \\(m_0, m_1\\) and encrypts either \\(m_0\\) if in the real game or \\(m_1\\) if in the ideal game."
+		    },
+		    {
+			"graphs": [["Gind-cpa^0-Lr", "Gind-cpa^1-Lr"]]
+		    },
+
 
 		]
 

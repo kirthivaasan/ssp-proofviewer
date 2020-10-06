@@ -703,6 +703,34 @@ function parse_pseudocode(src_pkg, orc, pkg_dependencies, code) {
     return html;
 }
 
+function parse_pseudocode_without_links(code) {
+    if (code == "") {return "";}
+
+    var html = "";
+    var lines = code.split(';');
+    for (let line of lines) {
+	var tokens = line.split(' ');
+	for (let tok of tokens) {
+	    if (tok in PCODE_TEXT) {
+		tok = tok.substr(1);
+		html += "\\(\\textbf\{" + tok + "\}\\)";
+
+	    } else if (tok in PCODE_SYMBOLS) {
+		var html_frag = PCODE_SYMBOLS[tok];
+		html += html_frag;
+	    } else if (is_oracle_call(tok)) { // assuming all uppercase strings are oracles
+		html += parse_oracle_call(tok);
+	    } else {
+		html += "\\(" + tok + "\\)";
+	    }
+	    html += " ";
+	}
+	html += "<br>";
+    }
+
+    return html;
+}
+
 // tests_driver();
 
 // finds monolithic package dependencies
