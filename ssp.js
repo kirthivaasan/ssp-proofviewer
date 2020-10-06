@@ -636,6 +636,12 @@ var PCODE_TEXT = {
     "@return" : "<div class=\"pcode_bold\">return</div>"
 };
 
+function parse_pkg_name(pkg_name) {
+    pkg_name = pkg_name.replaceAll('-', '\\text{-}');
+    console.log(pkg_name);
+    return "\\(\\mathsf{" + pkg_name + "}\\)";
+}
+
 function is_oracle_call(str) {
     var lp_pos = str.indexOf('(');
     if (lp_pos < 0) {

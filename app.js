@@ -186,8 +186,8 @@ function draw_graph(proof, container, pkg_callgraph, config) {
 
 	pkg_def_div.setAttribute('class', 'package_def_container highlight');
 	setTimeout(function () {
+	    pkg_def_div.className = "package_def_container";
 	    graph.selectionModel.setCells([]);
-	    pkg_def_div.className = "package_def_container"
 	}, 2000);
 
 	pkg_def_div.scrollIntoView({ behavior: 'smooth'});
@@ -250,9 +250,15 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 		} else {
     		    config = auto_graph_layout(cg);
 		}
-
+		console.log(pkg_name);
 		var table_cell = table.rows[i].cells[j];
 		draw_graph(proof, table_cell, cg, config);
+
+		var game_title = document.createElement('div');
+		game_title.setAttribute('class', 'game-title');
+		game_title.innerHTML = parse_pkg_name(pkg_name);
+
+		table.rows[i].cells[j].appendChild(game_title);
 
 	    } else {
 		console.log('Couldn\'t find pkg name: ' + pkg_name);
@@ -415,7 +421,7 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 	package_def_container.setAttribute('id', 'package_def_container_'+pkg_name);
 
 	var title = document.createElement('p');
-	title.innerHTML = pkg_name;
+	title.innerHTML = parse_pkg_name(pkg_name);
 	title.setAttribute('class', 'package_def_title');
 
 	package_def_container.appendChild(title);
@@ -428,17 +434,12 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 
 	    var orc_title = document.createElement('div');
 	    orc_title.setAttribute('class', 'oracle-title');
-
 	    orc_title.innerHTML = parse_oracle_signature(orc, oracles[orc].params);
 	    orc_container.appendChild(orc_title);
 
 	    var orc_def = document.createElement('div');
-
 	    var deps = find_mono_pkg_dependencies(proof.modular_pkgs, pkg_name);
-	    // console.log(pkg_name + ' deps ' + deps);
-
 	    var html_code = parse_pseudocode(pkg_name, orc, deps, oracles[orc].code);
-
 	    orc_def.innerHTML = html_code;
 
 	    var orc_calls = orc_def.getElementsByClassName('pcode-oracle-call')
@@ -460,7 +461,6 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 		    target_div.scrollIntoView({ behavior: 'smooth'});
 		}
 	    }
-
 
 	    orc_container.appendChild(orc_def);
 	    package_def_container.appendChild(orc_container);

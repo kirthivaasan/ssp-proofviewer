@@ -130,9 +130,7 @@ body {
     animation: highlight 2s;
 }
 
-
-/* pseudocode class styles */
-.pcode_bold {
-    display: inline-block;
-    font-weight: bold;
+.game-title {
+    padding: 20 0 0 0;
+    font-size: 14px;
 }
