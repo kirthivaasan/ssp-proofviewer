@@ -124,7 +124,7 @@ function driver() {
 	"Theorem" :
 	{
 	    "parent": null,
-	    "text": [],
+	    "text": ["Assuming game-based ind-cpa for symmetric encryption is secure (indistinguishability between Gind-cpa^0 and Gind-cpa^1) implies simulation based ind-cpa for symmetric encryption (indistinguishability between Gind-cpa^0 and Gind-cpa-sim)."],
 	    "graphs": [["Gind-cpa^0", "Gind-cpa^1"],
 		       ["Gind-cpa^0", "Gind-cpa-sim"]]
 	},

@@ -47,6 +47,10 @@ function draw_graph(proof, container, pkg_callgraph, config) {
     graph.cellsMovable = false;
     graph.cellsEditable = false;
 
+    graph.isCellSelectable = function(cell) {
+	return !cell.isEdge();
+    };
+
     // graph.setCellsResizable(true);
     // graph.setResizeContainer(false);
     // graph.cellsMovable = true;
@@ -161,7 +165,6 @@ function draw_graph(proof, container, pkg_callgraph, config) {
 	    }
 
 	    var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
-
 	}
 
     } finally {
@@ -175,9 +178,9 @@ function draw_graph(proof, container, pkg_callgraph, config) {
 
     function updateOracles(graph) {
 	var cell = graph.getSelectionCell();
+	if (cell == null) return false;
 
 	var pkg_name = cell.getAttribute('name');
-
 	if (pkg_name == undefined) {
 	    return -1;
 	}
@@ -210,9 +213,17 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 	}
     };
 
-    var text = document.createElement('p');
-    text.innerHTML = step;
+    // adds step name
+    var step_name = document.createElement('p');
+    step_name.innerHTML = step;
+    proofstep_container.appendChild(step_name);
+
+    // add step text
+    var text = document.createElement('div');
+    text.setAttribute('class', 'proofstep-text');
+    text.innerHTML = proof.prooftree[step].text;
     proofstep_container.appendChild(text);
+
 
     proof_wrapper.appendChild(proofstep_container);
 
@@ -250,7 +261,7 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 		} else {
     		    config = auto_graph_layout(cg);
 		}
-		console.log(pkg_name);
+
 		var table_cell = table.rows[i].cells[j];
 		draw_graph(proof, table_cell, cg, config);
 

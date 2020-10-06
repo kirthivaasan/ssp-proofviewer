@@ -638,7 +638,6 @@ var PCODE_TEXT = {
 
 function parse_pkg_name(pkg_name) {
     pkg_name = pkg_name.replaceAll('-', '\\text{-}');
-    console.log(pkg_name);
     return "\\(\\mathsf{" + pkg_name + "}\\)";
 }
 
