@@ -291,10 +291,7 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 	}
     }
 
-    show_inlining = false; // global var
-
-    // then if proofstep is a codeq step
-    // add the inlining steps
+    // then if proofstep is a codeq step, add the inlining steps
     if ("type" in proof.prooftree[step]) {
 	var type = proof.prooftree[step].type;
 	if ("codeq" in type) {
@@ -331,11 +328,12 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 	    proofstep_container.appendChild(oracles_container);
 
 	    button.onclick = function() {
-		show_inlining = !show_inlining;
-		if (show_inlining) {
+		if (oracles_container.style.display == 'none') {
 		    oracles_container.style.display = 'block';
-		} else {
+		    button.innerHTML = "Hide inlining";
+		} else if (oracles_container.style.display == 'block') {
 		    oracles_container.style.display = 'none';
+		    button.innerHTML = "Show inlining";
 		}
 	    }
 
