@@ -35,7 +35,7 @@ function isElementInViewport (el) {
 }
 
 // app drawing
-function draw_graph(proof, container, pkg_callgraph, config) {
+function draw_graph(container, pkg_callgraph, config) {
     if (!mxClient.isBrowserSupported()) {
 	return -1;
     }
@@ -198,57 +198,26 @@ function draw_graph(proof, container, pkg_callgraph, config) {
 
 }
 
-function add_proofstep(nodes_lookup, graph, step, proof) {
-    var proofstep_container = document.createElement('div');
-    proofstep_container.setAttribute('class', 'proofstep');
-    proofstep_container.setAttribute('id', 'proofstep_'+step);
-
-    // onmouseover is problematic, use onmouseenter instead
-    proofstep_container.onmouseenter = function(val){
-	// highlight proofstep node in prooftree graph
-	var cellname = val.target.id.substr("proofstep_".length);
-	if (cellname in nodes_lookup) {
-	    var cell = nodes_lookup[cellname];
-	    graph.selectionModel.setCells([cell]);
-	}
-    };
-
-    // adds step name
-    var step_name = document.createElement('p');
-    step_name.innerHTML = step;
-    proofstep_container.appendChild(step_name);
-
-    // add step text
-    var text = document.createElement('div');
-    text.setAttribute('class', 'proofstep-text');
-    text.innerHTML = proof.prooftree[step].text;
-    proofstep_container.appendChild(text);
-
-
-    proof_wrapper.appendChild(proofstep_container);
-
-    var target_proofstep_id = 'proofstep_'+ step;
-    var graphs = proof.prooftree[step].graphs;
-
-    var nrows = graphs.length;
-    var ncols = graphs.reduce((acc, e) => e.length > acc? e.length : acc, 0);
-
-    var table = buildTable(target_proofstep_id + '_table', nrows, ncols);
-
+function add_proofstep_content_graphs(proofstep_container, step, graphs, proof) {
+    // must appendChild before calling draw_graph
     var mono_pkgs = proof.monolithic_pkgs;
     var mod_pkgs = proof.modular_pkgs;
 
-    // must appendChild before calling draw_graph
+    var nrows = graphs.length;
+    var ncols = graphs.reduce((acc, e) => e.length > acc? e.length : acc, 0);
+    var table = buildTable('proofstep_' + step + '_table', nrows, ncols);
+
     var proofstep_graphs = document.createElement('div');
     proofstep_graphs.setAttribute('class', 'proofstep_graphs');
-
     proofstep_graphs.appendChild(table);
     proofstep_container.appendChild(proofstep_graphs);
 
+
     for (var i = 0; i < graphs.length; i++) {
     	for (var j = 0; j < graphs[i].length; j++) {
+
     	    var pkg_name = graphs[i][j];
-    	    var pkg = proof.monolithic_pkgs[pkg];
+    	    var pkg = mono_pkgs[pkg];
 
 	    if (pkg_name in mod_pkgs) {
 		var pkg = mod_pkgs[pkg_name];
@@ -257,13 +226,12 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 		var config = null;
 		if ("layout" in pkg) {
 		    config = pkg.layout;
-		    // config = auto_graph_layout(cg);
 		} else {
     		    config = auto_graph_layout(cg);
 		}
 
 		var table_cell = table.rows[i].cells[j];
-		draw_graph(proof, table_cell, cg, config);
+		draw_graph(table_cell, cg, config);
 
 		var game_title = document.createElement('div');
 		game_title.setAttribute('class', 'game-title');
@@ -277,6 +245,51 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 
     	}
     }
+
+
+}
+
+function add_proofstep_content_text(proofstep_container, text) {
+    var proofstep_text = document.createElement('div');
+    proofstep_text.setAttribute('class', 'proofstep-text');
+    proofstep_text.innerHTML = text;
+    proofstep_container.appendChild(proofstep_text);
+}
+
+// a proofstep consists of contents that comprise of graphs and text
+function add_proofstep(nodes_lookup, graph, step, proof) {
+    var proofstep_container = document.createElement('div');
+    proofstep_container.setAttribute('class', 'proofstep');
+    proofstep_container.setAttribute('id', 'proofstep_'+step);
+    proof_wrapper.appendChild(proofstep_container);
+
+    // onmouseover is problematic, use onmouseenter instead
+    proofstep_container.onmouseenter = function(val){
+	// highlight proofstep node in prooftree graph
+	var cellname = val.target.id.substr("proofstep_".length);
+	if (cellname in nodes_lookup) {
+	    var cell = nodes_lookup[cellname];
+	    graph.selectionModel.setCells([cell]);
+	}
+    };
+
+    // adds step name
+    var step_name = document.createElement('p');
+    step_name.setAttribute('class', 'proofstep-title');
+    step_name.innerHTML = step;
+    proofstep_container.appendChild(step_name);
+
+    var contents = proof.prooftree[step].contents;
+    for (let content of contents) {
+	if ("graphs" in content) {
+	    var graphs = content.graphs;
+	    add_proofstep_content_graphs(proofstep_container, step, graphs, proof);
+	} else if ("text" in content) {
+	    var text = content.text;
+	    add_proofstep_content_text(proofstep_container, text);
+	}
+    }
+
 
 }
 
@@ -412,9 +425,6 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 
     var proof_wrapper = document.getElementById("proof_wrapper");
 
-    // var proof_details = document.createElement('div');
-    // proof_details.innerHTML = "<h3>" + proof.name + "</h3>";
-    // proof_wrapper.appendChild(proof_details);
 
     // Add all proofsteps
     for (step in prooftree) {
@@ -515,6 +525,18 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 	if (cell != null) {
 	    var target_proofstep_id = 'proofstep_' + cell.value;
 	    var proofstep_div = document.getElementById(target_proofstep_id);
+
+
+	    var title = proofstep_div.getElementsByClassName('proofstep-title')[0];
+
+	    // console.log(title);
+
+	    title.setAttribute('class', 'proofstep-title highlight');
+	    setTimeout(function () {
+		title.className = "proofstep-title";
+	    }, 2000);
+
+
 	    if (!isElementInViewport(proofstep_div)) {
 	    	proofstep_div.scrollIntoView({ behavior: 'smooth'}); // ,block: 'center'
 	    }

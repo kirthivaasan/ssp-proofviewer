@@ -114,9 +114,10 @@ function driver() {
 	    },
 
 	    "layout":
-	    {
-		"nodes":{"@oracles_interface":{"x":0,"y":60,"width":1,"height":100},"Ideal":{"x":130,"y":100,"width":60,"height":50},"Sim":{"x":260,"y":60,"width":90,"height":90}},"edges":{"@oracles_interface":{"Sim":"exitX=1;exitY=0.2;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Ideal":"entryX=0;entryY=0.5;entryPerimeter=1;exitX=0.8;exitY=0.6;exitDx=0;exitDy=0;"},"Ideal":{"Sim":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}}
-	    }
+{"nodes":{"@oracles_interface":{"x":0,"y":60,"width":20,"height":90},"Ideal":{"x":150,"y":110,"width":50,"height":40},"Sim":{"x":240,"y":60,"width":90,"height":90}},"edges":{"@oracles_interface":{"Sim":"exitX=1;exitY=0.2;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Ideal":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Ideal":{"Sim":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryDx=0;entryDy=0;"}}}
+	    // {
+	    // 	"nodes":{"@oracles_interface":{"x":0,"y":60,"width":1,"height":100},"Ideal":{"x":130,"y":100,"width":60,"height":50},"Sim":{"x":260,"y":60,"width":90,"height":90}},"edges":{"@oracles_interface":{"Sim":"exitX=1;exitY=0.2;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Ideal":"entryX=0;entryY=0.5;entryPerimeter=1;exitX=0.8;exitY=0.6;exitDx=0;exitDy=0;"},"Ideal":{"Sim":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}}
+	    // }
 	}
     };
 
@@ -124,31 +125,87 @@ function driver() {
 	"Theorem" :
 	{
 	    "parent": null,
-	    "text": ["Assuming game-based ind-cpa for symmetric encryption is secure (indistinguishability between Gind-cpa^0 and Gind-cpa^1) implies simulation based ind-cpa for symmetric encryption (indistinguishability between Gind-cpa^0 and Gind-cpa-sim)."],
-	    "graphs": [["Gind-cpa^0", "Gind-cpa^1"],
-		       ["Gind-cpa^0", "Gind-cpa-sim"]]
+	    "contents": [
+		{
+		    "text": "Game-based \\(\\mathsf{IND\\text{-}CPA}\\) for symmetric encryption security (indistinguishability between \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^1}\\)) is equivalent to simulation-based \\(\\mathsf{IND\\text{-}CPA}\\) for symmetric encryption (indistinguishability between \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\)."
+		},
+		{
+		    "graphs": [["Gind-cpa^0", "Gind-cpa^1"],
+			       ["Gind-cpa^0", "Gind-cpa-sim"]]
+		}
+
+	    ]
+
 	},
 
-	"Lemma1" :
+	"LemDir1" :
 	{
 	    "parent": "Theorem",
-	    "text": [],
-	    "graphs": [[]]
+	    "contents": [
+		{
+		    "text": "We show that indistinguishability of \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^1}\\) implies indistinguishability between \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\)."
+		},
+		{
+		    "graphs": [[]]
+		}
+	    ]
 	},
 
-	"Lemma2" :
+	"LemDir2" :
 	{
 	    "parent": "Theorem",
-	    "text": [],
-	    "graphs": [[]]
+	    "contents": [
+		{
+		    "text": "We show that indistinguishability between \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\) implies indistinguishability between \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^1}\\)."
+		},
+		{
+		    "graphs": [[]]
+		}
+
+	    ]
 	},
 
-	"Lemma3" :
+	"Claim1" :
 	{
-	    "parent": "Lemma2",
-	    "text": [],
-	    "graphs": [[]]
+	    "parent": "LemDir1",
+	    "contents": [
+		{
+		    "text": "The games \\(\\mathsf{Gind\\text{-}cpa^1}\\) and Gind-cpa-Dropper-EncZeroes are code equivalent."
+		},
+		{
+		    "graphs": [[]]
+		}
+
+	    ]
+	},
+
+	"Claim2" :
+	{
+	    "parent": "LemDir1",
+	    "contents": [
+		{
+		    "text": "Reduction to Gind-cpa-Dropper-EncZeroes ."
+		},
+		{
+		    "graphs": [[]]
+		}
+	    ]
+	},
+
+	"Claim3" :
+	{
+	    "parent": "LemDir1",
+	    "contents": [
+		{
+		    "text": "Code equivalence of Gind-cpa-Dropper-EncZeroes and \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\)."
+		},
+		{
+		    "graphs": [[]]
+		}
+	    ]
 	}
+
+
 
     };
 
