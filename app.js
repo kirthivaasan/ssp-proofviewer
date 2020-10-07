@@ -258,10 +258,16 @@ function add_proofstep_content_text(proofstep_container, text) {
 
 // a proofstep consists of contents that comprise of graphs and text
 function add_proofstep(nodes_lookup, graph, step, proof) {
+    var proofstep_wrapper = document.createElement('div');
+    proofstep_wrapper.setAttribute('class', 'proofstep-wrapper');
+    proofstep_wrapper.setAttribute('id', 'proofstep-wrapper_'+step);
+
     var proofstep_container = document.createElement('div');
     proofstep_container.setAttribute('class', 'proofstep');
     proofstep_container.setAttribute('id', 'proofstep_'+step);
-    proof_wrapper.appendChild(proofstep_container);
+
+    proofstep_wrapper.appendChild(proofstep_container);
+    proof_wrapper.appendChild(proofstep_wrapper);
 
     // onmouseover is problematic, use onmouseenter instead
     proofstep_container.onmouseenter = function(val){
@@ -296,18 +302,18 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 	var type = proof.prooftree[step].type;
 	if ("codeq" in type) {
 	    var oracles_container = document.createElement('div');
-	    oracles_container.setAttribute('class', 'inlining_container');
+	    oracles_container.setAttribute('class', 'inlining-container');
 
 	    var button = document.createElement('button');
+	    button.setAttribute('class', 'inlining-btn');
 	    button.innerHTML = 'Show inlining';
 	    proofstep_container.appendChild(button);
 
 	    var oracles = type["codeq"];
 	    for (orc in oracles) {
-
 		// lots of code repetition here, maybe abstract out oracle view creation
 		var orc_container = document.createElement('div');
-		orc_container.setAttribute('class', 'oracle-container');
+		orc_container.setAttribute('class', 'inlining-oracle-container');
 
 		var orc_title = document.createElement('div');
 		orc_title.setAttribute('class', 'oracle-title');

@@ -238,7 +238,50 @@ function driver() {
 		    {
 			"code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
 			"params": ["m"]
+		    },
+
+		    "ENC2" :
+		    {
+			"code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
+			"params": ["m"]
+		    },
+
+		    "ENC3" :
+		    {
+			"code": "@assert k \\neq @bot; ; ;c @sample enc_k(0^\\ell);@return c;",
+			"params": ["m"]
+		    },
+
+		    "ENC4" :
+		    {
+			"code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
+			"params": ["m"]
+		    },
+
+		    "ENC5" :
+		    {
+			"code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
+			"params": ["m"]
+		    },
+
+		    "ENC6" :
+		    {
+			"code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
+			"params": ["m"]
+		    },
+
+		    "ENC7" :
+		    {
+			"code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
+			"params": ["m"]
+		    },
+
+		    "ENC8" :
+		    {
+			"code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
+			"params": ["m"]
 		    }
+
 
 		}
 	    }
