@@ -249,6 +249,48 @@ function add_proofstep_content_graphs(proofstep_container, step, graphs, proof) 
 
 }
 
+function add_inlining_steps(proofstep_container, oracles) {
+    var oracles_container = document.createElement('div');
+    oracles_container.setAttribute('class', 'inlining-container');
+
+    var button = document.createElement('button');
+    button.setAttribute('class', 'inlining-btn');
+    button.innerHTML = 'Show inlining';
+    proofstep_container.appendChild(button);
+
+    for (orc in oracles) {
+	// lots of code repetition here, maybe abstract out oracle view creation
+	var orc_container = document.createElement('div');
+	orc_container.setAttribute('class', 'inlining-oracle-container');
+
+	var orc_title = document.createElement('div');
+	orc_title.setAttribute('class', 'oracle-title');
+	orc_title.innerHTML = parse_oracle_signature(orc, oracles[orc].params);
+	orc_container.appendChild(orc_title);
+
+	var html = parse_pseudocode_without_links(oracles[orc].code);
+
+	var orc_def = document.createElement('div');
+	orc_def.innerHTML = html;
+
+	orc_container.appendChild(orc_def);
+	oracles_container.appendChild(orc_container);
+    }
+
+    oracles_container.style.display = 'none';
+    proofstep_container.appendChild(oracles_container);
+
+    button.onclick = function() {
+	if (oracles_container.style.display == 'none') {
+	    oracles_container.style.display = 'block';
+	    button.innerHTML = "Hide inlining";
+	} else if (oracles_container.style.display == 'block') {
+	    oracles_container.style.display = 'none';
+	    button.innerHTML = "Show inlining";
+	}
+    }
+}
+
 function add_proofstep_content_text(proofstep_container, text) {
     var proofstep_text = document.createElement('div');
     proofstep_text.setAttribute('class', 'proofstep-text');
@@ -297,59 +339,15 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 	}
     }
 
-    // then if proofstep is a codeq step, add the inlining steps
     if ("type" in proof.prooftree[step]) {
 	var type = proof.prooftree[step].type;
 	if ("codeq" in type) {
-	    var oracles_container = document.createElement('div');
-	    oracles_container.setAttribute('class', 'inlining-container');
-
-	    var button = document.createElement('button');
-	    button.setAttribute('class', 'inlining-btn');
-	    button.innerHTML = 'Show inlining';
-	    proofstep_container.appendChild(button);
-
-	    var oracles = type["codeq"];
-	    for (orc in oracles) {
-		// lots of code repetition here, maybe abstract out oracle view creation
-		var orc_container = document.createElement('div');
-		orc_container.setAttribute('class', 'inlining-oracle-container');
-
-		var orc_title = document.createElement('div');
-		orc_title.setAttribute('class', 'oracle-title');
-		orc_title.innerHTML = parse_oracle_signature(orc, oracles[orc].params);
-		orc_container.appendChild(orc_title);
-
-		var html = parse_pseudocode_without_links(oracles[orc].code);
-
-		var orc_def = document.createElement('div');
-		orc_def.innerHTML = html;
-
-		orc_container.appendChild(orc_def);
-
-		oracles_container.appendChild(orc_container);
-	    }
-
-	    oracles_container.style.display = 'none';
-	    proofstep_container.appendChild(oracles_container);
-
-	    button.onclick = function() {
-		if (oracles_container.style.display == 'none') {
-		    oracles_container.style.display = 'block';
-		    button.innerHTML = "Hide inlining";
-		} else if (oracles_container.style.display == 'block') {
-		    oracles_container.style.display = 'none';
-		    button.innerHTML = "Show inlining";
-		}
-	    }
-
+	    add_inlining_steps(proofstep_container, type.codeq);
+	} else if ("reduction" in type) {
+	    // add reduction step
 
 	}
-
     }
-
-
-
 
 }
 
