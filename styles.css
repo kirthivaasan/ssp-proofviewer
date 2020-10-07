@@ -38,29 +38,25 @@ body {
     scrollbar-color: #bcbcbc white;
 }
 
-.proofstep_graphs {
-    margin: 1% 0 0 5%;
-}
-
 .proofstep_graphs > table {
+    margin: auto; /* center graphs */
     /* border: 1px solid black; */
 }
 
 .proofstep_graphs tr td {
     /* border: 1px solid black; */
-    padding: 0 20 0 20;
+    padding: 5 20 0 0;
 }
 
 .proofstep_graphs {
     overflow: auto;
     scrollbar-color: #bcbcbc white;
     scrollbar-width: thin;
-    /* padding: 20 0 20 0; */
 }
 
 .proofstep-wrapper {
     background: white;
-    padding:  0 1.5% 0 1.5%;
+    padding:  0 2% 0 2%;
     margin: 0;
 }
 
@@ -72,7 +68,6 @@ body {
     width: 100%;
 }
 
-
 .proofstep-title {
     margin: 20 0 0 0;
     font-size: 20px;
@@ -81,8 +76,7 @@ body {
 
 .proofstep-text {
     font-size: 15px;
-    padding: 20 0 10 20;
-    padding: 20 0 0 0;
+    padding: 20 0 10 0;
     margin: 0;
 }
 
