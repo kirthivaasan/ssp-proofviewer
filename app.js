@@ -35,7 +35,7 @@ function isElementInViewport (el) {
 }
 
 // app drawing
-function draw_graph(container, pkg_callgraph, config) {
+function draw_graph(container, pkg_callgraph, config, cut=null) {
     if (!mxClient.isBrowserSupported()) {
 	return -1;
     }
@@ -47,7 +47,7 @@ function draw_graph(container, pkg_callgraph, config) {
     graph.cellsMovable = false;
     graph.cellsEditable = false;
 
-    graph.isCellSelectable = function(cell) {
+    graph.isCellSelectable = function(cell) { // make edges not selectable
 	return !cell.isEdge();
     };
 
@@ -100,9 +100,8 @@ function draw_graph(container, pkg_callgraph, config) {
 
     var packages = new Map();
 
-    var DEFAULT_X = 200;
-    DEFAULT_X = 0;
-    var DEFAULT_Y = 0;
+    var OFFSET_X = 0;
+    var OFFSET_Y = 0;
 
     var nodes_cfg = config.nodes;
 
@@ -118,13 +117,18 @@ function draw_graph(container, pkg_callgraph, config) {
 	// add rest of packages
 	for (node in pkg_callgraph.graph) {
 	    var node_cfg = nodes_cfg[node];
-	    config_x = node_cfg.x + DEFAULT_X;
-	    config_y = node_cfg.y + DEFAULT_Y;
+	    config_x = node_cfg.x + OFFSET_X;
+	    config_y = node_cfg.y + OFFSET_Y;
 
 	    var pkg = doc.createElement('Package');
 	    pkg.setAttribute('name', node);
 	    var v = graph.insertVertex(parent, null, pkg, config_x, config_y, node_cfg.width, node_cfg.height);
 	    packages.set(node, v);
+
+	    if (cut != null && (cut.includes(pkg.attributes.name.value))) {
+		v.style = 'strokeColor=none;fillColor=#808080;opacity=15';
+	    }
+
 	}
 
 	var edges_cfg = config.edges;
@@ -146,6 +150,14 @@ function draw_graph(container, pkg_callgraph, config) {
 		}
 
 		var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
+
+		if (cut != null &&
+			(cut.includes(src_node.value.attributes.name.value) ||
+			 cut.includes(v1.value.attributes.name.value))) {
+		    edge.style += 'opacity=15'; //;fontColor=#ececec
+
+		}
+
 	    }
 	}
 
@@ -198,7 +210,7 @@ function draw_graph(container, pkg_callgraph, config) {
 
 }
 
-function add_proofstep_content_graphs(proofstep_container, step, graphs, proof) {
+function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, cut=null) {
     // must appendChild before calling draw_graph
     var mono_pkgs = proof.monolithic_pkgs;
     var mod_pkgs = proof.modular_pkgs;
@@ -231,7 +243,7 @@ function add_proofstep_content_graphs(proofstep_container, step, graphs, proof) 
 		}
 
 		var table_cell = table.rows[i].cells[j];
-		draw_graph(table_cell, cg, config);
+		draw_graph(table_cell, cg, config, cut);
 
 		var game_title = document.createElement('div');
 		game_title.setAttribute('class', 'game-title');
@@ -344,8 +356,9 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 	if ("codeq" in type) {
 	    add_inlining_steps(proofstep_container, type.codeq);
 	} else if ("reduction" in type) {
-	    // add reduction step
-
+	    var reduction = type.reduction;
+	    var reduction_graph = [[reduction.graph]];
+	    add_proofstep_content_graphs(proofstep_container, step, reduction_graph, proof, reduction.cut);
 	}
     }
 
