@@ -78,7 +78,19 @@ function driver() {
 	    {
 		"ENC":
 		{
-		    "code": "",
+		    "code": "c @gets ENC(|m|);@return c;",
+		    "params": ["m"]
+		}
+	    }
+	},
+
+	"Zeroer":
+	{
+	    "oracles":
+	    {
+		"ENC":
+		{
+		    "code": "c @gets ENC(0^{|m|});@return c",
 		    "params": ["m"]
 		}
 	    }
@@ -90,12 +102,16 @@ function driver() {
 	    {
 		"ENC":
 		{
-		    "code": "",
+		    "code": "k @gets GET(); c @gets enc_k(0^{\\ell});@return c",
 		    "params": ["\\ell"]
 		}
 	    }
-	}
+	},
 
+	"Sim*": // "black box" package used for reasoning
+	{
+	    "oracles": {}
+	}
 
 
     };
@@ -146,20 +162,51 @@ function driver() {
 	    }
 	},
 
-
-	"Gind-cpa-Dropper-Enc-Zeroes":
+	"Gind-cpa-sim*":
 	{
-	    "oracles": [["Keys", "SAMPLE"], ["Dropper", "ENC"]],
+	    "oracles": [["Sim*", "SAMPLE"], ["Ideal", "ENC"]],
 	    "graph":
 	    {
-		"Keys": [],
-		"Dropper": [["Enc-Zeroes", "ENC"]],
-		"Enc-Zeroes": [["Keys", "GET"]]
+		"Ideal": [["Sim*", "ENC"]],
+		"Sim*": []
 	    },
 
 	    "layout":
 	    {
-"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":90},"Keys":{"x":240,"y":0,"width":90,"height":40},"Dropper":{"x":50,"y":50,"width":50,"height":40},"Enc-Zeroes":{"x":140,"y":50,"width":70,"height":40}},"edges":{"@oracles_interface":{"Keys":"exitX=1;exitY=0.2;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Dropper":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Dropper":{"Enc-Zeroes":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Enc-Zeroes":{"Keys":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryDx=0;entryDy=0;"}}
+		"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":90},"Ideal":{"x":150,"y":50,"width":50,"height":40},"Sim*":{"x":240,"y":0,"width":90,"height":90}},"edges":{"@oracles_interface":{"Sim*":"exitX=1;exitY=0.2;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Ideal":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Ideal":{"Sim*":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryDx=0;entryDy=0;"}}
+	    }
+	},
+
+
+	"Gind-cpa-Dropper-Enc-Zeroes":
+	{
+	    "oracles": [["Key", "SAMPLE"], ["Dropper", "ENC"]],
+	    "graph":
+	    {
+		"Key": [],
+		"Dropper": [["Enc-Zeroes", "ENC"]],
+		"Enc-Zeroes": [["Key", "GET"]]
+	    },
+
+	    "layout":
+	    {
+"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":90},"Key":{"x":240,"y":0,"width":90,"height":40},"Dropper":{"x":50,"y":50,"width":50,"height":40},"Enc-Zeroes":{"x":140,"y":50,"width":70,"height":40}},"edges":{"@oracles_interface":{"Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Dropper":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Dropper":{"Enc-Zeroes":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Enc-Zeroes":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryDx=0;entryDy=0;"}}
+	    }
+	},
+
+	"Gind-cpa-Zeroer-Ideal-sim*":
+	{
+	    "oracles": [["Sim*", "SAMPLE"], ["Zeroer", "ENC"]],
+	    "graph":
+	    {
+		"Zeroer": [["Ideal", "ENC"]],
+		"Ideal": [["Sim*", "ENC"]],
+		"Sim*": []
+	    },
+
+	    "layout":
+	    {
+		"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":90},"Zeroer":{"x":50,"y":50,"width":60,"height":40},"Ideal":{"x":150,"y":50,"width":60,"height":40},"Sim*":{"x":250,"y":0,"width":90,"height":90}},"edges":{"@oracles_interface":{"Sim*":"exitX=1;exitY=0.2;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Zeroer":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Zeroer":{"Ideal":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Ideal":{"Sim*":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.6;entryDx=0;entryDy=0;"}}
 	    }
 	}
 
@@ -171,13 +218,16 @@ function driver() {
 	    "parent": null,
 	    "contents": [
 		{
-		    "text": "Game-based \\(\\mathsf{IND\\text{-}CPA}\\) (<a href=\"ind-cpa-def.html\">IND-CPA</a>) for symmetric encryption security (indistinguishability between \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^1}\\)) is equivalent to simulation-based \\(\\mathsf{IND\\text{-}CPA}\\) for symmetric encryption (indistinguishability between \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\)."
+		    "text": "Game-based \\(\\mathsf{IND\\text{-}CPA}\\) (<a href=\"ind-cpa-def.html\">IND-CPA</a>) (for symmetric encryption security) is equivalent to simulation-based security notion."
+		},
+		{
+		    "text": "Recall that the game-base notion of \\(\\mathsf{IND\\text{-}CPA}\\) states that \\(\\mathsf{Gind\\text{-}cpa^0}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^1}\\)"
 		},
 		{
 		    "graphs": [["Gind-cpa^0", "Gind-cpa^1"]]
 		},
 		{
-		    "text": "Setup for simulation-based \\(\\mathsf{IND\\text{-}CPA}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\)."
+		    "text": "We define simulation-based \\(\\mathsf{IND\\text{-}CPA}\\) as \\(\\mathsf{Gind\\text{-}cpa^0}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\) (for all PPT adversaries)."
 		},
 
 		{
@@ -191,7 +241,7 @@ function driver() {
 	    "parent": "Theorem",
 	    "contents": [
 		{
-		    "text": "We show that indistinguishability of \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^1}\\) implies indistinguishability between \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\)."
+		    "text": "We show that \\(\\mathsf{Gind\\text{-}cpa^0}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^1}\\) implies \\(\\mathsf{Gind\\text{-}cpa^0}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\) (with construction of a simulator (package) \\(\\mathsf{Sim}\\))."
 		},
 		{
 		    "graphs": [[]]
@@ -204,10 +254,13 @@ function driver() {
 	    "parent": "Theorem",
 	    "contents": [
 		{
-		    "text": "We show that indistinguishability between \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\) implies indistinguishability between \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^1}\\)."
+		    "text": "We show that assuming \\(\\mathsf{Gind\\text{-}cpa^0}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^{sim*}}\\) (for some simulator \\(\\mathsf{sim*}\\)) implies \\(\\mathsf{Gind\\text{-}cpa^0}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^1}\\)."
 		},
 		{
-		    "graphs": [[]]
+		    "text": "The definition of \\(\\mathsf{Gind\\text{-}cpa\\text{-}sim*}\\) is not very different from \\(\\mathsf{Gind\\text{-}cpa^{sim*}}\\). The only difference is that the \\(\\mathsf{Sim*}\\) package is <em>black-box</em>, that is, there is no explicit definition for oracles contained within this package - we assume that such a package exists for the sake of reasoning."
+		},
+		{
+		    "graphs": [["Gind-cpa-sim*"]]
 		}
 
 	    ]
@@ -228,59 +281,24 @@ function driver() {
 	    "type":
 	    {
 		"codeq": {
-		    "ENC" :
+		    "Enc^1.ENC" :
 		    {
-			"code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
+			"code": "k @gets GET(); c @sample enc_k(0^{|m|}); @return c",
 			"params": ["m"]
 		    },
 
 		    "ENC1" :
 		    {
-			"code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
+			"code": "k @gets GET(); c @sample enc_k(0^{|m|}); @return c",
 			"params": ["m"]
 		    },
 
-		    "ENC2" :
+		    "Dropper.ENC" :
 		    {
-			"code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
-			"params": ["m"]
-		    },
-
-		    "ENC3" :
-		    {
-			"code": "@assert k \\neq @bot; ; ;c @sample enc_k(0^\\ell);@return c;",
-			"params": ["m"]
-		    },
-
-		    "ENC4" :
-		    {
-			"code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
-			"params": ["m"]
-		    },
-
-		    "ENC5" :
-		    {
-			"code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
-			"params": ["m"]
-		    },
-
-		    "ENC6" :
-		    {
-			"code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
-			"params": ["m"]
-		    },
-
-		    "ENC7" :
-		    {
-			"code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
-			"params": ["m"]
-		    },
-
-		    "ENC8" :
-		    {
-			"code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
+			"code": "c @gets ENC(|m|); ;@return c;",
 			"params": ["m"]
 		    }
+
 
 		}
 	    }
@@ -291,10 +309,10 @@ function driver() {
 	    "parent": "LemDir1",
 	    "contents": [
 		{
-		    "text": "Code equivalence of Gind-cpa-Dropper-EncZeroes and \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\)."
+		    "text": "Code equivalence of \\(\\mathsf{Gind\\text{-}cpa\\text{-}Dropper\\text{-}Enc\\text{-}Zeroes}\\) and \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\)."
 		},
 		{
-		    "graphs": [[]]
+		    "graphs": [["Gind-cpa-Dropper-Enc-Zeroes", "Gind-cpa-sim"]]
 		}
 	    ]
 	},
@@ -305,6 +323,9 @@ function driver() {
 	    "contents": [
 		{
 		    "text": "Code equivalence"
+		},
+		{
+		    "graphs": [["Gind-cpa-sim*", "Gind-cpa-Zeroer-Ideal-sim*"]]
 		}
 	    ]
 	},
@@ -315,8 +336,20 @@ function driver() {
 	    "contents": [
 		{
 		    "text": "Reduction"
+		},
+		{
+		    "graphs": [["Gind-cpa-Zeroer-Ideal-sim*"]]
 		}
-	    ]
+	    ],
+	    "type":
+	    {
+		"reduction":
+		{
+		    "graph": "Gind-cpa-Zeroer-Ideal-sim*",
+		    "cut": ["Sim*", "Zeroer", "Ideal"]
+		}
+	    }
+
 	},
 
 	"Claim5":
