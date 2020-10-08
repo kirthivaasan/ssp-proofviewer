@@ -188,7 +188,6 @@ function draw_graph(container, pkg_callgraph, config, cut=null, type=null) {
 	}
 
 
-
 	var edges_cfg = config.edges;
 	// add edges
 	for (node in pkg_callgraph.graph) {
@@ -407,14 +406,12 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
     for (let content of contents) {
 	if ("graphs" in content) {
 	    var graphs = content.graphs;
-
 	    if ("type" in proof.prooftree[step]) {
 		var type = proof.prooftree[step].type;
 		if ("reduction" in type) {
 		    var reduction = type.reduction;
-		    // var reduction_graph = [[reduction.graph]];
-		    // add_proofstep_content_graphs(proofstep_container, step, graphs, proof);
 		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof, reduction.graph, reduction.cut, 'reduction');
+
 		} else if ("codeq" in type) {
 		    var codeq = type.codeq;
 		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof, codeq.graph, codeq.packages, 'codeq');
@@ -432,13 +429,6 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 	    add_proofstep_content_text(proofstep_container, text);
 	}
     }
-
-    // if ("type" in proof.prooftree[step]) {
-    // 	var type = proof.prooftree[step].type;
-    // 	if ("codeq" in type) {
-    // 	    add_codeq_steps(proofstep_container, type.codeq.oracles);
-    // 	}
-    // }
 
 }
 

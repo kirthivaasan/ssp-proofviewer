@@ -302,7 +302,7 @@ function driver() {
 			    "params": ["m"]
 			},
 
-			"ENC1" :
+			"Enc\\text{-}Zeroes.ENC \\circ Dropper.ENC" :
 			{
 			    "code": "k @gets GET(); c @sample enc_k(0^{|m|}); @return c",
 			    "params": ["m"]
@@ -314,8 +314,8 @@ function driver() {
 			    "params": ["m"]
 			}
 		    },
-		    "graph": "",
-		    "packages": ["", ""]
+		    "graph": "Gind-cpa-Dropper-Enc-Zeroes",
+		    "packages": ["Dropper", "Enc-Zeroes"]
 
 		}
 	    }
@@ -341,7 +341,7 @@ function driver() {
 			    "code": "@assert k \\neq @bot; c @sample enc_k(0^{|m|}); @return c",			"params": ["m"]
 			},
 
-			"ENC1" :
+			"Enc\\text{-}Zeroes.ENC \\circ Key.ENC" :
 			{
 			    "code": "@assert k \\neq @bot; c @sample enc_k(0^{|m|}); @return c",
 			    "params": ["m"]
@@ -353,8 +353,8 @@ function driver() {
 			    "params": ["m"]
 			}
 		    },
-		    "graph": "",
-		    "packages": ["", ""]
+		    "graph": "Gind-cpa-Dropper-Enc-Zeroes",
+		    "packages": ["Enc-Zeroes", "Key"]
 
 		}
 	    }
@@ -382,7 +382,7 @@ function driver() {
 			    "params": ["m"]
 			},
 
-			"Zeroer \\circ Ideal 2" :
+			"Zeroer \\circ Ideal" :
 			{
 			    "code": "c @gets ENC(|m|);@return c;",
 			    "params": ["m"]
@@ -393,11 +393,10 @@ function driver() {
 			    "code": "c @sample ENC(0^{|m|}); @return c",
 			    "params": ["m"]
 			}
-		    }
+		    },
+		    "graph": "Gind-cpa-Zeroer-Ideal-sim*",
+		    "packages": ["Zeroer", "Ideal"]
 		},
-		"graph": "",
-		"packages": ["", ""]
-
 	    }
 	},
 
@@ -406,7 +405,7 @@ function driver() {
 	    "parent": "LemDir2",
 	    "contents": [
 		{
-		    "text": "Reduction"
+		    "text": "We reduce to the assumption \\(\\mathsf{Gind\\text{-}cpa^{sim*}}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^0}\\) and argue that the following games are indistinguishable."
 		},
 		{
 		    "graphs": [["Gind-cpa-Zeroer-Ideal-sim*", "Gind-cpa-Zeroer-Ideal"]]
@@ -428,7 +427,7 @@ function driver() {
 	    "parent": "LemDir2",
 	    "contents": [
 		{
-		    "text": "But then \\(\\mathsf{Gind\\text{-}cpa\\text{-}Zeroer\\text{-}Ideal}\\) is code equivalent to \\(\\mathsf{Gind-cpa^1}\\)"
+		    "text": "But then \\(\\mathsf{Gind\\text{-}cpa\\text{-}Zeroer\\text{-}Ideal}\\) is code equivalent to \\(\\mathsf{Gind\\text{-}cpa^1}\\). &#8718;"
 		},
 		{
 		    "graphs": [["Gind-cpa-Zeroer-Ideal", "Gind-cpa^1"]]
