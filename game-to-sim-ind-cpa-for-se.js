@@ -208,6 +208,20 @@ function driver() {
 	    {
 		"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":90},"Zeroer":{"x":50,"y":50,"width":60,"height":40},"Ideal":{"x":150,"y":50,"width":60,"height":40},"Sim*":{"x":250,"y":0,"width":90,"height":90}},"edges":{"@oracles_interface":{"Sim*":"exitX=1;exitY=0.2;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Zeroer":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Zeroer":{"Ideal":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Ideal":{"Sim*":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.6;entryDx=0;entryDy=0;"}}
 	    }
+	},
+
+	"Gind-cpa-Zeroer-Ideal":
+	{
+	    "oracles": [["Zeroer", "ENC"], ["Key", "SAMPLE"]],
+	    "graph":
+	    {
+		"Zeroer": [["Enc^0", "ENC"]],
+		"Key": [],
+		"Enc^0": [["Key", "GET"]]
+	    },
+
+	    "layout":
+{"nodes":{"@oracles_interface":{"x":-10,"y":0,"width":20,"height":90},"Zeroer":{"x":50,"y":50,"width":70,"height":40},"Key":{"x":290,"y":0,"width":90,"height":40},"Enc^0":{"x":160,"y":50,"width":90,"height":40}},"edges":{"@oracles_interface":{"Zeroer":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Zeroer":{"Enc^0":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Enc^0":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryDx=0;entryDy=0;"}}}
 	}
 
     };
@@ -281,24 +295,27 @@ function driver() {
 	    "type":
 	    {
 		"codeq": {
-		    "Enc^1.ENC" :
-		    {
-			"code": "k @gets GET(); c @sample enc_k(0^{|m|}); @return c",
-			"params": ["m"]
+		    "oracles": {
+			"Enc^1.ENC" :
+			{
+			    "code": "k @gets GET(); c @sample enc_k(0^{|m|}); @return c",
+			    "params": ["m"]
+			},
+
+			"ENC1" :
+			{
+			    "code": "k @gets GET(); c @sample enc_k(0^{|m|}); @return c",
+			    "params": ["m"]
+			},
+
+			"Dropper.ENC" :
+			{
+			    "code": "c @gets ENC(|m|); ;@return c;",
+			    "params": ["m"]
+			}
 		    },
-
-		    "ENC1" :
-		    {
-			"code": "k @gets GET(); c @sample enc_k(0^{|m|}); @return c",
-			"params": ["m"]
-		    },
-
-		    "Dropper.ENC" :
-		    {
-			"code": "c @gets ENC(|m|); ;@return c;",
-			"params": ["m"]
-		    }
-
+		    "graph": "",
+		    "packages": ["", ""]
 
 		}
 	    }
@@ -314,7 +331,34 @@ function driver() {
 		{
 		    "graphs": [["Gind-cpa-Dropper-Enc-Zeroes", "Gind-cpa-sim"]]
 		}
-	    ]
+	    ],
+	    "type":
+	    {
+		"codeq": {
+		    "oracles": {
+			"Sim.ENC" :
+			{
+			    "code": "@assert k \\neq @bot; c @sample enc_k(0^{|m|}); @return c",			"params": ["m"]
+			},
+
+			"ENC1" :
+			{
+			    "code": "@assert k \\neq @bot; c @sample enc_k(0^{|m|}); @return c",
+			    "params": ["m"]
+			},
+
+			"Enc\\text{-}Zeroes.ENC" :
+			{
+			    "code": "k @gets GET(); c @sample enc_k(0^{|m|}); @return c",
+			    "params": ["m"]
+			}
+		    },
+		    "graph": "",
+		    "packages": ["", ""]
+
+		}
+	    }
+
 	},
 
 	"Claim3":
@@ -322,12 +366,39 @@ function driver() {
 	    "parent": "LemDir2",
 	    "contents": [
 		{
-		    "text": "Code equivalence"
+		    "text": "Code equivalence step. Note that \\(\\mathsf{Zeroer}\\) sends 0s instead of the original message, of the same length to \\(\\mathsf{Ideal}\\) via \\(\\mathsf{ENC}\\). \\(\\mathsf{Ideal}\\) then simply forwards the all 0s message to \\(\\mathsf{Sim*}\\) which encrypts all 0s of the same length - effectively doing the same thing as in \\(\\mathsf{Gind\\text{-}cpa\\text{-}sim*}\\)."
 		},
 		{
 		    "graphs": [["Gind-cpa-sim*", "Gind-cpa-Zeroer-Ideal-sim*"]]
 		}
-	    ]
+	    ],
+	    "type":
+	    {
+		"codeq": {
+		    "oracles": {
+			"Ideal.ENC" :
+			{
+			    "code": "c @gets ENC(|m|);@return c;",
+			    "params": ["m"]
+			},
+
+			"Zeroer \\circ Ideal 2" :
+			{
+			    "code": "c @gets ENC(|m|);@return c;",
+			    "params": ["m"]
+			},
+
+			"Zeroer.ENC" :
+			{
+			    "code": "c @sample ENC(0^{|m|}); @return c",
+			    "params": ["m"]
+			}
+		    }
+		},
+		"graph": "",
+		"packages": ["", ""]
+
+	    }
 	},
 
 	"Claim4":
@@ -338,7 +409,7 @@ function driver() {
 		    "text": "Reduction"
 		},
 		{
-		    "graphs": [["Gind-cpa-Zeroer-Ideal-sim*"]]
+		    "graphs": [["Gind-cpa-Zeroer-Ideal-sim*", "Gind-cpa-Zeroer-Ideal"]]
 		}
 	    ],
 	    "type":
@@ -346,7 +417,7 @@ function driver() {
 		"reduction":
 		{
 		    "graph": "Gind-cpa-Zeroer-Ideal-sim*",
-		    "cut": ["Sim*", "Zeroer", "Ideal"]
+		    "cut": ["Sim*", "Ideal"]
 		}
 	    }
 
@@ -357,9 +428,40 @@ function driver() {
 	    "parent": "LemDir2",
 	    "contents": [
 		{
-		    "text": "Code equivalence"
+		    "text": "But then \\(\\mathsf{Gind\\text{-}cpa\\text{-}Zeroer\\text{-}Ideal}\\) is code equivalent to \\(\\mathsf{Gind-cpa^1}\\)"
+		},
+		{
+		    "graphs": [["Gind-cpa-Zeroer-Ideal", "Gind-cpa^1"]]
 		}
-	    ]
+
+	    ],
+	    "type":
+	    {
+		"codeq": {
+		    "oracles": {
+			"Enc^1" :
+			{
+			    "code": "k @gets GET(); c @sample enc_k(0^{|m|}); @return c",
+			    "params": ["m"]
+			},
+
+			"Zeroer \\circ Enc^0" :
+			{
+			    "code": "k @gets GET(); c @sample enc_k(0^{|m|}); @return c",
+			    "params": ["m"]
+			},
+
+			"Zeroer" :
+			{
+			    "code": "c @gets ENC(0^{|m|}); ;@return c",
+			    "params": ["m"]
+			}
+
+		    },
+		    "graph": "Gind-cpa-Zeroer-Ideal",
+		    "packages": ["Zeroer", "Enc^0"]
+		}
+	    }
 	}
 
     };

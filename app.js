@@ -1,3 +1,12 @@
+// Error classes
+class InvalidCut extends Error {
+    constructor(message) {
+	super(message);
+	this.name = "InvalidCut";
+    }
+}
+
+
 // utils
 function buildTable(table_id, nrows, ncols) {
     var newTable = document.createElement("table");
@@ -35,7 +44,7 @@ function isElementInViewport (el) {
 }
 
 // app drawing
-function draw_graph(container, pkg_callgraph, config, cut=null) {
+function draw_graph(container, pkg_callgraph, config, cut=null, type=null) {
     if (!mxClient.isBrowserSupported()) {
 	return -1;
     }
@@ -125,11 +134,60 @@ function draw_graph(container, pkg_callgraph, config, cut=null) {
 	    var v = graph.insertVertex(parent, null, pkg, config_x, config_y, node_cfg.width, node_cfg.height);
 	    packages.set(node, v);
 
-	    if (cut != null && (cut.includes(pkg.attributes.name.value))) {
-		v.style = 'strokeColor=none;fillColor=#808080;opacity=15';
+	    if (cut != null && (cut.includes(pkg.attributes.name.value)) && type != null) {
+		if (type == 'reduction') {
+		    v.style = 'strokeColor=none;fillColor=#808080;opacity=15';
+		} else if (type == 'codeq') {
+		    // v.style = 'dashed=1;';
+		}
 	    }
 
 	}
+
+	// add codeq dashed rect
+	if (cut != null && type == 'codeq') {
+	    var bbox_min_x = 99999999999999;
+	    var bbox_min_y = 99999999999999;
+	    var bbox_max_x = -99999999999999;
+	    var bbox_max_y = -99999999999999;
+
+	    for (let node of cut) {
+		if (packages.has(node)) {
+		    var v = packages.get(node);
+
+		    var x = v.geometry.x;
+		    var y = v.geometry.y;
+
+		    var w = v.geometry.width;
+		    var h = v.geometry.height;
+
+		    if (x < bbox_min_x) {
+			bbox_min_x = x;
+		    }
+
+		    if (y < bbox_min_y) {
+			bbox_min_y = y;
+		    }
+
+		    if (x + w > bbox_max_x) {
+			bbox_max_x = x + w;
+		    }
+
+		    if (y + h > bbox_max_y) {
+			bbox_max_y = y + h;
+		    }
+
+		} else {
+		    throw new InvalidCut('pkg name: ' + node + ' in cut not found in graph.');
+		}
+	    }
+
+	    var v = graph.insertVertex(parent, null, '@dashed_rect', bbox_min_x-5, bbox_min_y-5, bbox_max_x - bbox_min_x + 10, (bbox_max_y - bbox_min_y) + 10);
+	    v.style = 'fillColor=none;dashed=1';
+
+	}
+
+
 
 	var edges_cfg = config.edges;
 	// add edges
@@ -151,11 +209,12 @@ function draw_graph(container, pkg_callgraph, config, cut=null) {
 
 		var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
 
-		if (cut != null &&
-			(cut.includes(src_node.value.attributes.name.value) ||
-			 cut.includes(v1.value.attributes.name.value))) {
-		    edge.style += 'opacity=15'; //;fontColor=#ececec
+		if (cut != null && (cut.includes(src_node.value.attributes.name.value) || cut.includes(v1.value.attributes.name.value)) && type != null) {
+		    if (type == 'reduction') {
+			edge.style += 'opacity=15'; //;fontColor=#ececec
+		    } else if (type == 'codeq') {
 
+		    }
 		}
 
 	    }
@@ -210,7 +269,7 @@ function draw_graph(container, pkg_callgraph, config, cut=null) {
 
 }
 
-function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, cut=null) {
+function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, graph_name=null, cut=null, type=null) {
     // must appendChild before calling draw_graph
     var mono_pkgs = proof.monolithic_pkgs;
     var mod_pkgs = proof.modular_pkgs;
@@ -243,7 +302,11 @@ function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, 
 		}
 
 		var table_cell = table.rows[i].cells[j];
-		draw_graph(table_cell, cg, config, cut);
+		if (pkg_name == graph_name) {
+		    draw_graph(table_cell, cg, config, cut, type);
+		} else {
+		    draw_graph(table_cell, cg, config);
+		}
 
 		var game_title = document.createElement('div');
 		game_title.setAttribute('class', 'game-title');
@@ -344,23 +407,38 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
     for (let content of contents) {
 	if ("graphs" in content) {
 	    var graphs = content.graphs;
-	    add_proofstep_content_graphs(proofstep_container, step, graphs, proof);
+
+	    if ("type" in proof.prooftree[step]) {
+		var type = proof.prooftree[step].type;
+		if ("reduction" in type) {
+		    var reduction = type.reduction;
+		    // var reduction_graph = [[reduction.graph]];
+		    // add_proofstep_content_graphs(proofstep_container, step, graphs, proof);
+		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof, reduction.graph, reduction.cut, 'reduction');
+		} else if ("codeq" in type) {
+		    var codeq = type.codeq;
+		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof, codeq.graph, codeq.packages, 'codeq');
+    		    add_inlining_steps(proofstep_container, codeq.oracles);
+
+		} else {
+		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof);
+		}
+	    } else {
+		add_proofstep_content_graphs(proofstep_container, step, graphs, proof);
+	    }
+
 	} else if ("text" in content) {
 	    var text = content.text;
 	    add_proofstep_content_text(proofstep_container, text);
 	}
     }
 
-    if ("type" in proof.prooftree[step]) {
-	var type = proof.prooftree[step].type;
-	if ("codeq" in type) {
-	    add_inlining_steps(proofstep_container, type.codeq);
-	} else if ("reduction" in type) {
-	    var reduction = type.reduction;
-	    var reduction_graph = [[reduction.graph]];
-	    add_proofstep_content_graphs(proofstep_container, step, reduction_graph, proof, reduction.cut);
-	}
-    }
+    // if ("type" in proof.prooftree[step]) {
+    // 	var type = proof.prooftree[step].type;
+    // 	if ("codeq" in type) {
+    // 	    add_codeq_steps(proofstep_container, type.codeq.oracles);
+    // 	}
+    // }
 
 }
 
