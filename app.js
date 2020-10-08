@@ -57,6 +57,9 @@ function draw_graph(container, pkg_callgraph, config, cut=null, type=null) {
     graph.cellsEditable = false;
 
     graph.isCellSelectable = function(cell) { // make edges not selectable
+	if (cell.value == '@dashed_rect') {
+	    return false;
+	}
 	return !cell.isEdge();
     };
 
@@ -123,27 +126,6 @@ function draw_graph(container, pkg_callgraph, config, cut=null, type=null) {
 	v.value = '';
 	packages.set('@oracles_interface', v);
 
-	// add rest of packages
-	for (node in pkg_callgraph.graph) {
-	    var node_cfg = nodes_cfg[node];
-	    config_x = node_cfg.x + OFFSET_X;
-	    config_y = node_cfg.y + OFFSET_Y;
-
-	    var pkg = doc.createElement('Package');
-	    pkg.setAttribute('name', node);
-	    var v = graph.insertVertex(parent, null, pkg, config_x, config_y, node_cfg.width, node_cfg.height);
-	    packages.set(node, v);
-
-	    if (cut != null && (cut.includes(pkg.attributes.name.value)) && type != null) {
-		if (type == 'reduction') {
-		    v.style = 'strokeColor=none;fillColor=#808080;opacity=15';
-		} else if (type == 'codeq') {
-		    // v.style = 'dashed=1;';
-		}
-	    }
-
-	}
-
 	// add codeq dashed rect
 	if (cut != null && type == 'codeq') {
 	    var bbox_min_x = 99999999999999;
@@ -152,14 +134,14 @@ function draw_graph(container, pkg_callgraph, config, cut=null, type=null) {
 	    var bbox_max_y = -99999999999999;
 
 	    for (let node of cut) {
-		if (packages.has(node)) {
-		    var v = packages.get(node);
+		if (node in config.nodes) {
+		    var v = config.nodes[node];
+		    var x = v.x;
+		    var y = v.y;
 
-		    var x = v.geometry.x;
-		    var y = v.geometry.y;
+		    var w = v.width;
+		    var h = v.height;
 
-		    var w = v.geometry.width;
-		    var h = v.geometry.height;
 
 		    if (x < bbox_min_x) {
 			bbox_min_x = x;
@@ -187,6 +169,27 @@ function draw_graph(container, pkg_callgraph, config, cut=null, type=null) {
 
 	}
 
+
+	// add rest of packages
+	for (node in pkg_callgraph.graph) {
+	    var node_cfg = nodes_cfg[node];
+	    config_x = node_cfg.x + OFFSET_X;
+	    config_y = node_cfg.y + OFFSET_Y;
+
+	    var pkg = doc.createElement('Package');
+	    pkg.setAttribute('name', node);
+	    var v = graph.insertVertex(parent, null, pkg, config_x, config_y, node_cfg.width, node_cfg.height);
+	    packages.set(node, v);
+
+	    if (cut != null && (cut.includes(pkg.attributes.name.value)) && type != null) {
+		if (type == 'reduction') {
+		    v.style = 'strokeColor=none;fillColor=#808080;opacity=15';
+		} else if (type == 'codeq') {
+		    // v.style = 'dashed=1;';
+		}
+	    }
+
+	}
 
 	var edges_cfg = config.edges;
 	// add edges
