@@ -30,7 +30,7 @@ body {
 }
 
 #proof_wrapper {
-    font-size: 0.9em;
+    font-size: 1vw;
     height: 95%;
     overflow: auto;
     background: white;
@@ -71,12 +71,12 @@ body {
 
 .proofstep-title {
     margin: 20 0 0 0;
-    font-size: 1.25em;
+    font-size: 1vw;
     border-bottom: 1px solid gray;
 }
 
 .proofstep-text {
-    font-size: 1em;
+    font-size: 0.8vw;
     padding: 20 0 10 0;
     margin: 0;
 }
@@ -89,7 +89,7 @@ body {
 
 #oracle_wrapper {
     padding: 10px;
-    font-size: 0.9em;
+    font-size: 0.8vw;
     height: 93%;
     border: 0.5px solid gray;
     overflow: auto;
@@ -116,7 +116,7 @@ body {
 }
 
 .package_def_title {
-    font-size: 18;
+    font-size: 1vw;
     border-bottom: 4px double #333;
     padding: 0;
     margin: 0;
@@ -147,7 +147,7 @@ body {
 
 .game-title {
     padding: 20 0 0 0;
-    font-size: 0.9em;
+    font-size: 0.9vw;
 }
 
 .border-highlight {
