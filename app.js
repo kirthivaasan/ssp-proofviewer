@@ -233,6 +233,7 @@ function draw_graph(container, pkg_callgraph, config, cut=null, type=null) {
 
 	    var v1 = packages.get(pkg_name);
 	    var edge_style = 'exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;';
+	    // console.log(e1);
 	    if (edges_cfg != null) {
 		edge_style = edges_cfg['@oracles_interface'][pkg_name];
 	    }
@@ -269,6 +270,7 @@ function draw_graph(container, pkg_callgraph, config, cut=null, type=null) {
 	pkg_def_div.scrollIntoView({ behavior: 'smooth'});
     }
 
+    return graph;
 }
 
 function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, graph_name=null, cut=null, type=null) {
@@ -609,9 +611,8 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 
 	    for (let callee_div of orc_calls) {
 		callee_div.onclick = function(val) {
-		    console.log(this.id);
 		    var toks = this.id.split('_');
-		    console.log(toks);
+		    // console.log(toks);
 
 		    var target_div_id = 'oracle-container-' + toks[2];
 		    var target_div = document.getElementById(target_div_id);
@@ -664,6 +665,7 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 
     function updateProofStep(graph) {
 	var cell = graph.getSelectionCell();
+
 	if (cell != null) {
 	    var target_proofstep_id = 'proofstep_' + cell.value;
 	    var proofstep_div = document.getElementById(target_proofstep_id);
@@ -683,4 +685,40 @@ function add_proof(proof, wnd_pos, wrapper_width) {
     }
 
 
+}
+
+const svgToPdfExample = (svg) => {
+  const doc = new window.PDFDocument();
+  const chunks = [];
+  const stream = doc.pipe({
+    // writable stream implementation
+    write: (chunk) => chunks.push(chunk),
+    end: () => {
+      const pdfBlob = new Blob(chunks, {
+        type: 'application/octet-stream'
+      });
+      var blobUrl = URL.createObjectURL(pdfBlob);
+      window.open(blobUrl);
+    },
+    // readable streaaam stub iplementation
+    on: (event, action) => {},
+    once: (...args) => {},
+    emit: (...args) => {},
+  });
+
+  window.SVGtoPDF(doc, svg, 0, 0);
+
+  doc.end();
+};
+
+function export_graphs_svg() {
+    console.log('export');
+    var all_proofstep_graphs = document.getElementsByClassName('proofstep_graphs');
+    for (let graphs of all_proofstep_graphs) {
+	var svgs = graphs.getElementsByTagName('svg');
+	for (let svg of svgs) {
+	    // console.log(svg);
+	    svgToPdfExample(svg);
+	}
+    }
 }

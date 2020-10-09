@@ -472,7 +472,12 @@ function driver() {
 	"modular_pkgs": modular_pkgs
     }
 
-    var wnd_pos = {height: 300, width: 300, x: 1600, y: 600}
+    var wnd_width = 300;
+    var wnd_height = 300;
+    var wnd_x = (window.innerWidth - wnd_width) - wnd_width/10;
+    var wnd_y = window.innerHeight - wnd_height;
+
+    var wnd_pos = {wnd_height: 300, width: wnd_width, x: wnd_x, y: wnd_y}
     var wrapper_width = {proof_width: '51%', oracle_width: '30%'}
     add_proof(proof, wnd_pos, wrapper_width);
 }
