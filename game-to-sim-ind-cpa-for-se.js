@@ -221,7 +221,7 @@ function driver() {
 	    },
 
 	    "layout":
-{"nodes":{"@oracles_interface":{"x":-10,"y":0,"width":20,"height":90},"Zeroer":{"x":50,"y":50,"width":70,"height":40},"Key":{"x":290,"y":0,"width":90,"height":40},"Enc^0":{"x":160,"y":50,"width":90,"height":40}},"edges":{"@oracles_interface":{"Zeroer":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Zeroer":{"Enc^0":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Enc^0":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryDx=0;entryDy=0;"}}}
+	    {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":90},"Zeroer":{"x":50,"y":50,"width":60,"height":40},"Key":{"x":250,"y":0,"width":90,"height":40},"Enc^0":{"x":150,"y":50,"width":60,"height":40}},"edges":{"@oracles_interface":{"Zeroer":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Zeroer":{"Enc^0":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Enc^0":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryDx=0;entryDy=0;"}}}
 	}
 
     };
@@ -288,7 +288,7 @@ function driver() {
 		    "text": "The games \\(\\mathsf{Gind\\text{-}cpa^1}\\) and \\(\\mathsf{Gind\\text{-}cpa\\text{-}Dropper\\text{-}EncZeroes}\\) are code equivalent."
 		},
 		{
-		    "graphs": [["Gind-cpa^1", "Gind-cpa-Dropper-Enc-Zeroes"]]
+		    "graphs": [["Gind-cpa^1"], ["Gind-cpa-Dropper-Enc-Zeroes"]]
 		}
 
 	    ],
@@ -329,7 +329,7 @@ function driver() {
 		    "text": "Code equivalence of \\(\\mathsf{Gind\\text{-}cpa\\text{-}Dropper\\text{-}Enc\\text{-}Zeroes}\\) and \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\)."
 		},
 		{
-		    "graphs": [["Gind-cpa-Dropper-Enc-Zeroes", "Gind-cpa-sim"]]
+		    "graphs": [["Gind-cpa-Dropper-Enc-Zeroes"], ["Gind-cpa-sim"]]
 		}
 	    ],
 	    "type":
@@ -369,7 +369,7 @@ function driver() {
 		    "text": "Code equivalence step. Note that \\(\\mathsf{Zeroer}\\) sends 0s instead of the original message, of the same length to \\(\\mathsf{Ideal}\\) via \\(\\mathsf{ENC}\\). \\(\\mathsf{Ideal}\\) then simply forwards the all 0s message to \\(\\mathsf{Sim*}\\) which encrypts all 0s of the same length - effectively doing the same thing as in \\(\\mathsf{Gind\\text{-}cpa\\text{-}sim*}\\)."
 		},
 		{
-		    "graphs": [["Gind-cpa-sim*", "Gind-cpa-Zeroer-Ideal-sim*"]]
+		    "graphs": [["Gind-cpa-Zeroer-Ideal-sim*"]]
 		}
 	    ],
 	    "type":
@@ -408,7 +408,7 @@ function driver() {
 		    "text": "We reduce to the assumption \\(\\mathsf{Gind\\text{-}cpa^{sim*}}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^0}\\) and argue that the following games are indistinguishable."
 		},
 		{
-		    "graphs": [["Gind-cpa-Zeroer-Ideal-sim*", "Gind-cpa-Zeroer-Ideal"]]
+		    "graphs": [["Gind-cpa-Zeroer-Ideal-sim*"], ["Gind-cpa-Zeroer-Ideal"]]
 		}
 	    ],
 	    "type":
@@ -416,7 +416,7 @@ function driver() {
 		"reduction":
 		{
 		    "graph": "Gind-cpa-Zeroer-Ideal-sim*",
-		    "cut": ["Sim*", "Ideal"]
+		    "cut": ["Zeroer"]
 		}
 	    }
 
@@ -427,10 +427,10 @@ function driver() {
 	    "parent": "LemDir2",
 	    "contents": [
 		{
-		    "text": "But then \\(\\mathsf{Gind\\text{-}cpa\\text{-}Zeroer\\text{-}Ideal}\\) is code equivalent to \\(\\mathsf{Gind\\text{-}cpa^1}\\). &#8718;"
+		    "text": "But then \\(\\mathsf{Gind\\text{-}cpa\\text{-}Zeroer\\text{-}Ideal}\\) is code equivalent to \\(\\mathsf{Gind\\text{-}cpa^1}\\)."
 		},
 		{
-		    "graphs": [["Gind-cpa-Zeroer-Ideal", "Gind-cpa^1"]]
+		    "graphs": [["Gind-cpa-Zeroer-Ideal"], ["Gind-cpa^1"]]
 		}
 
 	    ],
@@ -480,6 +480,8 @@ function driver() {
     var wnd_pos = {wnd_height: 300, width: wnd_width, x: wnd_x, y: wnd_y}
     var wrapper_width = {proof_width: '51%', oracle_width: '30%'}
     add_proof(proof, wnd_pos, wrapper_width);
+
+    return proof;
 }
 
-driver();
+var game_to_sim_notion_se_proof = driver();

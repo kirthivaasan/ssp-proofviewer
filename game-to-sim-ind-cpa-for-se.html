@@ -58,6 +58,34 @@
 		  title.style.display = 'none';
 	      }
 
+	      var proofstep_titles = document.getElementsByClassName('proofstep-title');
+	      for (let title of proofstep_titles) {
+		  var step_title_str = title.innerHTML;
+		  var prooftree = game_to_sim_notion_se_proof.prooftree;
+		  if (step_title_str in prooftree) {
+		      var proofstep = prooftree[step_title_str];
+		      if ("type" in proofstep) {
+			  var type = proofstep.type;
+			  if ('reduction' in type) {
+			      title.style.display = 'none';
+			      var div = document.createElement('div');
+			      div.innerHTML = 'reduction\n≅';
+			      div.setAttribute('class', 'reduction');
+			      title.parentNode.appendChild(div);
+
+      			  } else if ('codeq' in type) {
+			      title.style.display = 'none';
+			      var div = document.createElement('div');
+			      div.innerHTML = 'codeq\n≡';
+			      div.setAttribute('class', 'codeq');
+			      title.parentNode.appendChild(div);
+
+			  }
+		      }
+		  }
+	      }
+
+
 	  } else if (e.key === 's') {
 	      var proofstep_texts = document.getElementsByClassName('proofstep-text');
 	      for (let text of proofstep_texts) {
@@ -69,9 +97,31 @@
 		  title.style.display = 'block';
 	      }
 
+	      var proofstep_titles = document.getElementsByClassName('proofstep-title');
+	      for (let title of proofstep_titles) {
+		  var step_title_str = title.innerHTML;
+		  var prooftree = game_to_sim_notion_se_proof.prooftree;
+		  if (step_title_str in prooftree) {
+		      var proofstep = prooftree[step_title_str];
+		      if ("type" in proofstep) {
+			  var type = proofstep.type;
+			  if ('reduction' in type) {
+			      title.style.display = 'block';
+			      var red = title.parentNode.getElementsByClassName('reduction');
+			      red[0].remove();
+      			  } else if ('codeq' in type) {
+			      title.style.display = 'block';
+			      var codeq = title.parentNode.getElementsByClassName('codeq');
+			      codeq[0].remove();
+			  }
+		      }
+		  }
+	      }
+
+
 	  }
       }
     </script>
-
+    <script>convert_pkg_names_latex();</script>
   </body>
 </html>
