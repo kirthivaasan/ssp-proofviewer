@@ -747,3 +747,153 @@ function find_mono_pkg_dependencies(all_modular_pkgs, mono_pkg_name) {
     }
     return -1; // todo should throw error
 }
+
+class UnbalancedParensError extends Error {
+    constructor(message) {
+	super(message);
+	this.name = "UnbalancedParensError";
+    }
+}
+
+class InvalidSubscriptError extends Error {
+    constructor(message) {
+	super(message);
+	this.name = "InvalidSubscriptError";
+    }
+}
+
+function findMatchingParen(str, idx) {
+    // str[idx] must be {
+    var counter = 1;
+    for (var i = idx+1; i < str.length; i++) {
+	if (str[i] == '{') {
+	    counter += 1;
+	} else if (str[i] == '}') {
+	    counter -= 1;
+	}
+
+	if (counter == 0) {
+	    return i;
+	}
+    }
+    return -1;
+
+}
+
+// parses latex names with sup/subscript in latex syntax to svg text
+function supsub_compiler_html(name) {
+    if (name == "") return "";
+    var result = "";
+    var idx = 0;
+    while (idx < name.length) {
+	var c = name[idx];
+	if (c == '_' || c == '^') {
+	    idx += 1;
+
+	    if (idx >= name.length) {
+		throw new InvalidSubscriptError("Subscript missing after underscore _");
+	    }
+
+	    var script_tag = 'sup';
+	    if (c == '_') {
+		script_tag = 'sub';
+	    }
+
+	    var lookeahead = name[idx];
+
+	    if (lookeahead == '{') {
+		var rbrace_pos = findMatchingParen(name, idx);
+
+		if (rbrace_pos < 0) {
+		    throw new UnbalancedParensError("Couldn't find matching parenthesis in name.");
+		} else {
+		    idx += 1;
+
+		    var l = rbrace_pos - idx;
+		    var rest = name.substr(idx, l);
+		    rest = supsub_compiler_svg(rest);
+
+		    result += "<" + script_tag + ">" + rest + "</" + script_tag + ">";
+		    idx += l + 1;
+		}
+	    } else {
+		result += "<" + script_tag + ">" + name[idx] + "</" + script_tag + ">";
+		idx += 1;
+	    }
+
+	} else {
+	    result += c;
+	    idx += 1;
+	}
+
+    }
+
+    return result;
+}
+
+var COMPILER_FONT_SIZE = 0.85;
+var COMPILER_OFFSET = 4.5;
+
+function supsub_compiler_svg(name) {
+    if (name == "") return "";
+    var result = "";
+    var idx = 0;
+    while (idx < name.length) {
+	var c = name[idx];
+	if (c == '_' || c == '^') {
+	    idx += 1;
+
+	    if (idx >= name.length) {
+		throw new InvalidSubscriptError("Subscript missing after underscore _");
+	    }
+
+	    var offset = COMPILER_OFFSET;
+	    if (c == '^') {
+		offset = -offset;
+	    }
+	    var script_tag = "<tspan dy=\"" + offset + "\" font-size=\"" + COMPILER_FONT_SIZE + "em\">";
+	    var lookeahead = name[idx];
+
+	    if (lookeahead == '{') {
+		var rbrace_pos = findMatchingParen(name, idx);
+
+		if (rbrace_pos < 0) {
+		    throw new UnbalancedParensError("Couldn't find matching parenthesis in name.");
+		} else {
+		    idx += 1;
+
+		    var l = rbrace_pos - idx;
+		    var rest = name.substr(idx, l);
+		    rest = supsub_compiler_svg(rest);
+
+		    result += script_tag + rest + "</tspan>";
+		    idx += l + 1;
+
+		}
+	    } else {
+		result += script_tag + name[idx] + "</tspan";
+		idx += 1;
+	    }
+
+	} else {
+	    result += c;
+	    idx += 1;
+	}
+
+    }
+
+    return result;
+}
+
+function supsub_compiler_test() {
+    try {
+	var res = supsub_compiler_svg("SIM^{denc_{f}}_{hello}");
+	console.log(res);
+
+	res = supsub_compiler_html("SIM^0_{1_{hello}}");
+	console.log(res);
+
+    } catch (e) {
+	console.log(e);
+    }
+}

@@ -31,7 +31,7 @@ function isElementInViewport (el) {
 
     return (
         rect.top >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
     );
 
     // return (
@@ -55,17 +55,20 @@ function draw_graph(container, pkg_callgraph, config, cut=null, type=null) {
     graph.setResizeContainer(true);
     graph.cellsMovable = false;
     graph.cellsEditable = false;
+    graph.allowLoops = true;
 
     graph.isCellSelectable = function(cell) { // make edges not selectable
-	if (cell.value == '@dashed_rect') {
-	    return false;
-	}
-	return !cell.isEdge();
+    	if (cell.value == '@dashed_rect') {
+    	    return false;
+    	}
+    	return !cell.isEdge();
     };
 
     // graph.setCellsResizable(true);
     // graph.setResizeContainer(false);
     // graph.cellsMovable = true;
+
+    new mxParallelEdgeLayout(graph).execute(graph.getDefaultParent()); // allow multiple edges
 
     this.graph = graph;
 
@@ -201,6 +204,7 @@ function draw_graph(container, pkg_callgraph, config, cut=null, type=null) {
 		var pkg_name = nb[0];
 		var oracle_name = nb[1];
 		var v1 = packages.get(pkg_name);
+
 		var e1 = doc.createElement("Oracle");
 	    	e1.setAttribute('oracle_name', oracle_name);
 
@@ -306,6 +310,7 @@ function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, 
 		}
 
 		var table_cell = table.rows[i].cells[j];
+
 		if (pkg_name == graph_name) {
 		    draw_graph(table_cell, cg, config, cut, type);
 		} else {
@@ -316,7 +321,8 @@ function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, 
 		game_title.setAttribute('class', 'game-title');
 		game_title.innerHTML = parse_pkg_name(pkg_name);
 
-		table.rows[i].cells[j].appendChild(game_title);
+		table_cell.setAttribute('id', pkg_name);
+		table_cell.appendChild(game_title);
 
 	    } else {
 		console.log('Couldn\'t find pkg name: ' + pkg_name);
@@ -687,38 +693,108 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 
 }
 
-const svgToPdfExample = (svg) => {
-  const doc = new window.PDFDocument();
-  const chunks = [];
-  const stream = doc.pipe({
-    // writable stream implementation
-    write: (chunk) => chunks.push(chunk),
-    end: () => {
-      const pdfBlob = new Blob(chunks, {
-        type: 'application/octet-stream'
-      });
-      var blobUrl = URL.createObjectURL(pdfBlob);
-      window.open(blobUrl);
-    },
-    // readable streaaam stub iplementation
-    on: (event, action) => {},
-    once: (...args) => {},
-    emit: (...args) => {},
-  });
+const svgToPdfExample = (svg, filename) => {
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    a.style = "display: none";
 
-  window.SVGtoPDF(doc, svg, 0, 0);
+    const doc = new window.PDFDocument();
+    const chunks = [];
+    const stream = doc.pipe({
+	// writable stream implementation
+	write: (chunk) => chunks.push(chunk),
+	end: () => {
+	    const pdfBlob = new Blob(chunks, {
+		type: 'application/octet-stream'
+	    });
+	    var blobUrl = URL.createObjectURL(pdfBlob, );
+	    // window.open(blobUrl);
+	    a.href = blobUrl;
+            a.download = filename;
+            a.click();
+	},
+	// readable streaaam stub iplementation
+	on: (event, action) => {},
+	once: (...args) => {},
+	emit: (...args) => {},
+    });
 
-  doc.end();
+    window.SVGtoPDF(doc, svg, 0, 0);
+
+    doc.end();
+};
+
+const exportLatex = (svgs_data, filename) => {
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    a.style = "display: none";
+
+    var latex = "\\documentclass{article}\n\\usepackage{graphicx}\n\\begin{document}\n\n";
+
+    var resolution = window.devicePixelRatio;
+
+
+    for (svg_name in svgs_data) {
+	var caption = "caption";
+	var label = svg_name;
+	var fig = svg_name;
+
+	var pdf_filename = svg_name + ".pdf";
+	var scale = 1;
+
+	var height = svgs_data[svg_name].height;
+	var width = svgs_data[svg_name].width;
+	// trim=left bottom right top
+
+	var figure_tex = `\\begin{figure}[hbt!]\n\\centering\n\\pdfpxdimen=\\dimexpr ${resolution} in/96\\relax\n\\includegraphics[trim=0px 23cm 0cm 0px,clip,scale=${scale}]{${pdf_filename}}\n\\caption{${caption}}\n\\label{fig:${fig}}\n\\end{figure}\n\n`;
+
+	latex += figure_tex;
+    }
+    latex += "\n\\end{document}";
+
+    var data = new Blob([latex], {type: 'text/plain'});
+    var url = window.URL.createObjectURL(data);
+    a.href = url;
+    a.download = filename;
+    a.click();
+
+    return url;
+
 };
 
 function export_graphs_svg() {
     console.log('export');
+    var svg_dimensions = {}; // <svg_name> : <dim>
     var all_proofstep_graphs = document.getElementsByClassName('proofstep_graphs');
     for (let graphs of all_proofstep_graphs) {
 	var svgs = graphs.getElementsByTagName('svg');
 	for (let svg of svgs) {
-	    // console.log(svg);
-	    svgToPdfExample(svg);
+	    var container = svg.parentNode;
+	    var title = container.id;
+
+	    svgToPdfExample(svg, title + ".pdf");
+
+	    var height = svg.clientHeight;
+	    var width = svg.clientWidth;
+	    svg_dimensions[title] = {"height": height, "width": width};
+	}
+    }
+
+    console.log(svg_dimensions);
+    exportLatex(svg_dimensions, "export.tex");
+
+}
+
+function convert_pkg_names_latex() {
+    var all_proofstep_graphs = document.getElementsByClassName('proofstep_graphs');
+    for (let graphs of all_proofstep_graphs) {
+	var svgs = graphs.getElementsByTagName('svg');
+	for (let svg of svgs) {
+	    var text_elems = svg.getElementsByTagName('text');
+	    for (let elem of text_elems) {
+		var res = supsub_compiler_svg(elem.innerHTML);
+		elem.innerHTML = res;
+	    }
 	}
     }
 }
