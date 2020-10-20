@@ -6,6 +6,17 @@
 
     <link rel="stylesheet" href="styles.css" type="text/css" charset="utf-8" />
 
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      MathJax = {
+	  options: {
+	      renderActions: {
+		  addMenu: []
+	      }
+	  }
+      };
+    </script>
 
     <script type="text/javascript">
       mxBasePath = 'mxgraph/src';
@@ -18,28 +29,15 @@
     <div id="navbar">
       <ul>
 	<li><a class="active" href="index.html">Home</a></li>
-	<li><a href="">Tutorial</a></li>
+	<li><a href="definitions.html">Definitions</a></li>
 	<li><a href="proofs_index.html">Proofs</a></li>
       </ul>
     </div>
 
     <div id="proof_title"></div>
 
-    <div id="proof_wrapper">
-    </div>
-
-    <div id="oracle_wrapper">
-      <table style="">
-	<tr>
-	  <td>
- 	    <div id="oracle_container">
-
-	    </div>
-	  </td>
-	</tr>
-      </table>
-    </div>
-
+    <div id="proof_wrapper"></div>
+    <div id="oracle_wrapper"></div>
 
     <script src="ssp.js"></script>
     <script src="mxgraphtree.js"></script>
