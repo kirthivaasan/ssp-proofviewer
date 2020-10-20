@@ -860,6 +860,7 @@ function supsub_compiler_svg(name) {
 		if (rbrace_pos < 0) {
 		    throw new UnbalancedParensError("Couldn't find matching parenthesis in name.");
 		} else {
+		    // result += "</tspan>";
 		    idx += 1;
 
 		    var l = rbrace_pos - idx;
@@ -869,9 +870,13 @@ function supsub_compiler_svg(name) {
 		    result += script_tag + rest + "</tspan>";
 		    idx += l + 1;
 
+		    result += "<tspan dy=\"" + -1*offset + "\" font-size=\"" + COMPILER_FONT_SIZE + "em\"> </tspan>";
+
 		}
 	    } else {
+		// result += "</tspan>";
 		result += script_tag + name[idx] + "</tspan";
+		result += "<tspan dy=\"" + -1*offset + "\" font-size=\"" + COMPILER_FONT_SIZE + "em\"></tspan>";
 		idx += 1;
 	    }
 

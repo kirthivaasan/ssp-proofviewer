@@ -43,6 +43,30 @@ function isElementInViewport (el) {
 
 }
 
+// concatenates oracle calls that point to the same destination node
+function reduce_same_dest(neighbours) {
+    var nbs_map = new Map(neighbours.map(nb => [nb[0], ""]));
+
+    if (nbs_map.size == neighbours.length) {
+	return neighbours;
+    } else {
+	for (let nb of neighbours) {
+	    var pkg = nb[0];
+	    var orc = nb[1];
+
+	    var current_entry = nbs_map.get(pkg);
+	    if (current_entry == "") {
+		nbs_map.set(pkg, orc);
+	    } else {
+		nbs_map.set(pkg, current_entry + ' , ' + orc);
+	    }
+
+	}
+	return Array.from(nbs_map);
+    }
+}
+
+
 // app drawing
 function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=null) {
     if (!mxClient.isBrowserSupported()) {
@@ -198,6 +222,8 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 	// add edges
 	for (node in pkg_callgraph.graph) {
 	    var neighbours = pkg_callgraph.graph[node];
+	    neighbours = reduce_same_dest(neighbours);
+
 	    var src_node = packages.get(node);
 
 	    for (let nb of neighbours) {
@@ -228,8 +254,9 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 
 	// add adversary edges
 	var src_node = packages.get('@oracles_interface');
-	for (var i = 0; i < pkg_callgraph.oracles.length; i++) {
-	    var el = pkg_callgraph.oracles[i];
+	var adversary_calls = reduce_same_dest(pkg_callgraph.oracles);
+	for (var i = 0; i < adversary_calls.length; i++) {
+	    var el = adversary_calls[i];
 	    var pkg_name = el[0];
 	    var oracle_name = el[1];
 	    var e1 = doc.createElement("Oracle");
