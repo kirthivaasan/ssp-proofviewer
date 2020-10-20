@@ -44,7 +44,7 @@ function isElementInViewport (el) {
 }
 
 // app drawing
-function draw_graph(container, pkg_callgraph, config, cut=null, type=null) {
+function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=null) {
     if (!mxClient.isBrowserSupported()) {
 	return -1;
     }
@@ -263,6 +263,11 @@ function draw_graph(container, pkg_callgraph, config, cut=null, type=null) {
 	    return -1;
 	}
 
+	if ("instance" in mono_pkgs[pkg_name]) {
+	    // redirect to definition pkg that this instance derives from
+	    pkg_name = mono_pkgs[pkg_name].instance;
+	}
+
 	var pkg_def_div = document.getElementById('package_def_container_'+pkg_name);
 
 	pkg_def_div.setAttribute('class', 'package_def_container highlight');
@@ -312,9 +317,9 @@ function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, 
 		var table_cell = table.rows[i].cells[j];
 
 		if (pkg_name == graph_name) {
-		    draw_graph(table_cell, cg, config, cut, type);
+		    draw_graph(table_cell, cg, mono_pkgs, config, cut, type);
 		} else {
-		    draw_graph(table_cell, cg, config);
+		    draw_graph(table_cell, cg, mono_pkgs, config);
 		}
 
 		var game_title = document.createElement('div');
@@ -586,7 +591,12 @@ function add_proof(proof, wnd_pos, wrapper_width) {
     var mono_pkgs = proof.monolithic_pkgs;
 
     for (pkg_name in mono_pkgs) {
-	var oracles = mono_pkgs[pkg_name].oracles;
+	var pkg = mono_pkgs[pkg_name];
+	if ("instance" in pkg) {
+	    continue;
+	}
+
+	var oracles = pkg.oracles;
 	var package_def_container = document.createElement('div');
 	package_def_container.setAttribute('class', 'package_def_container');
 	package_def_container.setAttribute('id', 'package_def_container_'+pkg_name);
@@ -796,5 +806,7 @@ function convert_pkg_names_latex() {
 		elem.innerHTML = res;
 	    }
 	}
+
+
     }
 }
