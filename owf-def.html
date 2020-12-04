@@ -1,0 +1,162 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="opensans_regular_macroman/stylesheet.css" type="text/css" charset="utf-8" />
+
+    <link rel="stylesheet" href="styles.css" type="text/css" charset="utf-8" />
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      MathJax = {
+	  options: {
+	      renderActions: {
+		  addMenu: []
+	      }
+	  }
+      };
+    </script>
+
+    <script type="text/javascript">
+      mxBasePath = 'mxgraph/src';
+    </script>
+    <script src="mxgraph/mxClient.min.js"></script>
+
+  </head>
+
+  <body>
+    <div id="navbar">
+      <ul>
+	<li><a class="active" href="index.html">Home</a></li>
+	<li><a href="definitions.html">Definitions</a></li>
+	<li><a href="proofs_index.html">Proofs</a></li>
+      </ul>
+    </div>
+
+    <div id="proof_title"></div>
+
+    <div id="proof_wrapper">
+    </div>
+
+    <div id="oracle_wrapper">
+    </div>
+
+
+    <script src="ssp.js"></script>
+    <script src="mxgraphtree.js"></script>
+    <script src="app.js"></script>
+
+    <script>
+
+
+    var proof = {
+	"name": "OWF definition",
+	"monolithic_pkgs":
+	{
+	    "Owf^0_f":
+	    {
+		"oracles":
+		{
+		    "SAMPLE":
+		    {
+			"code": "@assert y = @bot; x @sample \\{0, 1\\}^\\lambda; y @gets f(x); @return y",
+			"params": []
+		    },
+
+		    "CHECK":
+		    {
+			"code": "@if |x| @neq \\lambda @then; @> @return 0; y' @gets f(x); @if y = y' @then; @> @return 1; @else; @> @return 0",
+			"params": ["x"]
+		    }
+
+		}
+	    },
+
+	    "Owf^1_f":
+	    {
+		"oracles":
+		{
+		    "SAMPLE":
+		    {
+			"code": "@assert y = @bot; x @sample \\{0, 1\\}^\\lambda; y @gets f(x); @return y",
+			"params": []
+		    },
+
+		    "CHECK":
+		    {
+			"code": "@return 0",
+			"params": ["x"]
+		    }
+
+		}
+	    },
+
+
+
+	},
+
+	"modular_pkgs":
+	{
+	    "Gowf^0_f":
+	    {
+		"oracles": [["Owf^0_f", "SAMPLE"], ["Owf^0_f", "CHECK"]],
+		"graph":
+		{
+		    "Owf^0_f": []
+		},
+
+		"layout":
+		{
+		    "nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":40},"Owf^0_f":{"x":70,"y":0,"width":90,"height":40}},"edges":{"@oracles_interface":{"Owf^0_f":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}}
+		}
+
+	    },
+
+	    "Gowf^1_f":
+	    {
+		"oracles": [["Owf^1_f", "SAMPLE"], ["Owf^1_f", "CHECK"]],
+		"graph":
+		{
+		    "Owf^1_f": []
+		},
+
+		"layout":
+		{
+		    "nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":40},"Owf^1_f":{"x":70,"y":0,"width":90,"height":40}},"edges":{"@oracles_interface":{"Owf^1_f":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}}
+		}
+	    }
+
+
+	},
+
+	"prooftree":
+	{
+	    "Def" :
+	    {
+		"parent": null,
+		"contents": [
+		    {
+			"text": ""
+		    },
+		    {
+			"graphs": [["Gowf^0_f", "Gowf^1_f"]]
+		    }
+
+		]
+
+	    }
+
+	}
+
+    }
+
+    var wnd_pos = {height: 300, width: 300, x: 1600, y: 600}
+    var wrapper_width = {proof_width: '51%', oracle_width: '30%'}
+    add_proof(proof, wnd_pos, wrapper_width);
+
+
+    </script>
+
+  </body>
+</html>

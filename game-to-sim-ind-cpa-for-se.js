@@ -9,7 +9,13 @@ function driver() {
 		"ENC":
 		{
 		    "code": "k @gets GET(); c @sample enc_k(m); @return c",
-		    "params": ["m"]
+		    "params": ["m"],
+		    "annotation":
+		    {
+			"1": "Line 1 annot",
+			"2": "Line 2 annot"
+		    }
+
 		}
 	    }
 	},
@@ -310,10 +316,43 @@ function driver() {
 
 			"Dropper.ENC" :
 			{
-			    "code": "c @gets ENC(|m|); ;@return c;",
+			    "code": "c @gets ENC(|m|); ;@return c",
 			    "params": ["m"]
 			}
 		    },
+
+		    "annotations":
+		    [
+			{
+			    "cells":
+			    {
+				"Enc^1.ENC": [0,1],
+				"Dropper.ENC": [2]
+			    },
+
+			    "comment": "This is equivalent to the right column, by substituting the call to ENC with its definition. Some more text, just to see how far it goes."
+			},
+
+			{
+			    "cells":
+			    {
+				"Enc^1.ENC": [1],
+				"Enc\\text{-}Zeroes.ENC \\circ Dropper.ENC": [1]
+			    },
+
+			    "comment": "second annotation test lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum"
+			},
+
+			{
+			    "cells":
+			    {
+				"Enc^1.ENC": [2],
+				"Enc\\text{-}Zeroes.ENC \\circ Dropper.ENC": [2]
+			    },
+
+			    "comment": "THIRD annotation test lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum"
+			}
+		    ],
 		    "graph": "Gind-cpa-Dropper-Enc-Zeroes",
 		    "packages": ["Dropper", "Enc-Zeroes"]
 
@@ -378,13 +417,13 @@ function driver() {
 		    "oracles": {
 			"Ideal.ENC" :
 			{
-			    "code": "c @gets ENC(|m|);@return c;",
+			    "code": "c @gets ENC(|m|);@return c",
 			    "params": ["m"]
 			},
 
 			"Zeroer \\circ Ideal" :
 			{
-			    "code": "c @gets ENC(|m|);@return c;",
+			    "code": "c @gets ENC(|m|);@return c",
 			    "params": ["m"]
 			},
 
