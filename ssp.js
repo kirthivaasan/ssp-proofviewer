@@ -633,7 +633,6 @@ var PCODE_TEXT = {
     "@then" : "<div class=\"pcode_bold\">then</div>",
     "@else" : "<div class=\"pcode_bold\">else</div>",
     "@for" : "<div class=\"pcode_bold\">for</div>",
-    "@do" : "<div class=\"pcode_bold\">do</div>",
     "@return" : "<div class=\"pcode_bold\">return</div>"
 };
 
@@ -642,28 +641,18 @@ function parse_pkg_name(pkg_name) {
     return "\\(\\mathsf{" + pkg_name + "}\\)";
 }
 
-function is_oracle_call(str, deps) {
+function is_oracle_call(str) {
     var lp_pos = str.indexOf('(');
     if (lp_pos < 0) {
 	return false;
     }
     str = str.substr(0, lp_pos);
-
-    if (deps == -1 || deps == undefined) {
-	return false;
-    } else {
-
-	for (let dep of deps) {
-	    if (dep[1] == str) return true;
-	}
-    }
-
-    return false;
+    return str === str.toUpperCase();
 }
 
 function parse_oracle_call(str) {
     var lp_pos = str.indexOf('(');
-    var orc = str.substr(0, lp_pos); // mysterious bug (no var makes orc global!)
+    orc = str.substr(0, lp_pos);
     return "\\(\\mathsf{" + orc + "}" + str.substr(lp_pos) + '\\)';
 }
 
@@ -672,18 +661,12 @@ function parse_oracle_signature(name, params) {
     return '\\(' + oracle_name + '(' + params.join(',') + ')' + '\\)';
 }
 
-function parse_pseudocode(src_pkg, orc, pkg_dependencies, code, mono_pkgs) {
+function parse_pseudocode(src_pkg, orc, pkg_dependencies, code) {
     if (code == "") {return "";}
-
-    console.log(src_pkg);
-    if(src_pkg == "MODGB") {
-	// console.log(pkg_dependencies);
-    }
 
     var html = "";
     var lines = code.split(';');
     for (let line of lines) {
-	html += "<div class=\"pcode-oracle-line\">";
 	var tokens = line.split(' ');
 	for (let tok of tokens) {
 	    if (tok in PCODE_TEXT) {
@@ -694,7 +677,7 @@ function parse_pseudocode(src_pkg, orc, pkg_dependencies, code, mono_pkgs) {
 		var html_frag = PCODE_SYMBOLS[tok];
 		html += html_frag;
 
-	    } else if (is_oracle_call(tok, pkg_dependencies)) { // assuming all uppercase strings are oracles
+	    } else if (is_oracle_call(tok)) { // assuming all uppercase strings are oracles
 		var oracle_call_html = parse_oracle_call(tok);
 		var orc_call_name = tok.substr(0, tok.indexOf('('));
 
@@ -703,16 +686,10 @@ function parse_pseudocode(src_pkg, orc, pkg_dependencies, code, mono_pkgs) {
 		for (let dep of pkg_dependencies) {
 		    if (dep[1] == orc_call_name) {
 			pkg_name = dep[0];
-			if (pkg_name in mono_pkgs) {
-			    pkg_def = mono_pkgs[pkg_name];
-			    if ("instance" in pkg_def) {
-				pkg_name = pkg_def["instance"];
-			    }
-			}
 		    }
 		}
 
-		var pcode_oracle_id = "pcode-oracle-call?" + src_pkg + "." + orc + "?" + pkg_name + "." + orc_call_name;
+		var pcode_oracle_id = "pcode-oracle-call_" + src_pkg + "." + orc + "_" + pkg_name + "." + orc_call_name;
 		html += '<div id="' + pcode_oracle_id + '" class="pcode-oracle-call">' + oracle_call_html + '</div>';
 
 	    } else {
@@ -720,34 +697,9 @@ function parse_pseudocode(src_pkg, orc, pkg_dependencies, code, mono_pkgs) {
 	    }
 	    html += " ";
 	}
-	// html += "<br>";
-	html += "</div>";
-
+	html += "<br>";
     }
 
-    return html;
-}
-
-function parse_pseudocode_line(line) {
-    var html = "<div class=\"pcode-oracle-line\">"
-    line = line.trim();
-
-    var tokens = line.split(' ');
-    for (let tok of tokens) {
-	if (tok in PCODE_TEXT) {
-	    tok = tok.substr(1);
-	    html += "\\(\\textbf\{" + tok + "\}\\)";
-	} else if (tok in PCODE_SYMBOLS) {
-	    var html_frag = PCODE_SYMBOLS[tok];
-	    html += html_frag;
-	} else if (is_oracle_call(tok)) { // assuming all uppercase strings are oracles
-	    html += parse_oracle_call(tok);
-	} else {
-	    html += "\\(" + tok + "\\)";
-	}
-	html += " ";
-    }
-    html += "</div>";
     return html;
 }
 
@@ -756,10 +708,7 @@ function parse_pseudocode_without_links(code) {
 
     var html = "";
     var lines = code.split(';');
-
-    var i = 0;
     for (let line of lines) {
-	html += "<div class=\"pcode-oracle-line\">"
 	var tokens = line.split(' ');
 	for (let tok of tokens) {
 	    if (tok in PCODE_TEXT) {
@@ -776,8 +725,7 @@ function parse_pseudocode_without_links(code) {
 	    }
 	    html += " ";
 	}
-	html += "</div>";
-	i++;
+	html += "<br>";
     }
 
     return html;

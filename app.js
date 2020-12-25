@@ -8,7 +8,7 @@ class InvalidCut extends Error {
 
 
 // utils
-function buildTable(nrows, ncols) {
+function buildTable(table_id, nrows, ncols) {
     var newTable = document.createElement("table");
     for (var i = 0; i < nrows; i++) {
 	var row = newTable.insertRow();
@@ -290,25 +290,20 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 	    return -1;
 	}
 
-	if (pkg_name in mono_pkgs) {
-	    if ("instance" in mono_pkgs[pkg_name]) {
-		// redirect to definition pkg that this instance derives from
-		pkg_name = mono_pkgs[pkg_name].instance;
-	    }
-
-	    var pkg_def_div = document.getElementById('package_def_container_'+pkg_name);
-
-	    pkg_def_div.setAttribute('class', 'package_def_container highlight');
-	    setTimeout(function () {
-		pkg_def_div.className = "package_def_container";
-		graph.selectionModel.setCells([]);
-	    }, 2000);
-
-	    pkg_def_div.scrollIntoView({ behavior: 'smooth'});
-	} else {
-	    // console.log(pkg_name + " was not found in mono_pkgs")
+	if ("instance" in mono_pkgs[pkg_name]) {
+	    // redirect to definition pkg that this instance derives from
+	    pkg_name = mono_pkgs[pkg_name].instance;
 	}
 
+	var pkg_def_div = document.getElementById('package_def_container_'+pkg_name);
+
+	pkg_def_div.setAttribute('class', 'package_def_container highlight');
+	setTimeout(function () {
+	    pkg_def_div.className = "package_def_container";
+	    graph.selectionModel.setCells([]);
+	}, 2000);
+
+	pkg_def_div.scrollIntoView({ behavior: 'smooth'});
     }
 
     return graph;
@@ -321,7 +316,7 @@ function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, 
 
     var nrows = graphs.length;
     var ncols = graphs.reduce((acc, e) => e.length > acc? e.length : acc, 0);
-    var table = buildTable(nrows, ncols);
+    var table = buildTable('proofstep_' + step + '_table', nrows, ncols);
 
     var proofstep_graphs = document.createElement('div');
     proofstep_graphs.setAttribute('class', 'proofstep_graphs');
@@ -371,123 +366,7 @@ function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, 
 
 }
 
-function add_inlining_oracles(proofstep_container, codeq) {
-    var oracles = codeq.oracles;
-    var ncols = 0;
-    var nrows = 0;
-
-    var header_val = [];
-    for (orc in oracles) {
-	var code = oracles[orc].code;
-	var n = code.split(';').length;
-	if (n > nrows) {
-	    nrows = n;
-	}
-	ncols += 1;
-	header_val.push(orc);
-    }
-
-    var table = buildTable(nrows, ncols);
-    table.setAttribute('class', 'inlining-table');
-
-    var j = 0;
-    var orc_to_id = {};
-
-    // add parsed lines
-    for (orc in oracles) {
-	var code = oracles[orc].code;
-	var lines = code.split(';');
-	for (var i = 0; i < lines.length; i++) {
-	    var table_cell = table.rows[i].cells[j];
- 	    var line_html = parse_pseudocode_line(lines[i]);
-	    table_cell.innerHTML = line_html;
-	}
-	orc_to_id[orc] = j;
-	j++;
-    }
-
-    // add parsed header
-    if (header_val != null && header_val.length == ncols) {
-	var header = table.createTHead();
-	var row = header.insertRow(0);
-	for (var j = 0; j < ncols; j++) {
-	    var cell = row.insertCell(j);
-	    var params = []; // default
-	    var orc_sig = parse_oracle_signature(header_val[j], params);
-
-	    var orc_sig_div = document.createElement('div');
-	    orc_sig_div.innerHTML = orc_sig;
-	    orc_sig_div.setAttribute('class', 'oracle-title');
-	    cell.appendChild(orc_sig_div);
-
-	    // cell.innerHTML = orc_sig;
-	    // cell.setAttribute('class', 'oracle-title');
-	}
-
-    }
-
-    if (! ("annotations" in codeq)) {
-	return table;
-    }
-
-    // add annotations
-    var annotations = codeq.annotations;
-    for (var ai = 0; ai < annotations.length; ai++) {
-	var annot = annotations[ai];
-
-	// var random_color = gen_random_color();
-	var random_color = '#bcbcbc';
-
-	for (orc in annot.cells) {
-	    if (! (orc in orc_to_id)) {
-		throw 2;
-	    }
-	    var j = orc_to_id[orc];
-	    var line_numbers = annot.cells[orc];
-
-	    for (var i = 0; i < line_numbers.length; i++) {
-		var l = line_numbers[i];
-
-		if (l >= nrows) {
-		    throw 1;
-		}
-
-		var cell = table.rows[l+1].cells[j];
-
-		cell.style = "background-color: " + random_color;
-		// cell.setAttribute('class', 'pcode-annotated-line');
-		var tooltip = document.createElement('div');
-		tooltip.setAttribute('class', 'tooltip');
-
-		var tooltiptext = document.createElement('div');
-		tooltiptext.setAttribute('class', 'tooltiptext');
-		tooltiptext.innerHTML = annot.comment;
-
-		tooltip.appendChild(tooltiptext);
-		cell.appendChild(tooltip);
-
-		cell.addEventListener('mouseover', function(elem, comment) {
-		    var tooltiptext_wrapper = document.getElementById('tooltiptext_wrapper');
-		    tooltiptext_wrapper.innerHTML = comment;
-		    tooltiptext_wrapper.style.visibility = "visible";
-		    tooltiptext_wrapper.style.opacity = 1;
-		}.bind(cell, cell, annot.comment));
-
-		cell.addEventListener('mouseout', function(elem) {
-		    var tooltiptext_wrapper = document.getElementById('tooltiptext_wrapper');
-		    tooltiptext_wrapper.style.visibility = "hidden";
-		    tooltiptext_wrapper.style.opacity = 0;
-		}.bind(cell, cell));
-
-
-	    }
-	}
-    }
-
-    return table;
-}
-
-function add_inlining_steps(proofstep_container, codeq) {
+function add_inlining_steps(proofstep_container, oracles) {
     var oracles_container = document.createElement('div');
     oracles_container.setAttribute('class', 'inlining-container');
 
@@ -496,30 +375,24 @@ function add_inlining_steps(proofstep_container, codeq) {
     button.innerHTML = 'Show inlining';
     proofstep_container.appendChild(button);
 
-    var oracles = codeq.oracles;
-
     for (orc in oracles) {
 	// lots of code repetition here, maybe abstract out oracle view creation
-	// var orc_container = document.createElement('div');
-	// orc_container.setAttribute('class', 'inlining-oracle-container');
+	var orc_container = document.createElement('div');
+	orc_container.setAttribute('class', 'inlining-oracle-container');
 
-	// var orc_title = document.createElement('div');
-	// orc_title.setAttribute('class', 'oracle-title');
-	// orc_title.innerHTML = parse_oracle_signature(orc, oracles[orc].params);
-	// orc_container.appendChild(orc_title);
+	var orc_title = document.createElement('div');
+	orc_title.setAttribute('class', 'oracle-title');
+	orc_title.innerHTML = parse_oracle_signature(orc, oracles[orc].params);
+	orc_container.appendChild(orc_title);
 
-	// var code = oracles[orc].code;
-	// var html = parse_pseudocode_without_links(code);
+	var html = parse_pseudocode_without_links(oracles[orc].code);
 
-	// var orc_def = document.createElement('div');
-	// orc_def.innerHTML = html;
+	var orc_def = document.createElement('div');
+	orc_def.innerHTML = html;
 
-	// orc_container.appendChild(orc_def);
-	// oracles_container.appendChild(orc_container);
+	orc_container.appendChild(orc_def);
+	oracles_container.appendChild(orc_container);
     }
-
-    var table = add_inlining_oracles(proofstep_container, codeq);
-    oracles_container.appendChild(table);
 
     oracles_container.style.display = 'none';
     proofstep_container.appendChild(oracles_container);
@@ -585,7 +458,7 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 		} else if ("codeq" in type) {
 		    var codeq = type.codeq;
 		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof, codeq.graph, codeq.packages, 'codeq');
-    		    add_inlining_steps(proofstep_container, codeq);
+    		    add_inlining_steps(proofstep_container, codeq.oracles);
 
 		} else {
 		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof);
@@ -740,33 +613,15 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 	add_proofstep(nodes_lookup, graph, step, proof);
     }
 
-    var pkg_defs_sofar = {};
     // Add mono defs in oracle wrapper pane
     var oracle_wrapper = document.getElementById("oracle_wrapper");
     var mono_pkgs = proof.monolithic_pkgs;
 
     for (pkg_name in mono_pkgs) {
 	var pkg = mono_pkgs[pkg_name];
-
-	// if deps == -1 then it means that the pkg does not appear in any graph
-	// if deps == [], then it means pkgs appears in the graph but has no dependencies
-	var deps = find_mono_pkg_dependencies(proof.modular_pkgs, pkg_name);
-
-	if (deps == -1) {
+	if ("instance" in pkg) {
 	    continue;
 	}
-
-	if ("instance" in pkg) {
-	    var pkg_class = pkg["instance"];
-	    if (pkg_class in pkg_defs_sofar) {
-		continue;
-	    }
-	    pkg_name = pkg_class;
-	    pkg = mono_pkgs[pkg_name];
-	    // continue;
-	}
-	pkg_defs_sofar[pkg_name] = 1;
-
 
 	var oracles = pkg.oracles;
 	var package_def_container = document.createElement('div');
@@ -791,16 +646,17 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 	    orc_container.appendChild(orc_title);
 
 	    var orc_def = document.createElement('div');
-
-
-	    var html_code = parse_pseudocode(pkg_name, orc, deps, oracles[orc].code, mono_pkgs);
+	    var deps = find_mono_pkg_dependencies(proof.modular_pkgs, pkg_name);
+	    var html_code = parse_pseudocode(pkg_name, orc, deps, oracles[orc].code);
 	    orc_def.innerHTML = html_code;
 
 	    var orc_calls = orc_def.getElementsByClassName('pcode-oracle-call')
 
 	    for (let callee_div of orc_calls) {
 		callee_div.onclick = function(val) {
-		    var toks = this.id.split('?');
+		    var toks = this.id.split('_');
+		    // console.log(toks);
+
 		    var target_div_id = 'oracle-container-' + toks[2];
 		    var target_div = document.getElementById(target_div_id);
 
@@ -856,7 +712,6 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 	if (cell != null) {
 	    var target_proofstep_id = 'proofstep_' + cell.value;
 	    var proofstep_div = document.getElementById(target_proofstep_id);
-	    // console.log('cell.style'); 	    console.log(cell);
 
 	    var title = proofstep_div.getElementsByClassName('proofstep-title')[0];
 

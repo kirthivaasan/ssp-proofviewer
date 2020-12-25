@@ -112,6 +112,7 @@ body {
 .oracle-title {
     border-bottom: 1px solid #333;
     margin: 10 0 7 0;
+    padding: 0;
 }
 
 .package_def_title {
@@ -125,15 +126,7 @@ body {
     display: inline;
 }
 
-.pcode-oracle-line {
-    margin: 5 0 0 0;
-}
-
 .pcode-oracle-call:hover {
-    border: 2px solid #4d7fb0;
-}
-
-pcode-annotated-line:hover {
     border: 2px solid #4d7fb0;
 }
 
@@ -171,7 +164,7 @@ pcode-annotated-line:hover {
     white-space: nowrap;
     scrollbar-width: thin;
     scrollbar-color: #bcbcbc white;
-    overflow-y: auto;
+    overflow: auto;
     padding: 0 0 0 5%;
     border: 1px solid #333;
 }
@@ -180,54 +173,6 @@ pcode-annotated-line:hover {
     margin: 20 0 0 0;
 }
 
-.inlining-table table, th, td {
-    /* border: 1px solid black; */
-}
-
-.inlining-table td {
-    padding: 0 30px 0 0;
-}
-
-/* .inlining-table thead td { */
-/*     border-bottom: 1px solid #333; */
-/* } */
-
 .game-title {
     font-size: 0.8vw;
-}
-
-/* tooltip */
-.tooltip {
-    position: relative;
-    display: inline-block;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  background-color: #ebf2fa;
-  color: black;
-  text-align: left;
-  border-radius: 6px;
-  padding: 5px;
-  margin: 0px 500px 0 150px;
-  width: 500px;
-
-  position: absolute;
-  z-index: 1;
-
-  /* bottom: 100%; */
-
-  /* top: -5px; */
-  top: 400px;
-  /* left: 105%; */
-  left: -190px;
-
-  /* margin-left: -200%; */
-  /* margin-left: 200%; */
-  /* margin-bottom: -400%; */
-
-  font-size: 11pt;
-  opacity: 0;
-  transition: opacity 0.25s;
-  border: 2px solid #4d7fb0;
 }
