@@ -71,7 +71,7 @@ function yao_driver() {
 	    {
 		"DENC" :
 		{
-		    "code": "\\tilde{g}_j @gets @bot;Z_j^{out} @gets GETKEYS^{out}(j);@for (b_{\\ell},b_r) \\in \\{0,1\\}^2 @do;    b_j @gets op(b_{\\ell}, b_r);    k^0_j @gets Z^{out}_j(b_j);    c^0_{in} @gets ENC(b^{\\ell},k^0_j,0^\\lambda);    c^1_{in} @gets ENC(b^{\\ell},0^\\lambda,0^\\lambda);    c @sample ENC(b^r, c^0_{in}, c^1_{in});    \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j;",
+		    "code": "\\tilde{g}_j @gets @bot;Z_j^{out} @gets GETKEYS^{out}(j);@for (b_{\\ell},b_r) \\in \\{0,1\\}^2 @do;@> b_j @gets op(b_{\\ell}, b_r);@> k^0_j @gets Z^{out}_j(b_j);@> c^0_{in} @gets ENC(b^{\\ell},k^0_j,0^\\lambda);@> c^1_{in} @gets ENC(b^{\\ell},0^\\lambda,0^\\lambda);@> c @sample ENC(b^r, c^0_{in}, c^1_{in});@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j;",
 		    "params": ["\\ell", "r", "op", "j"]
 		}
 	    }
@@ -84,7 +84,7 @@ function yao_driver() {
 	    {
 		"DENC" :
 		{
-		    "code": "\\tilde{g}_j @gets @bot;EVAL(j,\\ell,r,op);S_j^{out}(0) @gets GETA^{out}(j);S_r^{in}(0) @gets GETA^{in}(r);S_r^{in}(1) @gets GETINA^{in}(r);S_{\\ell}^{in}(0) @gets GETA^{in}(\\ell);S_{\\ell}^{in}(1) @gets GETINA^{in}(\\ell);@for (d_{\\ell},d_r) \\in \\{0,1\\}^2 @do;    @if d_{\\ell} = d_r = 0 @then;        k_j @gets S^{out}_j(0);    @else k_j @gets 0^{\\lambda};    k_r @gets S^{in}_r(d_r);    c_{in} @sample enc_{k_r}(k_j);    k_{\\ell} @gets S^{in}_r(d_r);    c @sample enc_{k_{\\ell}}(c_{in});    \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j;",
+		    "code": "\\tilde{g}_j @gets @bot;EVAL(j,\\ell,r,op);S_j^{out}(0) @gets GETA^{out}(j);S_r^{in}(0) @gets GETA^{in}(r);S_r^{in}(1) @gets GETINA^{in}(r);S_{\\ell}^{in}(0) @gets GETA^{in}(\\ell);S_{\\ell}^{in}(1) @gets GETINA^{in}(\\ell);@for (d_{\\ell},d_r) \\in \\{0,1\\}^2 @do;@> @if d_{\\ell} = d_r = 0 @then;@> @> k_j @gets S^{out}_j(0);@> @else k_j @gets 0^{\\lambda};@> k_r @gets S^{in}_r(d_r);@> c_{in} @sample enc_{k_r}(k_j);@> k_{\\ell} @gets S^{in}_{\\ell}(d_{\\ell});@> c @sample enc_{k_{\\ell}}(c_{in});@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j;",
 		    "params": ["\\ell", "r", "op", "j"]
 		}
 	    }
@@ -421,7 +421,6 @@ function yao_driver() {
 
 
     };
-
 
 
     var modular_pkgs = {
@@ -942,10 +941,48 @@ function yao_driver() {
 		    "graphs": [["LSEC^1_i(SIM_{yao,i})"]]
 		},
 	    ],
-	    	    "type":
+
+	    "type":
 	    {
 		"codeq": {
-		    "oracles": {},
+		    "oracles": {
+			"................GDENC.DENC1" :
+			{
+			    "code": "\\tilde{g}_j @gets @bot; Z_j^{out} @gets \\mathsf{GETKEYS}^{out}(j); ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ;@for (b_{\\ell},b_r) \\in \\{0,1\\}^2 @do;@> b_j @gets op(b_{\\ell}, b_r);@> k^0_j @gets Z^{out}_j(b_j);@> c^0_{in} @gets ENC(b^{\\ell},k^0_j,0^\\lambda); ; ; ; ;@> c^1_{in} @gets ENC(b^{\\ell},0^\\lambda,0^\\lambda);@> c @sample ENC(b^r, c^0_{in}, c^1_{in}); ; ; ; ;@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
+			    "params": ["j", "\\ell", "r", "op"]
+			},
+
+			"................GDENC.DENC2" :
+			{
+			    "code": "\\tilde{g}_j @gets @bot;z^{in}_{\\ell} @gets \\mathsf{GETBIT}^{in}(\\ell);z^{in}_r @gets \\mathsf{GETBIT}^{in}(r); ; ;Z^{out}_j @gets \\mathsf{GETKEYS}^{out}(j); ; ; ; ;Z^{in}_{\\ell} @gets \\mathsf{GETKEYS}^{out}(\\ell); ; ; ; ; ; ; ;Z^{in}_r @gets \\mathsf{GETKEYS}^{in}(r); ; ; ; ; ; ; ;@for (b_{\\ell}, b_r) \\in \\{0,1\\}^2 @do;@> b_j @gets op(b_{\\ell}, b_r);@> k^{out}_j @gets Z^{out}_j(b_j);@> k^{in}_{\\ell} @gets Z^{in}_{\\ell}(b_{\\ell});@> @if z^{in}_{\\ell} = b_{\\ell} @then; @> @> c^0_{in} @sample enc_{k^{in}_{\\ell}}(k^{out}_j);@> @else;@> @> c^0_{in} @sample enc_{k^{in}_{\\ell}}(0^{\\lambda});@> c^1_{in} @sample enc_{k^{in}_{\\ell}}(0^{\\lambda});@> k^{in}_r @gets Z^{in}_r(b_r);@> @if z^{in}_r = b_r @then; @> @> c^0_{in} @sample enc_{k^{in}_r}(c^0_{in}); @> @else; @> @> c^0_{in} @sample enc_{k^{in}_r}(c^1_{in});@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
+			    "params": ["j", "\\ell", "r", "op"]
+			},
+
+			"................GDENC.DENC3" :
+			{
+			    "code": "\\tilde{g}_j @gets @bot;@assert z^{in}_{\\ell} \\neq @bot;@assert z^{in}_r \\neq @bot; z^{out}_j @gets op(z^{in}_{\\ell}, z^{in}_r); ;\\mathsf{bflag}^{out}_j @gets 1;@if Z^{out}_j = @bot;@> Z^{out}_j(0) @sample \\{0,1\\}^{\\lambda};@> Z^{out}_j(1) @sample \\{0,1\\}^{\\lambda}; ;@assert z^{in}_r \\neq @bot;@assert \\mathsf{aflag}^{in}_r = 1 \\vee \\mathsf{bflag}^{in}_r = 1; @assert Z^{in}_r \\neq @bot; ; ; ; ; ;@assert z'_{\\ell} \\neq @bot;@assert \\mathsf{aflag}^{in}_{\\ell} = 1 \\vee \\mathsf{bflag}^{in}_{\\ell} = 1;@assert Z^{in}_{\\ell} \\neq @bot; ; ; ; ; ;@for (b_{\\ell}, b_r) \\in \\{0,1\\}^2 @do;@> k^{in}_{\\ell} @gets Z^{in}_{\\ell}(b_{\\ell});@> k^{in}_r @gets Z^{in}_r(b_r);@> @if b_{\\ell} = z^{in}_{\\ell} \\wedge b_r = z^{in}_r @then;@> @> b_j @gets op(b_{\\ell}, b_r);@> @> k^{out}_j @gets Z^{out}_j(b_j);@> @else k^{out}_j @gets 0^{\\lambda};@> c_{in} @sample enc_{k^{in}_{\\ell}}(k^{in}_{\\ell});@> c @sample enc_{k^{in}_r}(k^{in}_r);@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j;",
+			    "params": ["j", "\\ell", "r", "op"]
+			},
+
+			"................GDENC.DENC4" :
+			{
+			    "code": "\\tilde{g}_j @gets @bot;@assert z^{in}_{\\ell} \\neq @bot;@assert z^{in}_r \\neq @bot; z^{out}_j @gets op(z^{in}_{\\ell}, z^{in}_r); ;\\mathsf{aflag}^{out}_j @gets 1;@if Z^{out}_j = @bot;@> Z^{out}_j(0) @sample \\{0,1\\}^{\\lambda};@> Z^{out}_j(1) @sample \\{0,1\\}^{\\lambda}; ;@assert z^{in}_r \\neq @bot;@assert \\mathsf{aflag}^{in}_r = 1; @assert Z^{in}_r \\neq @bot; ; ; ; ; ;@assert z'_{\\ell} \\neq @bot;@assert \\mathsf{aflag}^{in}_{\\ell} = 1;@assert Z^{in}_{\\ell} \\neq @bot; ; ; ; ; ;@for (b_{\\ell} \\oplus z'_{\\ell},b_r \\oplus z'_r) \\in \\{0,1\\}^2 @do;@> k^{in}_{\\ell} @gets Z^{in}_{\\ell}(b_{\\ell});@> k^{in}_r @gets Z^{in}_r(b_r);@> @if b_{\\ell} \\oplus z^{in}_{\\ell} = b_r \\oplus z^{in}_r = 0 @then;@> @> b_j @gets op(b_{\\ell}, b_r);@> @> k^{out}_j @gets Z^{out}_j(b_j);@> @else k^{out}_j @gets 0^{\\lambda};@> c_{in} @sample enc_{k^{in}_{\\ell}}(k^{in}_{\\ell});@> c @sample enc_{k^{in}_r}(k^{in}_r);@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j;",
+			    "params": ["j", "\\ell", "r", "op"]
+			},
+
+			"...........GDENC_{sim}.DENC1" :
+			{
+			    "code": "\\tilde{g}_j @gets @bot;@assert z^{in}_{\\ell} \\neq @bot;@assert z^{in}_r \\neq @bot; z^{out}_j @gets op(z^{in}_{\\ell}, z^{in}_r);@assert z^{out}_j \\neq @bot;\\mathsf{aflag}^{out}_j @gets 1;@if Z^{out}_j = @bot;@> Z^{out}_j(0) @sample \\{0,1\\}^{\\lambda};@> Z^{out}_j(1) @sample \\{0,1\\}^{\\lambda};S^{out}_j(0) @gets Z^{out}_j(z^{in}_j);@assert z^{in}_r \\neq @bot;@assert \\mathsf{aflag}^{in}_r @gets 1;@assert Z^{in}_r \\neq @bot;S^{in}_r(0) @gets Z^{in}_r(z^{in}_r);@assert z^{in}_r \\neq \\bot;@assert \\mathsf{aflag}^{in}_{\\ell} = 1;@assert Z^{in}_r \\neq \\bot;S^{in}_r(1) @gets Z^{in}_r(1 \\oplus z^{in}_r);@assert z^{in}_{\\ell} \\neq \\bot;@assert \\mathsf{aflag}^{in}_{\\ell} = 1;@assert Z^{in}_{\\ell} \\neq @bot; S^{in}_{\\ell}(0) @gets Z^{in}_{\\ell}(z^{in}_{\\ell});@assert z^{in}_{\\ell} \\neq @bot;@assert \\mathsf{aflag}^{in}_{\\ell} = 1;@assert Z^{in}_{\\ell} \\neq @bot;S^{in}_{\\ell}(1) @gets Z^{in}_{\\ell}(1 \\oplus z^{in}_{\\ell});@for (d_{\\ell},d_r) \\in \\{0,1\\}^2 @do;@> k^{in}_{\\ell} @gets S^{in}_{\\ell}(d_{\\ell});@> k^{in}_r @gets S^{in}_r(d_r);@> @if d_{\\ell} = d_r = 0 @then; ;@> @> k^{out}_j @gets S^{out}_j(0);@> @else k^{out}_j @gets 0^{\\lambda};@> c_{in} @sample enc_{k^{in}_r}(k^{out}_j);@> c @sample enc_{k^{in}_{\\ell}}(c_{in});@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j;",
+			    "params": ["j", "\\ell", "r", "op"]
+			},
+
+			"...........GDENC_{sim}.DENC2" :
+			{
+			    "code": "\\tilde{g}_j @gets @bot;\\mathsf{EVAL}_j(\\ell, r, op); ; ;S^{out}_j(0) @gets \\mathsf{GETA}^{out}(j); ; ; ; ; ;S^{in}_r(0) @gets \\mathsf{GETA}^{in}(r); ; ; ;S^{in}_r(1) @gets \\mathsf{GETINA}^{in}(r); ; ; ;S^{in}_{\\ell}(0) @gets \\mathsf{GETA}^{in}(\\ell); ; ; ;S^{in}_{\\ell}(1) @gets \\mathsf{GETA}^{in}(\\ell); ; ; ;@for (d_{\\ell},d_r) \\in \\{0,1\\}^2 @do;@> k^{in}_{\\ell} @gets S^{in}_{\\ell}(d_{\\ell});@> k^{in}_r @gets S^{in}_r(d_r);@> @if d_{\\ell} = d_r = 0 @then; ;@> @> k^{out}_j @gets S^{out}_j(0);@> @else k^{out}_j @gets 0^{\\lambda};@> c_{in} @sample enc_{k^{in}_r}(k^{out}_j);@> c @sample enc_{k^{in}_{\\ell}}(c_{in});@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j;",
+			    "params": ["j", "\\ell", "r", "op"]
+			}
+
+		    },
 		    "graph": "LSEC^1_i(SIM_{yao,i})",
 		    "packages": ["MODGB_i", "SIM_{denc}"]
 		}

@@ -675,16 +675,17 @@ function parse_oracle_signature(name, params) {
 function parse_pseudocode(src_pkg, orc, pkg_dependencies, code, mono_pkgs) {
     if (code == "") {return "";}
 
-    console.log(src_pkg);
-    if(src_pkg == "MODGB") {
-	// console.log(pkg_dependencies);
-    }
-
     var html = "";
     var lines = code.split(';');
     for (let line of lines) {
 	html += "<div class=\"pcode-oracle-line\">";
 	var tokens = line.split(' ');
+
+	if (orc == "DENC") {
+	    console.log(tokens);
+	}
+
+
 	for (let tok of tokens) {
 	    if (tok in PCODE_TEXT) {
 		tok = tok.substr(1);
@@ -725,12 +726,21 @@ function parse_pseudocode(src_pkg, orc, pkg_dependencies, code, mono_pkgs) {
 
     }
 
+	if (orc == "DENC") {
+	    console.log(html);
+	}
+
+
     return html;
 }
 
 function is_upper_case_call(str) {
     var lp_pos = str.indexOf('(');
     var orc = str.substr(0, lp_pos);
+    console.log(orc);
+    if (orc == "") {
+	return false;
+    }
     return orc == orc.toUpperCase();
 }
 
@@ -739,6 +749,11 @@ function parse_pseudocode_line(line) {
     line = line.trim();
 
     var tokens = line.split(' ');
+
+    console.log("TOKENS");
+    console.log(tokens);
+    console.log("TOKENS");
+
     for (let tok of tokens) {
 	if (tok in PCODE_TEXT) {
 	    tok = tok.substr(1);
@@ -747,13 +762,17 @@ function parse_pseudocode_line(line) {
 	    var html_frag = PCODE_SYMBOLS[tok];
 	    html += html_frag;
 	} else if (is_upper_case_call(tok)) { // assuming all uppercase strings are oracles
+	    console.log('isuppercase: ' + tok);
 	    html += parse_oracle_call(tok);
 	} else {
+	    console.log('else: ' + tok);
 	    html += "\\(" + tok + "\\)";
 	}
 	html += " ";
     }
     html += "</div>";
+    console.log(html);
+
     return html;
 }
 
@@ -775,7 +794,7 @@ function parse_pseudocode_without_links(code) {
 	    } else if (tok in PCODE_SYMBOLS) {
 		var html_frag = PCODE_SYMBOLS[tok];
 		html += html_frag;
-	    } else if (is_oracle_call(tok)) { // assuming all uppercase strings are oracles
+	    } else if (is_upper_case_call(tok)) { // assuming all uppercase strings are oracles
 		html += parse_oracle_call(tok);
 	    } else {
 		html += "\\(" + tok + "\\)";
