@@ -681,11 +681,6 @@ function parse_pseudocode(src_pkg, orc, pkg_dependencies, code, mono_pkgs) {
 	html += "<div class=\"pcode-oracle-line\">";
 	var tokens = line.split(' ');
 
-	if (orc == "DENC") {
-	    console.log(tokens);
-	}
-
-
 	for (let tok of tokens) {
 	    if (tok in PCODE_TEXT) {
 		tok = tok.substr(1);
@@ -726,18 +721,12 @@ function parse_pseudocode(src_pkg, orc, pkg_dependencies, code, mono_pkgs) {
 
     }
 
-	if (orc == "DENC") {
-	    console.log(html);
-	}
-
-
     return html;
 }
 
 function is_upper_case_call(str) {
     var lp_pos = str.indexOf('(');
     var orc = str.substr(0, lp_pos);
-    console.log(orc);
     if (orc == "") {
 	return false;
     }
@@ -750,10 +739,6 @@ function parse_pseudocode_line(line) {
 
     var tokens = line.split(' ');
 
-    console.log("TOKENS");
-    console.log(tokens);
-    console.log("TOKENS");
-
     for (let tok of tokens) {
 	if (tok in PCODE_TEXT) {
 	    tok = tok.substr(1);
@@ -762,16 +747,13 @@ function parse_pseudocode_line(line) {
 	    var html_frag = PCODE_SYMBOLS[tok];
 	    html += html_frag;
 	} else if (is_upper_case_call(tok)) { // assuming all uppercase strings are oracles
-	    console.log('isuppercase: ' + tok);
 	    html += parse_oracle_call(tok);
 	} else {
-	    console.log('else: ' + tok);
 	    html += "\\(" + tok + "\\)";
 	}
 	html += " ";
     }
     html += "</div>";
-    console.log(html);
 
     return html;
 }

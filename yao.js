@@ -469,7 +469,7 @@ function yao_driver() {
 		"KEYS_d": [],
 		"KEYS": []
 	    },
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":90,"height":360},"KEYS_1":{"x":530,"y":0,"width":90,"height":50},"KEYS_2":{"x":530,"y":60,"width":90,"height":50},"KEYS_3":{"x":530,"y":120,"width":90,"height":50},"KEYS_4":{"x":530,"y":180,"width":90,"height":50},"GB^0_{yao,1}":{"x":160,"y":30,"width":90,"height":50},"GB^0_{yao,2}":{"x":160,"y":90,"width":90,"height":50},"GB^0_{yao,3}":{"x":160,"y":150,"width":90,"height":50},"GB^0_{yao,d}":{"x":160,"y":270,"width":90,"height":50},"KEYS_d":{"x":530,"y":240,"width":90,"height":50},"KEYS":{"x":530,"y":300,"width":90,"height":50}},"edges":{"@oracles_interface":{"KEYS_1":"exitX=1;exitY=0.05;entryX=0.1;entryY=0.35;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","GB^0_{yao,1}":"exitX=1;exitY=0.15;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","GB^0_{yao,2}":"exitX=0.9;exitY=0.35;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","GB^0_{yao,3}":"exitX=0.5;exitY=0.5;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","GB^0_{yao,d}":"exitX=0.9;exitY=0.75;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","KEYS":"exitX=1;exitY=0.95;entryX=0;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"GB^0_{yao,1}":{"KEYS_1":"exitX=0.75;exitY=0.35;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","KEYS_2":"exitX=0.6;exitY=0.55;entryX=0.15;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"GB^0_{yao,2}":{"KEYS_2":"exitX=0.85;exitY=0.3;entryX=0.05;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","KEYS_3":"exitX=0.85;exitY=0.75;entryX=0;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"GB^0_{yao,3}":{"KEYS_3":"exitX=0.9;exitY=0.25;entryX=0.1;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","KEYS_4":"exitX=0.6;exitY=0.55;entryX=0;entryY=0.15;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"GB^0_{yao,d}":{"KEYS_d":"exitX=0.75;exitY=0.35;entryX=0.05;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","KEYS":"exitX=0.6;exitY=0.55;entryX=0;entryY=0.15;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"GB^0_{yao,1}":[],"GB^0_{yao,2}":[],"GB^0_{yao,3}":[],"GB^0_{yao,d}":[]}}
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":360},"KEYS_1":{"x":530,"y":0,"width":90,"height":50},"KEYS_2":{"x":530,"y":60,"width":90,"height":50},"KEYS_3":{"x":530,"y":120,"width":90,"height":50},"KEYS_4":{"x":530,"y":180,"width":90,"height":50},"GB^0_{yao,1}":{"x":160,"y":30,"width":90,"height":50},"GB^0_{yao,2}":{"x":160,"y":90,"width":90,"height":50},"GB^0_{yao,3}":{"x":160,"y":150,"width":90,"height":50},"GB^0_{yao,d}":{"x":160,"y":270,"width":90,"height":50},"KEYS_d":{"x":530,"y":240,"width":90,"height":50},"KEYS":{"x":530,"y":300,"width":90,"height":50}},"edges":{"@oracles_interface":{"KEYS_1":"exitX=1;exitY=0.05;entryX=0.1;entryY=0.35;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","GB^0_{yao,1}":"exitX=1;exitY=0.15;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","GB^0_{yao,2}":"exitX=0.9;exitY=0.35;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","GB^0_{yao,3}":"exitX=0.5;exitY=0.5;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","GB^0_{yao,d}":"exitX=0.9;exitY=0.75;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","KEYS":"exitX=1;exitY=0.95;entryX=0;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"GB^0_{yao,1}":{"KEYS_1":"exitX=0.75;exitY=0.35;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","KEYS_2":"exitX=0.6;exitY=0.55;entryX=0.15;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"GB^0_{yao,2}":{"KEYS_2":"exitX=0.85;exitY=0.3;entryX=0.05;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","KEYS_3":"exitX=0.85;exitY=0.75;entryX=0;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"GB^0_{yao,3}":{"KEYS_3":"exitX=0.9;exitY=0.25;entryX=0.1;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","KEYS_4":"exitX=0.6;exitY=0.55;entryX=0;entryY=0.15;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"GB^0_{yao,d}":{"KEYS_d":"exitX=0.75;exitY=0.35;entryX=0.05;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","KEYS":"exitX=0.6;exitY=0.55;entryX=0;entryY=0.15;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"GB^0_{yao,1}":[],"GB^0_{yao,2}":[],"GB^0_{yao,3}":[],"GB^0_{yao,d}":[]}}
 	},
 
 	"SEC^1(SIM_{yao})-unrolled":
@@ -654,7 +654,7 @@ function yao_driver() {
 	    },
 
 	    "layout": {
-		"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":200},"MODGB_i":{"x":70,"y":80,"width":90,"height":40},"SIM_{denc}":{"x":230,"y":60,"width":90,"height":80},"EV":{"x":380,"y":80,"width":90,"height":40},"KEYS_1":{"x":560,"y":10,"width":90,"height":40},"KEYS":{"x":560,"y":150,"width":90,"height":40}},"edges":{"@oracles_interface":{"KEYS_1":"exitX=0.999;exitY=0.111;entryX=0;entryY=0.222;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","MODGB_i":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","KEYS":"exitX=0.999;exitY=0.888;exitDx=0;exitDy=0;entryX=0.111;entryY=0.666;entryDx=0;entryDy=0;"},"MODGB_i":{"SIM_{denc}":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"SIM_{denc}":{"EV":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","KEYS":"exitX=0.888;exitY=0.777;exitDx=0;exitDy=0;entryX=0.222;entryY=0.444;entryDx=0;entryDy=0;","KEYS_1":"exitX=0.999;exitY=0.111;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"EV":{"KEYS_1":"exitX=0.666;exitY=0.444;entryX=0.222;entryY=0.666;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","KEYS":"exitX=0.666;exitY=0.555;entryX=0.111;entryY=0.222;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"}}
+		"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":200},"MODGB_i":{"x":70,"y":80,"width":90,"height":40},"SIM_{denc}":{"x":230,"y":60,"width":90,"height":80},"EV":{"x":380,"y":80,"width":90,"height":40},"KEYS_1":{"x":560,"y":10,"width":90,"height":40},"KEYS":{"x":560,"y":150,"width":90,"height":40}},"edges":{"@oracles_interface":{"KEYS_1":"exitX=0.999;exitY=0.111;entryX=0;entryY=0.222;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","MODGB_i":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","KEYS":"exitX=0.999;exitY=0.888;exitDx=0;exitDy=0;entryX=0.111;entryY=0.666;entryDx=0;entryDy=0;"},"MODGB_i":{"SIM_{denc}":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"SIM_{denc}":{"EV":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","KEYS":"exitX=0.888;exitY=0.777;exitDx=0;exitDy=0;entryX=0.222;entryY=0.444;entryDx=0;entryDy=0;","KEYS_1":"exitX=0.999;exitY=0.111;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"EV":{"KEYS_1":"exitX=0.666;exitY=0.444;entryX=0.222;entryY=0.666;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","KEYS":"exitX=0.666;exitY=0.555;entryX=0.111;entryY=0.222;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"}}
 	    }
 	}
     };
@@ -746,20 +746,21 @@ function yao_driver() {
 	    "parent": "Claim1",
 	    "contents": [
 		{
-		    "text": "(Reduction of circuit garbling to layer garbling)."
+		    "text": "\\( \\mathsf{SEC^0}(\\mathsf{GB_{yao}}) \\stackrel{\\text{code}}{\\equiv} \\mathcal{R}^1_{circ} \\rightarrow \\mathsf{LSEC^0}(\\mathsf{GB_{yao,1}}) \\)"
 		},
 
 		{
-		    "graphs": [["SEC^0(GB_{yao})-unrolled", "SEC^0(GB_{yao})-unrolled"]]
+		    "graphs": [["SEC^0(GB_{yao})-unrolled"]]
 		},
 	    ],
 
 	    "type":
 	    {
-		"reduction":
+		"codeq":
 		{
 		    "graph": "SEC^0(GB_{yao})-unrolled",
-		    "cut": ["GB^0_{yao,1}", "KEYS_1", "KEYS_2"]
+		    // "packages": ["GB^0_{yao,1}", "KEYS_1", "KEYS_2"]
+		    "packages": ["GB^0_{yao,2}", "GB^0_{yao,d}", "KEYS"]
 		}
 	    }
 	},
@@ -769,7 +770,7 @@ function yao_driver() {
 	    "parent": "Claim1",
 	    "contents": [
 		{
-		    "text": "(Reduction of circuit garbling to layer garbling)."
+		    "text": "Graphs in Eq6-1 and Eq6-2 are code equivalent. \\(\\mathcal{R}^i_{circ} \\rightarrow \\mathsf{LSEC^1}(\\mathsf{GB_{yao,i}}) \\stackrel{\\text{code}}{\\equiv} \\mathcal{R}^{i+1}kx`xx_{circ}\\rightarrow \\mathsf{LSEC^1}(\\mathsf{GB_{yao,i+1}})\\)"
 		}
 	    ],
 	    "type":
@@ -831,8 +832,6 @@ function yao_driver() {
 	    {
 		"reduction":
 		{
-		    // "graph": "\\mathcal{R}^i_{circ}{\\rightarrow}LSEC^1(GB_{yao,i})",
-		    // "cut": ["GB^0_{yao,i+1}", "KEYS_{i+1}", "KEYS_{i+2}"]
 		    "graph": "LSEC^1_{1..d}(GB^1_{yao})",
 		    "cut": ["GB^1_{yao,d}", "EV_d", "KEYS_d", "KEYS"]
 		}
@@ -855,7 +854,7 @@ function yao_driver() {
 	    "parent": "Claim3",
 	    "contents": [
 		{
-		    "text": "Reduction \\(\\mathcal{R}_{layer,i}\\) highlighted with dotted line."
+		    "text": "Real layer security with reduction \\(\\mathcal{R}_{layer,i}\\) highlighted with dotted line."
 		},
 		{
 		    "graphs": [["HYB_i"]]
@@ -899,7 +898,7 @@ function yao_driver() {
 	    "parent": "Lemma2",
 	    "contents": [
 		{
-		    "text": "Layer security Ideal code equivalence."
+		    "text": "Ideal Layer security code equivalence."
 		},
 		// {
 		//     "graphs": [["LSEC^1_i(SIM_{yao,i})"]]
@@ -930,12 +929,12 @@ function yao_driver() {
 	},
 
 
-	"LS" :
+	"IL" :
 	{
 	    "parent": "Claim4",
 	    "contents": [
 		{
-		    "text": "Reduction \\(\\mathcal{R}_{layer,i}\\) highlighted with dotted line."
+		    "text": "Ideal layer security with reduction \\(\\mathcal{R}_{layer,i}\\) highlighted with dotted line."
 		},
 		{
 		    "graphs": [["LSEC^1_i(SIM_{yao,i})"]]
@@ -983,8 +982,20 @@ function yao_driver() {
 			}
 
 		    },
+		    "annotations":
+		    [
+			{
+			    "cells":
+			    {
+				"................GDENC.DENC4": [26]
+			    },
+
+			    "comment": "Notice that the order of the enumeration of this loop does not matter."
+			}
+		    ],
+
 		    "graph": "LSEC^1_i(SIM_{yao,i})",
-		    "packages": ["MODGB_i", "SIM_{denc}"]
+		    "packages": ["MODGB_i", "SIM_{denc}"],
 		}
 	    }
 	},

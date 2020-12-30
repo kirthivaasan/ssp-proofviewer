@@ -23,6 +23,9 @@
     </script>
     <script src="mxgraph/mxClient.min.js"></script>
 
+    <script src="pdfkit/pdfkit.standalone.js"></script>
+    <script src="pdfkit/svg-pdfkit.js"></script>
+
   </head>
 
   <body onkeydown='key_handler(event, this)'>
@@ -37,6 +40,12 @@
     <div id="proof_title"></div>
 
     <div id="proof_wrapper"></div>
+
+    <div id="tooltip_wrapper" class="tooltip" style="height: 0%; float: left; width: 0%;">
+      <div id="tooltiptext_wrapper" class="tooltiptext" style="display: block"></div>
+    </div>
+
+
     <div id="oracle_wrapper"></div>
 
     <script src="ssp.js"></script>
@@ -117,8 +126,8 @@
 		  }
 	      }
 	  } else if (e.key == 'E') {
-	      // var answer = prompt('export');
-	      // export_graphs_svg();
+	      var answer = alert('export');
+	      export_graphs_svg();
 	  }
 
 
