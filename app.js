@@ -68,7 +68,7 @@ function reduce_same_dest(neighbours) {
 
 
 // app drawing
-function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=null) {
+function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=null, ghost=null) {
     if (!mxClient.isBrowserSupported()) {
 	return -1;
     }
@@ -192,10 +192,9 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 	    }
 
 	    var v = graph.insertVertex(parent, null, '@dashed_rect', bbox_min_x-5, bbox_min_y-5, bbox_max_x - bbox_min_x + 10, (bbox_max_y - bbox_min_y) + 10);
+	    // v.style = 'fillColor=none;dashed=1';
 	    v.style = 'fillColor=none;dashed=1';
-
 	}
-
 
 	// add rest of packages
 	for (node in pkg_callgraph.graph) {
@@ -214,6 +213,12 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 		} else if (type == 'codeq') {
 		    // v.style = 'dashed=1;';
 		}
+	    } else {
+		if (node_cfg.color == "blue") {
+		    v.style = "fillColor=#dae8fc;strokeColor=#6c8ebf";
+		} else if (node_cfg.color == "yellow") {
+		    v.style = "fillColor=#fff2cc;strokeColor=#d6b656";
+		}
 	    }
 
 	    // if (node.substring(0,5) == "dummy") {
@@ -223,7 +228,31 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 	    // 	v.value = null;
 	    // }
 
+	}
 
+	// add ghost oracles
+	if (ghost != null) {
+	    for (pkg_name in ghost) {
+		// console.log("GHOST: " + pkg);
+		// var node_cfg = nodes_cfg[pkg_name];
+
+		var x = ghost[pkg_name].x;
+		var y = ghost[pkg_name].y;
+		var edge_style = ghost[pkg_name].style + "dashed=1;";
+
+		// var src_node = graph.insertVertex(parent, null, pkg, node_cfg.x - 200, node_cfg.y, 0, 0);
+		var pkg = doc.createElement('GhostPackage');
+		var src_node = graph.insertVertex(parent, null, pkg, x, y, 0, 0);
+
+	 	var v1 = packages.get(pkg_name);
+		var e1 = doc.createElement("GhostOracle");
+
+	    	e1.setAttribute('oracle_name', "");
+		// var edge_style = 'exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;dashed=1;';
+
+		var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
+
+	    }
 	}
 
 	var edges_cfg = config.edges;
@@ -373,12 +402,17 @@ function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, 
     		    config = auto_graph_layout(cg);
 		}
 
+		var ghost = null;
+		if ("ghost" in pkg) {
+		    ghost = pkg.ghost;
+		}
+
 		var table_cell = table.rows[i].cells[j];
 
 		if (pkg_name == graph_name) {
-		    draw_graph(table_cell, cg, mono_pkgs, config, cut, type);
+		    draw_graph(table_cell, cg, mono_pkgs, config, cut, type, ghost);
 		} else {
-		    draw_graph(table_cell, cg, mono_pkgs, config);
+		    draw_graph(table_cell, cg, mono_pkgs, config, null, null, ghost);
 		}
 
 		var game_title = document.createElement('div');
