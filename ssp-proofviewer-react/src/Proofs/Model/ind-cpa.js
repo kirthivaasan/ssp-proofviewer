@@ -1,5 +1,34 @@
 export default {
   name: 'Indistinguishability chosen plaintext attack (IND-CPA)',
+  monolithicPackages: [
+    {
+      name: 'Enc^0',
+      oracles:
+      [
+        {
+          name: 'ENC',
+          code: `   k \\gets GET() \\\\
+                    c \\gets$ enc_k(m)\\\\
+                    x \\href{why-equal.html}{=} y^2 + 1 \\\\
+                    \\mathbf{return} c  `,
+          params: ['m'],
+        },
+      ],
+    },
+    {
+      name: 'Enc^1',
+      oracles: [
+        {
+          name: 'ENC',
+          code: `   k \\gets GET() \\\\
+                    c \\gets$ enc_k(0^{|m|})\\\\
+                    x \\href{why-equal.html}{=} y^2 + 1 \\\\
+                    \\mathbf{return} c  `,
+          params: ['m'],
+        },
+      ],
+    },
+  ],
   monolithic_pkgs:
     {
       'Enc^0':
