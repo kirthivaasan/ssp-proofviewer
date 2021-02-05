@@ -857,6 +857,7 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 	    var html_code = parse_pseudocode(pkg_name, orc, deps, oracles[orc].code, mono_pkgs);
 	    orc_def.innerHTML = html_code;
 
+
 	    var orc_calls = orc_def.getElementsByClassName('pcode-oracle-call')
 
 	    for (let callee_div of orc_calls) {

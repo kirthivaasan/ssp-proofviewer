@@ -11,6 +11,10 @@ import NavigationHeader from './NavigationHeader/NavigationHeader';
 import Definitions from './Definitions/Definitions';
 import Proofs from './Proofs/Proofs';
 
+// error from mathjax lib
+const oldConsoleError = console.error
+console.error = (...args) => { args[0].includes("Legacy context API") || oldConsoleError(...args) }
+
 export default function App() {
   return (
     <RecoilRoot>
