@@ -1,3 +1,5 @@
+XML_EXPORT_OPTION = false;
+
 // Error classes
 class InvalidCut extends Error {
     constructor(message) {
@@ -95,6 +97,14 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
     new mxParallelEdgeLayout(graph).execute(graph.getDefaultParent()); // allow multiple edges
 
     this.graph = graph;
+
+    if (XML_EXPORT_OPTION) {
+	container.appendChild(mxUtils.button('View XML', function() {
+	    var encoder = new mxCodec();
+	    var node = encoder.encode(graph.getModel());
+	    mxUtils.popup(mxUtils.getPrettyXml(node), true);
+	}));
+    }
 
     // styling
     var style = graph.getStylesheet().getDefaultVertexStyle();
@@ -204,6 +214,8 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 
 	    var pkg = doc.createElement('Package');
 	    pkg.setAttribute('name', node);
+	    pkg.setAttribute('label', node);
+
 	    var v = graph.insertVertex(parent, null, pkg, config_x, config_y, node_cfg.width, node_cfg.height);
 	    packages.set(node, v);
 
@@ -276,10 +288,12 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 
 		var e1 = doc.createElement("Oracle");
 	    	e1.setAttribute('oracle_name', oracle_name);
+		e1.setAttribute('label', oracle_name);
 
 		var edge_style = 'exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;';
 		if (edges_cfg != null) {
 		    edge_style = edges_cfg[node][pkg_name];
+		    edge_style = "edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;" + edge_style;
 		}
 
 		var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
@@ -317,6 +331,7 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 	    var oracle_name = el[1];
 	    var e1 = doc.createElement("Oracle");
 	    e1.setAttribute('oracle_name', oracle_name);
+	    e1.setAttribute('label', oracle_name);
 
 	    var v1 = packages.get(pkg_name);
 	    var edge_style = 'exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;';
