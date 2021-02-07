@@ -73,6 +73,29 @@ function ggm_driver() {
 
 
     var modular_pkgs = {
+	"Gprg^0":
+	{
+	    "oracles": [["Gprg_{x_0}", "GET_{x_0}"], ["Gprg_{x_1}", "GET_{x_1}"]],
+	    "graph":
+	    {
+		"Gprg_{x_0}": [["Key_x", "GET_x"]],
+		"Gprg_{x_1}": [["Key_x", "GET_x"]],
+		"Key_x": []
+	    },
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":10,"width":1,"height":90},"Gprg_{x_0}":{"x":70,"y":0,"width":90,"height":50,"color":"yellow"},"Gprg_{x_1}":{"x":70,"y":60,"width":90,"height":50,"color":"yellow"},"Key_x":{"x":230,"y":30,"width":90,"height":50,"color":"blue"}},"edges":{"@oracles_interface":{"Gprg_{x_0}":"exitX=0.65;exitY=0.4;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Gprg_{x_1}":"exitX=0.65;exitY=0.6;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Gprg_{x_0}":{"Key_x":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;"},"Gprg_{x_1}":{"Key_x":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"Gprg_{x_0}":[],"Gprg_{x_1}":[]}}
+	},
+
+	"Gprg^1":
+	{
+	    "oracles": [["Key_{x_0}", "GET_{x_0}"], ["Key_{x_1}", "GET_{x_1}"]],
+	    "graph":
+	    {
+		"Key_{x_0}": [],
+		"Key_{x_1}": []
+	    },
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":110},"Key_{x_0}":{"x":160,"y":0,"width":90,"height":50,"color":"blue"},"Key_{x_1}":{"x":160,"y":60,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Key_{x_0}":"exitX=0.6;exitY=0.45;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Key_{x_1}":"exitX=0.75;exitY=0.65;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[]}}
+	},
+
 	"GGM-const^0":
 	{
 	    "oracles": [["Mod-prf", "EVAL"]],
@@ -151,6 +174,10 @@ function ggm_driver() {
 
     };
 
+    var game_defs = {
+	"PRG-assumption": [["Gprg^0", "Gprg^1"]]
+    };
+
     var prooftree = {
 	"Theorem" :
 	{
@@ -162,7 +189,6 @@ function ggm_driver() {
 		{
 		    "graphs": [["GGM-const^0", "GGM-const^1"]]
 		}
-
 	    ]
 	},
 
@@ -171,8 +197,11 @@ function ggm_driver() {
 	    "parent": "Theorem",
 	    "contents": [
 		{
-		    "graphs": [["GGM-const^0"], ["GGM-const^0-hyb1"]]
+		    "def": ["PRG-assumption"]
 		},
+		{
+		    "graphs": [["GGM-const^0"], ["GGM-const^0-hyb1"]]
+		}
 	    ],
 	    "type":
 	    {
@@ -207,6 +236,7 @@ function ggm_driver() {
     var proof = {
 	"name": proof_name,
 	"prooftree": prooftree,
+	"game_defs": game_defs,
 	"monolithic_pkgs": monolithic_pkgs,
 	"modular_pkgs": modular_pkgs
     }

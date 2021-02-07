@@ -674,6 +674,39 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 	} else if ("text" in content) {
 	    var text = content.text;
 	    add_proofstep_content_text(proofstep_container, text);
+	} else if ("def" in content) {
+	    var def = content.def;
+	    var graphs = proof.game_defs[def];
+	    var def_container = document.createElement('div');
+	    var res = add_proofstep_content_graphs(def_container, "", graphs, proof);
+
+	    // var text = "<a href=\"yao.html\">" + def + "</a>";
+	    var link = document.createElement('a');
+	    link.href = '#';
+	    link.innerHTML = def;
+	    link.onclick = function () {
+		var myWindow = window.open("", "Definition", "width=50,height=50");
+
+
+		var svgs = def_container.getElementsByTagName('svg');
+		for (let svg of svgs) {
+		    var text_elems = svg.getElementsByTagName('text');
+		    for (let elem of text_elems) {
+		    	var res = supsub_compiler_svg(elem.innerHTML);
+		    	elem.innerHTML = res;
+		    }
+		}
+
+		myWindow.document.write(def_container.outerHTML);
+		myWindow.document.write('Left and right games are indistinguishable'); // stub
+		myWindow.resizeTo(parseInt(window.innerWidth) * 0.6, parseInt(window.innerHeight) * 0.6);
+	    }
+
+	    var link_container = document.createElement('div');
+	    link_container.setAttribute('class', 'proofstep-text');
+	    link_container.appendChild(link);
+	    proofstep_container.appendChild(link_container);
+
 	}
     }
 
