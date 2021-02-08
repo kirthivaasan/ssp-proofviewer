@@ -87,21 +87,7 @@
 
             "Sim":
 	    {
-		"oracles":
-		{
-		    "ENC" :
-		    {
-			"code": "@assert k @neq \\bot;c @sample enc(k,m);@return ()",
-			"params": ["m"]
-		    },
 
-		    "SAMPLE" :
-		    {
-			"code": "@assert k = \\bot;k  @sample \\{0,1\\}^\\lambda;@return ()",
-			"params": ["m"]
-		    }
-
-		}
 	    },
 
     	    "Zeroer":
