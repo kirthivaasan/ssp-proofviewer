@@ -1,0 +1,176 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="opensans_regular_macroman/stylesheet.css" type="text/css" charset="utf-8" />
+
+    <link rel="stylesheet" href="styles.css" type="text/css" charset="utf-8" />
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      MathJax = {
+	  options: {
+	      renderActions: {
+		  addMenu: []
+	      }
+	  }
+      };
+    </script>
+
+    <script type="text/javascript">
+      mxBasePath = 'mxgraph/src';
+    </script>
+    <script src="mxgraph/mxClient.min.js"></script>
+
+  </head>
+
+  <body>
+    <div id="navbar">
+      <ul>
+	<li><a class="active" href="index.html">Home</a></li>
+	<li><a href="definitions.html">Definitions</a></li>
+	<li><a href="proofs_index.html">Proofs</a></li>
+      </ul>
+    </div>
+
+    <div id="proof_title"></div>
+
+    <div id="proof_wrapper">
+    </div>
+
+    <div id="oracle_wrapper">
+    </div>
+
+
+    <script src="ssp.js"></script>
+    <script src="mxgraphtree.js"></script>
+    <script src="app.js"></script>
+
+    <script>
+
+
+    var proof = {
+	"name": "Length-doubling PRG assumption (as used in the GGM proof)",
+	"monolithic_pkgs":
+	{
+	"Key":
+	{
+	    "state": ["k"],
+	    "oracles":
+	    {
+		"GET_{id}" :
+		{
+		    "params": [],
+		    "code": "@if k = @bot; @> k @gets  \\{0,1\\}^\\lambda;@return k"
+		}
+	    }
+	},
+	"Key_x":
+	{
+	    "instance": "Key"
+	},
+	"Key_{x_0}":
+	{
+	    "instance": "Key"
+	},
+	"Key_{x_1}":
+	{
+	    "instance": "Key"
+	},
+
+	"Prg_{id0}":
+	{
+	    "oracles":
+	    {
+		"GET_{id1}" :
+		{
+		    "params": [],
+		    "code": "x @gets \\mathsf{GET}_{id}();z @gets g(x);y @gets z_{1..\\frac{\\lambda}{2}};@return y;"
+		}
+	    }
+	},
+
+	"Prg_{id1}":
+	{
+	    "oracles":
+	    {
+		"GET_{id1}" :
+		{
+		    "params": [],
+		    "code": "x @gets \\mathsf{GET}_{id}();z @gets g(x);y @gets z_{\\frac{\\lambda}{2}+1..\\lambda};@return y;"
+		}
+	    }
+	},
+
+	"Prg_{x_0}":
+	{
+	    "instance": "Prg_{id0}"
+	},
+	"Prg_{x_1}":
+	{
+	    "instance": "Prg_{id1}"
+	}
+
+
+	},
+
+
+	"modular_pkgs":
+	{
+	"Gprg^0":
+	{
+	    "oracles": [["Prg_{x_0}", "GET_{x_0}"], ["Prg_{x_1}", "GET_{x_1}"]],
+	    "graph":
+	    {
+		"Prg_{x_0}": [["Key_x", "GET_x"]],
+		"Prg_{x_1}": [["Key_x", "GET_x"]],
+		"Key_x": []
+	    },
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":10,"width":1,"height":90},"Prg_{x_0}":{"x":70,"y":0,"width":90,"height":50,"color":"yellow"},"Prg_{x_1}":{"x":70,"y":60,"width":90,"height":50,"color":"yellow"},"Key_x":{"x":230,"y":30,"width":90,"height":50,"color":"blue"}},"edges":{"@oracles_interface":{"Prg_{x_0}":"exitX=0.65;exitY=0.4;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Prg_{x_1}":"exitX=0.65;exitY=0.6;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Prg_{x_0}":{"Key_x":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;"},"Prg_{x_1}":{"Key_x":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"Prg_{x_0}":[],"Prg_{x_1}":[]}}
+	},
+
+	"Gprg^1":
+	{
+	    "oracles": [["Key_{x_0}", "GET_{x_0}"], ["Key_{x_1}", "GET_{x_1}"]],
+	    "graph":
+	    {
+		"Key_{x_0}": [],
+		"Key_{x_1}": []
+	    },
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":110},"Key_{x_0}":{"x":160,"y":0,"width":90,"height":50,"color":"blue"},"Key_{x_1}":{"x":160,"y":60,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Key_{x_0}":"exitX=0.6;exitY=0.45;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Key_{x_1}":"exitX=0.75;exitY=0.65;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[]}}
+	}
+
+
+	},
+
+	"prooftree":
+	{
+	    "Def" :
+	    {
+		"parent": null,
+		"contents": [
+		    {
+			"text": ""
+		    },
+		    {
+			"graphs": [["Gprg^0", "Gprg^1"]]
+		    }
+
+		]
+
+	    }
+
+	}
+
+    }
+
+    var wnd_pos = {height: 300, width: 300, x: 1600, y: 600}
+    var wrapper_width = {proof_width: '51%', oracle_width: '30%'}
+    add_proof(proof, wnd_pos, wrapper_width);
+    convert_pkg_names_latex();
+
+    </script>
+
+  </body>
+</html>
