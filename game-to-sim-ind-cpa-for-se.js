@@ -128,7 +128,7 @@ function driver() {
 
 	    "layout":
 	    {
-		"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":90},"Enc^0":{"x":90,"y":50,"width":90,"height":40},"Key":{"x":240,"y":0,"width":90,"height":40}},"edges":{"@oracles_interface":{"Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.4;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Enc^0":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Enc^0":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0.2;entryY=0.6;entryDx=0;entryDy=0;"}}
+			"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":90},"Enc^0":{"x":90,"y":50,"width":90,"height":40,"color":"yellow"},"Key":{"x":240,"y":0,"width":90,"height":40}},"edges":{"@oracles_interface":{"Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.4;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Enc^0":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Enc^0":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0.2;entryY=0.6;entryDx=0;entryDy=0;"}}
 	    }
 	},
 
@@ -143,7 +143,7 @@ function driver() {
 
 	    "layout":
 	    {
-		"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":90},"Enc^1":{"x":90,"y":50,"width":90,"height":40},"Key":{"x":240,"y":0,"width":90,"height":40}},"edges":{"@oracles_interface":{"Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.4;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Enc^1":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Enc^1":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0.2;entryY=0.6;entryDx=0;entryDy=0;"}}
+			"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":90},"Enc^1":{"x":90,"y":50,"width":90,"height":40,"color":"blue"},"Key":{"x":240,"y":0,"width":90,"height":40}},"edges":{"@oracles_interface":{"Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.4;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Enc^1":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Enc^1":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0.2;entryY=0.6;entryDx=0;entryDy=0;"}}
 	    }
 	},
 
@@ -158,7 +158,7 @@ function driver() {
 
 	    "layout":
 	    {
-		"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":90},"Ideal":{"x":150,"y":50,"width":50,"height":40},"Sim":{"x":240,"y":0,"width":90,"height":90}},"edges":{"@oracles_interface":{"Sim":"exitX=1;exitY=0.2;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Ideal":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Ideal":{"Sim":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryDx=0;entryDy=0;"}}
+			"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":90},"Ideal":{"x":150,"y":50,"width":50,"height":40},"Sim":{"x":240,"y":0,"width":90,"height":90,"color":"blue"}},"edges":{"@oracles_interface":{"Sim":"exitX=1;exitY=0.2;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Ideal":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Ideal":{"Sim":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryDx=0;entryDy=0;"}}
 	    }
 	},
 
@@ -173,7 +173,7 @@ function driver() {
 
 	    "layout":
 	    {
-		"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":90},"Ideal":{"x":150,"y":50,"width":50,"height":40},"Sim*":{"x":240,"y":0,"width":90,"height":90}},"edges":{"@oracles_interface":{"Sim*":"exitX=1;exitY=0.2;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Ideal":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Ideal":{"Sim*":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryDx=0;entryDy=0;"}}
+			"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":90},"Ideal":{"x":150,"y":50,"width":50,"height":40},"Sim*":{"x":240,"y":0,"width":90,"height":90,"color":"blue"}},"edges":{"@oracles_interface":{"Sim*":"exitX=1;exitY=0.2;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Ideal":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Ideal":{"Sim*":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryDx=0;entryDy=0;"}}
 	    }
 	},
 
@@ -206,7 +206,7 @@ function driver() {
 
 	    "layout":
 	    {
-		"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":90},"Zeroer":{"x":50,"y":50,"width":60,"height":40},"Ideal":{"x":150,"y":50,"width":60,"height":40},"Sim*":{"x":250,"y":0,"width":90,"height":90}},"edges":{"@oracles_interface":{"Sim*":"exitX=1;exitY=0.2;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Zeroer":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Zeroer":{"Ideal":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Ideal":{"Sim*":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.6;entryDx=0;entryDy=0;"}}
+			"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":90},"Zeroer":{"x":50,"y":50,"width":60,"height":40},"Ideal":{"x":150,"y":50,"width":60,"height":40},"Sim*":{"x":250,"y":0,"width":90,"height":90,"color":"blue"}},"edges":{"@oracles_interface":{"Sim*":"exitX=1;exitY=0.2;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Zeroer":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Zeroer":{"Ideal":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Ideal":{"Sim*":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.6;entryDx=0;entryDy=0;"}}
 	    }
 	},
 
@@ -221,7 +221,7 @@ function driver() {
 	    },
 
 	    "layout":
-	    {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":90},"Zeroer":{"x":50,"y":50,"width":60,"height":40},"Key":{"x":250,"y":0,"width":90,"height":40},"Enc^0":{"x":150,"y":50,"width":60,"height":40}},"edges":{"@oracles_interface":{"Zeroer":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Zeroer":{"Enc^0":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Enc^0":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryDx=0;entryDy=0;"}}}
+	    {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":90},"Zeroer":{"x":50,"y":50,"width":60,"height":40},"Key":{"x":250,"y":0,"width":90,"height":40},"Enc^0":{"x":150,"y":50,"width":60,"height":40,"color":"yellow"}},"edges":{"@oracles_interface":{"Zeroer":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Zeroer":{"Enc^0":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Enc^0":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryDx=0;entryDy=0;"}}}
 	}
 
     };
@@ -250,12 +250,12 @@ function driver() {
 	    ]
 	},
 
-	"LemDir1" :
+	"Lemma 1:\nCPA implies Simulation" :
 	{
 	    "parent": "Theorem",
 	    "contents": [
 		{
-		    "text": "We show that \\(\\mathsf{Gind\\text{-}cpa^0}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^1}\\) implies \\(\\mathsf{Gind\\text{-}cpa^0}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\) (with construction of a simulator (package) \\(\\mathsf{Sim}\\))."
+		    "text": "We show that \\(\\mathsf{Gind\\text{-}cpa^0}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^1}\\) implies \\(\\mathsf{Gind\\text{-}cpa^0}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\)."
 		},
 		{
 		    "graphs": [[]]
@@ -263,7 +263,7 @@ function driver() {
 	    ]
 	},
 
-	"LemDir2" :
+	"Lemma 2:\nSimulation implies CPA" :
 	{
 	    "parent": "Theorem",
 	    "contents": [
@@ -280,9 +280,27 @@ function driver() {
 	    ]
 	},
 
+	"Proof:\nTheorem": {
+		"parent": "Theorem",
+		"contents": [
+			{
+				"text": ""
+			}
+		]
+	},
+
+	"Proof Strategy\nLemma 1": {
+		"parent": "Lemma 1:\nCPA implies Simulation",
+		"contents": [
+			{
+				"text": "To show the Lemma we construct a Simulator \\(\\mathsf{Sim}\\) by first splitting the ideal Encryption package \\(\\mathsf{Enc^1}\\) into \\(\\mathsf{Dropper}\\rightarrow\\mathsf{Enc\\text{-}Zeroes}\\) (Claim 1) and inlining \\(\\frac{\\mathsf{Id}}{\\mathsf{Enc\\text{-}Zeroes}} \\rightarrow \\mathsf{Key} \\) and identifying \\(\\mathsf{Dropper}\\) with \\(\\mathsf{Ideal}\\) (Claim 2)" 
+			}
+		]
+	},
+		
 	"Claim1" :
 	{
-	    "parent": "LemDir1",
+	    "parent": "Lemma 1:\nCPA implies Simulation",
 	    "contents": [
 		{
 		    "text": "The games \\(\\mathsf{Gind\\text{-}cpa^1}\\) and \\(\\mathsf{Gind\\text{-}cpa\\text{-}Dropper\\text{-}EncZeroes}\\) are code equivalent."
@@ -356,7 +374,7 @@ function driver() {
 
 	"Claim2" :
 	{
-	    "parent": "LemDir1",
+	    "parent": "Lemma 1:\nCPA implies Simulation",
 	    "contents": [
 		{
 		    "text": "Code equivalence of \\(\\mathsf{Gind\\text{-}cpa\\text{-}Dropper\\text{-}Enc\\text{-}Zeroes}\\) and \\(\\mathsf{Gind\\text{-}cpa^{sim}}\\)."
@@ -393,10 +411,28 @@ function driver() {
 	    }
 
 	},
+		
+	"Proof:\nLemma 1": {
+		"parent": "Lemma 1:\nCPA implies Simulation",
+		"contents": [
+			{
+				"text": "It follows that there exists a simulator \\(\\mathsf{Sim^*}\\) which is code-equivalent and therefore (perfectly) indistinguishable from \\(\\mathsf{Enc^1}\\). Furthermore as \\(\\mathsf{Enc^0}\\) and \\(\\mathsf{Enc^1}\\) or (computationally) indistinguishable, the Lemma follows." 
+			}
+		]
+	},
 
+	"Proof Strategy:\nLemma 2": {
+		"parent": "Lemma 2:\nSimulation implies CPA",
+		"contents": [
+			{
+				"text": "To show Lemma 2, <ul><li>we first argue that \\(\\mathsf{Ideal}\\) ≅ \\(\\mathsf{Zeroer}\\rightarrow\\mathsf{Ideal}\\), i. e. pre-composing \\(\\mathsf{Zeroer}\\) does not change the behaviour of \\(\\mathsf{Ideal}\\) (Claim 3)</li><li>we then use the definition of simulation security to replace \\(\\frac{\\mathsf{Id}}{\\mathsf{Ideal}} \\rightarrow \\mathsf{Sim*} \\) with \\(\\frac{\\mathsf{Id}}{\\mathsf{Enc^0}} \\rightarrow \\mathsf{Key} \\) (Claim 4)</li><li>and finally show code-equivalence between \\(\\mathsf{Zeroer}\\rightarrow\\mathsf{Enc^0}\\) and \\(\\mathsf{Enc^1}\\) (Claim 5).</li></ul>"
+			}
+		]
+	},
+		
 	"Claim3":
 	{
-	    "parent": "LemDir2",
+	    "parent": "Lemma 2:\nSimulation implies CPA",
 	    "contents": [
 		{
 		    "text": "Code equivalence step. Note that \\(\\mathsf{Zeroer}\\) sends 0s instead of the original message, of the same length to \\(\\mathsf{Ideal}\\) via \\(\\mathsf{ENC}\\). \\(\\mathsf{Ideal}\\) then simply forwards the all 0s message to \\(\\mathsf{Sim*}\\) which encrypts all 0s of the same length - effectively doing the same thing as in \\(\\mathsf{Gind\\text{-}cpa\\text{-}sim*}\\)."
@@ -435,7 +471,7 @@ function driver() {
 
 	"Claim4":
 	{
-	    "parent": "LemDir2",
+	    "parent": "Lemma 2:\nSimulation implies CPA",
 	    "contents": [
 		{
 		    "text": "We reduce to the assumption \\(\\mathsf{Gind\\text{-}cpa^{sim*}}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^0}\\) and argue that the following games are indistinguishable."
@@ -457,7 +493,7 @@ function driver() {
 
 	"Claim5":
 	{
-	    "parent": "LemDir2",
+	    "parent": "Lemma 2:\nSimulation implies CPA",
 	    "contents": [
 		{
 		    "text": "But then \\(\\mathsf{Gind\\text{-}cpa\\text{-}Zeroer\\text{-}Ideal}\\) is code equivalent to \\(\\mathsf{Gind\\text{-}cpa^1}\\)."
@@ -494,7 +530,17 @@ function driver() {
 		    "packages": ["Zeroer", "Enc^0"]
 		}
 	    }
-	}
+	},
+
+	"Proof:\nLemma 2": {
+		"parent": "Lemma 2:\nSimulation implies CPA",
+		"contents": [
+			{
+				"text": "In conclusion we have shown that \\(\\frac{\\mathsf{Id}}{\\mathsf{Ideal}} \\rightarrow \\mathsf{Sim*} \\) ≅ \\(\\frac{\\mathsf{Id}}{\\mathsf{Enc^1}} \\rightarrow \\mathsf{Key} \\). Using the the assumption \\(\\mathsf{Gind\\text{-}cpa^{sim*}}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^0}\\) again, the lemma follows." 
+			}
+		]
+	},
+
 
     };
 
