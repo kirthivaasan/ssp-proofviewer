@@ -82,7 +82,7 @@ function reduce_same_dest(neighbours) {
 
 
 // app drawing
-function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=null, ghost=null) {
+function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=null, ghost=null, dashed=null) {
     if (!mxClient.isBrowserSupported()) {
 	return -1;
     }
@@ -176,7 +176,7 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 	packages.set('@oracles_interface', v);
 
 	// add codeq dashed rect
-	if (cut != null && type == 'codeq') {
+	if (cut != null && (type == 'codeq' || type == 'plugin')) {
 	    var bbox_min_x = 99999999999999;
 	    var bbox_min_y = 99999999999999;
 	    var bbox_max_x = -99999999999999;
@@ -679,6 +679,10 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof, codeq.graph, codeq.packages, 'codeq');
     		    add_inlining_steps(proofstep_container, codeq);
 
+		} else if ("plugin" in type) {
+		    console.log('here');
+		    var plugin = type.plugin;
+		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof, plugin.graph, plugin.cut, 'plugin');
 		} else {
 		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof);
 		}
