@@ -685,21 +685,26 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 	    link.href = '#';
 	    link.innerHTML = def;
 	    link.onclick = function () {
-		var myWindow = window.open("", "Definition", "width=50,height=50");
+		// var myWindow = window.open("", "Definition", "width=50,height=50");
 
 
-		var svgs = def_container.getElementsByTagName('svg');
-		for (let svg of svgs) {
-		    var text_elems = svg.getElementsByTagName('text');
-		    for (let elem of text_elems) {
-		    	var res = supsub_compiler_svg(elem.innerHTML);
-		    	elem.innerHTML = res;
-		    }
-		}
+		// var svgs = def_container.getElementsByTagName('svg');
+		// for (let svg of svgs) {
+		//     var text_elems = svg.getElementsByTagName('text');
+		//     for (let elem of text_elems) {
+		//     	var res = supsub_compiler_svg(elem.innerHTML);
+		//     	elem.innerHTML = res;
+		//     }
+		// }
 
-		myWindow.document.write(def_container.outerHTML);
-		myWindow.document.write('Left and right games are indistinguishable'); // stub
-		myWindow.resizeTo(parseInt(window.innerWidth) * 0.6, parseInt(window.innerHeight) * 0.6);
+		// myWindow.document.write(def_container.outerHTML);
+		// myWindow.document.write('Left and right games are indistinguishable'); // stub
+		// myWindow.resizeTo(parseInt(window.innerWidth) * 0.6, parseInt(window.innerHeight) * 0.6);
+
+		var myWindow = window.open("ind-cpa-def.html", "Definition", "width=50,height=50");
+		myWindow.resizeTo(parseInt(window.innerWidth), parseInt(window.innerHeight));
+
+
 	    }
 
 	    var link_container = document.createElement('div');
