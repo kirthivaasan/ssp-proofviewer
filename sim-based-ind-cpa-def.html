@@ -1,0 +1,182 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="opensans_regular_macroman/stylesheet.css" type="text/css" charset="utf-8" />
+
+    <link rel="stylesheet" href="styles.css" type="text/css" charset="utf-8" />
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      MathJax = {
+	  options: {
+	      renderActions: {
+		  addMenu: []
+	      }
+	  }
+      };
+    </script>
+
+    <script type="text/javascript">
+      mxBasePath = 'mxgraph/src';
+    </script>
+    <script src="mxgraph/mxClient.min.js"></script>
+
+  </head>
+
+  <body>
+    <div id="navbar">
+      <ul>
+	<li><a class="active" href="index.html">Home</a></li>
+	<li><a href="definitions.html">Definitions</a></li>
+	<li><a href="proofs_index.html">Proofs</a></li>
+      </ul>
+    </div>
+
+    <div id="proof_title"></div>
+
+    <div id="proof_wrapper">
+    </div>
+
+    <div id="oracle_wrapper">
+    </div>
+
+
+    <script src="ssp.js"></script>
+    <script src="mxgraphtree.js"></script>
+    <script src="app.js"></script>
+
+    <script>
+
+
+    var proof = {
+	"name": "IND-CPA definition",
+	"monolithic_pkgs":
+        {
+    	    "Key":
+	    {
+		"oracles":
+		{
+		    "SAMPLE" :
+		    {
+			"code": "@assert k = @bot;k @sample \\{0,1\\}^\\lambda;",
+			"params": []
+		    },
+
+		    "GET" :
+		    {
+			"code": "@assert k \\neq @bot;@return k;",
+			"params": []
+		    }
+		}
+
+	    },
+
+	    "Enc":
+	    {
+		"oracles":
+		{
+		    "ENC" :
+		    {
+			"code": "k @gets GET();c @sample enc_k(m);@return c",
+			"params": ["m"]
+		    }
+		}
+	    },
+
+            "Sim":
+	    {
+		"oracles":
+		{
+		    "ENC" :
+		    {
+			"code": "@assert k @neq \\bot;c @sample enc(k,m);@return ()",
+			"params": ["m"]
+		    },
+
+		    "SAMPLE" :
+		    {
+			"code": "@assert k = \\bot;k  @sample \\{0,1\\}^\\lambda;@return ()",
+			"params": ["m"]
+		    }
+
+		}
+	    },
+
+    	    "Zeroer":
+	    {
+		"oracles":
+		{
+		    "ENC" :
+		    {
+			"code": "c @gets ENC(0^{|m|});@return c",
+			"params": ["m"]
+		    }
+		}
+	    }
+
+	},
+
+	"modular_pkgs":
+	{
+	"Gind-cpa^0":
+	{
+	    "oracles": [["Key", "SAMPLE"], ["Enc", "ENC"]],
+	    "graph":
+	    {
+		"Enc": [["Key", "GET"]],
+		"Key": []
+	    },
+
+	    "layout":
+	    {
+    "nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":90},"Enc":{"x":90,"y":50,"width":90,"height":40},"Key":{"x":240,"y":0,"width":90,"height":40}},"edges":{"@oracles_interface":{"Key":"exitX=1;exitY=0.2;entryX=0;entryY=0.4;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Enc":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Enc":{"Key":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0.2;entryY=0.6;entryDx=0;entryDy=0;"}}
+}},
+
+    	"Gind-cpa-sim":
+	{
+	    "oracles": [["Sim", "SAMPLE"], ["Zeroer", "ENC"]],
+	    "graph":
+	    {
+		"Zeroer": [["Sim", "ENC"]],
+		"Sim": []
+	    },
+
+	    "layout":
+	    {
+			"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":90},"Zeroer":{"x":150,"y":50,"width":50,"height":40},"Sim":{"x":240,"y":0,"width":90,"height":90}},"edges":{"@oracles_interface":{"Sim":"exitX=1;exitY=0.2;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Zeroer":"exitX=1;exitY=0.8;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Zeroer":{"Sim":"exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryDx=0;entryDy=0;"}}
+	    }
+    }
+    },
+
+	"prooftree":
+	{
+	    "Def" :
+	    {
+		"parent": null,
+		"contents": [
+		    {
+			"text": ""
+		    },
+		    {
+			"graphs": [["Gind-cpa^0", "Gind-cpa-sim"]]
+		    }
+
+		]
+
+	    }
+
+	}
+
+    }
+
+    var wnd_pos = {height: 300, width: 300, x: 1600, y: 600}
+    var wrapper_width = {proof_width: '51%', oracle_width: '30%'}
+    add_proof(proof, wnd_pos, wrapper_width);
+    convert_pkg_names_latex();
+
+    </script>
+
+  </body>
+</html>
