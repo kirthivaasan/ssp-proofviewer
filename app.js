@@ -1,5 +1,17 @@
 XML_EXPORT_OPTION = false;
 
+var PKG_COLORS = {
+    "blue": {fill: "#dae8fc", stroke: "#6c8ebf"},
+    "yellow": {fill: "#fff2cc", stroke: "#d6b656"},
+    "grey": {fill: "#d4d4d4", stroke: "#000000"},
+    "gray": {fill: "#d4d4d4", stroke: "#000000"},
+    "purple": {fill: "#e1d5e7", stroke: "#9673a6"},
+    "green": {fill: "#d5e8d4", stroke: "#82b366"},
+    "red": {fill: "#f8cecc", stroke: "#b85450"},
+    "default_color": {fill: "#ffffff", stroke: "#000000"}
+}
+
+
 // Error classes
 class InvalidCut extends Error {
     constructor(message) {
@@ -226,11 +238,14 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 		    // v.style = 'dashed=1;';
 		}
 	    } else {
-		if (node_cfg.color == "blue") {
-		    v.style = "fillColor=#dae8fc;strokeColor=#6c8ebf";
-		} else if (node_cfg.color == "yellow") {
-		    v.style = "fillColor=#fff2cc;strokeColor=#d6b656";
+		var pkg_color = PKG_COLORS.default_color.fill;
+		var pkg_stroke = PKG_COLORS.default_color.stroke;
+
+		if (node_cfg.color in PKG_COLORS) {
+		    pkg_color = PKG_COLORS[node_cfg.color].fill;
+		    pkg_stroke = PKG_COLORS[node_cfg.color].stroke;
 		}
+		v.style = "fillColor=" + pkg_color + ";strokeColor="+ pkg_stroke;
 	    }
 
 	    // if (node.substring(0,5) == "dummy") {
