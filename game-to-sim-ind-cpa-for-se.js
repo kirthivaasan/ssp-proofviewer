@@ -274,7 +274,7 @@ function driver() {
 	    "parent": null,
 	    "contents": [
 		{
-		    "text": "<a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC and simulation-based security of ENC are equivalent, i.e., there exists a PPT simulator \\(\\mathsf{Sim}\\) such that for all PPT adversaries \\(\\mathcal{A}\\), $$Adv(A,Genc^0,Genc(\\mathsf{Sim})) = Adv(\\mathcal{A},Genc^0,Genc^1)$$ and conversely, there exists a PPT reduction \\(\\mathsf{R}\\) such that for all PPT simulators Sim and PPT adversaries \\(\\mathcal{A}\\), $$Adv(\\mathcal{A}, Genc^0, Genc^1) \\leq Adv(\\mathcal{A}\\rightarrow\\mathsf{R}, Genc^0, Genc(\\mathsf{Sim}))+Adv(A, Genc^0, Genc(\\mathsf{Sim})).$$"
+		    "text": "<a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC and simulation-based security of ENC are equivalent, i.e., there exists a PPT simulator \\(\\mathsf{Sim}\\) such that for all PPT adversaries \\(\\mathcal{A}\\), $$Adv(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim})) = \\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}^1)$$ and conversely, there exists a PPT reduction \\(\\mathsf{R}\\) such that for all PPT simulators \\(\\mathsf{Sim}\\) and PPT adversaries \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}^1) \\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}, \\mathsf{Genc}^0, \\mathsf{Genc}(\\mathsf{Sim}))+\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}(\\mathsf{Sim})).$$"
 		},
 		// {
 		//     "text": "Recall that the game-base notion of \\(\\mathsf{IND\\text{-}CPA}\\) states that \\(\\mathsf{Gind\\text{-}cpa^0}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^1}\\)"
@@ -301,7 +301,7 @@ function driver() {
 	    "parent": "Theorem",
 	    "contents": [
 		{
-		    "text": "Simulation-based security of ENC implies the <a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC , i.e., for all PPT simulators Sim and PPT adversaries A, $$Adv(\\mathcal{A}, Genc^0, Genc^1) \\leq Adv(\\mathcal{A}\\rightarrow\\mathsf{R}, Genc^0, Genc(\\mathsf{Sim}))+Adv(A, Genc^0, Genc(\\mathsf{Sim})).$$"
+		    "text": "Simulation-based security of ENC implies the <a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC , i.e., for all PPT simulators \\(\\mathsf{Sim}\\) and PPT adversaries \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}^1) \\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}, \\mathsf{Genc}^0, \\mathsf{Genc}(\\mathsf{Sim}))+\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}(\\mathsf{Sim})).$$"
 		},
 	    ]
 	},
@@ -312,7 +312,7 @@ function driver() {
 	    "parent": "Theorem",
 	    "contents": [
 		{
-		    "text": "<a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC implies the simulation-based security of ENC, i.e., there exists a PPT simulator \\(\\mathsf{Sim}_{Lemma2}\\) such that for all PPT adversaries \\(\\mathcal{A}\\), $$Adv(A,Genc^0,Genc(\\mathsf{Sim}_{Lemma2})) = Adv(\\mathcal{A},Genc^0,Genc^1),$$ where \\(\\mathsf{Sim}_{Lemma2}\\) is defined as follows:"
+		    "text": "<a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC implies the simulation-based security of ENC, i.e., there exists a PPT simulator \\(\\mathsf{Sim_{Lemma2}}\\) such that for all PPT adversaries \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim_{Lemma2}})) = \\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}^1),$$ where \\(\\mathsf{Sim_{Lemma2}}\\) is defined as follows:"
 		},
 		{
 		    "graphs": [["Sim_{Lemma2}"]]
