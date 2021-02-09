@@ -368,9 +368,10 @@ $$\\begin{align}
 		{
 			"text": `Claim 2 bounds the advantage \\(\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Hybrid\\text{-}Lemma1})\\leq  \\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim})) \\) via reduction to the assumption. Claim 3 then establishes that game \\(\\mathsf{Hybrid\\text{-}Lemma1}\\) is equal to \\(\\mathsf{Genc(Sim)}\\) by showing that \\(\\mathsf{Zeroer}\\rightarrow \\mathsf{Zeroer} \\stackrel{\\text{code}}{\\equiv}\\mathsf{Zeroer}\\). The lemma then follows via the triangle inequality:
 $$\\begin{align}
-\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Genc}^0)\\leq& \\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Hybrid\\text{-}Lemma1}) \\\\
+\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Genc}^0)\\leq&\\;\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Hybrid\\text{-}Lemma1}) \\\\
 &+\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim}))\\\\
-\\leq& 2\\cdot \\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim}))
+=\\;& \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{Zeroer},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim}))\\\\
+&+\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim}))\\\\
 \\end{align}$$`
 		},
 		{
@@ -390,9 +391,23 @@ $$\\begin{align}
 		"parent": "Lemma 1:\nSimulation-based security of \\(\\mathsf{se}\\) implies IND-CPA security",
 		"contents": [
 		{
-			"text": "."
+			"text": "\\(\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Hybrid\\text{-}Lemma1}) =  \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{Zeroer},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim})) \\)"
 		},
-		]
+		{
+		    "graphs": [["Genc^1"], ["Hybrid-Lemma-1"]]
+		},
+		],
+		"type":
+		{
+			"reduction": {
+				"graph":"Hybrid-Claim-1",
+				"cut": ["Zeroer"]
+			},
+			"reduction": {
+				"graph":"Genc^1",
+				"cut": ["Zeroer"]
+			}
+		}
 	},
 
 	"Claim 3: Equivalence": {
