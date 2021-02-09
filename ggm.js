@@ -126,7 +126,7 @@ function ggm_driver() {
 	},
 
 
-	"GGM-const-hyb[]":
+	"Hybrid[]":
 	{
 	    "oracles": [["Mod-prf", "EVAL"]],
 
@@ -153,7 +153,7 @@ function ggm_driver() {
 							"Mod-prf":{"x":50,"y":170,"width":50,"height":130},"Prg-000":{"x":150, "color":"yellow","y":0,"width":90,"height":50, "color":"yellow"},"Prg-001":{"x":150, "color":"yellow","y":60,"width":90,"height":50, "color":"yellow"},"Prg-010":{"x":150, "color":"yellow","y":120,"width":90,"height":50, "color":"yellow"},"Prg-011":{"x":150, "color":"yellow","y":180,"width":90,"height":50, "color":"yellow"},"Prg-100":{"x":150, "color":"yellow","y":240,"width":90,"height":50, "color":"yellow"},"Prg-101":{"x":150, "color":"yellow","y":300,"width":90,"height":50, "color":"yellow"},"Prg-110":{"x":150, "color":"yellow","y":360,"width":90,"height":50, "color":"yellow"},"Prg-111":{"x":150, "color":"yellow","y":420,"width":90,"height":50, "color":"yellow"},"Prg-00":{"x":310,"y":30,"width":90,"height":50, "color":"yellow"},"Prg-01":{"x":310,"y":150, "color":"yellow","width":90,"height":50, "color":"yellow"},"Prg-10":{"x":310,"y":270,"width":90,"height":50, "color":"yellow"},"Prg-11":{"x":310,"y":390,"width":90,"height":50, "color":"yellow"},"Key-0":{"x":440,"y":90,"width":90,"height":50, "color":"blue"},"Key-1":{"x":440,"y":330,"width":90,"height":50, "color":"blue"},"Key":{"x":570,"y":210,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Prg-000":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-001":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-010":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-011":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-100":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-101":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-110":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-111":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-000":{"Prg-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-001":{"Prg-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-010":{"Prg-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-011":{"Prg-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-100":{"Prg-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-101":{"Prg-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-110":{"Prg-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-111":{"Prg-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-00":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-01":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-10":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-11":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-0":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-1":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Mod-prf":[],"Prg-000":[],"Prg-001":[],"Prg-010":[],"Prg-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[],"Prg-00":[],"Prg-01":[],"Prg-10":[],"Prg-11":[],"Key-0":[],"Key-1":[]}}
 	},
 
-	"GGM-const-hyb0":
+	"Hybrid0":
 	{
 	    "oracles": [["Mod-prf", "EVAL"]],
 
@@ -179,7 +179,7 @@ function ggm_driver() {
 							"Mod-prf":{"x":50,"y":170,"width":50,"height":130},"Prg-000":{"x":150, "color":"yellow","y":0,"width":90,"height":50, "color":"yellow"},"Prg-001":{"x":150, "color":"yellow","y":60,"width":90,"height":50, "color":"yellow"},"Prg-010":{"x":150, "color":"yellow","y":120,"width":90,"height":50, "color":"yellow"},"Prg-011":{"x":150, "color":"yellow","y":180,"width":90,"height":50, "color":"yellow"},"Prg-100":{"x":150, "color":"yellow","y":240,"width":90,"height":50, "color":"yellow"},"Prg-101":{"x":150, "color":"yellow","y":300,"width":90,"height":50, "color":"yellow"},"Prg-110":{"x":150, "color":"yellow","y":360,"width":90,"height":50, "color":"yellow"},"Prg-111":{"x":150, "color":"yellow","y":420,"width":90,"height":50, "color":"yellow"},"Key-00":{"x":310,"y":30,"width":90,"height":50, "color":"blue"},"Key-01":{"x":310,"y":150, "color":"blue","width":90,"height":50},"Prg-10":{"x":310,"y":270,"width":90,"height":50, "color":"yellow"},"Prg-11":{"x":310,"y":390,"width":90,"height":50, "color":"yellow"},"Key-0":{"x":440,"y":90,"width":90,"height":50, "color":"blue"},"Key-1":{"x":440,"y":330,"width":90,"height":50, "color":"blue"},"Key":{"x":570,"y":210,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Prg-000":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-001":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-010":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-011":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-100":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-101":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-110":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-111":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-000":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-001":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-010":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-011":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-100":{"Prg-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-101":{"Prg-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-110":{"Prg-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-111":{"Prg-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-00":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-01":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-10":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-11":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-0":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-1":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Mod-prf":[],"Prg-000":[],"Prg-001":[],"Prg-010":[],"Prg-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[],"Key-00":[],"Key-01":[],"Prg-10":[],"Prg-11":[],"Key-0":[],"Key-1":[]}}
 	},
 
-	"GGM-const-hyb1":
+	"Hybrid1":
 	{
 	    "oracles": [["Mod-prf", "EVAL"]],
 
@@ -205,7 +205,7 @@ function ggm_driver() {
 				   "edge_points":{"@oracles_interface":[],"Mod-prf":[],"Prg-000":[],"Prg-001":[],"Prg-010":[],"Prg-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[]}}
 	},
 
-	"GGM-const-hyb00":
+	"Hybrid00":
 	{
 	    "oracles": [["Mod-prf", "EVAL"]],
 
@@ -230,7 +230,7 @@ function ggm_driver() {
 				   "edge_points":{"@oracles_interface":[],"Mod-prf":[],"Key-000":[],"Key-001":[],"Prg-010":[],"Prg-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[]}}
 	},
 
-	"GGM-const-hyb01":
+	"Hybrid01":
 	{
 	    "oracles": [["Mod-prf", "EVAL"]],
 
@@ -254,7 +254,7 @@ function ggm_driver() {
 				   "edge_points":{"@oracles_interface":[],"Mod-prf":[],"Key-000":[],"Key-001":[],"Key-010":[],"Key-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[]}}
 	},
 
-	"GGM-const-hyb10":
+	"Hybrid10":
 	{
 	    "oracles": [["Mod-prf", "EVAL"]],
 
@@ -278,7 +278,7 @@ function ggm_driver() {
 	},
 		
 
-	"GGM-const-hyb11":
+	"Hybrid11":
 	{
 	    "oracles": [["Mod-prf", "EVAL"]],
 
@@ -394,7 +394,7 @@ function ggm_driver() {
 $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Gprf(Prf_{GGM})^0},\\mathsf{Hybrid_{[]}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{[]},\\mathsf{Gprg}_{[]}^0,\\mathsf{Gprg}_{[]}^1)$$.`
 				},
 				{
-					"graphs": [["GGM-const^0"],["GGM-const-hyb[]"]]
+					"graphs": [["GGM-const^0"],["Hybrid[]"]]
 				},
 			],
 			"type":
@@ -423,7 +423,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Gprf(Prf_{GGM})^0},\\mathsf{Hybrid_{[]}}) 
 $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{[]}},\\mathsf{Hybrid_{0}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_0,\\mathsf{Gprg}_{0}^0,\\mathsf{Gprg}_{0}^1)$$.`
 				},
 				{
-					"graphs": [["GGM-const-hyb[]"],["GGM-const-hyb0"]]
+					"graphs": [["Hybrid[]"],["Hybrid0"]]
 				},
 			],
 			"type":
@@ -452,7 +452,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{[]}},\\mathsf{Hybrid_{0}}) = \\mat
 $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{0}},\\mathsf{Hybrid_{1}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_1,\\mathsf{Gprg}_{1}^0,\\mathsf{Gprg}_{1}^1)$$.`
 				},
 				{
-					"graphs": [["GGM-const-hyb0"],["GGM-const-hyb1"]]
+					"graphs": [["Hybrid0"],["Hybrid1"]]
 				},
 			],
 			"type":
@@ -481,7 +481,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{0}},\\mathsf{Hybrid_{1}}) = \\math
 $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{1}},\\mathsf{Hybrid_{00}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{00},\\mathsf{Gprg}_{00}^0,\\mathsf{Gprg}_{00}^1)$$.`
 				},
 				{
-					"graphs": [["GGM-const-hyb1"],["GGM-const-hyb00"]]
+					"graphs": [["Hybrid1"],["Hybrid00"]]
 				},
 			],
 			"type":
@@ -510,7 +510,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{1}},\\mathsf{Hybrid_{00}}) = \\mat
 $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{00}},\\mathsf{Hybrid_{01}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{01},\\mathsf{Gprg}_{01}^0,\\mathsf{Gprg}_{01}^1)$$.`
 				},
 				{
-					"graphs": [["GGM-const-hyb00"],["GGM-const-hyb01"]]
+					"graphs": [["Hybrid00"],["Hybrid01"]]
 				},
 			],
 			"type":
@@ -539,7 +539,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{00}},\\mathsf{Hybrid_{01}}) = \\ma
 $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{01}},\\mathsf{Hybrid_{10}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{10},\\mathsf{Gprg}_{10}^0,\\mathsf{Gprg}_{10}^1)$$.`
 				},
 				{
-					"graphs": [["GGM-const-hyb01"],["GGM-const-hyb10"]]
+					"graphs": [["Hybrid01"],["Hybrid10"]]
 				},
 			],
 			"type":
@@ -568,7 +568,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{01}},\\mathsf{Hybrid_{10}}) = \\ma
 $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{10}},\\mathsf{Hybrid_{11}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{11},\\mathsf{Gprg}_{11}^0,\\mathsf{Gprg}_{11}^1)$$.`
 				},
 				{
-					"graphs": [["GGM-const-hyb10"],["GGM-const-hyb11"]]
+					"graphs": [["Hybrid10"],["Hybrid11"]]
 				},
 			],
 			"type":
@@ -593,8 +593,8 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{10}},\\mathsf{Hybrid_{11}}) = \\ma
 		// 	"parent": "Hop1",
 		// 	"contents": [
 		// 		{
-		// 			"graphs": [["GGM-const^0"],["GGM-const-hyb[]"],["GGM-const-hyb0"],["GGM-const-hyb1"]
-		// 					  ,["GGM-const-hyb00"],["GGM-const-hyb01"],["GGM-const-hyb10"],["GGM-const-hyb11"]]
+		// 			"graphs": [["GGM-const^0"],["Hybrid[]"],["Hybrid0"],["Hybrid1"]
+		// 					  ,["Hybrid00"],["Hybrid01"],["Hybrid10"],["Hybrid11"]]
 		// 		},
 		// 	],
 		// },
