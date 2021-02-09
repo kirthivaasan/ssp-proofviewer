@@ -631,47 +631,19 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{10}},\\mathsf{Hybrid_{11}}) = \\ma
 					"text": "$$\\mathsf{RO}\\stackrel{\\text{code}}{\\equiv}\\mathsf{Hybrid}_{11}.$$. <p class=\"proofstep-title\">Proof of Claim 2</p><p> We show via inlining that the following two graphs are code-equivalent. TO DO: Here, we need to make this an proper inlining argument."
 				},
 				{
-					"graphs": [["RO"],["Hybrid_{000}"]]
+					"graphs": [["RO", "Hybrid_{000}"]]
 				},
 			],
-			"type":
+		    "type":
+		    {
+			"codeq":
 			{
-				"reduction":
-				[
-					{
-						"i": 0, "j": 0,
-						"cut": ["Mod-prf", "Key-000", "Key-001", "Key-010", "Key-011", "Key-100", "Key-101"]
-					},
-					{
-						"i": 1, "j": 0,
-						"cut": ["Mod-prf", "Key-000", "Key-001", "Key-010", "Key-011", "Key-100", "Key-101"]
-					}
 
-				]
 			}
+		    }
+
 		},
 
-	"RO-Ideal equivalence" :
-	{
-	    "parent": "Theorem",
-	    "contents": [
-		{
-		    "text": "\\( \\mathsf{SEC^0}(\\mathsf{GB_{yao}}) \\stackrel{\\text{code}}{\\equiv} \\mathcal{R}^1_{circ} \\rightarrow \\mathsf{LSEC^0}(\\mathsf{GB_{yao,1}}) \\)"
-		},
-
-		{
-		    "graphs": [["Hybrid_{1}1", "RO"]]
-		},
-	    ],
-
-	    "type":
-	    {
-		"codeq":
-		{
-
-		}
-	    }
-	},
 		// "Tmp":
 		// {
 		// 	"parent": "Hop1",
