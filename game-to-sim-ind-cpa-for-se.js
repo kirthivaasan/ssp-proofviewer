@@ -8,7 +8,7 @@ function driver() {
 	    {
 		"ENC":
 		{
-		    "code": "k @gets GET(); c @sample enc_k(m); @return c",
+		    "code": "k @gets GET(); c @sample \\mathsf{se}.\\mathsf{enc}(k,m); @return c",
 		    "params": ["m"],
 		}
 	    }
