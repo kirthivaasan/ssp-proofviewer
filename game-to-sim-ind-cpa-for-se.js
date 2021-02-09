@@ -292,7 +292,7 @@ function driver() {
 	    "parent": null,
 	    "contents": [
 		{
-		    "text": "<a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC and simulation-based security of ENC are equivalent, i.e., there exists a PPT simulator \\(\\mathsf{Sim}\\) such that for all PPT adversaries A, \\(Adv(A,Genc^0,Genc(sim)) \\leq 2\\cdot Adv(A,Genc^0,Genc^1)\\) and conversely, for all PPT simulators Sim and PPT adversaries A, \\(Adv(A, Genc^0, Genc^1) \\leq Adv(A, Genc^0, Genc(Sim))\\)"
+		    "text": "<a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC and simulation-based security of ENC are equivalent, i.e., there exists a PPT simulator \\(\\mathsf{Sim}\\) such that for all PPT adversaries \\(\\mathcal{A}\\), $$Adv(A,Genc^0,Genc(\\mathsf{Sim})) = Adv(\\mathcal{A},Genc^0,Genc^1)$$ and conversely, there exists a PPT reduction \\(\\mathsf{R}\\) such that for all PPT simulators Sim and PPT adversaries \\(\\mathcal{A}\\), $$Adv(\\mathcal{A}, Genc^0, Genc^1) \\leq Adv(\\mathcal{A}\\rightarrow\\mathsf{R}, Genc^0, Genc(\\mathsf{Sim}))+Adv(A, Genc^0, Genc(\\mathsf{Sim})).$$"
 		},
 		// {
 		//     "text": "Recall that the game-base notion of \\(\\mathsf{IND\\text{-}CPA}\\) states that \\(\\mathsf{Gind\\text{-}cpa^0}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^1}\\)"
@@ -308,7 +308,7 @@ function driver() {
 		//     "graphs": [["Genc^0", "Genc(Sim)"]]
 		// },
 		{
-			"text": "<p class=\"proofstep-title\">Proof of Theorem</p><p>We now first state the two lemmas which constitute the theorem separately and then first prove Lemma 1 and then Lemma 2. Jumping ahead, we note that in the proof of Lemma 1, we use the ... assumption twice, while in the proof of Lemma ..., we use the ... assumption only once.</p>"
+			"text": "<p class=\"proofstep-title\">Proof of Theorem</p><p>We now first state the two lemmas which constitute the theorem separately and then first prove Lemma 1 and then Lemma 2. As the advantage bounds suggest, we need to use the simulation-based assumption twice to prove standard IND-CPA security, while IND-CPA security directly implies simulation-based security.</p>"
 		}
 	    ]
 	},
@@ -318,7 +318,7 @@ function driver() {
 	    "parent": "Theorem",
 	    "contents": [
 		{
-		    "text": "Simulation-based security of ENC implies the <a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC , i.e., for all PPT simulators Sim and PPT adversaries A, \\(Adv(A, Genc^0, Genc^1) \\leq Adv(A, Genc^0, Genc(Sim))\\)"
+		    "text": "Simulation-based security of ENC implies the <a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC , i.e., for all PPT simulators Sim and PPT adversaries A, $$Adv(\\mathcal{A}, Genc^0, Genc^1) \\leq Adv(\\mathcal{A}\\rightarrow\\mathsf{R}, Genc^0, Genc(\\mathsf{Sim}))+Adv(A, Genc^0, Genc(\\mathsf{Sim})).$$"
 		},
 	    ]
 	},
@@ -328,7 +328,7 @@ function driver() {
 	    "parent": "Theorem",
 	    "contents": [
 		{
-		    "text": "<a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC implies the simulation-based security of ENC, i.e., there exists a PPT simulator \\(\\mathsf{Sim}_{Lemma2}\\) such that for all PPT adversaries \\(\\mathcal{A}\\), \\(Adv(A,Genc^0,Genc(\\mathsf{Sim}_{Lemma2})) = Adv(A,Genc^0,Genc^1)\\), where \\(\\mathsf{Sim}_{Lemma2}\\) is defined as follows:"
+		    "text": "<a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC implies the simulation-based security of ENC, i.e., there exists a PPT simulator \\(\\mathsf{Sim}_{Lemma2}\\) such that for all PPT adversaries \\(\\mathcal{A}\\), $$Adv(A,Genc^0,Genc(\\mathsf{Sim}_{Lemma2})) = Adv(\\mathcal{A},Genc^0,Genc^1),$$ where \\(\\mathsf{Sim}_{Lemma2}\\) is defined as follows:"
 		},
 		{
 		    "graphs": [["Sim_{Lemma2}"]]
@@ -366,16 +366,22 @@ $$\\begin{align}
 			"text": "<p class=\"proofstep-title\">Proof of Lemma 1</p>"
 		},
 		{
-			"text": `Claim 2 bounds the advantage \\(\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Hybrid\\text{-}Lemma1})\\leq  \\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim})) \\) via reduction to the assumption. Claim 3 then establishes that game \\(\\mathsf{Hybrid\\text{-}Lemma1}\\) is equal to \\(\\mathsf{Genc(Sim)}\\) by showing that \\(\\mathsf{Zeroer}\\rightarrow \\mathsf{Zeroer} \\stackrel{\\text{code}}{\\equiv}\\mathsf{Zeroer}\\). The lemma then follows via the triangle inequality:
+			"text": `Let \\(\\mathcal{A}\\) be a PPT adversary. We prove Lemma 1 via three game-hops and bound the advantage of \\(\\mathcal{A}\\) via the triangle inequality.
 $$\\begin{align}
-\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Genc}^0)\\leq&\\;\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Hybrid\\text{-}Lemma1}) \\\\
-&+\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim}))\\\\
-=\\;& \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{Zeroer},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim}))\\\\
-&+\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim}))\\\\
-\\end{align}$$`
+\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Genc}^0)\\leq
+&\\;\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Hybrid\\text{-}Lemma1}) \\\\
+&+\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid\\text{-}Lemma1},\\mathsf{Genc}(\\mathsf{Sim}))\\\\
+&+\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}(\\mathsf{Sim}),\\mathsf{Genc}^0)\\\\
+\\end{align}$$			
+Lemma 1 then follows by Claim 2 and Claim 3. Namely, Claim 3 establishes that 
+\\(\\mathsf{Adv}(\\mathsf{Hybrid\\text{-}Lemma1},\\mathcal{A},\\mathsf{Genc}^0)\\)
+is \\(0\\) and Claim 2 constructs a PPT reduction \\(\\mathsf{R}\\) such that $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Hybrid\\text{-}Lemma1})= \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim})).$$.`
 		},
 		{
 		    "graphs": [["Genc^1"], ["Hybrid-Lemma-1"], ["Genc(Sim)"], ["Genc^0"]]
+		},
+		{
+			"text": "We now state and prove Claim 2 and Claim 3."
 		},
 		],
 	    "type":
