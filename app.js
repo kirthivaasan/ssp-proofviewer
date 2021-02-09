@@ -400,6 +400,74 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
     return graph;
 }
 
+function add_proofstep_content_graphs_reduction(proofstep_container, step, graphs, proof, reduction) {
+    var names_and_cuts = {};
+    for (var i = 0; i < reduction.length; i++) {
+	var ith_cut = reduction[i];
+	var name = graphs[ith_cut.i][ith_cut.j];
+	names_and_cuts[name] = ith_cut.cut;
+    }
+
+    var mono_pkgs = proof.monolithic_pkgs;
+    var mod_pkgs = proof.modular_pkgs;
+
+    var nrows = graphs.length;
+    var ncols = graphs.reduce((acc, e) => e.length > acc? e.length : acc, 0);
+    var table = buildTable(nrows, ncols);
+
+    var proofstep_graphs = document.createElement('div');
+    proofstep_graphs.setAttribute('class', 'proofstep_graphs');
+    proofstep_graphs.appendChild(table);
+    proofstep_container.appendChild(proofstep_graphs);
+
+    for (var i = 0; i < graphs.length; i++) {
+    	for (var j = 0; j < graphs[i].length; j++) {
+
+    	    var pkg_name = graphs[i][j];
+    	    var pkg = mono_pkgs[pkg];
+
+	    if (pkg_name in mod_pkgs) {
+		var pkg = mod_pkgs[pkg_name];
+    		var cg = new CallGraph(pkg);
+
+		var config = null;
+		if ("layout" in pkg) {
+		    config = pkg.layout;
+		} else {
+    		    config = auto_graph_layout(cg);
+		}
+
+		var ghost = null;
+		if ("ghost" in pkg) {
+		    ghost = pkg.ghost;
+		}
+
+		var table_cell = table.rows[i].cells[j];
+
+		if (pkg_name in names_and_cuts) {
+		    var cut = names_and_cuts[pkg_name];
+		    draw_graph(table_cell, cg, mono_pkgs, config, cut, "reduction", ghost);
+		} else {
+		    draw_graph(table_cell, cg, mono_pkgs, config, null, null, ghost);
+		}
+
+		var game_title = document.createElement('div');
+		game_title.setAttribute('class', 'game-title');
+		game_title.innerHTML = parse_pkg_name(pkg_name);
+
+		table_cell.setAttribute('id', pkg_name);
+		table_cell.appendChild(game_title);
+
+	    } else {
+		console.log('Couldn\'t find pkg name: ' + pkg_name);
+	    }
+
+    	}
+    }
+
+}
+
+
 function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, graph_name=null, cut=null, type=null) {
     // must appendChild before calling draw_graph
     var mono_pkgs = proof.monolithic_pkgs;
@@ -413,7 +481,6 @@ function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, 
     proofstep_graphs.setAttribute('class', 'proofstep_graphs');
     proofstep_graphs.appendChild(table);
     proofstep_container.appendChild(proofstep_graphs);
-
 
     for (var i = 0; i < graphs.length; i++) {
     	for (var j = 0; j < graphs[i].length; j++) {
@@ -672,7 +739,7 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 		var type = proof.prooftree[step].type;
 		if ("reduction" in type) {
 		    var reduction = type.reduction;
-		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof, reduction.graph, reduction.cut, 'reduction');
+		    add_proofstep_content_graphs_reduction(proofstep_container, step, graphs, proof, reduction);
 
 		} else if ("codeq" in type) {
 		    var codeq = type.codeq;
