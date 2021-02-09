@@ -300,6 +300,7 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 		var pkg_name = nb[0];
 		var oracle_name = nb[1];
 		var v1 = packages.get(pkg_name);
+		if (pkg_name == null) continue;
 
 		var e1 = doc.createElement("Oracle");
 	    	e1.setAttribute('oracle_name', oracle_name);
