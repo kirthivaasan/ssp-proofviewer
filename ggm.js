@@ -126,7 +126,7 @@ function ggm_driver() {
 	},
 
 
-	"GGM-const-hyb":
+	"GGM-const-hyb[]":
 	{
 	    "oracles": [["Mod-prf", "EVAL"]],
 
@@ -385,55 +385,219 @@ function ggm_driver() {
 	    ]
 	},
 
-	"Hop1" :
-	{
-	    "parent": "Theorem",
-	    "contents": [
+		"Claim[]":
 		{
-		    "def": ["PRG-assumption"]
-		},
-		{
-		    "graphs": [["GGM-const^0"], ["GGM-const^0-hyb1"]]
-		}
-	    ],
-	    "type":
-	    {
-		"reduction":
-		{
-		    "graph": "GGM-const^0",
-		    "cut": ["Mod-prf", "Gprg-000", "Gprg-001", "Gprg-010", "Gprg-011", "Gprg-100", "Gprg-101", "Gprg-110", "Gprg-111", "Gprg-00", "Gprg-01", "Gprg-10", "Gprg-11"]
-		}
-	    }
-	},
-
-	"Hop2" :
-	{
-	    "parent": "Hop1",
-	    "contents": [
-		{
-		    "graphs": [["GGM-const^0-hyb1"]]
-		},
-	    ],
-	    "type":
-	    {
-		"reduction":
-		{
-		    "graph": "GGM-const^0-hyb1",
-		    "cut": ["Mod-prf", "Gprg-000", "Gprg-001", "Gprg-010", "Gprg-011", "Gprg-100", "Gprg-101", "Gprg-110", "Gprg-111", "Gprg-10", "Gprg-11", "Gprg-1^1"]
-		}
-	    }
-	},
-
-		"Tmp":
-		{
-			"parent": "Hop1",
+			"parent": "Theorem",
 			"contents": [
 				{
-					"graphs": [["GGM-const^0"],["GGM-const-hyb"],["GGM-const-hyb0"],["GGM-const-hyb1"]
-							  ,["GGM-const-hyb00"],["GGM-const-hyb01"],["GGM-const-hyb10"],["GGM-const-hyb11"]]
+					"text":`Let \\(\\mathsf{R}_{[]}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be and PPT adversary against \\(\\mathsf{Gprf(Prf_{GGM})^b}\\), then
+$$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Gprf(Prf_{GGM})^0},\\mathsf{Hybrid_{[]}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{[]},\\mathsf{Gprg}_{[]}^0,\\mathsf{Gprg}_{[]}^1)$$.`
+				},
+				{
+					"graphs": [["GGM-const^0"],["GGM-const-hyb[]"]]
 				},
 			],
-		}
+			"type":
+			{
+				"reduction":
+				[
+					{	
+						"i": 0, "j": 0,
+						"cut": ["Mod-prf", "Prg-000", "Prg-001", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Prg-10", "Prg-11", "Prg-00", "Prg-01"]
+					},
+					{	
+						"i": 1, "j": 0,
+						"cut": ["Mod-prf", "Prg-000", "Prg-001", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Prg-10", "Prg-11", "Prg-00", "Prg-01"]
+					},
+
+				]
+			}
+		},
+
+		"Claim0":
+		{
+			"parent": "Theorem",
+			"contents": [
+				{
+					"text":`Let \\(\\mathsf{R}_{0}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be and PPT adversary against \\(\\mathsf{Gprf(Prf_{GGM})^b}\\), then
+$$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{[]}},\\mathsf{Hybrid_{0}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_0,\\mathsf{Gprg}_{0}^0,\\mathsf{Gprg}_{0}^1)$$.`
+				},
+				{
+					"graphs": [["GGM-const-hyb[]"],["GGM-const-hyb0"]]
+				},
+			],
+			"type":
+			{
+				"reduction":
+				[
+					{	
+						"i": 0, "j": 0,
+						"cut": ["Mod-prf", "Prg-000", "Prg-001", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Prg-10", "Prg-11", "Key-1"]
+					},
+					{	
+						"i": 1, "j": 0,
+						"cut": ["Mod-prf", "Prg-000", "Prg-001", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Prg-10", "Prg-11", "Key-1"]
+					}
+
+				]
+			}
+		},
+
+		"Claim1":
+		{
+			"parent": "Theorem",
+			"contents": [
+				{
+					"text":`Let \\(\\mathsf{R}_{1}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be and PPT adversary against \\(\\mathsf{Gprf(Prf_{GGM})^b}\\), then
+$$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{0}},\\mathsf{Hybrid_{1}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_1,\\mathsf{Gprg}_{1}^0,\\mathsf{Gprg}_{1}^1)$$.`
+				},
+				{
+					"graphs": [["GGM-const-hyb0"],["GGM-const-hyb1"]]
+				},
+			],
+			"type":
+			{
+				"reduction":
+				[
+					{	
+						"i": 0, "j": 0,
+						"cut": ["Mod-prf", "Prg-000", "Prg-001", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Key-00", "Key-01"]
+					},
+					{	
+						"i": 1, "j": 0,
+						"cut": ["Mod-prf", "Prg-000", "Prg-001", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Key-00", "Key-01"]
+					}
+
+				]
+			}
+		},
+
+		"Claim00":
+		{
+			"parent": "Theorem",
+			"contents": [
+				{
+					"text":`Let \\(\\mathsf{R}_{00}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be and PPT adversary against \\(\\mathsf{Gprf(Prf_{GGM})^b}\\), then
+$$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{1}},\\mathsf{Hybrid_{00}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{00},\\mathsf{Gprg}_{00}^0,\\mathsf{Gprg}_{00}^1)$$.`
+				},
+				{
+					"graphs": [["GGM-const-hyb1"],["GGM-const-hyb00"]]
+				},
+			],
+			"type":
+			{
+				"reduction":
+				[
+					{	
+						"i": 0, "j": 0,
+						"cut": ["Mod-prf", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Key-01", "Key-10", "Key-11"]
+					},
+					{	
+						"i": 1, "j": 0,
+						"cut": ["Mod-prf", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Key-01", "Key-10", "Key-11"]
+					}
+
+				]
+			}
+		},
+
+		"Claim01":
+		{
+			"parent": "Theorem",
+			"contents": [
+				{
+					"text":`Let \\(\\mathsf{R}_{01}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be and PPT adversary against \\(\\mathsf{Gprf(Prf_{GGM})^b}\\), then
+$$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{00}},\\mathsf{Hybrid_{01}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{01},\\mathsf{Gprg}_{01}^0,\\mathsf{Gprg}_{01}^1)$$.`
+				},
+				{
+					"graphs": [["GGM-const-hyb00"],["GGM-const-hyb01"]]
+				},
+			],
+			"type":
+			{
+				"reduction":
+				[
+					{	
+						"i": 0, "j": 0,
+						"cut": ["Mod-prf", "Key-000", "Key-001", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Key-10", "Key-11"]
+					},
+					{	
+						"i": 1, "j": 0,
+						"cut": ["Mod-prf", "Key-000", "Key-001", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Key-10", "Key-11"]
+					}
+
+				]
+			}
+		},
+
+		"Claim10":
+		{
+			"parent": "Theorem",
+			"contents": [
+				{
+					"text":`Let \\(\\mathsf{R}_{10}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be and PPT adversary against \\(\\mathsf{Gprf(Prf_{GGM})^b}\\), then
+$$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{01}},\\mathsf{Hybrid_{10}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{10},\\mathsf{Gprg}_{10}^0,\\mathsf{Gprg}_{10}^1)$$.`
+				},
+				{
+					"graphs": [["GGM-const-hyb01"],["GGM-const-hyb10"]]
+				},
+			],
+			"type":
+			{
+				"reduction":
+				[
+					{	
+						"i": 0, "j": 0,
+						"cut": ["Mod-prf", "Key-000", "Key-001", "Key-010", "Key-011", "Prg-110", "Prg-111", "Key-01", "Key-11"]
+					},
+					{	
+						"i": 1, "j": 0,
+						"cut": ["Mod-prf", "Key-000", "Key-001", "Key-010", "Key-011", "Prg-110", "Prg-111", "Key-01", "Key-11"]
+					}
+
+				]
+			}
+		},
+		
+		"Claim11":
+		{
+			"parent": "Theorem",
+			"contents": [
+				{
+					"text":`Let \\(\\mathsf{R}_{11}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be and PPT adversary against \\(\\mathsf{Gprf(Prf_{GGM})^b}\\), then
+$$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{10}},\\mathsf{Hybrid_{11}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{11},\\mathsf{Gprg}_{11}^0,\\mathsf{Gprg}_{11}^1)$$.`
+				},
+				{
+					"graphs": [["GGM-const-hyb10"],["GGM-const-hyb11"]]
+				},
+			],
+			"type":
+			{
+				"reduction":
+				[
+					{	
+						"i": 0, "j": 0,
+						"cut": ["Mod-prf", "Key-000", "Key-001", "Key-010", "Key-011", "Key-100", "Key-101"]
+					},
+					{	
+						"i": 1, "j": 0,
+						"cut": ["Mod-prf", "Key-000", "Key-001", "Key-010", "Key-011", "Key-100", "Key-101"]
+					}
+
+				]
+			}
+		},
+		
+		// "Tmp":
+		// {
+		// 	"parent": "Hop1",
+		// 	"contents": [
+		// 		{
+		// 			"graphs": [["GGM-const^0"],["GGM-const-hyb[]"],["GGM-const-hyb0"],["GGM-const-hyb1"]
+		// 					  ,["GGM-const-hyb00"],["GGM-const-hyb01"],["GGM-const-hyb10"],["GGM-const-hyb11"]]
+		// 		},
+		// 	],
+		// },
 
     };
 
