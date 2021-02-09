@@ -102,28 +102,205 @@ function ggm_driver() {
 
 	    "graph":
 	    {
-		"Mod-prf": [["Gprg-000","GET"],["Gprg-001","GET"],["Gprg-010","GET"],["Gprg-011","GET"],["Gprg-100","GET"],["Gprg-101","GET"],["Gprg-110","GET"],["Gprg-111","GET"]],
-		"Gprg-000": [["Gprg-00","GET"]],
-		"Gprg-001": [["Gprg-00", "GET"]],
-		"Gprg-010": [["Gprg-01", "GET"]],
-		"Gprg-011": [["Gprg-01", "GET"]],
-		"Gprg-100": [["Gprg-10", "GET"]],
-		"Gprg-101": [["Gprg-10", "GET"]],
-		"Gprg-110": [["Gprg-11", "GET"]],
-		"Gprg-111": [["Gprg-11", "GET"]],
-		"Gprg-00": [["Gprg-0", "GET"]],
-		"Gprg-01": [["Gprg-0", "GET"]],
-		"Gprg-10": [["Gprg-1", "GET"]],
-		"Gprg-11": [["Gprg-1", "GET"]],
-		"Gprg-0": [["Key", "GET"]],
-		"Gprg-1": [["Key", "GET"]],
+		"Mod-prf": [["Prg-000","GET-000"],["Prg-001","GET-001"],["Prg-010","GET-010"],["Prg-011","GET-011"],["Prg-100","GET-100"],["Prg-101","GET-101"],["Prg-110","GET-110"],["Prg-111","GET-111"]],
+		"Prg-000": [["Prg-00", "GET-00"]],
+		"Prg-001": [["Prg-00", "GET-00"]],
+		"Prg-010": [["Prg-01", "GET-01"]],
+		"Prg-011": [["Prg-01", "GET-01"]],
+		"Prg-100": [["Prg-10", "GET-10"]],
+		"Prg-101": [["Prg-10", "GET-10"]],
+		"Prg-110": [["Prg-11", "GET-11"]],
+		"Prg-111": [["Prg-11", "GET-11"]],
+		"Prg-00": [["Prg-0", "GET-0"]],
+		"Prg-01": [["Prg-0", "GET-0"]],
+		"Prg-10": [["Prg-1", "GET-1"]],
+		"Prg-11": [["Prg-1", "GET-1"]],
+		"Prg-0": [["Key", "GET"]],
+		"Prg-1": [["Key", "GET"]],
 		"Key": []
 	    },
 
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":210,"width":1,"height":50},"Mod-prf":{"x":50,"y":170,"width":50,"height":130},"Gprg-000":{"x":150, "color":"yellow","y":0,"width":90,"height":50, "color":"yellow"},"Gprg-001":{"x":150, "color":"yellow","y":60,"width":90,"height":50, "color":"yellow"},"Gprg-010":{"x":150, "color":"yellow","y":120,"width":90,"height":50, "color":"yellow"},"Gprg-011":{"x":150, "color":"yellow","y":180,"width":90,"height":50, "color":"yellow"},"Gprg-100":{"x":150, "color":"yellow","y":240,"width":90,"height":50, "color":"yellow"},"Gprg-101":{"x":150, "color":"yellow","y":300,"width":90,"height":50, "color":"yellow"},"Gprg-110":{"x":150, "color":"yellow","y":360,"width":90,"height":50, "color":"yellow"},"Gprg-111":{"x":150, "color":"yellow","y":420,"width":90,"height":50, "color":"yellow"},"Gprg-00":{"x":310,"y":30,"width":90,"height":50, "color":"yellow"},"Gprg-01":{"x":310,"y":150, "color":"yellow","width":90,"height":50, "color":"yellow"},"Gprg-10":{"x":310,"y":270,"width":90,"height":50, "color":"yellow"},"Gprg-11":{"x":310,"y":390,"width":90,"height":50, "color":"yellow"},"Gprg-0":{"x":440,"y":90,"width":90,"height":50, "color":"yellow"},"Gprg-1":{"x":440,"y":330,"width":90,"height":50, "color":"yellow"},"Key":{"x":570,"y":210,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Gprg-000":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Gprg-001":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Gprg-010":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Gprg-011":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Gprg-100":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Gprg-101":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Gprg-110":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Gprg-111":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprg-000":{"Gprg-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprg-001":{"Gprg-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprg-010":{"Gprg-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprg-011":{"Gprg-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprg-100":{"Gprg-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprg-101":{"Gprg-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprg-110":{"Gprg-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprg-111":{"Gprg-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprg-00":{"Gprg-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprg-01":{"Gprg-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprg-10":{"Gprg-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprg-11":{"Gprg-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprg-0":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprg-1":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Mod-prf":[],"Gprg-000":[],"Gprg-001":[],"Gprg-010":[],"Gprg-011":[],"Gprg-100":[],"Gprg-101":[],"Gprg-110":[],"Gprg-111":[],"Gprg-00":[],"Gprg-01":[],"Gprg-10":[],"Gprg-11":[],"Gprg-0":[],"Gprg-1":[]}}
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":210,"width":1,"height":50},
+							"Mod-prf":{"x":50,"y":170,"width":50,"height":130},"Prg-000":{"x":150, "color":"yellow","y":0,"width":90,"height":50, "color":"yellow"},"Prg-001":{"x":150, "color":"yellow","y":60,"width":90,"height":50, "color":"yellow"},"Prg-010":{"x":150, "color":"yellow","y":120,"width":90,"height":50, "color":"yellow"},"Prg-011":{"x":150, "color":"yellow","y":180,"width":90,"height":50, "color":"yellow"},"Prg-100":{"x":150, "color":"yellow","y":240,"width":90,"height":50, "color":"yellow"},"Prg-101":{"x":150, "color":"yellow","y":300,"width":90,"height":50, "color":"yellow"},"Prg-110":{"x":150, "color":"yellow","y":360,"width":90,"height":50, "color":"yellow"},"Prg-111":{"x":150, "color":"yellow","y":420,"width":90,"height":50, "color":"yellow"},"Prg-00":{"x":310,"y":30,"width":90,"height":50, "color":"yellow"},"Prg-01":{"x":310,"y":150, "color":"yellow","width":90,"height":50, "color":"yellow"},"Prg-10":{"x":310,"y":270,"width":90,"height":50, "color":"yellow"},"Prg-11":{"x":310,"y":390,"width":90,"height":50, "color":"yellow"},"Prg-0":{"x":440,"y":90,"width":90,"height":50, "color":"yellow"},"Prg-1":{"x":440,"y":330,"width":90,"height":50, "color":"yellow"},"Key":{"x":570,"y":210,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Prg-000":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-001":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-010":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-011":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-100":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-101":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-110":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-111":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-000":{"Prg-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-001":{"Prg-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-010":{"Prg-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-011":{"Prg-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-100":{"Prg-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-101":{"Prg-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-110":{"Prg-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-111":{"Prg-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-00":{"Prg-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-01":{"Prg-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-10":{"Prg-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-11":{"Prg-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-0":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-1":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Mod-prf":[],"Prg-000":[],"Prg-001":[],"Prg-010":[],"Prg-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[],"Prg-00":[],"Prg-01":[],"Prg-10":[],"Prg-11":[],"Prg-0":[],"Prg-1":[]}}
 
 	},
 
+
+	"GGM-const-hyb":
+	{
+	    "oracles": [["Mod-prf", "EVAL"]],
+
+	    "graph":
+	    {
+		"Mod-prf": [["Prg-000","GET-000"],["Prg-001","GET-001"],["Prg-010","GET-010"],["Prg-011","GET-011"],["Prg-100","GET-100"],["Prg-101","GET-101"],["Prg-110","GET-110"],["Prg-111","GET-111"]],
+		"Prg-000": [["Prg-00", "GET-00"]],
+		"Prg-001": [["Prg-00", "GET-00"]],
+		"Prg-010": [["Prg-01", "GET-01"]],
+		"Prg-011": [["Prg-01", "GET-01"]],
+		"Prg-100": [["Prg-10", "GET-10"]],
+		"Prg-101": [["Prg-10", "GET-10"]],
+		"Prg-110": [["Prg-11", "GET-11"]],
+		"Prg-111": [["Prg-11", "GET-11"]],
+		"Prg-00": [["Key-0", "GET-0"]],
+		"Prg-01": [["Key-0", "GET-0"]],
+		"Prg-10": [["Key-1", "GET-1"]],
+		"Prg-11": [["Key-1", "GET-1"]],
+		"Key-0": [[]],
+		"Key-1": [[]]
+	    },
+
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":210,"width":1,"height":50},
+							"Mod-prf":{"x":50,"y":170,"width":50,"height":130},"Prg-000":{"x":150, "color":"yellow","y":0,"width":90,"height":50, "color":"yellow"},"Prg-001":{"x":150, "color":"yellow","y":60,"width":90,"height":50, "color":"yellow"},"Prg-010":{"x":150, "color":"yellow","y":120,"width":90,"height":50, "color":"yellow"},"Prg-011":{"x":150, "color":"yellow","y":180,"width":90,"height":50, "color":"yellow"},"Prg-100":{"x":150, "color":"yellow","y":240,"width":90,"height":50, "color":"yellow"},"Prg-101":{"x":150, "color":"yellow","y":300,"width":90,"height":50, "color":"yellow"},"Prg-110":{"x":150, "color":"yellow","y":360,"width":90,"height":50, "color":"yellow"},"Prg-111":{"x":150, "color":"yellow","y":420,"width":90,"height":50, "color":"yellow"},"Prg-00":{"x":310,"y":30,"width":90,"height":50, "color":"yellow"},"Prg-01":{"x":310,"y":150, "color":"yellow","width":90,"height":50, "color":"yellow"},"Prg-10":{"x":310,"y":270,"width":90,"height":50, "color":"yellow"},"Prg-11":{"x":310,"y":390,"width":90,"height":50, "color":"yellow"},"Key-0":{"x":440,"y":90,"width":90,"height":50, "color":"blue"},"Key-1":{"x":440,"y":330,"width":90,"height":50, "color":"blue"},"Key":{"x":570,"y":210,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Prg-000":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-001":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-010":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-011":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-100":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-101":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-110":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-111":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-000":{"Prg-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-001":{"Prg-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-010":{"Prg-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-011":{"Prg-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-100":{"Prg-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-101":{"Prg-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-110":{"Prg-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-111":{"Prg-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-00":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-01":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-10":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-11":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-0":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-1":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Mod-prf":[],"Prg-000":[],"Prg-001":[],"Prg-010":[],"Prg-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[],"Prg-00":[],"Prg-01":[],"Prg-10":[],"Prg-11":[],"Key-0":[],"Key-1":[]}}
+	},
+
+	"GGM-const-hyb0":
+	{
+	    "oracles": [["Mod-prf", "EVAL"]],
+
+	    "graph":
+	    {
+		"Mod-prf": [["Prg-000","GET-000"],["Prg-001","GET-001"],["Prg-010","GET-010"],["Prg-011","GET-011"],["Prg-100","GET-100"],["Prg-101","GET-101"],["Prg-110","GET-110"],["Prg-111","GET-111"]],
+		"Prg-000": [["Key-00", "GET-00"]],
+		"Prg-001": [["Key-00", "GET-00"]],
+		"Prg-010": [["Key-01", "GET-01"]],
+		"Prg-011": [["Key-01", "GET-01"]],
+		"Prg-100": [["Prg-10", "GET-10"]],
+		"Prg-101": [["Prg-10", "GET-10"]],
+		"Prg-110": [["Prg-11", "GET-11"]],
+		"Prg-111": [["Prg-11", "GET-11"]],
+		"Key-00": [[]],
+		"Key-01": [[]],
+		"Prg-10": [["Key-1", "GET-1"]],
+		"Prg-11": [["Key-1", "GET-1"]],
+		"Key-1": [[]]
+	    },
+
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":210,"width":1,"height":50},
+							"Mod-prf":{"x":50,"y":170,"width":50,"height":130},"Prg-000":{"x":150, "color":"yellow","y":0,"width":90,"height":50, "color":"yellow"},"Prg-001":{"x":150, "color":"yellow","y":60,"width":90,"height":50, "color":"yellow"},"Prg-010":{"x":150, "color":"yellow","y":120,"width":90,"height":50, "color":"yellow"},"Prg-011":{"x":150, "color":"yellow","y":180,"width":90,"height":50, "color":"yellow"},"Prg-100":{"x":150, "color":"yellow","y":240,"width":90,"height":50, "color":"yellow"},"Prg-101":{"x":150, "color":"yellow","y":300,"width":90,"height":50, "color":"yellow"},"Prg-110":{"x":150, "color":"yellow","y":360,"width":90,"height":50, "color":"yellow"},"Prg-111":{"x":150, "color":"yellow","y":420,"width":90,"height":50, "color":"yellow"},"Key-00":{"x":310,"y":30,"width":90,"height":50, "color":"blue"},"Key-01":{"x":310,"y":150, "color":"blue","width":90,"height":50},"Prg-10":{"x":310,"y":270,"width":90,"height":50, "color":"yellow"},"Prg-11":{"x":310,"y":390,"width":90,"height":50, "color":"yellow"},"Key-0":{"x":440,"y":90,"width":90,"height":50, "color":"blue"},"Key-1":{"x":440,"y":330,"width":90,"height":50, "color":"blue"},"Key":{"x":570,"y":210,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Prg-000":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-001":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-010":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-011":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-100":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-101":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-110":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-111":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-000":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-001":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-010":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-011":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-100":{"Prg-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-101":{"Prg-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-110":{"Prg-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-111":{"Prg-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-00":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-01":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-10":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-11":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-0":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-1":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Mod-prf":[],"Prg-000":[],"Prg-001":[],"Prg-010":[],"Prg-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[],"Key-00":[],"Key-01":[],"Prg-10":[],"Prg-11":[],"Key-0":[],"Key-1":[]}}
+	},
+
+	"GGM-const-hyb1":
+	{
+	    "oracles": [["Mod-prf", "EVAL"]],
+
+	    "graph":
+	    {
+		"Mod-prf": [["Prg-000","GET-000"],["Prg-001","GET-001"],["Prg-010","GET-010"],["Prg-011","GET-011"],["Prg-100","GET-100"],["Prg-101","GET-101"],["Prg-110","GET-110"],["Prg-111","GET-111"]],
+		"Prg-000": [["Key-00", "GET-00"]],
+		"Prg-001": [["Key-00", "GET-00"]],
+		"Prg-010": [["Key-01", "GET-01"]],
+		"Prg-011": [["Key-01", "GET-01"]],
+		"Prg-100": [["Key-10", "GET-10"]],
+		"Prg-101": [["Key-10", "GET-10"]],
+		"Prg-110": [["Key-11", "GET-11"]],
+		"Prg-111": [["Key-11", "GET-11"]],
+		"Key-00": [[]],
+		"Key-01": [[]],
+		"Key-10": [[]],
+		"Key-11": [[]],
+	    },
+
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":210,"width":1,"height":50},"Mod-prf":{"x":50,"y":170,"width":50,"height":130},"Prg-000":{"x":150, "color":"yellow","y":0,"width":90,"height":50, "color":"yellow"},"Prg-001":{"x":150, "color":"yellow","y":60,"width":90,"height":50, "color":"yellow"},"Prg-010":{"x":150, "color":"yellow","y":120,"width":90,"height":50, "color":"yellow"},"Prg-011":{"x":150, "color":"yellow","y":180,"width":90,"height":50, "color":"yellow"},"Prg-100":{"x":150, "color":"yellow","y":240,"width":90,"height":50, "color":"yellow"},"Prg-101":{"x":150, "color":"yellow","y":300,"width":90,"height":50, "color":"yellow"},"Prg-110":{"x":150, "color":"yellow","y":360,"width":90,"height":50, "color":"yellow"},"Prg-111":{"x":150, "color":"yellow","y":420,"width":90,"height":50, "color":"yellow"},"Key-00":{"x":310,"y":30,"width":90,"height":50, "color":"blue"},"Key-01":{"x":310,"y":150, "color":"blue","width":90,"height":50},"Key-10":{"x":310,"y":270,"width":90,"height":50, "color":"blue"},"Key-11":{"x":310,"y":390,"width":90,"height":50, "color":"blue"}},
+				   "edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Prg-000":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-001":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-010":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-011":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-100":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-101":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-110":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-111":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-000":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-001":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-010":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-011":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-100":{"Key-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-101":{"Key-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-110":{"Key-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-111":{"Key-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-00":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-01":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-10":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-11":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},
+				   "edge_points":{"@oracles_interface":[],"Mod-prf":[],"Prg-000":[],"Prg-001":[],"Prg-010":[],"Prg-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[]}}
+	},
+
+	"GGM-const-hyb00":
+	{
+	    "oracles": [["Mod-prf", "EVAL"]],
+
+	    "graph":
+	    {
+		"Mod-prf": [["Key-000","GET-000"],["Key-001","GET-001"],["Prg-010","GET-010"],["Prg-011","GET-011"],["Prg-100","GET-100"],["Prg-101","GET-101"],["Prg-110","GET-110"],["Prg-111","GET-111"]],
+		"Key-000": [[]],
+		"Key-001": [[]],
+		"Prg-010": [["Key-01", "GET-01"]],
+		"Prg-011": [["Key-01", "GET-01"]],
+		"Prg-100": [["Key-10", "GET-10"]],
+		"Prg-101": [["Key-10", "GET-10"]],
+		"Prg-110": [["Key-11", "GET-11"]],
+		"Prg-111": [["Key-11", "GET-11"]],
+		"Key-01": [[]],
+		"Key-10": [[]],
+		"Key-11": [[]],
+	    },
+
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":210,"width":1,"height":50},"Mod-prf":{"x":50,"y":170,"width":50,"height":130},"Key-000":{"x":150, "color":"blue","y":0,"width":90,"height":50, "color":"blue"},"Key-001":{"x":150, "color":"blue","y":60,"width":90,"height":50, "color":"blue"},"Prg-010":{"x":150, "color":"yellow","y":120,"width":90,"height":50, "color":"yellow"},"Prg-011":{"x":150, "color":"yellow","y":180,"width":90,"height":50, "color":"yellow"},"Prg-100":{"x":150, "color":"yellow","y":240,"width":90,"height":50, "color":"yellow"},"Prg-101":{"x":150, "color":"yellow","y":300,"width":90,"height":50, "color":"yellow"},"Prg-110":{"x":150, "color":"yellow","y":360,"width":90,"height":50, "color":"yellow"},"Prg-111":{"x":150, "color":"yellow","y":420,"width":90,"height":50, "color":"yellow"},"Key-00":{"x":310,"y":30,"width":90,"height":50, "color":"blue"},"Key-01":{"x":310,"y":150, "color":"blue","width":90,"height":50},"Key-10":{"x":310,"y":270,"width":90,"height":50, "color":"blue"},"Key-11":{"x":310,"y":390,"width":90,"height":50, "color":"blue"}},
+				   "edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Key-000":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-001":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-010":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-011":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-100":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-101":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-110":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-111":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-000":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-001":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-010":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-011":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-100":{"Key-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-101":{"Key-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-110":{"Key-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-111":{"Key-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-00":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-01":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-10":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-11":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},
+				   "edge_points":{"@oracles_interface":[],"Mod-prf":[],"Key-000":[],"Key-001":[],"Prg-010":[],"Prg-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[]}}
+	},
+
+	"GGM-const-hyb01":
+	{
+	    "oracles": [["Mod-prf", "EVAL"]],
+
+	    "graph":
+	    {
+		"Mod-prf": [["Key-000","GET-000"],["Key-001","GET-001"],["Key-010","GET-010"],["Key-011","GET-011"],["Prg-100","GET-100"],["Prg-101","GET-101"],["Prg-110","GET-110"],["Prg-111","GET-111"]],
+		"Key-000": [[]],
+		"Key-001": [[]],
+		"Key-010": [[]],
+		"Key-011": [[]],
+		"Prg-100": [["Key-10", "GET-10"]],
+		"Prg-101": [["Key-10", "GET-10"]],
+		"Prg-110": [["Key-11", "GET-11"]],
+		"Prg-111": [["Key-11", "GET-11"]],
+		"Key-10": [[]],
+		"Key-11": [[]],
+	    },
+
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":210,"width":1,"height":50},"Mod-prf":{"x":50,"y":170,"width":50,"height":130},"Key-000":{"x":150, "color":"blue","y":0,"width":90,"height":50, "color":"blue"},"Key-001":{"x":150, "color":"blue","y":60,"width":90,"height":50, "color":"blue"},"Key-010":{"x":150, "color":"blue","y":120,"width":90,"height":50, "color":"blue"},"Key-011":{"x":150, "color":"blue","y":180,"width":90,"height":50, "color":"blue"},"Prg-100":{"x":150, "color":"yellow","y":240,"width":90,"height":50, "color":"yellow"},"Prg-101":{"x":150, "color":"yellow","y":300,"width":90,"height":50, "color":"yellow"},"Prg-110":{"x":150, "color":"yellow","y":360,"width":90,"height":50, "color":"yellow"},"Prg-111":{"x":150, "color":"yellow","y":420,"width":90,"height":50, "color":"yellow"},"Key-00":{"x":310,"y":30,"width":90,"height":50, "color":"blue"},"Key-01":{"x":310,"y":150, "color":"blue","width":90,"height":50},"Key-10":{"x":310,"y":270,"width":90,"height":50, "color":"blue"},"Key-11":{"x":310,"y":390,"width":90,"height":50, "color":"blue"}},
+				   "edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Key-000":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-001":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-010":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-011":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-100":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-101":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-110":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-111":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-000":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-001":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-010":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-011":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-100":{"Key-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-101":{"Key-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-110":{"Key-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-111":{"Key-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-00":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-01":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-10":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-11":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},
+				   "edge_points":{"@oracles_interface":[],"Mod-prf":[],"Key-000":[],"Key-001":[],"Key-010":[],"Key-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[]}}
+	},
+
+	"GGM-const-hyb10":
+	{
+	    "oracles": [["Mod-prf", "EVAL"]],
+
+	    "graph":
+	    {
+		"Mod-prf": [["Key-000","GET-000"],["Key-001","GET-001"],["Key-010","GET-010"],["Key-011","GET-011"],["Key-100","GET-100"],["Key-101","GET-101"],["Prg-110","GET-110"],["Prg-111","GET-111"]],
+		"Key-000": [[]],
+		"Key-001": [[]],
+		"Key-010": [[]],
+		"Key-011": [[]],
+		"Key-100": [[]],
+		"Key-101": [[]],
+		"Prg-110": [["Key-11", "GET-11"]],
+		"Prg-111": [["Key-11", "GET-11"]],
+		"Key-11": [[]],
+	    },
+
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":210,"width":1,"height":50},"Mod-prf":{"x":50,"y":170,"width":50,"height":130},"Key-000":{"x":150, "color":"blue","y":0,"width":90,"height":50, "color":"blue"},"Key-001":{"x":150, "color":"blue","y":60,"width":90,"height":50, "color":"blue"},"Key-010":{"x":150, "color":"blue","y":120,"width":90,"height":50, "color":"blue"},"Key-011":{"x":150, "color":"blue","y":180,"width":90,"height":50, "color":"blue"},"Key-100":{"x":150, "color":"blue","y":240,"width":90,"height":50, "color":"blue"},"Key-101":{"x":150, "color":"blue","y":300,"width":90,"height":50, "color":"blue"},"Prg-110":{"x":150, "color":"yellow","y":360,"width":90,"height":50, "color":"yellow"},"Prg-111":{"x":150, "color":"yellow","y":420,"width":90,"height":50, "color":"yellow"},"Key-00":{"x":310,"y":30,"width":90,"height":50, "color":"blue"},"Key-01":{"x":310,"y":150, "color":"blue","width":90,"height":50},"Key-10":{"x":310,"y":270,"width":90,"height":50, "color":"blue"},"Key-11":{"x":310,"y":390,"width":90,"height":50, "color":"blue"}},
+				   "edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Key-000":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-001":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-010":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-011":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-100":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-101":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-110":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-111":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-000":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-001":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-010":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-011":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-100":{"Key-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-101":{"Key-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-110":{"Key-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-111":{"Key-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-00":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-01":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-10":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-11":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},
+				   "edge_points":{"@oracles_interface":[],"Mod-prf":[],"Key-000":[],"Key-001":[],"Key-010":[],"Key-011":[],"Key-100":[],"Key-101":[],"Prg-110":[],"Prg-111":[]}}
+	},
+		
+
+	"GGM-const-hyb11":
+	{
+	    "oracles": [["Mod-prf", "EVAL"]],
+
+	    "graph":
+	    {
+		"Mod-prf": [["Key-000","GET-000"],["Key-001","GET-001"],["Key-010","GET-010"],["Key-011","GET-011"],["Key-100","GET-100"],["Key-101","GET-101"],["Key-110","GET-110"],["Key-111","GET-111"]],
+		"Key-000": [[]],
+		"Key-001": [[]],
+		"Key-010": [[]],
+		"Key-011": [[]],
+		"Key-100": [[]],
+		"Key-101": [[]],
+		"Key-110": [[]],
+		"Key-111": [[]],
+	    },
+
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":210,"width":1,"height":50},"Mod-prf":{"x":50,"y":170,"width":50,"height":130},"Key-000":{"x":150, "color":"blue","y":0,"width":90,"height":50, "color":"blue"},"Key-001":{"x":150, "color":"blue","y":60,"width":90,"height":50, "color":"blue"},"Key-010":{"x":150, "color":"blue","y":120,"width":90,"height":50, "color":"blue"},"Key-011":{"x":150, "color":"blue","y":180,"width":90,"height":50, "color":"blue"},"Key-100":{"x":150, "color":"blue","y":240,"width":90,"height":50, "color":"blue"},"Key-101":{"x":150, "color":"blue","y":300,"width":90,"height":50, "color":"blue"},"Key-110":{"x":150, "color":"blue","y":360,"width":90,"height":50, "color":"blue"},"Key-111":{"x":150, "color":"blue","y":420,"width":90,"height":50, "color":"blue"},"Key-00":{"x":310,"y":30,"width":90,"height":50, "color":"blue"},"Key-01":{"x":310,"y":150, "color":"blue","width":90,"height":50},"Key-10":{"x":310,"y":270,"width":90,"height":50, "color":"blue"},"Key-11":{"x":310,"y":390,"width":90,"height":50, "color":"blue"}},
+				   "edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Key-000":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-001":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-010":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-011":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-100":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-101":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-110":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-111":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-000":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-001":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-010":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-011":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-100":{"Key-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-101":{"Key-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-110":{"Key-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-111":{"Key-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-00":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-01":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-10":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-11":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},
+				   "edge_points":{"@oracles_interface":[],"Mod-prf":[],"Key-000":[],"Key-001":[],"Key-010":[],"Key-011":[],"Key-100":[],"Key-101":[],"Key-110":[],"Key-111":[]}}
+	},
+		
+		
 	"GGM-const^0-hyb1":
 	{
 	    "oracles": [["Mod-prf", "EVAL"]],
@@ -245,7 +422,18 @@ function ggm_driver() {
 		    "cut": ["Mod-prf", "Gprg-000", "Gprg-001", "Gprg-010", "Gprg-011", "Gprg-100", "Gprg-101", "Gprg-110", "Gprg-111", "Gprg-10", "Gprg-11", "Gprg-1^1"]
 		}
 	    }
-	}
+	},
+
+		"Tmp":
+		{
+			"parent": "Hop1",
+			"contents": [
+				{
+					"graphs": [["GGM-const^0"],["GGM-const-hyb"],["GGM-const-hyb0"],["GGM-const-hyb1"]
+							  ,["GGM-const-hyb00"],["GGM-const-hyb01"],["GGM-const-hyb10"],["GGM-const-hyb11"]]
+				},
+			],
+		}
 
     };
 
