@@ -434,7 +434,7 @@ is \\(0\\) and Claim 2 constructs a PPT reduction \\(\\mathsf{R}\\) such that $$
 
 				},
 				"graph": "Zeroer-Zeroer",
-				"packages": ["Zeroer"]
+				"packages": ["Zeroer", "Zeroer "]
 			}
 		},
 	},
