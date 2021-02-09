@@ -10,7 +10,7 @@ function ggm_driver() {
 		"GET" :
 		{
 		    "params": [],
-		    "code": "@if k = @bot; @> k @gets  \\{0,1\\}^\\lambda;@return k"
+		    "code": "@if k = @bot; @> k @sample  \\{0,1\\}^\\lambda;@return k"
 		}
 	    }
 	},
@@ -22,49 +22,49 @@ function ggm_driver() {
 		"EVAL" :
 		{
 		    "params": ["x"],
-		    "code": "@assert |x| = 3; x_1||...||x_3 @gets x; y @gets \\mathsf{Gprg}\\text{-}x_{1}x_{2}x_{3}. SAMPLE(); @return y;"
+		    "code": "@assert |x| = 3; x_1||...||x_3 @gets x; y @gets \\mathsf{Gprg}\\text{-}x_{1}x_{2}x_{3}.\\mathsf{GET}(); @return y;"
 		}
 
 	    }
 	},
 
-	"Mod-Gprg^0":
+	"Prg-id0":
 	{
 	    "oracles":
 	    {
-		"GET" :
+		"GET\\text{-}id0" :
 		{
 		    "params": [],
-		    "code": "k_0||k_1 @gets SAMPLE();@return k"
+		    "code": "k @gets \\mathsf{GET}\\text{-}\\mathsf{id}();k_0||k_1 @gets g(k);@return k_0"
 		}
 	    }
 
 	},
 
-	"Gprg^1":
+	"Prg-id1":
 	{
 	    "oracles":
 	    {
-		"GET":
+		"GET\\text{-}id1":
 		{
 		    "params": [],
-		    "code": "@return \\{0,1\\}^\\lambda;"
+		    "code": "k @gets \\mathsf{GET}\\text{-}\\mathsf{id}();k_0||k_1 @gets g(k);@return k_1"
 		}
 	    }
 	},
 
 	"Gprg-0":
 	{
-	    "instance": "Mod-Gprg^0"
+	    "instance": "Prg-id0"
 	},
 	"Gprg-000":
 	{
-	    "instance": "Mod-Gprg^0"
+	    "instance": "Prg-id0"
 	},
 
 	"Gprg-0^1":
 	{
-	    "instance": "Gprg^1"
+	    "instance": "Prg-id1"
 	}
 
 
@@ -73,7 +73,7 @@ function ggm_driver() {
 
 
     var modular_pkgs = {
-	"Gprg^0":
+	"GPrg-id0":
 	{
 	    "oracles": [["Gprg_{x_0}", "GET_{x_0}"], ["Gprg_{x_1}", "GET_{x_1}"]],
 	    "graph":
@@ -85,7 +85,7 @@ function ggm_driver() {
 	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":10,"width":1,"height":90},"Gprg_{x_0}":{"x":70,"y":0,"width":90,"height":50,"color":"yellow"},"Gprg_{x_1}":{"x":70,"y":60,"width":90,"height":50,"color":"yellow"},"Key_x":{"x":230,"y":30,"width":90,"height":50,"color":"blue"}},"edges":{"@oracles_interface":{"Gprg_{x_0}":"exitX=0.65;exitY=0.4;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Gprg_{x_1}":"exitX=0.65;exitY=0.6;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"Gprg_{x_0}":{"Key_x":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;"},"Gprg_{x_1}":{"Key_x":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"Gprg_{x_0}":[],"Gprg_{x_1}":[]}}
 	},
 
-	"Gprg^1":
+	"Prg-id1":
 	{
 	    "oracles": [["Key_{x_0}", "GET_{x_0}"], ["Key_{x_1}", "GET_{x_1}"]],
 	    "graph":
@@ -372,25 +372,25 @@ function ggm_driver() {
 
 	    "graph":
 	    {
-		"Mod-prf": [["Gprg^1_1", "GET"], ["Gprg^1_2", "GET"], ["Gprg^1_3", "GET"], ["Gprg^1_4", "GET"], ["Gprg^1_5", "GET"], ["Gprg^1_6", "GET"], ["Gprg^1_7", "GET"], ["Gprg^1_8", "GET"]],
-		"Gprg^1_1": [],
-		"Gprg^1_2": [],
-		"Gprg^1_3": [],
-		"Gprg^1_4": [],
-		"Gprg^1_5": [],
-		"Gprg^1_6": [],
-		"Gprg^1_7": [],
-		"Gprg^1_8": []
+		"Mod-prf": [["Prg-id1_1", "GET"], ["Prg-id1_2", "GET"], ["Prg-id1_3", "GET"], ["Prg-id1_4", "GET"], ["Prg-id1_5", "GET"], ["Prg-id1_6", "GET"], ["Prg-id1_7", "GET"], ["Prg-id1_8", "GET"]],
+		"Prg-id1_1": [],
+		"Prg-id1_2": [],
+		"Prg-id1_3": [],
+		"Prg-id1_4": [],
+		"Prg-id1_5": [],
+		"Prg-id1_6": [],
+		"Prg-id1_7": [],
+		"Prg-id1_8": []
 	    },
 
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":210,"width":1,"height":50},"Mod-prf":{"x":50,"y":170,"width":50,"height":130},"Gprg^1_1":{"x":150, "color":"blue","y":0,"width":90,"height":50, "color":"blue"},"Gprg^1_2":{"x":150, "color":"blue","y":60,"width":90,"height":50, "color":"blue"},"Gprg^1_3":{"x":150, "color":"blue","y":120,"width":90,"height":50, "color":"blue"},"Gprg^1_4":{"x":150, "color":"blue","y":180,"width":90,"height":50, "color":"blue"},"Gprg^1_5":{"x":150, "color":"blue","y":240,"width":90,"height":50, "color":"blue"},"Gprg^1_6":{"x":150, "color":"blue","y":300,"width":90,"height":50, "color":"blue"},"Gprg^1_7":{"x":150, "color":"blue","y":360,"width":90,"height":50, "color":"blue"},"Gprg^1_8":{"x":150, "color":"blue","y":420,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Gprg^1_1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Gprg^1_2":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Gprg^1_3":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Gprg^1_4":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Gprg^1_5":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Gprg^1_6":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Gprg^1_7":"exitX=1;exitY=0(.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Gprg^1_8":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Mod-prf":[]}}
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":210,"width":1,"height":50},"Mod-prf":{"x":50,"y":170,"width":50,"height":130},"Prg-id1_1":{"x":150, "color":"blue","y":0,"width":90,"height":50, "color":"blue"},"Prg-id1_2":{"x":150, "color":"blue","y":60,"width":90,"height":50, "color":"blue"},"Prg-id1_3":{"x":150, "color":"blue","y":120,"width":90,"height":50, "color":"blue"},"Prg-id1_4":{"x":150, "color":"blue","y":180,"width":90,"height":50, "color":"blue"},"Prg-id1_5":{"x":150, "color":"blue","y":240,"width":90,"height":50, "color":"blue"},"Prg-id1_6":{"x":150, "color":"blue","y":300,"width":90,"height":50, "color":"blue"},"Prg-id1_7":{"x":150, "color":"blue","y":360,"width":90,"height":50, "color":"blue"},"Prg-id1_8":{"x":150, "color":"blue","y":420,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Prg-id1_1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-id1_2":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-id1_3":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-id1_4":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-id1_5":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-id1_6":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-id1_7":"exitX=1;exitY=0(.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-id1_8":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Mod-prf":[]}}
 
 	}
 
     };
 
     var game_defs = {
-	"PRG-assumption": [["Gprg^0", "Gprg^1"]]
+	"PRG-assumption": [["GPrg-id0", "Prg-id1"]]
     };
 
     var prooftree = {
@@ -628,7 +628,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{10}},\\mathsf{Hybrid_{11}}) = \\ma
 			"parent": "Theorem",
 			"contents": [
 				{
-					"text": "$$\\mathsf{RO}\\stackrel{\\text{code}}{\\equiv}\\mathsf{Hybrid}_{11}.$$. <p class=\"proofstep-title\">Proof of Claim 2</p><p> We show via inlining that the following two graphs are code-equivalent. TO DO: Here, we need to make this an proper inlining argument."
+					"text": "$$\\mathsf{RO}\\stackrel{\\text{code}}{\\equiv}\\mathsf{Hybrid}_{000}.$$. <p class=\"proofstep-title\">Proof of Claim 2</p><p> We show via inlining that the following two graphs are code-equivalent."
 				},
 				{
 					"graphs": [["RO", "Hybrid_{000}"]]
