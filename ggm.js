@@ -65,8 +65,93 @@ function ggm_driver() {
 	"Gprg-0^1":
 	{
 	    "instance": "Prg-id1"
-	}
+	},
 
+	"Key-000":
+	{ "instance": "Key"
+	},
+	"Key-001":
+	{ "instance": "Key"
+	},
+	"Key-010":
+	{ "instance": "Key"
+	},
+	"Key-011":
+	{ "instance": "Key"
+	},
+	"Key-100":
+	{ "instance": "Key"
+	},
+	"Key-101":
+	{ "instance": "Key"
+	},
+	"Key-110":
+	{ "instance": "Key"
+	},
+	"Key-111":
+	{ "instance": "Key"
+	},
+	"Key-10":
+	{ "instance": "Key"
+	},
+	"Key-11":
+	{ "instance": "Key"
+	},
+	"Key-00":
+	{ "instance": "Key"
+	},
+	"Key-01":
+	{ "instance": "Key"
+	},
+	"Key-0":
+	{ "instance": "Key"
+	},
+	"Key-1":
+	{ "instance": "Key"
+	},
+
+	"Prg-000":
+	{ "instance": "Prg-id0"
+	},
+	"Prg-001":
+	{ "instance": "Prg-id1"
+	},
+	"Prg-010":
+	{ "instance": "Prg-id0"
+	},
+	"Prg-011":
+	{ "instance": "Prg-id1"
+	},
+	"Prg-100":
+	{ "instance": "Prg-id0"
+	},
+	"Prg-101":
+	{ "instance": "Prg-id1"
+	},
+	"Prg-110":
+	{ "instance": "Prg-id0"
+	},
+	"Prg-111":
+	{ "instance": "Prg-id1"
+	},
+	"Prg-10":
+	{ "instance": "Prg-id0"
+	},
+	"Prg-11":
+	{ "instance": "Prg-id1"
+	},
+	"Prg-00":
+	{ "instance": "Prg-id0"
+	},
+	"Prg-01":
+	{ "instance": "Prg-id1"
+	},
+	"Prg-0":
+	{ "instance": "Prg-id0"
+	},
+	"Prg-1":
+	{ "instance": "Prg-id1"
+	}
 
 
     };
