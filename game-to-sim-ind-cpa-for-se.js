@@ -394,14 +394,14 @@ is \\(0\\) and Claim 2 constructs a PPT reduction \\(\\mathsf{R}\\) such that $$
 		],
 		"type":
 		{
-			"reduction": {
-				"graph":"Hybrid-Claim-1",
-				"cut": ["Zeroer"]
-			},
-			"reduction": {
-				"graph":"Genc^1",
-				"cut": ["Zeroer"]
-			}
+			"reduction": [
+				{
+					"i": 0, "j": 0, "cut": ["Zeroer"]
+				},
+				{
+					"i": 1, "j": 0, "cut": ["Zeroer "]
+				},
+			]
 		}
 	},
 
