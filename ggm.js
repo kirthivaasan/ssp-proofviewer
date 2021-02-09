@@ -96,6 +96,44 @@ function ggm_driver() {
 	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":110},"Key_{x_0}":{"x":160,"y":0,"width":90,"height":50,"color":"blue"},"Key_{x_1}":{"x":160,"y":60,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Key_{x_0}":"exitX=0.6;exitY=0.45;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Key_{x_1}":"exitX=0.75;exitY=0.65;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[]}}
 	},
 
+	"RO":
+	{
+	    "oracles": [["RO", "EVAL"]],
+	    "graph": {
+		"RO": []
+	    },
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":450},"RO":{"x":80,"y":0,"width":90,"height":450}},"edges":{"@oracles_interface":{"RO":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[]}}
+
+	},
+
+	"PRF_{GGM}":
+	{
+	    "oracles": [["Mod-prf", "EVAL"]],
+
+	    "graph":
+	    {
+		"Mod-prf": [["Prg-000","GET-000"],["Prg-001","GET-001"],["Prg-010","GET-010"],["Prg-011","GET-011"],["Prg-100","GET-100"],["Prg-101","GET-101"],["Prg-110","GET-110"],["Prg-111","GET-111"]],
+		"Prg-000": [["Prg-00", "GET-00"]],
+		"Prg-001": [["Prg-00", "GET-00"]],
+		"Prg-010": [["Prg-01", "GET-01"]],
+		"Prg-011": [["Prg-01", "GET-01"]],
+		"Prg-100": [["Prg-10", "GET-10"]],
+		"Prg-101": [["Prg-10", "GET-10"]],
+		"Prg-110": [["Prg-11", "GET-11"]],
+		"Prg-111": [["Prg-11", "GET-11"]],
+		"Prg-00": [["Prg-0", "GET-0"]],
+		"Prg-01": [["Prg-0", "GET-0"]],
+		"Prg-10": [["Prg-1", "GET-1"]],
+		"Prg-11": [["Prg-1", "GET-1"]],
+		"Prg-0": [],
+		"Prg-1": []
+	    },
+
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":210,"width":1,"height":50},
+							"Mod-prf":{"x":50,"y":170,"width":50,"height":130},"Prg-000":{"x":150, "color":"yellow","y":0,"width":90,"height":50, "color":"yellow"},"Prg-001":{"x":150, "color":"yellow","y":60,"width":90,"height":50, "color":"yellow"},"Prg-010":{"x":150, "color":"yellow","y":120,"width":90,"height":50, "color":"yellow"},"Prg-011":{"x":150, "color":"yellow","y":180,"width":90,"height":50, "color":"yellow"},"Prg-100":{"x":150, "color":"yellow","y":240,"width":90,"height":50, "color":"yellow"},"Prg-101":{"x":150, "color":"yellow","y":300,"width":90,"height":50, "color":"yellow"},"Prg-110":{"x":150, "color":"yellow","y":360,"width":90,"height":50, "color":"yellow"},"Prg-111":{"x":150, "color":"yellow","y":420,"width":90,"height":50, "color":"yellow"},"Prg-00":{"x":310,"y":30,"width":90,"height":50, "color":"yellow"},"Prg-01":{"x":310,"y":150, "color":"yellow","width":90,"height":50, "color":"yellow"},"Prg-10":{"x":310,"y":270,"width":90,"height":50, "color":"yellow"},"Prg-11":{"x":310,"y":390,"width":90,"height":50, "color":"yellow"},"Prg-0":{"x":440,"y":90,"width":90,"height":50, "color":"yellow"},"Prg-1":{"x":440,"y":330,"width":90,"height":50, "color":"yellow"},"Key":{"x":570,"y":210,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Prg-000":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-001":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-010":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-011":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-100":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-101":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-110":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-111":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-000":{"Prg-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-001":{"Prg-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-010":{"Prg-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-011":{"Prg-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-100":{"Prg-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-101":{"Prg-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-110":{"Prg-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-111":{"Prg-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-00":{"Prg-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-01":{"Prg-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-10":{"Prg-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-11":{"Prg-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-0":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-1":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Mod-prf":[],"Prg-000":[],"Prg-001":[],"Prg-010":[],"Prg-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[],"Prg-00":[],"Prg-01":[],"Prg-10":[],"Prg-11":[],"Prg-0":[],"Prg-1":[]}}
+
+	},
+
 	"Gprf(PRF_{GGM})":
 	{
 	    "oracles": [["Mod-prf", "EVAL"]],
@@ -276,7 +314,7 @@ function ggm_driver() {
 				   "edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Key-000":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-001":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-010":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-011":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-100":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-101":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-110":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Prg-111":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-000":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-001":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-010":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-011":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-100":{"Key-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-101":{"Key-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-110":{"Key-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Prg-111":{"Key-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-00":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-01":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-10":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-11":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},
 				   "edge_points":{"@oracles_interface":[],"Mod-prf":[],"Key-000":[],"Key-001":[],"Key-010":[],"Key-011":[],"Key-100":[],"Key-101":[],"Prg-110":[],"Prg-111":[]}}
 	},
-		
+
 
 	"Hybrid_{1}1":
 	{
@@ -299,8 +337,8 @@ function ggm_driver() {
 				   "edges":{"@oracles_interface":{"Mod-prf":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Mod-prf":{"Key-000":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-001":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-010":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-011":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-100":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-101":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-110":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","Key-111":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-000":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-001":{"Key-00":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-010":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-011":{"Key-01":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-100":{"Key-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-101":{"Key-10":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-110":{"Key-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-111":{"Key-11":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-00":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-01":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-10":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Key-11":{"Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},
 				   "edge_points":{"@oracles_interface":[],"Mod-prf":[],"Key-000":[],"Key-001":[],"Key-010":[],"Key-011":[],"Key-100":[],"Key-101":[],"Key-110":[],"Key-111":[]}}
 	},
-		
-		
+
+
 	"Gprf(PRF_{GGM})-hyb1":
 	{
 	    "oracles": [["Mod-prf", "EVAL"]],
@@ -361,10 +399,10 @@ function ggm_driver() {
 	    "parent": null,
 	    "contents": [
 		{
-		    "text": "We define the stateless \\(\\mathsf{Prf}_{GGM}\\)  package as follows."
+		    "text": "We define the stateless \\(\\mathsf{Prf}_{GGM}\\)  package as follows. <br>(The leaf \\(\\mathsf{Prg}\\) packages make \\(\\mathsf{GET}\\) calls too, but due to a current limitation of the proof viewer it is not rendered)."
 		},
 		{
-		    "graphs": [["Gprf(PRF_{GGM})"]]
+		    "graphs": [["PRF_{GGM}"]]
 		}
 	    ]
 	},
@@ -398,11 +436,11 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Gprf(Prf_{GGM})^0},\\mathsf{Hybrid_{[]}}) 
 			{
 				"reduction":
 				[
-					{	
+					{
 						"i": 0, "j": 0,
 						"cut": ["Mod-prf", "Prg-000", "Prg-001", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Prg-10", "Prg-11", "Prg-00", "Prg-01"]
 					},
-					{	
+					{
 						"i": 1, "j": 0,
 						"cut": ["Mod-prf", "Prg-000", "Prg-001", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Prg-10", "Prg-11", "Prg-00", "Prg-01"]
 					},
@@ -427,11 +465,11 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{[]}},\\mathsf{Hybrid_{0}}) = \\mat
 			{
 				"reduction":
 				[
-					{	
+					{
 						"i": 0, "j": 0,
 						"cut": ["Mod-prf", "Prg-000", "Prg-001", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Prg-10", "Prg-11", "Key-1"]
 					},
-					{	
+					{
 						"i": 1, "j": 0,
 						"cut": ["Mod-prf", "Prg-000", "Prg-001", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Prg-10", "Prg-11", "Key-1"]
 					}
@@ -456,11 +494,11 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{0}},\\mathsf{Hybrid_{1}}) = \\math
 			{
 				"reduction":
 				[
-					{	
+					{
 						"i": 0, "j": 0,
 						"cut": ["Mod-prf", "Prg-000", "Prg-001", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Key-00", "Key-01"]
 					},
-					{	
+					{
 						"i": 1, "j": 0,
 						"cut": ["Mod-prf", "Prg-000", "Prg-001", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Key-00", "Key-01"]
 					}
@@ -485,11 +523,11 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{1}},\\mathsf{Hybrid_{00}}) = \\mat
 			{
 				"reduction":
 				[
-					{	
+					{
 						"i": 0, "j": 0,
 						"cut": ["Mod-prf", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Key-01", "Key-10", "Key-11"]
 					},
-					{	
+					{
 						"i": 1, "j": 0,
 						"cut": ["Mod-prf", "Prg-010", "Prg-011", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Key-01", "Key-10", "Key-11"]
 					}
@@ -514,11 +552,11 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{00}},\\mathsf{Hybrid_{01}}) = \\ma
 			{
 				"reduction":
 				[
-					{	
+					{
 						"i": 0, "j": 0,
 						"cut": ["Mod-prf", "Key-000", "Key-001", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Key-10", "Key-11"]
 					},
-					{	
+					{
 						"i": 1, "j": 0,
 						"cut": ["Mod-prf", "Key-000", "Key-001", "Prg-100", "Prg-101", "Prg-110", "Prg-111", "Key-10", "Key-11"]
 					}
@@ -543,11 +581,11 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{01}},\\mathsf{Hybrid_{10}}) = \\ma
 			{
 				"reduction":
 				[
-					{	
+					{
 						"i": 0, "j": 0,
 						"cut": ["Mod-prf", "Key-000", "Key-001", "Key-010", "Key-011", "Prg-110", "Prg-111", "Key-01", "Key-11"]
 					},
-					{	
+					{
 						"i": 1, "j": 0,
 						"cut": ["Mod-prf", "Key-000", "Key-001", "Key-010", "Key-011", "Prg-110", "Prg-111", "Key-01", "Key-11"]
 					}
@@ -555,7 +593,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{01}},\\mathsf{Hybrid_{10}}) = \\ma
 				]
 			}
 		},
-		
+
 		"Claim11":
 		{
 			"parent": "Theorem",
@@ -572,11 +610,11 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{10}},\\mathsf{Hybrid_{11}}) = \\ma
 			{
 				"reduction":
 				[
-					{	
+					{
 						"i": 0, "j": 0,
 						"cut": ["Mod-prf", "Key-000", "Key-001", "Key-010", "Key-011", "Key-100", "Key-101"]
 					},
-					{	
+					{
 						"i": 1, "j": 0,
 						"cut": ["Mod-prf", "Key-000", "Key-001", "Key-010", "Key-011", "Key-100", "Key-101"]
 					}
@@ -584,7 +622,28 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{10}},\\mathsf{Hybrid_{11}}) = \\ma
 				]
 			}
 		},
-		
+
+	"RO-Ideal equivalence" :
+	{
+	    "parent": "Theorem",
+	    "contents": [
+		{
+		    "text": "\\( \\mathsf{SEC^0}(\\mathsf{GB_{yao}}) \\stackrel{\\text{code}}{\\equiv} \\mathcal{R}^1_{circ} \\rightarrow \\mathsf{LSEC^0}(\\mathsf{GB_{yao,1}}) \\)"
+		},
+
+		{
+		    "graphs": [["Hybrid_{1}1", "RO"]]
+		},
+	    ],
+
+	    "type":
+	    {
+		"codeq":
+		{
+
+		}
+	    }
+	},
 		// "Tmp":
 		// {
 		// 	"parent": "Hop1",
@@ -606,8 +665,8 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{10}},\\mathsf{Hybrid_{11}}) = \\ma
 	"modular_pkgs": modular_pkgs
     }
 
-    var wnd_width = 400;
-    var wnd_height = 600;
+    var wnd_width = 600;
+    var wnd_height = 300;
     var wnd_x = (window.innerWidth - wnd_width) - wnd_width/9;
     var wnd_y = window.innerHeight - wnd_height;
 

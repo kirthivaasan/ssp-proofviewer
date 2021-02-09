@@ -832,7 +832,7 @@ function add_proof(proof, wnd_pos, wrapper_width) {
     var graph = new mxGraph(tb);
     graph.setTooltips(true);
     graph.setPanning(true);
-    graph.setCellsResizable(true); // hack ot make node highlight more visible
+    graph.setCellsResizable(false);
     graph.keepEdgesInBackground = true;
 
     var style = graph.getStylesheet().getDefaultVertexStyle();
@@ -930,6 +930,34 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 	    var ancestor_vtx = nodes_lookup[ancestor_name];
 	    graph.insertEdge(parent, null, '', ancestor_vtx, node_vtx);
 	}
+
+
+	// // overlay
+	// graph.addListener(mxEvent.CLICK, function(sender, evt) {
+	//     var cell = evt.getProperty('cell');
+	//     if (cell != null) {
+	// 	var overlays = graph.getCellOverlays(cell);
+	// 	if (overlays == null) {
+
+	// 	    var overlay = new mxCellOverlay(
+	// 		new mxImage('editors/images/overlays/check.png', 16, 16),
+	// 		'Overlay tooltip');
+
+	// 	    overlay.addListener(mxEvent.HOVER, function(sender, evt2) {					    mxUtils.alert('Overlay clicked');
+	// 													    console.log('cell');										    console.log(cell.value);
+	// 													    console.log(prooftree[cell.value]);
+
+	// 								      }
+	// 			       );
+
+	// 	    graph.addCellOverlay(cell, overlay);
+	// 	} else {
+	// 	    graph.removeCellOverlays(cell);
+	// 	}
+	//     }
+	// });
+
+
 
     } finally {
     	graph.getModel().endUpdate();
