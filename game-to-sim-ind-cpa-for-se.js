@@ -30,33 +30,15 @@ function driver() {
 	{
 	    "oracles":
 	    {
-		"SAMPLE" :
-		{
-		    "code": "@assert k = @bot;k @sample \\{0,1\\}^\\lambda;",
-		    "params": []
-		},
-
 		"GET" :
 		{
-		    "code": "@assert k \\neq @bot;@return k;",
+		    "code": "\\mathbf{if} k = @bot : k @sample \\{0,1\\}^\\lambda;@return k;",
 		    "params": []
 		}
 	    }
 
 	},
 
-
-	"Sim":
-	{
-	    "oracles":
-	    {
-		"ENC" :
-		{
-		    "code": "@assert k \\neq @bot;c @sample enc_k(0^\\ell);@return c;",
-		    "params": ["\\ell"]
-		}
-	    }
-	},
 
 
 	"Ideal":
@@ -357,7 +339,7 @@ $$\\begin{align}
 			"text": "\\(\\mathsf{Genc}^1\\stackrel{code}{\\equiv}\\mathsf{Genc}(\\mathsf{Sim}_{Lemma2})\\)"
 		},
 		{
-			"text": "<p class=\"proofstep-title\">Proof of Claim 1</p><p>Below we plug in the definition of \\(\\mathsf{Sim}_{Lemma2}\\) to obtain \\(\\mathsf{Hybrid\\text{-}Claim\\text{-}1}\\) from \\(\\mathsf{Genc(Sim_{Lemma2})}\\). Removing the dashed line yields \\(\\mathsf{Genc^1}\\).</p>"
+			"text": "<p class=\"proofstep-title\">Proof of Claim 1</p><p>Below, in \\(\\mathsf{Genc(Sim_{Lemma2})}\\), we replace \\(\\mathsf{Sim}_{Lemma2}\\) by its definition and thereby obtain \\(\\mathsf{Hybrid\\text{-}Claim\\text{-}1}\\). We mark the definition of \\(\\mathsf{Genc(Sim_{Lemma2})}\\) by a dashed line, Removing the dashed line yields \\(\\mathsf{Genc^1}\\).</p>"
 		},
 		{
 		    "graphs": [["Genc(Sim_{Lemma2})"], ["Hybrid-Claim-1"], ["Genc^1"], ]
@@ -393,11 +375,14 @@ is \\(0\\) and Claim 2 constructs a PPT reduction \\(\\mathsf{R}\\) such that $$
 		}
 	},
 
-	"Claim 2:\n Indistinguishability between \\(\\mathsf{Genc}\\) and \\(\\mathsf{Hybrid\\text{-}Lemma\\text{-}1}\\)": {
+	"Claim 2:\n Indistinguishability between \\(\\mathsf{Genc}^1\\) and \\(\\mathsf{Hybrid\\text{-}Lemma\\text{-}1}\\)": {
 		"parent": "Lemma 1:\nSimulation-based security of \\(\\mathsf{se}\\) implies IND-CPA security",
 		"contents": [
 		{
 			"text": "\\(\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Hybrid\\text{-}Lemma1}) =  \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{Zeroer},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim})) \\)"
+		},
+		{
+			"text": "<p class=\"proofstep-title\">Proof of Claim 2</p> Using \\(\\mathsf{R}:=\\mathsf{Zeroer}\\) as a reduction (marked in grey in the pictures below), we observe that the remaining part of the graph (marked in white) constitute exactly \\(\\mathsf{Genc}^0\\) and  \\(\\mathsf{Genc}^1\\), respectively, and Claim 2 follows."
 		},
 		{
 		    "graphs": [["Genc^1"], ["Hybrid-Lemma-1"]]
@@ -405,14 +390,14 @@ is \\(0\\) and Claim 2 constructs a PPT reduction \\(\\mathsf{R}\\) such that $$
 		],
 		"type":
 		{
-			"reduction": [
-				{
-					"i": 0, "j": 0, "cut": ["Zeroer"]
-				},
-				{
-					"i": 1, "j": 0, "cut": ["Zeroer "]
-				},
-			]
+			"reduction": {
+				"graph":"Hybrid-Claim-1",
+				"cut": ["Zeroer"]
+			},
+			"reduction": {
+				"graph":"Genc^1",
+				"cut": ["Zeroer"]
+			}
 		}
 	},
 
