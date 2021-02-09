@@ -728,7 +728,14 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
     // adds step name
     var step_name = document.createElement('p');
     step_name.setAttribute('class', 'proofstep-title');
-    step_name.innerHTML = step;
+
+    var prooftree = proof.prooftree;
+    if ("longname" in prooftree[step]) {
+	step_name.innerHTML = prooftree[step].longname;
+    } else {
+	step_name.innerHTML = step;
+    }
+
     proofstep_container.appendChild(step_name);
 
     // add contents to proofstep
@@ -825,7 +832,7 @@ function add_proof(proof, wnd_pos, wrapper_width) {
     var graph = new mxGraph(tb);
     graph.setTooltips(true);
     graph.setPanning(true);
-    graph.setCellsResizable(false);
+    graph.setCellsResizable(true); // hack ot make node highlight more visible
     graph.keepEdgesInBackground = true;
 
     var style = graph.getStylesheet().getDefaultVertexStyle();

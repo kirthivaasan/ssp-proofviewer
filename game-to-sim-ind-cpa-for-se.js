@@ -224,7 +224,7 @@ function driver() {
 	    }
 	},
 
-		
+
 	"Genc(Sim_{Lemma2})":
 	{
 	    "oracles": [["Zeroer", "ENC"]],
@@ -283,7 +283,7 @@ function driver() {
 	    }
 	},
 
-	
+
     };
 
     var prooftree = {
@@ -313,8 +313,9 @@ function driver() {
 	    ]
 	},
 
-	"Lemma 1:\nSimulation-based security of \\(\\mathsf{se}\\) implies IND-CPA security" :
+	"Lemma 1" :
 	{
+	    "longname": "Lemma 1:\nSimulation-based security of \\(\\mathsf{se}\\) implies IND-CPA security",
 	    "parent": "Theorem",
 	    "contents": [
 		{
@@ -372,8 +373,8 @@ $$\\begin{align}
 &\\;\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Hybrid\\text{-}Lemma1}) \\\\
 &+\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid\\text{-}Lemma1},\\mathsf{Genc}(\\mathsf{Sim}))\\\\
 &+\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}(\\mathsf{Sim}),\\mathsf{Genc}^0)\\\\
-\\end{align}$$			
-Lemma 1 then follows by Claim 2 and Claim 3. Namely, Claim 3 establishes that 
+\\end{align}$$
+Lemma 1 then follows by Claim 2 and Claim 3. Namely, Claim 3 establishes that
 \\(\\mathsf{Adv}(\\mathsf{Hybrid\\text{-}Lemma1},\\mathcal{A},\\mathsf{Genc}^0)\\)
 is \\(0\\) and Claim 2 constructs a PPT reduction \\(\\mathsf{R}\\) such that $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Hybrid\\text{-}Lemma1})= \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim})).$$.`
 		},
@@ -394,7 +395,7 @@ is \\(0\\) and Claim 2 constructs a PPT reduction \\(\\mathsf{R}\\) such that $$
 	},
 
 	"Claim 2:\n Indistinguishability between \\(\\mathsf{Genc}\\) and \\(\\mathsf{Hybrid\\text{-}Lemma\\text{-}1}\\)": {
-		"parent": "Lemma 1:\nSimulation-based security of \\(\\mathsf{se}\\) implies IND-CPA security",
+		"parent": "Lemma 1",
 		"contents": [
 		{
 			"text": "\\(\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Hybrid\\text{-}Lemma1}) =  \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{Zeroer},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim})) \\)"
@@ -417,7 +418,7 @@ is \\(0\\) and Claim 2 constructs a PPT reduction \\(\\mathsf{R}\\) such that $$
 	},
 
 	"Claim 3: Equivalence": {
-		"parent": "Lemma 1:\nSimulation-based security of \\(\\mathsf{se}\\) implies IND-CPA security",
+		"parent": "Lemma 1",
 		"contents": [
 		{
 			"text": "\\(\\mathsf{Zeroer}\\rightarrow \\mathsf{Zeroer} \\stackrel{\\text{code}}{\\equiv}\\mathsf{Zeroer}\\)"
