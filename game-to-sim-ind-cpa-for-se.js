@@ -306,8 +306,9 @@ function driver() {
 	    ]
 	},
 
-	"Lemma 2:\nIND-CPA security of \\(\\mathsf{se}\\) implies simulation-based security" :
+	"Lemma 2":
 	{
+	    "longname": "Lemma 2:\nIND-CPA security of \\(\\mathsf{se}\\) implies simulation-based security",
 	    "parent": "Theorem",
 	    "contents": [
 		{
@@ -333,8 +334,9 @@ $$\\begin{align}
 	    ]
 	},
 
-	"Claim 1:\nEquivalence": {
-		"parent": "Lemma 2:\nIND-CPA security of \\(\\mathsf{se}\\) implies simulation-based security",
+	"Claim 1": {
+	    "longname": "Claim 1: Equivalence",
+		"parent": "Lemma 2",
 		"contents": [
 		{
 			"text": "\\(\\mathsf{Genc}^1\\stackrel{code}{\\equiv}\\mathsf{Genc}(\\mathsf{Sim}_{Lemma2})\\)"
@@ -376,7 +378,8 @@ is \\(0\\) and Claim 2 constructs a PPT reduction \\(\\mathsf{R}\\) such that $$
 		}
 	},
 
-	"Claim 2:\n Indistinguishability between \\(\\mathsf{Genc}\\) and \\(\\mathsf{Hybrid\\text{-}Lemma\\text{-}1}\\)": {
+	"Claim 2:": {
+	    "longname": "Claim 2:\n Indistinguishability between \\(\\mathsf{Genc}\\) and \\(\\mathsf{Hybrid\\text{-}Lemma\\text{-}1}\\)",
 		"parent": "Lemma 1",
 		"contents": [
 		{
@@ -402,7 +405,8 @@ is \\(0\\) and Claim 2 constructs a PPT reduction \\(\\mathsf{R}\\) such that $$
 		}
 	},
 
-	"Claim 3: Equivalence": {
+	"Claim 3": {
+	    "longname": "Claim 3: Equivalence",
 		"parent": "Lemma 1",
 		"contents": [
 		{
