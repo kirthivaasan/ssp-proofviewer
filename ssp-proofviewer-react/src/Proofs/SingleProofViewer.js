@@ -1,28 +1,13 @@
-import React from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { useEffect, useRef } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { proofById } from './Model/Model';
+import { isSelectedOracle, proofById, selectedOracle } from './Model/Model';
 import MathJaxContent from '../MathJax/MathJaxContent';
-
-const ascii = 'U = 1/(R_(si) + sum_(i=1)^n(s_n/lambda_n) + R_(se))';
-
-const asciimath = '`sum_(i=1)^n i^3=((n(n+1))/2)^2`';
-const math = String.raw`
-  <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-    <menclose notation="circle box">
-      <mi> x </mi><mo> + </mo><mi> y </mi>
-    </menclose>
-  </math>
-
-  $$\lim_{x \to \infty} \exp(-x) = 0$$
-
-  ${asciimath}`;
 
 const PackageNameWrapper = styled.div`
   height: 30px;
   width: 100%;
   background-color: #DDD
-  
 `;
 
 const OracleColumn = styled.div`
@@ -36,38 +21,74 @@ const OracleWrapper = styled.div`
   padding-left: 10px;
 `;
 
+const OraclesWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
 const SigleLine = styled.div`
- margin-bottom: 10px;
- padding-top: 0px;
- height: 45px;
+ padding-bottom: 15px;
+ height: 20px;
 `;
 
 const OracleNameWrapper = styled.div`
-  background-color: #EEE;
+  background-color: ${({ isSelected }) => (isSelected ? '#AAA' : '#EEE')};
   margin-top: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   height: 30px;
 `;
 
 const OracleNameInnerWrapper = styled.div`
+  margin-top: -12px;
+`;
+
+const Page = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex: 1;
+`;
+
+const PackagesColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+`;
+
+const ProofColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  overflow: hidden;
 `;
 
 function Oracle({
-  oracles, name, code, params,
+  name, code, params, packageName,
 }) {
   const args = params.length === 0 ? '' : `(${params.join(', ')})`;
 
-  console.log(args);
+  const ref = useRef();
+  const isSelected = useRecoilValue(isSelectedOracle({ oracleName: name, packageName }));
+  const setSelectedOracle = useSetRecoilState(selectedOracle);
+  useEffect(() => {
+    if (isSelected) {
+      ref.current.scrollIntoView({ behavior: 'smooth', inline: 'nearest' });
+      setTimeout(() => { setSelectedOracle({}); }, 1000);
+    }
+  },
+  [isSelected, setSelectedOracle]);
+
   return (
-    <OracleWrapper>
-      <OracleNameWrapper>
+    <OracleWrapper ref={ref}>
+      <OracleNameWrapper isSelected={isSelected}>
         <OracleNameInnerWrapper>
-        <MathJaxContent content={`\\underline{${name}${args}}`} />
+          <MathJaxContent content={`\\underline{${name}${args}}`} />
         </OracleNameInnerWrapper>
       </OracleNameWrapper>
-       <OracleColumn>
-         {code.split('\\\\').map((line, id) => (<SigleLine><MathJaxContent content={line} /></SigleLine>))}
-           </OracleColumn>
+      <OracleColumn>
+        {code.split('\\\\').map((line, id) => (<SigleLine><MathJaxContent content={line} /></SigleLine>))}
+      </OracleColumn>
     </OracleWrapper>
   );
 }
@@ -78,7 +99,10 @@ function Package({ oracles, name }) {
       <PackageNameWrapper>
         <MathJaxContent content={`\\large{\\underline{${name}}}`} />
       </PackageNameWrapper>
-      {oracles.map((oracle) => <Oracle key={oracle.name} {...oracle} />)}
+      <OraclesWrapper>
+
+        {oracles.map((oracle) => <Oracle key={oracle.name} {...oracle} packageName={name} />)}
+      </OraclesWrapper>
     </div>
   );
 }
@@ -86,12 +110,25 @@ function Package({ oracles, name }) {
 export default function SingleProofViewer({ id }) {
   const proof = useRecoilValue(proofById(id));
 
+  const setSelectedOracle = useSetRecoilState(selectedOracle);
+
+  useEffect(() => {
+    const listener = ({ detail }) => {
+      // TODO
+      const nameTheFirstPackageContainingOracle = proof.monolithicPackages
+        .find(({ oracles }) => !!(oracles.find(({ name }) => name === detail))).name;
+      setSelectedOracle({ package: nameTheFirstPackageContainingOracle, oracle: detail });
+    };
+    window.addEventListener('oracleSelected', listener);
+    return () => window.removeEventListener('oracleSelected', listener);
+  }, [proof.monolithicPackages, setSelectedOracle]);
+
   return (
-    <div>
-      <div>{JSON.stringify(proof)}</div>
-      <div>
+    <Page>
+      <ProofColumn>{JSON.stringify(proof)}</ProofColumn>
+      <PackagesColumn>
         {proof.monolithicPackages.map((pcg) => <Package {...pcg} />)}
-      </div>
-    </div>
+      </PackagesColumn>
+    </Page>
   );
 }

@@ -4,6 +4,7 @@ import { NavLink, Route } from 'react-router-dom';
 import { proofNamesSelector } from './Model/Model';
 import SingleProofViewer from './SingleProofViewer';
 
+
 export default function Proofs() {
   const names = useRecoilValue(proofNamesSelector);
   return (

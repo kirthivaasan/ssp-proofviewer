@@ -1,8 +1,5 @@
-import React, { useRef, useState } from 'react';
-import MathJax from 'react-mathjax2';
+import React from 'react';
 import { MathJaxProvider, Tex2SVG } from './MathJax';
-
-const tex = 'f(x) = \\int_{-\\infty}^\\infty\\hat f(\\xi)\\,e^{2 \\pi i \\xi x}\\,d\\xi';
 
 // window.MathJax = {
 //
@@ -30,7 +27,10 @@ function MathJaxContent({ content }) {
   return (
     <div>
       <MathJaxProvider options={mathJaxOptions}>
-        <Tex2SVG latex={`${content}`} />
+        <Tex2SVG latex={`
+        \\def\\oracle#1{{\\href{javascript:window.dispatchEvent(new CustomEvent('oracleSelected', { detail: '#1' }))}{\\bf{#1}}}}
+        ${content}`}
+        />
       </MathJaxProvider>
     </div>
   );

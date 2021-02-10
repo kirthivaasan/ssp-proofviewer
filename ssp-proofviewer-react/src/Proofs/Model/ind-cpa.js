@@ -7,7 +7,7 @@ export default {
       [
         {
           name: 'ENC',
-          code: `   k \\gets GET() \\\\
+          code: `   k \\gets \\oracle{GET}() \\\\
                     c \\gets$ enc_k(m)\\\\
                     x \\href{why-equal.html}{=} y^2 + 1 \\\\
                     \\mathbf{return} c  `,
@@ -20,7 +20,7 @@ export default {
       oracles: [
         {
           name: 'ENC',
-          code: `   k \\gets GET() \\\\
+          code: `   k \\gets \\oracle{GET}() \\\\
                     c \\gets$ enc_k(0^{|m|})\\\\
                     x \\href{why-equal.html}{=} y^2 + 1 \\\\
                     \\mathbf{return} c  `,
@@ -28,7 +28,50 @@ export default {
         },
       ],
     },
+    {
+      name: 'Enc^0_{Lr}',
+      oracles:
+        [
+          {
+            name: 'ENC',
+            code: 'k \\gets \\oracle{GET}()\\\\c \\gets$ enc_k(m_0)\\\\ \\mathbf{return} c',
+            params: ['m_0', 'm_1'],
+          },
+        ],
+    },
+
+    {
+      name: 'Enc^1_{Lr}',
+      oracles:
+        [
+          {
+            name: 'ENC',
+            code: 'k \\gets \\oracle{GET}()\\\\c \\gets$ enc_k(m_1)\\\\ \\mathbf{return} c',
+            params: ['m_0', 'm_1'],
+          },
+        ],
+    },
+
+    {
+      name: 'Key',
+      oracles:
+        [
+          {
+            name: 'SAMPLE',
+            code: 'assert k = \\bot \\\\ k \\gets$ \\{0,1\\}^\\lambda;',
+            params: [],
+          },
+
+          {
+            name: 'GET',
+            code: 'assert k \\neq \\bot \\\\ \\mathbf{return} k;',
+            params: [],
+          },
+        ],
+
+    },
   ],
+
   monolithic_pkgs:
     {
       'Enc^0':
@@ -54,50 +97,6 @@ export default {
                 },
             },
         },
-
-      'Enc^0-Lr':
-        {
-          oracles:
-            {
-              ENC:
-                {
-                  code: 'k @gets GET();c @sample enc_k(m_0); @return c',
-                  params: ['m_0', 'm_1'],
-                },
-            },
-        },
-
-      'Enc^1-Lr':
-        {
-          oracles:
-            {
-              ENC:
-                {
-                  code: 'k @gets GET();c @sample enc_k(m_1); @return c',
-                  params: ['m_0', 'm_1'],
-                },
-            },
-        },
-
-      Key:
-        {
-          oracles:
-            {
-              SAMPLE:
-                {
-                  code: '@assert k = @bot;k @sample \\{0,1\\}^\\lambda;',
-                  params: [],
-                },
-
-              GET:
-                {
-                  code: '@assert k \\neq @bot;@return k;',
-                  params: [],
-                },
-            },
-
-        },
-
     },
 
   modular_pkgs:
