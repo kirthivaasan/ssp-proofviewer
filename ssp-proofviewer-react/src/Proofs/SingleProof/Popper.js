@@ -32,7 +32,8 @@ export default function PopperWrapper({ popperValues, anchor, setPopperValues })
                   <MenuItem
                     key={potentialPackageName}
                     onClick={() => {
-                      setSelectedOracle({ package: potentialPackageName, oracle: popperValues.targetName });
+                      setSelectedOracle(
+                        { package: potentialPackageName, oracle: popperValues.targetName });
                       setPopperValues(null);
                     }}
                   >
