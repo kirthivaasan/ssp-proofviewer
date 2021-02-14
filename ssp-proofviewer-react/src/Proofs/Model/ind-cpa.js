@@ -98,7 +98,27 @@ export default {
             },
         },
     },
-
+  proofTree:
+    [
+      {
+        name: 'Def',
+        parent: null,
+        contents: [
+          {
+            text: 'Indistinguishability under Chosen-Plaintext Attack or \\(\\mathsf{IND\\text{-}CPA}\\) is defined as the indistinguishability between the games \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^1}\\). Intuitively, what it says, is that no PPT adversary can tell the difference between an encryption of a message that was submitted by the adversary, and an encryption of all 0s. This flavour of IND-CPA is also called Real-Zeroes IND-CPA. (TODO explain why we provide adversary SAMPLE() - because the key anyway needs to be sampled and we might as well allow the adversary to do it.',
+          },
+          {
+            graphs: [['Gind-cpa^0', 'Gind-cpa^1']],
+          },
+          {
+            text: 'Another equivalent notion of IND-CPA is called Left-Right IND-CPA. In this setup, the ENC oracle expects two messages \\(m_0, m_1\\) and encrypts either \\(m_0\\) ("left message"), if in the real game or \\(m_1\\) ("right message"), if in the ideal game.',
+          },
+          {
+            graphs: [['Gind-cpa^0-Lr', 'Gind-cpa^1-Lr']],
+          },
+        ],
+      },
+    ],
   modular_pkgs:
     {
       'Gind-cpa^0':
@@ -205,27 +225,5 @@ export default {
             },
         },
 
-    },
-
-  prooftree:
-    {
-      Def:
-        {
-          parent: null,
-          contents: [
-            {
-              text: 'Indistinguishability under Chosen-Plaintext Attack or \\(\\mathsf{IND\\text{-}CPA}\\) is defined as the indistinguishability between the games \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^1}\\). Intuitively, what it says, is that no PPT adversary can tell the difference between an encryption of a message that was submitted by the adversary, and an encryption of all 0s. This flavour of IND-CPA is also called Real-Zeroes IND-CPA. (TODO explain why we provide adversary SAMPLE() - because the key anyway needs to be sampled and we might as well allow the adversary to do it.',
-            },
-            {
-              graphs: [['Gind-cpa^0', 'Gind-cpa^1']],
-            },
-            {
-              text: 'Another equivalent notion of IND-CPA is called Left-Right IND-CPA. In this setup, the ENC oracle expects two messages \\(m_0, m_1\\) and encrypts either \\(m_0\\) ("left message"), if in the real game or \\(m_1\\) ("right message"), if in the ideal game.',
-            },
-            {
-              graphs: [['Gind-cpa^0-Lr', 'Gind-cpa^1-Lr']],
-            },
-          ],
-        },
     },
 };
