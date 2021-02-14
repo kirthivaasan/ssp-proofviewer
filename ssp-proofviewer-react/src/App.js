@@ -1,10 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
 } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import NavigationHeader from './NavigationHeader/NavigationHeader';
@@ -12,8 +10,8 @@ import Definitions from './Definitions/Definitions';
 import Proofs from './Proofs/Proofs';
 
 // error from mathjax lib
-const oldConsoleError = console.error
-console.error = (...args) => { args[0].includes("Legacy context API") || oldConsoleError(...args) }
+const oldConsoleError = console.error;
+console.error = (...args) => { args[0].includes('Legacy context API') || (args[1] && args[1].includes('findDOMNode')) || oldConsoleError(...args); };
 
 export default function App() {
   return (

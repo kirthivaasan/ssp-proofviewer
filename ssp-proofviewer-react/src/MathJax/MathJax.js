@@ -66,7 +66,6 @@ export function useTexSVG({
         try {
           setIsLoading(true);
           const options = mathJax.getMetricsFor(ref.current, true);
-          console.log(options, 'options');
           const mathJaxElement = await mathJax.tex2chtmlPromise(latex, options);
 
           setHtml(mathJaxElement);

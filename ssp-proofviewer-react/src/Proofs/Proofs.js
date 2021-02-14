@@ -2,7 +2,7 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { NavLink, Route } from 'react-router-dom';
 import { proofNamesSelector } from './Model/Model';
-import SingleProofViewer from './SingleProofViewer';
+import SingleProofViewer from './SingleProof/SingleProofViewer';
 
 
 export default function Proofs() {

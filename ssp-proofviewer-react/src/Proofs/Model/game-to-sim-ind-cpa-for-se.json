@@ -1,0 +1,34 @@
+{
+  "name": "Game-based security and simulation-based security equivalence of IND-CPA for symmetric encryption",
+  "monolithicPackages": [
+    {
+      "name": "Enc",
+      "oracles": [
+        {
+          "name": "ENC",
+          "code": "k \\gets \\oracle{GET}() \\\\ c \\gets $ \\mathsf{se.enc}(k,m) \\\\ \\mathbf{return} c "
+        }
+      ]
+    },
+    {
+      "name": "Enc^1",
+      "oracles": [
+        { "name": "ENC", "code": "k \\gets \\oracle{GET}() \\\\ c \\gets $ enc_k(0^{|m|}) \\\\ \\mathbf{return} c " }
+
+      ]
+    },
+    {
+      "name": "Key",
+      "oracles": [
+        { "name": "GET", "code": "k \\gets \\oracle{GET}() \\\\ c \\gets $ enc_k(0^{|m|}) \\\\ \\mathbf{return} c " }
+
+      ]
+    },
+    {
+      "name": "Ideal",
+      "oracles": [
+        { "name": "ENC", "code": "c \\gets \\oracle{ENC}(|m|) \\\\ \\mathbf{return} c " }
+      ]
+    }
+  ]
+}
