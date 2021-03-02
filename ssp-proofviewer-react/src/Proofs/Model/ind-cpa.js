@@ -7,7 +7,7 @@ export default {
       [
         {
           name: 'ENC',
-          code: `   k \\gets GET() \\\\
+          code: `   k \\gets \\oracle{GET}() \\\\
                     c \\gets$ enc_k(m)\\\\
                     x \\href{why-equal.html}{=} y^2 + 1 \\\\
                     \\mathbf{return} c  `,
@@ -20,7 +20,7 @@ export default {
       oracles: [
         {
           name: 'ENC',
-          code: `   k \\gets GET() \\\\
+          code: `   k \\gets \\oracle{GET}() \\\\
                     c \\gets$ enc_k(0^{|m|})\\\\
                     x \\href{why-equal.html}{=} y^2 + 1 \\\\
                     \\mathbf{return} c  `,
@@ -28,7 +28,50 @@ export default {
         },
       ],
     },
+    {
+      name: 'Enc^0_{Lr}',
+      oracles:
+        [
+          {
+            name: 'ENC',
+            code: 'k \\gets \\oracle{GET}()\\\\c \\gets$ enc_k(m_0)\\\\ \\mathbf{return} c',
+            params: ['m_0', 'm_1'],
+          },
+        ],
+    },
+
+    {
+      name: 'Enc^1_{Lr}',
+      oracles:
+        [
+          {
+            name: 'ENC',
+            code: 'k \\gets \\oracle{GET}()\\\\c \\gets$ enc_k(m_1)\\\\ \\mathbf{return} c',
+            params: ['m_0', 'm_1'],
+          },
+        ],
+    },
+
+    {
+      name: 'Key',
+      oracles:
+        [
+          {
+            name: 'SAMPLE',
+            code: 'assert k = \\bot \\\\ k \\gets$ \\{0,1\\}^\\lambda;',
+            params: [],
+          },
+
+          {
+            name: 'GET',
+            code: 'assert k \\neq \\bot \\\\ \\mathbf{return} k;',
+            params: [],
+          },
+        ],
+
+    },
   ],
+
   monolithic_pkgs:
     {
       'Enc^0':
@@ -54,52 +97,28 @@ export default {
                 },
             },
         },
-
-      'Enc^0-Lr':
-        {
-          oracles:
-            {
-              ENC:
-                {
-                  code: 'k @gets GET();c @sample enc_k(m_0); @return c',
-                  params: ['m_0', 'm_1'],
-                },
-            },
-        },
-
-      'Enc^1-Lr':
-        {
-          oracles:
-            {
-              ENC:
-                {
-                  code: 'k @gets GET();c @sample enc_k(m_1); @return c',
-                  params: ['m_0', 'm_1'],
-                },
-            },
-        },
-
-      Key:
-        {
-          oracles:
-            {
-              SAMPLE:
-                {
-                  code: '@assert k = @bot;k @sample \\{0,1\\}^\\lambda;',
-                  params: [],
-                },
-
-              GET:
-                {
-                  code: '@assert k \\neq @bot;@return k;',
-                  params: [],
-                },
-            },
-
-        },
-
     },
-
+  proofTree:
+    [
+      {
+        name: 'Def',
+        parent: null,
+        contents: [
+          {
+            text: 'Indistinguishability under Chosen-Plaintext Attack or \\(\\mathsf{IND\\text{-}CPA}\\) is defined as the indistinguishability between the games \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^1}\\). Intuitively, what it says, is that no PPT adversary can tell the difference between an encryption of a message that was submitted by the adversary, and an encryption of all 0s. This flavour of IND-CPA is also called Real-Zeroes IND-CPA. (TODO explain why we provide adversary SAMPLE() - because the key anyway needs to be sampled and we might as well allow the adversary to do it.',
+          },
+          {
+            graphs: [['Gind-cpa^0', 'Gind-cpa^1']],
+          },
+          {
+            text: 'Another equivalent notion of IND-CPA is called Left-Right IND-CPA. In this setup, the ENC oracle expects two messages \\(m_0, m_1\\) and encrypts either \\(m_0\\) ("left message"), if in the real game or \\(m_1\\) ("right message"), if in the ideal game.',
+          },
+          {
+            graphs: [['Gind-cpa^0-Lr', 'Gind-cpa^1-Lr']],
+          },
+        ],
+      },
+    ],
   modular_pkgs:
     {
       'Gind-cpa^0':
@@ -206,27 +225,5 @@ export default {
             },
         },
 
-    },
-
-  prooftree:
-    {
-      Def:
-        {
-          parent: null,
-          contents: [
-            {
-              text: 'Indistinguishability under Chosen-Plaintext Attack or \\(\\mathsf{IND\\text{-}CPA}\\) is defined as the indistinguishability between the games \\(\\mathsf{Gind\\text{-}cpa^0}\\) and \\(\\mathsf{Gind\\text{-}cpa^1}\\). Intuitively, what it says, is that no PPT adversary can tell the difference between an encryption of a message that was submitted by the adversary, and an encryption of all 0s. This flavour of IND-CPA is also called Real-Zeroes IND-CPA. (TODO explain why we provide adversary SAMPLE() - because the key anyway needs to be sampled and we might as well allow the adversary to do it.',
-            },
-            {
-              graphs: [['Gind-cpa^0', 'Gind-cpa^1']],
-            },
-            {
-              text: 'Another equivalent notion of IND-CPA is called Left-Right IND-CPA. In this setup, the ENC oracle expects two messages \\(m_0, m_1\\) and encrypts either \\(m_0\\) ("left message"), if in the real game or \\(m_1\\) ("right message"), if in the ideal game.',
-            },
-            {
-              graphs: [['Gind-cpa^0-Lr', 'Gind-cpa^1-Lr']],
-            },
-          ],
-        },
     },
 };

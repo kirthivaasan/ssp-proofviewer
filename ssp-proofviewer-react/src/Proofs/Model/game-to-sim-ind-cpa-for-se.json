@@ -1,0 +1,75 @@
+{
+  "name": "Game-based security and simulation-based security equivalence of IND-CPA for symmetric encryption",
+  "monolithicPackages": [
+    {
+      "name": "Enc",
+      "oracles": [
+        {
+          "name": "ENC",
+          "code": "k \\gets \\oracle{GET}() \\\\ c \\gets $ \\mathsf{se.enc}(k,m) \\\\ \\mathbf{return} c "
+        }
+      ]
+    },
+    {
+      "name": "Enc^1",
+      "oracles": [
+        { "name": "ENC", "code": "k \\gets \\oracle{GET}() \\\\ c \\gets $ enc_k(0^{|m|}) \\\\ \\mathbf{return} c " }
+
+      ]
+    },
+    {
+      "name": "Key",
+      "oracles": [
+        { "name": "GET", "code": "k \\gets \\oracle{GET}() \\\\ c \\gets $ enc_k(0^{|m|}) \\\\ \\mathbf{return} c " }
+
+      ]
+    },
+    {
+      "name": "Ideal",
+      "oracles": [
+        { "name": "ENC", "code": "c \\gets \\oracle{ENC}(|m|) \\\\ \\mathbf{return} c " }
+      ]
+    }
+  ],
+  "proofTree": [
+    {
+      "name": "Theorem",
+      "parent": null,
+      "contents": [
+        {
+          "text": "<a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC and simulation-based security of ENC are equivalent, i.e., there exists a PPT simulator \\(\\mathsf{Sim}\\) such that for all PPT adversaries \\(\\mathcal{A}\\), $$Adv(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim})) = \\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}^1)$$ and conversely, there exists a PPT reduction \\(\\mathsf{R}\\) such that for all PPT simulators \\(\\mathsf{Sim}\\) and PPT adversaries \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}^1) \\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}, \\mathsf{Genc}^0, \\mathsf{Genc}(\\mathsf{Sim}))+\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}(\\mathsf{Sim})).$$"
+        },
+        {
+          "text": "<p class=\"proofstep-title\">Proof of Theorem</p><p>We now first state the two lemmas which constitute the theorem separately and then first prove Lemma 1 and then Lemma 2. As the advantage bounds suggest, we need to use the simulation-based assumption twice to prove standard IND-CPA security, while IND-CPA security directly implies simulation-based security.</p>"
+        }
+      ]
+    },
+    {
+      "name": "Lemma 1",
+      "longname": "Lemma 1:\nSimulation-based security of \\(\\mathsf{se}\\) implies IND-CPA security",
+      "parent": "Theorem",
+      "contents": [
+        {
+          "text": "Simulation-based security of ENC implies the <a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC , i.e., for all PPT simulators \\(\\mathsf{Sim}\\) and PPT adversaries \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}^1) \\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}, \\mathsf{Genc}^0, \\mathsf{Genc}(\\mathsf{Sim}))+\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}(\\mathsf{Sim})).$$"
+        }
+      ]
+    },
+    {
+      "name": "Lemma 2",
+      "longname": "Lemma 2:\nIND-CPA security of \\(\\mathsf{se}\\) implies simulation-based security",
+      "parent": "Theorem",
+      "contents": [
+        {
+          "text": "<a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC implies the simulation-based security of ENC, i.e., there exists a PPT simulator \\(\\mathsf{Sim_{Lemma2}}\\) such that for all PPT adversaries \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim_{Lemma2}})) = \\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}^1),$$ where \\(\\mathsf{Sim_{Lemma2}}\\) is defined as follows:"
+        },
+        {
+          "graphs": [["Sim_{Lemma2}"]]
+        },
+        {
+          "text": "<p class=\"proofstep-title\">Proof of Lemma 2</p>"
+        }
+      ]
+    }
+  ]
+}
+

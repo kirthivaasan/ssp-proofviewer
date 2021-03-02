@@ -12,7 +12,7 @@ export const MathJaxProvider = ({
   children = null,
 }) => {
   const ref = useRef(null);
-  const [mathJax, setMathJax] = useState({mathJax: window.MathJax || options });
+  const [mathJax, setMathJax] = useState({ mathJax: window.MathJax || options });
 
   useEffect(() => {
     const existingScript = document.getElementById('mathjax-script');
@@ -21,8 +21,7 @@ export const MathJaxProvider = ({
       const onLoad = existingScript.onload;
       existingScript.onload = () => {
         onLoad();
-        console.log('loaded', window.MathJax)
-        setMathJax({mathJax: window.MathJax});
+        setMathJax({ mathJax: window.MathJax });
       };
     }
 
@@ -32,14 +31,12 @@ export const MathJaxProvider = ({
       script.id = 'mathjax-script';
       script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js';
       script.async = true;
-      script.onload = () => setMathJax({mathJax: window.MathJax});
+      script.onload = () => setMathJax({ mathJax: window.MathJax });
       document.head.appendChild(script);
     }
 
     return () => {};
   });
-
-  console.log(mathJax)
 
   return (
     <MathJaxContext.Provider value={mathJax}>
@@ -53,7 +50,7 @@ export function useTexSVG({
   latex = '',
   onSuccess = () => {},
   onError = () => {},
-  ref
+  ref,
 } = {}) {
   const { mathJax } = useContext(MathJaxContext);
   const [html, setHtml] = useState(null);
@@ -62,16 +59,14 @@ export function useTexSVG({
 
   useEffect(() => {
     async function setMathJaxHTML() {
-      const isReady = (mathJax && mathJax.tex2svgPromise) || (mathJax && mathJax.loader &&mathJax.loader.ready  && await mathJax.loader.ready());
-
+      const isReady = (mathJax && mathJax.tex2svgPromise)
+        || (mathJax && mathJax.loader && mathJax.loader.ready && await mathJax.loader.ready());
 
       if (isReady) {
         try {
           setIsLoading(true);
-          let options = mathJax.getMetricsFor(ref.current, true);
-          console.log(options, "options")
+          const options = mathJax.getMetricsFor(ref.current, true);
           const mathJaxElement = await mathJax.tex2chtmlPromise(latex, options);
-
 
           setHtml(mathJaxElement);
         } catch (e) {
@@ -86,18 +81,15 @@ export function useTexSVG({
     }
 
     setMathJaxHTML();
-  }, [mathJax, latex]);
+  }, [mathJax, latex, ref]);
 
   useEffect(() => {
     if (html && error) onError(html);
     if (html && !error) onSuccess(html);
-  }, [html]);
-
+  }, [error, html, onError, onSuccess]);
 
   return [html, { error, isLoading }];
 }
-
-
 
 export const Tex2SVG = ({
   latex = '',
@@ -106,24 +98,23 @@ export const Tex2SVG = ({
   ...props
 }) => {
   const ref = useRef(null);
-  const [html, { error }] = useTexSVG({ latex, onError, onSuccess, ref });
-  console.log({ html })
-
+  const [html, { error }] = useTexSVG({
+    latex, onError, onSuccess, ref,
+  });
   useEffect(() => {
     if (html && !error) {
       Object.keys(props).map((key) => html.setAttribute(key, props[key]));
       ref.current && ref.current.appendChild(html);
       document.head.appendChild(window.MathJax.chtmlStylesheet());
       return () => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         ref.current && ref.current.removeChild(html);
-       // document.head.removeChild(window.MathJax.chtmlStylesheet());
+        // document.head.removeChild(window.MathJax.chtmlStylesheet());
       };
     }
 
     return () => {};
-  }, [props, error]);
-
-  console.log(html && html.outerHTML)
+  }, [props, error, html]);
 
   return <div ref={ref} />;
 };

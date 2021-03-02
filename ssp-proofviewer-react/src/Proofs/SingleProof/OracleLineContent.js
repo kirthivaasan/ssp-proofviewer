@@ -1,8 +1,5 @@
-import React, { useRef, useState } from 'react';
-import MathJax from 'react-mathjax2';
-import { MathJaxProvider, Tex2SVG } from './MathJax';
-
-const tex = 'f(x) = \\int_{-\\infty}^\\infty\\hat f(\\xi)\\,e^{2 \\pi i \\xi x}\\,d\\xi';
+import React from 'react';
+import { MathJaxProvider, Tex2SVG } from '../../MathJax/MathJax';
 
 // window.MathJax = {
 //
@@ -19,21 +16,24 @@ const mathJaxOptions = {
     skipAttributes: {}, // RFDa and other attributes NOT to copy to the output
     exFactor: 0.5, // default size of ex in em units
     displayAlign: 'left', // default for indentalign when set to 'auto'
+    testAlign: 'left', // default for indentalign when set to 'auto'
     displayIndent: '0', // default for indentshift when set to 'auto'
     fontURL: '[mathjax]/components/output/chtml/fonts/woff-v2', // The URL where the fonts are found
     adaptiveCSS: true, // true means only produce CSS that is used in the processed equations
   },
 };
 
-function MathJaxContent({ content }) {
-  console.log(content);
+function OracleLineContent({ content, sourceOracle, sourcePackage }) {
   return (
     <div>
       <MathJaxProvider options={mathJaxOptions}>
-        <Tex2SVG latex={`${content}`} />
+        <Tex2SVG latex={`
+        \\def\\oracle#1{{\\href{javascript:window.dispatchEvent(new CustomEvent('oracleSelected', { detail: { name: '#1', sourceOracle: '${sourceOracle}', sourcePackage: '${sourcePackage}' } }))}{\\bf{#1}}}}
+        ${content}`}
+        />
       </MathJaxProvider>
     </div>
   );
 }
 
-export default MathJaxContent;
+export default OracleLineContent;
