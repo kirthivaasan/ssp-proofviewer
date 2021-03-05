@@ -664,11 +664,11 @@ function is_oracle_call(str, deps) {
 function parse_oracle_call(str) {
     var lp_pos = str.indexOf('(');
     var orc = str.substr(0, lp_pos); // mysterious bug (no var makes orc global!)
-    return "\\(\\mathsf{" + orc + "}" + str.substr(lp_pos) + '\\)';
+    return "\\(\\mathtt{" + orc + "}" + str.substr(lp_pos) + '\\)';
 }
 
 function parse_oracle_signature(name, params) {
-    var oracle_name = "\\mathsf\{" + name + "\}";
+    var oracle_name = "\\mathtt\{" + name + "\}";
     return '\\(' + oracle_name + '(' + params.join(',') + ')' + '\\)';
 }
 

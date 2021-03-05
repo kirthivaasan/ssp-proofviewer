@@ -248,6 +248,11 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 		v.style = "fillColor=" + pkg_color + ";strokeColor="+ pkg_stroke;
 	    }
 
+	    if (("rotate" in node_cfg) && node_cfg["rotate"]) {
+		// rotate text
+	    }
+
+
 	    // if (node.substring(0,5) == "dummy") {
 	    // 	v.style = 'strokeColor=none;fillColor=#808080;opacity=0';
 	    // 	console.log(v);
