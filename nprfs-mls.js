@@ -938,7 +938,21 @@ function nprfs_mls_driver() {
 		    "graphs": [["CORE^0_{crNPRF}", "CORE^1_{crNPRF}", "CORE^2_{crNPRF}", "CORE^3_{crNPRF}"]]
 		}
 
-	    ]
+	    ],
+	    "type":
+	    {
+		"reduction": [
+		    {
+			"i": 0, "j": 1, "cut": ["crPRF", "Key^{00}"]
+		    },
+		    {
+			"i": 0, "j": 2, "cut": ["PRF", "Key^{10}", "Key^{00}_2", "XOR"]
+		    },
+		    {
+			"i": 0, "j": 3, "cut": ["crPRF", "Key^{11}"]
+		    }
+		]
+	    }
 	},
 
 	"Lemma 3" :
@@ -981,7 +995,21 @@ function nprfs_mls_driver() {
 		    "graphs":[["CORE^0_{crNKDF}","CORE^1_{crNKDF}","CORE^2_{crNKDF}","CORE^3_{crNKDF}"]]
 		}
 
-	    ]
+	    ],
+	    "type":
+	    {
+		"reduction": [
+		    {
+			"i": 0, "j": 1, "cut": ["crPRF", "Key^{00}"]
+		    },
+		    {
+			"i": 0, "j": 2, "cut": ["XTR", "Sample", "Key^{00}_1", "PRF", "XOR", "Key^{00}_2", "Key^{00}_3"]
+		    },
+		    {
+			"i": 0, "j": 3, "cut": ["crPRF", "Key^{11}"]
+		    }
+		]
+	    }
 	},
 
 	"Lemma 5" :
