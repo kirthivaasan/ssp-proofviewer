@@ -724,9 +724,11 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
     proofstep_container.onmouseenter = function(val){
 	// highlight proofstep node in prooftree graph
 	var cellname = val.target.id.substr("proofstep_".length);
-	if (cellname in nodes_lookup) {
-	    var cell = nodes_lookup[cellname];
-	    graph.selectionModel.setCells([cell]);
+	if (nodes_lookup != null && graph != null) {
+	    if (cellname in nodes_lookup) {
+		var cell = nodes_lookup[cellname];
+		graph.selectionModel.setCells([cell]);
+	    }
 	}
     };
 
@@ -800,8 +802,13 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 		// myWindow.document.write('Left and right games are indistinguishable'); // stub
 		// myWindow.resizeTo(parseInt(window.innerWidth) * 0.6, parseInt(window.innerHeight) * 0.6);
 
-		var myWindow = window.open("ind-cpa-def.html", "Definition", "width=50,height=50");
-		myWindow.resizeTo(parseInt(window.innerWidth), parseInt(window.innerHeight));
+		// var myWindow = window.open("ind-cpa-def.html", "Definition", "width=50,height=50");
+		// myWindow.resizeTo(parseInt(window.innerWidth), parseInt(window.innerHeight));
+
+		var assumption_wrapper = document.getElementById("assumption_wrapper");
+		assumption_wrapper.innerHTML = "";
+
+		assumption_wrapper.appendChild(iframe);
 
 
 	    }
@@ -1114,6 +1121,97 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 	}
     }
 
+
+}
+
+function add_def(proof, wrapper_width) {
+    var proof_wrapper = document.getElementById('proof_wrapper');
+    var oracle_wrapper = document.getElementById('oracle_wrapper');
+
+    console.log(wrapper_width);
+    proof_wrapper.style.width = wrapper_width.proof_width;
+    oracle_wrapper.style.width = wrapper_width.oracle_width;
+
+    var contents = proof.prooftree;
+
+    var proof_wrapper = document.getElementById("proof_wrapper");
+
+    // Add all contents
+    for (step in contents) {
+	add_proofstep(null, null, step, proof);
+    }
+
+    var pkg_defs_sofar = {};
+    // Add mono defs in oracle wrapper pane
+    var oracle_wrapper = document.getElementById("oracle_wrapper");
+    var mono_pkgs = proof.monolithic_pkgs;
+
+    for (pkg_name in mono_pkgs) {
+	var pkg = mono_pkgs[pkg_name];
+	var deps = find_mono_pkg_dependencies(proof.modular_pkgs, pkg_name);
+
+	if (deps == -1) {
+	    continue;
+	}
+
+	if ("instance" in pkg) {
+	    var pkg_class = pkg["instance"];
+	    if (pkg_class in pkg_defs_sofar) {
+		continue;
+	    }
+	    pkg_name = pkg_class;
+	    pkg = mono_pkgs[pkg_name];
+	}
+	pkg_defs_sofar[pkg_name] = 1;
+
+	var oracles = pkg.oracles;
+	var package_def_container = document.createElement('div');
+	package_def_container.setAttribute('class', 'package_def_container');
+	package_def_container.setAttribute('id', 'package_def_container_'+pkg_name);
+
+	var title = document.createElement('p');
+	title.innerHTML = parse_pkg_name(pkg_name);
+	title.setAttribute('class', 'package_def_title');
+
+	package_def_container.appendChild(title);
+	oracle_wrapper.appendChild(package_def_container);
+
+	for (orc in oracles) {
+	    var orc_container = document.createElement('div');
+	    orc_container.setAttribute('class', 'oracle-container');
+	    orc_container.setAttribute('id', 'oracle-container-' + pkg_name + '.' + orc);
+
+	    var orc_title = document.createElement('div');
+	    orc_title.setAttribute('class', 'oracle-title');
+	    orc_title.innerHTML = parse_oracle_signature(orc, oracles[orc].params);
+	    orc_container.appendChild(orc_title);
+
+	    var orc_def = document.createElement('div');
+
+	    var html_code = parse_pseudocode(pkg_name, orc, deps, oracles[orc].code, mono_pkgs);
+	    orc_def.innerHTML = html_code;
+
+	    var orc_calls = orc_def.getElementsByClassName('pcode-oracle-call')
+
+	    for (let callee_div of orc_calls) {
+		callee_div.onclick = function(val) {
+		    var toks = this.id.split('?');
+		    var target_div_id = 'oracle-container-' + toks[2];
+		    var target_div = document.getElementById(target_div_id);
+
+		    target_div.setAttribute('class', 'oracle-container highlight');
+		    setTimeout(function () {
+		    	target_div.className = "oracle-container"
+		    }, 2000);
+
+		    target_div.scrollIntoView({ behavior: 'smooth'});
+		}
+	    }
+
+	    orc_container.appendChild(orc_def);
+	    package_def_container.appendChild(orc_container);
+	}
+    }
 
 }
 

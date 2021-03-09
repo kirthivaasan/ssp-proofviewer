@@ -12,6 +12,7 @@
       }
     </style>
 
+    <script src="load-proof.js"></script>
   </head>
 
   <body>
@@ -25,29 +26,56 @@
 
     <div id="proof_page_container">
       <h2>Primitives</h2>
-      <div id="primitives_list">
-	<ul>
-	  <li><a href="prfs-imply-prgs.html">PRFs imply PRGs</a></li>
-	  <li><a href="ggm.html">GGM Tree construction (PRFs from PRGs)</a></li>
+      <div >
+	<ul id="primitives_list">
+	  <!-- <li><a href="prfs-imply-prgs.html">PRFs imply PRGs</a></li> -->
+	  <!-- <li><a href="ggm.html">GGM Tree construction (PRFs from PRGs)</a></li> -->
 	</ul>
       </div>
 
       <h2>Protocols</h2>
-      <div id="protocols_list">
-      	<ul>
+      <div >
+      	<ul id="protocols_list">
       	  <!-- <li><a href="yao.html">Yao's Garbled Circuits</a></li> -->
-	  <li><a href="nprfs-mls.html">NPRFs and their application to MLS</a></li>
+	  <!-- <li><a href="nprfs-mls.html">NPRFs and their application to MLS</a></li> -->
+	  <!-- <li><a onclick="">NPRFs and their application to MLS</a></li> -->
       	</ul>
       </div>
 
       <h2>Security Notions</h2>
-      <div id="notions_list">
-	<ul>
-	  <li><a href="game-to-sim-ind-cpa-for-se.html">Game-based and simulation-based IND-CPA (for symmetric encryption) notions are equivalent</a></li>
+      <div>
+	<ul id="notions_list">
+	  <!-- <li><a href="game-to-sim-ind-cpa-for-se.html">Game-based and simulation-based IND-CPA (for symmetric encryption) notions are equivalent</a></li> -->
 	</ul>
       </div>
 
     </div>
+
+    <script>
+      function add_list(list, list_div) {
+      for (elem in list) {
+      var li = document.createElement('li');
+      var a_tag = document.createElement('a');
+      a_tag.innerHTML = list[elem];
+
+      a_tag.href = "#";
+      li.appendChild(a_tag);
+      a_tag.addEventListener('click', load_proof.bind(a_tag, elem, "proof"));
+
+      list_div.appendChild(li);
+
+      }
+      }
+
+      var primitives = {"ggm": "GGM Tree construction (PRFs from PRGs)"};
+      var protocols = {"nprfs-mls": "NPRFs and their application to MLS"};
+      var notions = {"game-to-sim-ind-cpa-for-se": "Game-based and simulation-based IND-CPA (for symmetric encryption) notions are equivalent"}
+
+      add_list(primitives, document.getElementById("primitives_list"));
+      add_list(protocols, document.getElementById("protocols_list"));
+      add_list(notions, document.getElementById("notions_list"));
+
+    </script>
 
   </body>
 </html>

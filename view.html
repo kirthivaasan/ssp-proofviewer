@@ -1,0 +1,101 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="opensans_regular_macroman/stylesheet.css" type="text/css" charset="utf-8" />
+
+    <link rel="stylesheet" href="styles.css" type="text/css" charset="utf-8" />
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      <!-- MathJax = { -->
+      <!-- 	  options: { -->
+      <!-- 	      renderActions: { -->
+      <!-- 		  addMenu: [] -->
+      <!-- 	      } -->
+      <!-- 	  } -->
+      <!-- }; -->
+    </script>
+
+    <script type="text/javascript">
+      mxBasePath = 'mxgraph/src';
+    </script>
+    <script src="mxgraph/mxClient.min.js"></script>
+
+    <script src="pdfkit/pdfkit.standalone.js"></script>
+    <script src="pdfkit/svg-pdfkit.js"></script>
+
+  </head>
+
+  <body>
+    <div id="navbar">
+      <ul>
+	<li><a class="active" href="index.html">Home</a></li>
+	<li><a href="definitions.html">Definitions</a></li>
+	<li><a href="proofs_index.html">Proofs</a></li>
+      </ul>
+    </div>
+
+    <div id="proof_title"></div>
+
+    <div id="proof_wrapper"></div>
+
+    <div id="tooltip_wrapper" class="tooltip" style="height: 0%; float: left; width: 0%;">
+      <div id="tooltiptext_wrapper" class="tooltiptext" style="display: block"></div>
+    </div>
+
+    <div id="oracle_wrapper"></div>
+
+    <script src="ssp.js"></script>
+    <script src="mxgraphtree.js"></script>
+    <script src="app.js"></script>
+    <!-- <script src="stdlib.js"></script> -->
+    <div id="json_script_location"></div>
+
+    <script>
+      var query_str = window.location.search;
+      console.log(query_str);
+      var url_params = new URLSearchParams(query_str);
+      var query = url_params.get('query');
+      var query_type = url_params.get('type');
+
+      var link = "./stdlib/" + query_type + "/" + query + ".js";
+
+      function add_script() {
+          var script = document.createElement("script");
+          <!-- var link = "./stdlib/defs/" + query + ".js"; -->
+          script.src = link;
+
+          script.onload = callback = function() {
+              var proof_width = proof["panel_widths"]["proof_width"];
+              var oracle_width = proof["panel_widths"]["oracle_width"];
+
+      var wrapper_width = {proof_width: proof_width, oracle_width: oracle_width}
+
+              if (query_type == "def") {
+      add_def(proof, wrapper_width);
+      } else if (query_type == "proof") {
+
+      var wnd_width = proof["window_dimensions"]["width"];
+      var wnd_height = proof["window_dimensions"]["height"];
+      var wnd_x = (window.innerWidth - wnd_width) - wnd_width/9;
+      var wnd_y = window.innerHeight - wnd_height;
+      var wnd_pos = {wnd_height: 300, width: wnd_width, x: wnd_x, y: wnd_y}
+
+      add_proof(proof, wnd_pos, wrapper_width);
+      }
+
+              MathJax.typeset();
+              convert_pkg_names_latex();
+          }
+
+          document.body.appendChild(script);
+      }
+
+      add_script();
+
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="opensans_regular_macroman/stylesheet.css" type="text/css" charset="utf-8" />
+
+    <link rel="stylesheet" href="styles.css" type="text/css" charset="utf-8" />
+
+    <style>
+      #proof_page_container {
+	  margin: 20px;
+      }
+    </style>
+
+    <script src="load-proof.js"></script>
+  </head>
+
+  <body>
+    <div id="navbar">
+      <ul>
+	<li><a class="active" href="index.html">Home</a></li>
+	<li><a href="definitions.html">Definitions</a></li>
+	<li><a href="proofs_index.html">Proofs</a></li>
+      </ul>
+    </div>
+
+    <div id="proof_page_container">
+      <h2>Definitions</h2>
+      <div >
+      	<ul id="defs_list">
+      	</ul>
+      </div>
+
+      <h2>Custom definitions</h2>
+      <div>
+	<ul id="custom_defs_list">
+	</ul>
+      </div>
+
+    </div>
+
+    <script>
+      function add_list(list, list_div) {
+      for (elem in list) {
+      var li = document.createElement('li');
+      var a_tag = document.createElement('a');
+      a_tag.innerHTML = list[elem];
+
+      a_tag.href = "#";
+      li.appendChild(a_tag);
+      a_tag.addEventListener('click', load_proof.bind(a_tag, elem, "def"));
+
+      list_div.appendChild(li);
+
+      }
+      }
+
+      var defs = {"owf": "One-way function (OWF)", "ind-cpa": "Indistinguishability chosen plaintext attack (IND-CPA)"};
+      var custom_defs = {"ggm-prg": "Length-doubling PRG assumption (as used in the GGM proof)"};
+
+      add_list(defs, document.getElementById("defs_list"));
+      add_list(custom_defs, document.getElementById("custom_defs_list"));
+
+    </script>
+
+  </body>
+</html>

@@ -87,6 +87,7 @@ body {
     /* color: #434343; */
 }
 
+
 #oracle_wrapper {
     padding: 10px;
     font-size: 0.8vw;
@@ -94,7 +95,7 @@ body {
     border: 0.5px solid gray;
     overflow: auto;
     background: white;
-    float: left;
+    /* float: left; */
     scrollbar-width: thin;
     scrollbar-color: #bcbcbc white;
 }
