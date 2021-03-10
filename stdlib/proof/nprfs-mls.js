@@ -1,4 +1,4 @@
-const proof = {
+proof = {
     "name": "GGM construction (PRG implies PRF)",
     "monolithic_pkgs":
     {
@@ -848,6 +848,13 @@ const proof = {
 	    "contents": [
 		{
 		    "text": "Theorem 1 (NPRF), Theorem 2 (crNPRF), Theorem 3 (NKDF), Theorem 4 (crNKDF), Theorem 5 (DHNKDF), Theorem 6 (crDHNKDF)"
+		},
+		{
+		    "def": {
+			"text": "IND-CPA assumption test",
+			"name": "def/ind-cpa",
+			"graphs": [["Gind-cpa^0", "Gind-cpa^1"]]
+		    }
 		}
 	    ]
 	},

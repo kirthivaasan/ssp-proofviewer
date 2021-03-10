@@ -1,4 +1,4 @@
-const proof = {
+proof = {
     "name": "IND-CPA definition",
     "monolithic_pkgs":
     {

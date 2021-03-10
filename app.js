@@ -777,44 +777,23 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 	    add_proofstep_content_text(proofstep_container, text);
 	} else if ("def" in content) {
 	    var def = content.def;
-	    var graphs = proof.game_defs[def];
-	    var def_container = document.createElement('div');
-	    var res = add_proofstep_content_graphs(def_container, "", graphs, proof);
 
-	    // var text = "<a href=\"yao.html\">" + def + "</a>";
-	    var link = document.createElement('a');
-	    link.href = '#';
-	    link.innerHTML = def;
-	    link.onclick = function () {
-		// var myWindow = window.open("", "Definition", "width=50,height=50");
-
-
-		// var svgs = def_container.getElementsByTagName('svg');
-		// for (let svg of svgs) {
-		//     var text_elems = svg.getElementsByTagName('text');
-		//     for (let elem of text_elems) {
-		//     	var res = supsub_compiler_svg(elem.innerHTML);
-		//     	elem.innerHTML = res;
-		//     }
-		// }
-
-		// myWindow.document.write(def_container.outerHTML);
-		// myWindow.document.write('Left and right games are indistinguishable'); // stub
-		// myWindow.resizeTo(parseInt(window.innerWidth) * 0.6, parseInt(window.innerHeight) * 0.6);
-
-		// var myWindow = window.open("ind-cpa-def.html", "Definition", "width=50,height=50");
-		// myWindow.resizeTo(parseInt(window.innerWidth), parseInt(window.innerHeight));
-
-		var assumption_wrapper = document.getElementById("assumption_wrapper");
-		assumption_wrapper.innerHTML = "";
-
-		assumption_wrapper.appendChild(iframe);
-
-
-	    }
+	    // var def_container = document.createElement('div');
+	    // var res = add_proofstep_content_graphs(def_container, "", graphs, proof);
 
 	    var link_container = document.createElement('div');
 	    link_container.setAttribute('class', 'proofstep-text');
+	    var def_container = document.createElement('div');
+	    link_container.appendChild(def_container);
+
+	    var link = document.createElement('a');
+	    link.href = '#';
+	    link.innerHTML = def.text;
+
+	    link.onclick = function () {
+		load_graphs_into_wrapper(def, def_container);
+	    }
+
 	    link_container.appendChild(link);
 	    proofstep_container.appendChild(link_container);
 
@@ -1212,6 +1191,29 @@ function add_def(proof, wrapper_width) {
 	    package_def_container.appendChild(orc_container);
 	}
     }
+
+}
+
+function load_graphs_into_wrapper(def, container) {
+    var name = def.name;
+    var link = "./stdlib/" + name + ".js";
+    var script = document.createElement("script");
+    script.id = "loaded_script"
+    script.src = link;
+    script.onload = callback = function() {
+	container.innerHTML = "";
+	// console.log(proof);
+
+	add_proofstep_content_graphs(container, null, def.graphs, proof, null);
+
+	MathJax.typeset();
+        convert_pkg_names_latex();
+
+
+	document.getElementById("loaded_script").remove()
+
+    }
+    document.body.appendChild(script);
 
 }
 
