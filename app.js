@@ -1100,6 +1100,7 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 	}
     }
 
+    convert_pkg_names_latex();
 
 }
 

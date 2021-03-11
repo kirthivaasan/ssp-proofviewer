@@ -253,6 +253,80 @@ proof = {
 
     "modular_pkgs":
     {
+
+	"GXOR^b":
+	{
+	    "oracles": [["Key^{10}", "Set"], ["XOR", "XOR"], ["Key^{b0}", "Get"]],
+
+	    "graph":
+	    {
+		"XOR": [["Key^{10}", "Get"], ["Key^{b0}", "Set"]],
+		"Key^{10}": [],
+		"Key^{b0}": []
+	    },
+
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":30,"width":20,"height":110},"XOR":{"x":90,"y":60,"width":60,"height":50},"Sample":{"x":60,"y":45,"width":90,"height":18},"Key^{10}":{"x":200,"y":30,"width":90,"height":50},"Key^{b0}":{"x":200,"y":90,"width":90,"height":50}},"edges":{"@oracles_interface":{"Key^{10}":"exitX=0.7;exitY=0.32;entryX=0.15;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","XOR":"exitX=0.9;exitY=0.5;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Key^{b0}":"exitX=0.95;exitY=0.85;entryX=0;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"XOR":{"Key^{10}":"exitX=0.85;exitY=0.3;entryX=0.15;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","Key^{b0}":"exitX=0.6;exitY=0.55;entryX=0.15;entryY=0.25;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[],"XOR":[]}}
+	},
+
+	"GPRF^b":
+	{
+	    "oracles": [["Key^{10}", "Set"], ["PRF", "Eval"], ["Key^{b0}", "Get"]],
+
+	    "graph":
+	    {
+		"PRF": [["Key^{10}", "Get"], ["Key^{b0}", "Set"]],
+		"Key^{10}": [],
+		"Key^{b0}": []
+	    },
+
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":30,"width":20,"height":110},"PRF":{"x":90,"y":60,"width":60,"height":50},"Sample":{"x":60,"y":45,"width":90,"height":18},"Key^{10}":{"x":200,"y":30,"width":90,"height":50},"Key^{b0}":{"x":200,"y":90,"width":90,"height":50}},"edges":{"@oracles_interface":{"Key^{10}":"exitX=0.7;exitY=0.32;entryX=0.15;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","PRF":"exitX=0.9;exitY=0.5;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Key^{b0}":"exitX=0.95;exitY=0.85;entryX=0;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"PRF":{"Key^{10}":"exitX=0.85;exitY=0.3;entryX=0.15;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","Key^{b0}":"exitX=0.6;exitY=0.55;entryX=0.15;entryY=0.25;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[],"PRF":[]}}
+	},
+
+	"GcrPRF^b":
+	{
+	    "oracles": [["Key^{10}", "Set"], ["crPRF", "CRInit"], ["crPRF", "CREval"], ["Key^{b0}", "Get"]],
+
+	    "graph":
+	    {
+		"crPRF": [["Key^{10}", "Get"], ["Key^{b0}", "Set"]],
+		"Key^{10}": [],
+		"Key^{b0}": []
+	    },
+
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":30,"width":20,"height":110},"crPRF":{"x":90,"y":60,"width":60,"height":50},"Sample":{"x":60,"y":45,"width":90,"height":18},"Key^{10}":{"x":200,"y":30,"width":90,"height":50},"Key^{b0}":{"x":200,"y":90,"width":90,"height":50}},"edges":{"@oracles_interface":{"Key^{10}":"exitX=0.7;exitY=0.32;entryX=0.15;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","crPRF":"exitX=0.9;exitY=0.5;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Key^{b0}":"exitX=0.95;exitY=0.85;entryX=0;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"crPRF":{"Key^{10}":"exitX=0.85;exitY=0.3;entryX=0.15;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","Key^{b0}":"exitX=0.6;exitY=0.55;entryX=0.15;entryY=0.25;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[],"crPRF":[]}}
+	},
+
+	"GXTR^b":
+	{
+	    "oracles": [["Key^{00}", "CSet"], ["Sample", "Smpl"], ["XTR", "XTR"], ["Key^{b0}", "Get"]],
+
+	    "graph":
+	    {
+		"XTR": [["Key^{00}", "Get"], ["Key^{b0}", "Set"]],
+		"Sample": [["Key^{00}", "Set"]],
+		"Key^{00}": [],
+		"Key^{b0}": []
+	    },
+
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":30,"width":20,"height":110},"XTR":{"x":90,"y":60,"width":60,"height":50},"Sample":{"x":60,"y":45,"width":90,"height":18},"Key^{00}":{"x":200,"y":30,"width":90,"height":50},"Key^{b0}":{"x":200,"y":90,"width":90,"height":50}},"edges":{"@oracles_interface":{"Key^{00}":"exitX=0.7;exitY=0.32;entryX=0.15;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","Sample":"exitX=0.9;exitY=0.25;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","XTR":"exitX=0.9;exitY=0.5;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","Key^{b0}":"exitX=0.95;exitY=0.85;entryX=0;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"PRF":{"Key^{00}_2":"exitX=0.6;exitY=0.45;entryX=0.1;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","Key^{00}_3":"exitX=0.65;exitY=0.6;entryX=0.05;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"XTR":{"Key^{00}":"exitX=0.85;exitY=0.3;entryX=0.15;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","Key^{b0}":"exitX=0.6;exitY=0.55;entryX=0.15;entryY=0.25;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"},"Sample":{"Key^{00}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"XOR":{"Key^{00}_3":"exitX=0.6;exitY=0.45;entryX=0.05;entryY=0.8;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","Key^{b0}":"exitX=0.6;exitY=0.55;entryX=0.15;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"MOD-NKDF":{"XTR":"exitX=0.8;exitY=0.25;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","PRF":"exitX=0.9;exitY=0.45;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","XOR":"exitX=0.75;exitY=0.65;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[],"PRF":[],"XTR":[],"Sample":[],"XOR":[],"MOD-NKDF":[]}}
+	},
+
+	"GODH^b":
+	{
+	    "oracles": [["PKey", "Set"], ["XTR", "Init"], ["XTR", "XTR"], ["DH", "Pow"], ["Key^{b0}", "Get"]],
+
+	    "graph":
+	    {
+		"DH": [["PKey", "Get"], ["Key^{00}", "Set"]],
+		"PKey": [],
+		"XTR": [["Key^{00}", "Get"], ["Key^{b0}", "Set"]],
+		"Key^{00}": [],
+		"Key^{b0}": []
+	    },
+
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":20,"height":170},"DH":{"x":90,"y":30,"width":60,"height":50},"PKey":{"x":200,"y":0,"width":90,"height":50}, "XTR":{"x":90,"y":90,"width":60,"height":50},"Key^{00}":{"x":200,"y":60,"width":90,"height":50},"Key^{b0}":{"x":200,"y":120,"width":90,"height":50}},"edges":{"@oracles_interface":{"PKey":"exitX=0.7;exitY=0.32;entryX=0.15;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;", "DH":"exitX=0.95;exitY=0.35;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;", "XTR":"exitX=0.95;exitY=0.65;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;", "Key^{b0}":"exitX=0.95;exitY=0.88;entryX=0;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"DH":{"PKey":"exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.75;entryPerimeter=1;","Key^{00}":"exitX=1;exitY=0.75;exitPerimeter=1;entryX=0;entryY=0.15;entryPerimeter=1;"},"XTR":{"Key^{00}":"exitX=0.85;exitY=0.3;entryX=0.15;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","Key^{b0}":"exitX=0.6;exitY=0.55;entryX=0.15;entryY=0.25;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[], "DH":[], "PKey": [], "XTR":[]}}
+	},
+
 	"NPRF":
 	{
 	    "oracles": [["Key^{10}", "Set"], ["MOD-NPRF", "Eval"], ["Key^{b0}", "Get"]],
@@ -855,6 +929,9 @@ proof = {
 			"name": "def/ind-cpa",
 			"graphs": [["Gind-cpa^0", "Gind-cpa^1"]]
 		    }
+		},
+		{
+		    "graphs": [["GXOR^b", "GXTR^b"], ["GPRF^b", "GcrPRF^b"], ["GODH^b"]]
 		}
 	    ]
 	},
