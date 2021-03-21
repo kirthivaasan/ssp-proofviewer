@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import styled from 'styled-components';
 import ProofContext from './ProofContext';
 
 const useRowStyles = makeStyles({
@@ -22,7 +23,23 @@ const useRowStyles = makeStyles({
   },
 });
 
-function Row({ name, contents }) {
+const CeilWrapper = styled.div`
+  padding-top: 20px;
+`;
+
+function ContentCeilText({ text }) {
+  return <CeilWrapper>{text}</CeilWrapper>;
+}
+
+function ContentCeilGraph({ graphs }) {
+  return <CeilWrapper>{graphs}</CeilWrapper>;
+}
+
+function ContentCeil({ text, graphs, title }) {
+  return <><Typography variant="h6" gutterBottom component="div">{title}</Typography>{text ? <ContentCeilText text={text} /> : <ContentCeilGraph graphs={graphs} />}</>;
+}
+
+function Row({ name, contents, longName }) {
   const [open, setOpen] = React.useState(true);
   const classes = useRowStyles();
 
@@ -35,8 +52,11 @@ function Row({ name, contents }) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          <Typography variant="h6" gutterBottom component="div">
+          <Typography variant="h5" gutterBottom component="div">
             {name}
+          </Typography>
+          <Typography variant="h6" gutterBottom component="div">
+            {longName}
           </Typography>
         </TableCell>
       </TableRow>
@@ -44,7 +64,8 @@ function Row({ name, contents }) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-              {JSON.stringify(contents)}
+              {/* eslint-disable-next-line react/no-array-index-key */}
+              {contents.map((content, idx) => <ContentCeil key={`${name}${idx}`} {...content} />)}
             </TableCell>
           </Collapse>
         </TableCell>
