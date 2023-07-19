@@ -198,8 +198,46 @@ function newyao_driver() {
 		    "params": ["\\ell", "r", "op", "j"]
 		}
 	    }
-	}
+	},
 
+	"MOD_{n,d}":
+	{
+	    "oracles":
+	    {
+		"GARBLE":
+		{
+		    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{SETBIT}_j(x_j);@> \\tilde{x}[j] @gets \\mathsf{GETA}^{out}_j;@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];@> \\tilde{C}[i] @gets \\mathsf{GBL}_i(\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op});@for j = 1..n @do;@> \\text{dinf}[j] @gets \\mathsf{GETKEYS}^{in}_j;@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+		    "params": ["C", "x"]
+		}
+	    }
+	},
+
+	"MOD":
+	{
+	    "instance": "MOD_{n,d}"
+	},
+
+	"MOD-PRIVSIM^b_{n,d}":
+	{
+	    "oracles":
+	    {
+		"GARBLE":
+		{
+		    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{SETBIT}_j(x_j);@if b = 1 @then \\mathsf{EVAL(C)};\\tilde{C} @gets \\mathsf{GBL}(C);\\text{dinf} @gets \\mathsf{GETDINF};@for j = 1..n @do;@> \\tilde{x}[j] @gets \\mathsf{GETA}^{out}_j;@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+		    "params": ["C", "x"]
+		}
+	    }
+	},
+
+	"MOD-PRIVSIM^0":
+	{
+	    "instance": "MOD-PRIVSIM^b_{n,d}"
+	},
+
+	"MOD-PRIVSIM^1":
+	{
+	    "instance": "MOD-PRIVSIM^b_{n,d}"
+	}
 
 
     };
