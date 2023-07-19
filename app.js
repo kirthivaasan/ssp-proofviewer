@@ -11,6 +11,107 @@ var PKG_COLORS = {
     "default_color": {fill: "#ffffff", stroke: "#000000"}
 }
 
+// ======================================
+// custom line hatch shape for reductions
+// ======================================
+function KpLineHatch() {
+    mxCylinder.call(this);
+};
+
+mxUtils.extend(KpLineHatch, mxCylinder);
+
+KpLineHatch.prototype.redrawPath = function(path, x, y, w, h, isForeground) {
+    if (isForeground) {
+	// more complex than brain surgery
+	var m = 1;
+	var c = 0;
+	var x1 = -1*(1/m)*w; var y1 = 0;
+	var x2 = 0; var y2 = 0;
+	var interval = x1;
+	var interval_size = 20;
+
+	var points = []; // useful for finding y interval size.
+
+	while (interval < w) {
+	    x1 = interval;
+	    y1 = 0;
+	    y2 = h;
+	    x2 = (y2/m) + x1;
+
+	    if (x2 > 0) {
+		var x1_old = x1;
+
+		if (x1 < 0) {
+		    y1 = m*-x1;
+		    x1 = 0;
+		}
+
+		if (x2 > w) {
+		    x2 = w;
+		    y2 = m*(x2-x1_old);
+		}
+
+		path.moveTo(x1, y1);
+		path.lineTo(x2, y2);
+	    }
+
+	    points.push([x1, y1]);
+	    interval += interval_size;
+	}
+
+
+	var max_y_interval = 0;
+	var y_interval_size = 0;
+	for (var i = 1; i < points.length; i++) {
+	    if (points[i-1][0] == 0 && points[i][0] == 0) {
+		y_interval_size = points[i-1][1] - points[i][1];
+	    }
+	}
+
+	for (var i = 0; i < points.length; i++) {
+	    if (points[i][0] == 0 && points[i][1] > max_y_interval) {
+		max_y_interval = points[i][1]; // takes the last point (y coord) added previously
+	    }
+	}
+
+	if (y_interval_size > 0) {
+	    interval = max_y_interval + y_interval_size;
+
+	    while (interval < h) {
+		x1 = 0;
+		y1 = interval;
+
+		x2 = w;
+		y2 = m*(x2+x1) + y1;
+
+		if (y2 > h) {
+		    x2 = ((h-y1)/m) + x1;
+		    y2 = h;
+		}
+
+		path.moveTo(x1, y1);
+		path.lineTo(x2, y2);
+
+		interval += y_interval_size;
+	    }
+
+	}
+
+	path.close();
+
+    } else {
+	// bounding box
+	path.moveTo(0, 0);
+	path.lineTo(w, 0);
+	path.lineTo(w, h);
+	path.lineTo(0, h);
+	path.lineTo(0, 0);
+    }
+}
+mxCellRenderer.registerShape('kplinehatch', KpLineHatch);
+// ==========End of custom line hatch shape==============
+
+
 
 // Error classes
 class InvalidCut extends Error {
@@ -82,7 +183,7 @@ function reduce_same_dest(neighbours) {
 
 
 // app drawing
-function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=null, ghost=null, dashed=null) {
+function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=null, ghost=null, dashed=null, display=null, decoration=null) {
     if (!mxClient.isBrowserSupported()) {
 	return -1;
     }
@@ -154,6 +255,12 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 	    } else if (cell.value.nodeName.toLowerCase() == 'oracle') {
 		var oracle_name = cell.getAttribute('oracle_name', '');
 		return oracle_name;
+	    } else if (cell.value.nodeName.toLowerCase() == 'vellipsis') {
+		var div = document.createElement('div');
+		div.innerHTML = cell.getAttribute('label');
+		mxUtils.br(div);
+		div.innerHTML = "$$\\vdots$$";
+		return div;
 	    }
 	}
 	return '';
@@ -175,7 +282,181 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 	v.value = '';
 	packages.set('@oracles_interface', v);
 
-	// add codeq dashed rect
+	// add rest of packages
+	for (node in pkg_callgraph.graph) {
+	    var node_cfg = nodes_cfg[node];
+	    config_x = node_cfg.x + OFFSET_X;
+	    config_y = node_cfg.y + OFFSET_Y;
+
+	    var pkg = doc.createElement('Package');
+
+	    pkg.setAttribute('name', node);
+
+	    if (display != null) {
+		if (node in display) {
+	    	    pkg.setAttribute('name', display[node]);
+		}
+	    }
+	    pkg.setAttribute('label', node);
+
+
+	    var v = graph.insertVertex(parent, null, pkg, config_x, config_y, node_cfg.width, node_cfg.height);
+	    packages.set(node, v);
+
+	    var pkg_color = PKG_COLORS.default_color.fill;
+	    var pkg_stroke = PKG_COLORS.default_color.stroke;
+
+	    if (node_cfg.color in PKG_COLORS) {
+		pkg_color = PKG_COLORS[node_cfg.color].fill;
+		pkg_stroke = PKG_COLORS[node_cfg.color].stroke;
+	    }
+
+	    if (cut != null && (cut.includes(pkg.attributes.name.value)) && type != null) {
+		if (type == 'reduction') {
+		    v.style = "fillColor=" + pkg_color + ";strokeColor=brown;strokeWidth=3;" + ';shape=kplinehatch;opacity=70;';
+		    // v.style = 'strokeColor=none;fillColor=#808080;opacity=15';
+		} else if (type == 'codeq') {
+		    // v.style = 'dashed=1;';
+		}
+	    } else {
+		v.style = "fillColor=" + pkg_color + ";strokeColor="+ pkg_stroke;
+	    }
+
+	    // else {
+	    // 	var pkg_color = PKG_COLORS.default_color.fill;
+	    // 	var pkg_stroke = PKG_COLORS.default_color.stroke;
+
+	    // 	if (node_cfg.color in PKG_COLORS) {
+	    // 	    pkg_color = PKG_COLORS[node_cfg.color].fill;
+	    // 	    pkg_stroke = PKG_COLORS[node_cfg.color].stroke;
+	    // 	}
+	    // 	v.style = "fillColor=" + pkg_color + ";strokeColor="+ pkg_stroke;
+	    // }
+
+	}
+
+	// add decoration
+	if (decoration != null) {
+	    if ("vellipses" in decoration) {
+		var vellipse_id = 0;
+		for (var i = 0; i < decoration.vellipses.length; i++) {
+		    coord = decoration.vellipses[i];
+
+		    var obj = doc.createElement('Vellipsis');
+		    obj.setAttribute('label', 'Hello, World!');
+		    obj.setAttribute('checked', 'false');
+		    var v = graph.insertVertex(parent, null, obj, coord.x, coord.y, 10, 25);
+		    v.style = 'fillColor=none;strokeColor=none;';
+		    vellipse_id += 1;
+		}
+	    }
+
+	}
+
+	// add ghost oracles
+	if (ghost != null) {
+	    for (pkg_name in ghost) {
+		// console.log("GHOST: " + pkg);
+		// var node_cfg = nodes_cfg[pkg_name];
+
+		var x = ghost[pkg_name].x;
+		var y = ghost[pkg_name].y;
+		var edge_style = ghost[pkg_name].style + "dashed=1;";
+
+		// var src_node = graph.insertVertex(parent, null, pkg, node_cfg.x - 200, node_cfg.y, 0, 0);
+		var pkg = doc.createElement('GhostPackage');
+		var src_node = graph.insertVertex(parent, null, pkg, x, y, 0, 0);
+
+	 	var v1 = packages.get(pkg_name);
+		var e1 = doc.createElement("GhostOracle");
+
+	    	e1.setAttribute('oracle_name', "");
+		// var edge_style = 'exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;dashed=1;';
+
+		var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
+
+	    }
+	}
+
+	var edges_cfg = config.edges;
+	var edge_points = null;
+	if (config != null && "edge_points" in config) {
+	    edge_points = config["edge_points"];
+	}
+
+	// add edges
+	for (node in pkg_callgraph.graph) {
+	    var neighbours = pkg_callgraph.graph[node];
+	    neighbours = reduce_same_dest(neighbours);
+
+	    var src_node = packages.get(node);
+
+	    for (let nb of neighbours) {
+		var pkg_name = nb[0];
+		var oracle_name = nb[1];
+		var v1 = packages.get(pkg_name);
+		if (pkg_name == null) continue;
+
+		var e1 = doc.createElement("Oracle");
+	    	e1.setAttribute('oracle_name', oracle_name);
+		e1.setAttribute('label', oracle_name);
+
+
+		// var edge_style = 'exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;';
+		var edge_style = "";
+		if (edges_cfg != null) {
+		    edge_style = edges_cfg[node][pkg_name];
+		    edge_style = "edgeStyle=elbowEdgeStyle;elbow=horizontal;rounded=1;orthogonalLoop=1;html=1;labelBackgroundColor=#ffffffcf;" + edge_style;
+		}
+
+		var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
+
+		// add edge points
+		var points = [];
+		if (edge_points != null) {
+		    if (node in edge_points) {
+			var list_of_points = edge_points[node];
+			for (let coord of list_of_points) {
+			    points.push(new mxPoint(coord.x, coord.y));
+			}
+		    }
+		}
+		edge.geometry.points = points;
+
+
+		if (cut != null && (cut.includes(src_node.value.attributes.name.value) || cut.includes(v1.value.attributes.name.value)) && type != null) {
+		    if (type == 'reduction') {
+			edge.style += 'opacity=30'; //;fontColor=#ececec
+		    } else if (type == 'codeq') {
+
+		    }
+		}
+
+	    }
+	}
+
+	// add adversary edges
+	var src_node = packages.get('@oracles_interface');
+	var adversary_calls = reduce_same_dest(pkg_callgraph.oracles);
+	for (var i = 0; i < adversary_calls.length; i++) {
+	    var el = adversary_calls[i];
+	    var pkg_name = el[0];
+	    var oracle_name = el[1];
+	    var e1 = doc.createElement("Oracle");
+	    e1.setAttribute('oracle_name', oracle_name);
+	    e1.setAttribute('label', oracle_name);
+
+	    var v1 = packages.get(pkg_name);
+	    var edge_style = 'exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;';
+	    // console.log(e1);
+	    if (edges_cfg != null) {
+		edge_style = edges_cfg['@oracles_interface'][pkg_name];
+	    }
+
+	    var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
+	}
+
+		// add codeq dashed rect
 	if (cut != null && (type == 'codeq' || type == 'plugin')) {
 	    var bbox_min_x = 99999999999999;
 	    var bbox_min_y = 99999999999999;
@@ -214,155 +495,9 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 	    }
 
 	    var v = graph.insertVertex(parent, null, '@dashed_rect', bbox_min_x-5, bbox_min_y-5, bbox_max_x - bbox_min_x + 10, (bbox_max_y - bbox_min_y) + 10);
-	    // v.style = 'fillColor=none;dashed=1';
-	    v.style = 'fillColor=none;dashed=1';
+	    v.style = 'fillColor=gray;dashed=1;opacity=20;';
 	}
 
-	// add rest of packages
-	for (node in pkg_callgraph.graph) {
-	    var node_cfg = nodes_cfg[node];
-	    config_x = node_cfg.x + OFFSET_X;
-	    config_y = node_cfg.y + OFFSET_Y;
-
-	    var pkg = doc.createElement('Package');
-	    pkg.setAttribute('name', node);
-	    pkg.setAttribute('label', node);
-
-	    var v = graph.insertVertex(parent, null, pkg, config_x, config_y, node_cfg.width, node_cfg.height);
-	    packages.set(node, v);
-
-	    if (cut != null && (cut.includes(pkg.attributes.name.value)) && type != null) {
-		if (type == 'reduction') {
-		    v.style = 'strokeColor=none;fillColor=#808080;opacity=15';
-		} else if (type == 'codeq') {
-		    // v.style = 'dashed=1;';
-		}
-	    } else {
-		var pkg_color = PKG_COLORS.default_color.fill;
-		var pkg_stroke = PKG_COLORS.default_color.stroke;
-
-		if (node_cfg.color in PKG_COLORS) {
-		    pkg_color = PKG_COLORS[node_cfg.color].fill;
-		    pkg_stroke = PKG_COLORS[node_cfg.color].stroke;
-		}
-		v.style = "fillColor=" + pkg_color + ";strokeColor="+ pkg_stroke;
-	    }
-
-	    if (("rotate" in node_cfg) && node_cfg["rotate"]) {
-		// rotate text
-	    }
-
-
-	    // if (node.substring(0,5) == "dummy") {
-	    // 	v.style = 'strokeColor=none;fillColor=#808080;opacity=0';
-	    // 	console.log(v);
-	    // 	// v.value = "";
-	    // 	v.value = null;
-	    // }
-
-	}
-
-	// add ghost oracles
-	if (ghost != null) {
-	    for (pkg_name in ghost) {
-		// console.log("GHOST: " + pkg);
-		// var node_cfg = nodes_cfg[pkg_name];
-
-		var x = ghost[pkg_name].x;
-		var y = ghost[pkg_name].y;
-		var edge_style = ghost[pkg_name].style + "dashed=1;";
-
-		// var src_node = graph.insertVertex(parent, null, pkg, node_cfg.x - 200, node_cfg.y, 0, 0);
-		var pkg = doc.createElement('GhostPackage');
-		var src_node = graph.insertVertex(parent, null, pkg, x, y, 0, 0);
-
-	 	var v1 = packages.get(pkg_name);
-		var e1 = doc.createElement("GhostOracle");
-
-	    	e1.setAttribute('oracle_name', "");
-		// var edge_style = 'exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;dashed=1;';
-
-		var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
-
-	    }
-	}
-
-	var edges_cfg = config.edges;
-	var edge_points = null;
-	if (config != null && "edge_points" in config) {
-	    edge_points = config["edge_points"];
-	}
-
-
-	// add edges
-	for (node in pkg_callgraph.graph) {
-	    var neighbours = pkg_callgraph.graph[node];
-	    neighbours = reduce_same_dest(neighbours);
-
-	    var src_node = packages.get(node);
-
-	    for (let nb of neighbours) {
-		var pkg_name = nb[0];
-		var oracle_name = nb[1];
-		var v1 = packages.get(pkg_name);
-		if (pkg_name == null) continue;
-
-		var e1 = doc.createElement("Oracle");
-	    	e1.setAttribute('oracle_name', oracle_name);
-		e1.setAttribute('label', oracle_name);
-
-		var edge_style = 'exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;';
-		if (edges_cfg != null) {
-		    edge_style = edges_cfg[node][pkg_name];
-		    edge_style = "edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;" + edge_style;
-		}
-
-		var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
-
-		// add edge points
-		var points = [];
-		if (edge_points != null) {
-		    if (node in edge_points) {
-			var list_of_points = edge_points[node];
-			for (let coord of list_of_points) {
-			    points.push(new mxPoint(coord.x, coord.y));
-			}
-		    }
-		}
-		edge.geometry.points = points;
-
-
-		if (cut != null && (cut.includes(src_node.value.attributes.name.value) || cut.includes(v1.value.attributes.name.value)) && type != null) {
-		    if (type == 'reduction') {
-			edge.style += 'opacity=15'; //;fontColor=#ececec
-		    } else if (type == 'codeq') {
-
-		    }
-		}
-
-	    }
-	}
-
-	// add adversary edges
-	var src_node = packages.get('@oracles_interface');
-	var adversary_calls = reduce_same_dest(pkg_callgraph.oracles);
-	for (var i = 0; i < adversary_calls.length; i++) {
-	    var el = adversary_calls[i];
-	    var pkg_name = el[0];
-	    var oracle_name = el[1];
-	    var e1 = doc.createElement("Oracle");
-	    e1.setAttribute('oracle_name', oracle_name);
-	    e1.setAttribute('label', oracle_name);
-
-	    var v1 = packages.get(pkg_name);
-	    var edge_style = 'exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;';
-	    // console.log(e1);
-	    if (edges_cfg != null) {
-		edge_style = edges_cfg['@oracles_interface'][pkg_name];
-	    }
-
-	    var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
-	}
 
     } finally {
 	graph.getModel().endUpdate();
@@ -407,11 +542,12 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 }
 
 function add_proofstep_content_graphs_reduction(proofstep_container, step, graphs, proof, reduction) {
+
     var names_and_cuts = {};
     for (var i = 0; i < reduction.length; i++) {
 	var ith_cut = reduction[i];
 	var name = graphs[ith_cut.i][ith_cut.j];
-	names_and_cuts[name] = ith_cut.cut;
+	names_and_cuts[name] = ith_cut;
     }
 
     var mono_pkgs = proof.monolithic_pkgs;
@@ -443,19 +579,38 @@ function add_proofstep_content_graphs_reduction(proofstep_container, step, graph
     		    config = auto_graph_layout(cg);
 		}
 
+		var display = null;
+		if ("display" in pkg) {
+		    display = pkg.display;
+		}
+
 		var ghost = null;
 		if ("ghost" in pkg) {
 		    ghost = pkg.ghost;
 		}
 
+		var decoration = null;
+		if ("decoration" in pkg) {
+		    decoration = pkg.decoration;
+		}
+
 		var table_cell = table.rows[i].cells[j];
 
 		if (pkg_name in names_and_cuts) {
-		    var cut = names_and_cuts[pkg_name];
-		    draw_graph(table_cell, cg, mono_pkgs, config, cut, "reduction", ghost);
+		    var elem = names_and_cuts[pkg_name]; // single element out of the list of elements in the reduction key
+		    if (elem.i == i && elem.j == j) {
+			var cut = elem.cut;
+			if ("name" in elem) {
+			    pkg_name = elem.name;
+			}
+			draw_graph(table_cell, cg, mono_pkgs, config, cut, "reduction", ghost, null, display, decoration);
+		    } else {
+			draw_graph(table_cell, cg, mono_pkgs, config, null, "reduction", ghost, null, display, decoration);
+		    }
 		} else {
-		    draw_graph(table_cell, cg, mono_pkgs, config, null, null, ghost);
+		    draw_graph(table_cell, cg, mono_pkgs, config, null, null, ghost, null, display, decoration);
 		}
+
 
 		var game_title = document.createElement('div');
 		game_title.setAttribute('class', 'game-title');
@@ -505,17 +660,28 @@ function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, 
     		    config = auto_graph_layout(cg);
 		}
 
+		var display = null;
+		if ("display" in pkg) {
+		    display = pkg.display;
+		    console.log(display);
+		}
+
 		var ghost = null;
 		if ("ghost" in pkg) {
 		    ghost = pkg.ghost;
 		}
 
+		var decoration = null;
+		if ("decoration" in pkg) {
+		    decoration = pkg.decoration;
+		}
+
 		var table_cell = table.rows[i].cells[j];
 
 		if (pkg_name == graph_name) {
-		    draw_graph(table_cell, cg, mono_pkgs, config, cut, type, ghost);
+		    draw_graph(table_cell, cg, mono_pkgs, config, cut, type, ghost, null, display, decoration);
 		} else {
-		    draw_graph(table_cell, cg, mono_pkgs, config, null, null, ghost);
+		    draw_graph(table_cell, cg, mono_pkgs, config, null, null, ghost, null, display, decoration);
 		}
 
 		var game_title = document.createElement('div');
@@ -1095,12 +1261,12 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 
 
 	    if (!isElementInViewport(proofstep_div)) {
-	    	proofstep_div.scrollIntoView({ behavior: 'smooth'}); // ,block: 'center'
+	    	// proofstep_div.scrollIntoView({ behavior: 'smooth'}); // ,block: 'center'
 	    }
 	}
     }
 
-    convert_pkg_names_latex();
+    // convert_pkg_names_latex();
 
 }
 
@@ -1208,7 +1374,7 @@ function load_graphs_into_wrapper(def, container) {
 	add_proofstep_content_graphs(container, null, def.graphs, proof, null);
 
 	MathJax.typeset();
-        convert_pkg_names_latex();
+        // convert_pkg_names_latex();
 
 
 	document.getElementById("loaded_script").remove()
@@ -1317,7 +1483,7 @@ function convert_pkg_names_latex() {
 	for (let svg of svgs) {
 	    var text_elems = svg.getElementsByTagName('text');
 	    for (let elem of text_elems) {
-		var res = supsub_compiler_svg(elem.innerHTML);
+		var res = supsub_compiler_svg(elem, elem.innerHTML);
 		elem.innerHTML = res;
 	    }
 	}

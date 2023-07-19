@@ -893,8 +893,9 @@ function supsub_compiler_html(name) {
 var COMPILER_FONT_SIZE = 0.85;
 var COMPILER_OFFSET = 4.5;
 
-function supsub_compiler_svg(name) {
+function supsub_compiler_svg(elem, name) {
     if (name == "") return "";
+    var oracle_split_indices = [];
     var result = "";
     var idx = 0;
     while (idx < name.length) {
@@ -924,7 +925,7 @@ function supsub_compiler_svg(name) {
 
 		    var l = rbrace_pos - idx;
 		    var rest = name.substr(idx, l);
-		    rest = supsub_compiler_svg(rest);
+		    rest = supsub_compiler_svg(elem, rest); // elem is the original parent elem, so the positioning is not recursive (only the (sup/sub)scripts are).
 
 		    result += script_tag + rest + "</tspan>";
 		    idx += l + 1;
@@ -939,6 +940,10 @@ function supsub_compiler_svg(name) {
 		idx += 1;
 	    }
 
+	} else if (c == '|') {
+	    oracle_split_indices.push(idx);
+	    result += c;
+	    idx += 1;
 	} else {
 	    result += c;
 	    idx += 1;
@@ -946,18 +951,36 @@ function supsub_compiler_svg(name) {
 
     }
 
-    return result;
-}
+    var result_breaks = ""
+    var offset = COMPILER_OFFSET;
+    var xval = Number(elem.attributes.x.nodeValue);
+    var yval = Number(elem.attributes.y.nodeValue)-15;
 
-function supsub_compiler_test() {
-    try {
-	var res = supsub_compiler_svg("SIM^{denc_{f}}_{hello}");
-	console.log(res);
-
-	res = supsub_compiler_html("SIM^0_{1_{hello}}");
-	console.log(res);
-
-    } catch (e) {
-	console.log(e);
+    if (oracle_split_indices.length > 0) {
+	var toks = result.split("|");
+	for (var i = 0; i < toks.length; i++) {
+	    result_breaks += "<tspan x=0" + xval + " y=\"" + yval + "\">" + toks[i] + "</tspan>";
+	    yval += 15;
+	}
+    } else {
+	result_breaks = result;
     }
+
+    // console.log(result_breaks);
+    // console.log("-------------------------------");
+    // result += "</tspan>";
+    return result_breaks;
 }
+
+// function supsub_compiler_test() {
+//     try {
+// 	var res = supsub_compiler_svg("SIM^{denc_{f}}_{hello}");
+// 	console.log(res);
+
+// 	res = supsub_compiler_html("SIM^0_{1_{hello}}");
+// 	console.log(res);
+
+//     } catch (e) {
+// 	console.log(e);
+//     }
+// }
