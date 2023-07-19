@@ -738,7 +738,7 @@ function newyao_driver() {
 		"reduction":
 		[
 		    {
-			"name": "hamster-reduction",
+			"name": "\\mathcal{R}^d_{\\text{circ},n,d} \\rightarrow LSEC^1_n(GB^1_{yao,n,d})",
 			"i": 0, "j": 1,
 			"cut": ["GB^1_{n,1}", "GB^1_{n,2}", "LEV_{n,1}", "LEV_{n,2}", "KEYS_1", "KEYS_2", "KEYS_3"]
 		    }
