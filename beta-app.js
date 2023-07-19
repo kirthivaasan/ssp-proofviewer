@@ -541,7 +541,7 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
     return graph;
 }
 
-function add_proofstep_content_graphs_reduction(proofstep_container, step, graphs, proof, reduction) {
+function add_proofstep_content_graphs_reduction(proofstep_container, step, graphs, proof, reduction, type) {
 
     var names_and_cuts = {};
     for (var i = 0; i < reduction.length; i++) {
@@ -611,9 +611,9 @@ function add_proofstep_content_graphs_reduction(proofstep_container, step, graph
 			if ("name" in elem) {
 			    pkg_name = elem.name;
 			}
-			draw_graph(table_cell, cg, mono_pkgs, config, cut, "reduction", ghost, null, display, decoration);
+			draw_graph(table_cell, cg, mono_pkgs, config, cut, type, ghost, null, display, decoration);
 		    } else {
-			draw_graph(table_cell, cg, mono_pkgs, config, null, "reduction", ghost, null, display, decoration);
+			draw_graph(table_cell, cg, mono_pkgs, config, null, type, ghost, null, display, decoration);
 		    }
 		} else {
 		    draw_graph(table_cell, cg, mono_pkgs, config, null, null, ghost, null, display, decoration);
@@ -929,11 +929,13 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 		var type = proof.prooftree[step].type;
 		if ("reduction" in type) {
 		    var reduction = type.reduction;
-		    add_proofstep_content_graphs_reduction(proofstep_container, step, graphs, proof, reduction);
+		    add_proofstep_content_graphs_reduction(proofstep_container, step, graphs, proof, reduction, "reduction");
 
 		} else if ("codeq" in type) {
 		    var codeq = type.codeq;
-		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof, codeq.graph, codeq.packages, 'codeq');
+		    var cuts = type.cuts;
+		    // add_proofstep_content_graphs(proofstep_container, step, graphs, proof, codeq.graph, codeq.packages, 'codeq');
+		    add_proofstep_content_graphs_reduction(proofstep_container, step, graphs, proof, cuts, "codeq");
     		    add_inlining_steps(proofstep_container, codeq);
 
 		} else if ("plugin" in type) {
