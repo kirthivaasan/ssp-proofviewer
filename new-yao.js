@@ -237,7 +237,174 @@ function newyao_driver() {
 	"MOD-PRIVSIM^1":
 	{
 	    "instance": "MOD-PRIVSIM^b_{n,d}"
+	},
+
+	"EV_{n,d}":
+	{
+	    "oracles":
+	    {
+		"EVAL" :
+		{
+		    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{GETBIT}_j;@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];      @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j)); @> @> z_{i,j} @gets op(z_{i-1,\\ell},z_{i-1,r});@for j = 1..d @do;@> \\mathsf{SETBIT}_j(z_{d,j});@return ()",
+		    "params": ["j", "\\ell", "r", "op"]
+		}
+
+	    }
+
+	},
+
+	"EV":
+	{
+	    "instance": "EV_{n,d}"
+	},
+
+	"BITS":
+	{
+	    "oracles":
+	    {
+		"SETBIT_j":
+		{
+		    "code": "@assert z_j = \\bot;z_j @gets z;@return ()",
+		    "params": ["z"]
+		},
+
+		"GETBIT":
+		{
+		    "code": "@assert z_j \\neq \\bot;@return z_j",
+		    "params": []
+		}
+	    }
+	},
+
+	"BITS_1":
+	{
+	    "instance": "BITS"
+	},
+
+	"BITS_n":
+	{
+	    "instance": "BITS"
+	},
+
+	"EKEYS_j":
+	{
+	    "oracles":
+	    {
+		"SETKEYS_j":
+		{
+		    "code": "@assert Z_j = \\bot;Z_j @gets Z;@return ()",
+		    "params": ["Z"]
+		},
+
+		"GETKEYS_j":
+		{
+		    "code": "@assert Z_j \\neq \\bot;@return Z_j",
+		    "params": []
+		}
+	    }
+
+	},
+
+	"EKEYS_{1,...,n}":
+	{
+	    "instance": "EKEYS_j"
+	},
+
+
+	"EN_j":
+	{
+	    "oracles":
+	    {
+		"SETBIT_j":
+		{
+		    "code": "@assert z_j = \\bot;z_j @gets z;@return ()",
+		    "params": ["z"]
+		},
+
+		"GETA":
+		{
+		    "code": "@assert z_j \\neq \\bot;Z @gets \\mathsf{GETKEYS}^{in}_j;@return Z(z_j)",
+		    "params": []
+		}
+	    }
+
+	},
+
+	"EN":
+	{
+	    "instance": "EN_j"
+	},
+
+	"GB_{tdyao,n,d}":
+	{
+	    "oracles":
+	    {
+		"GBL":
+		{
+		    "code": "@for i = 0..d @do;@> @for j = 1..n @do;@> @> Z_{i,j}(0) @sample \\{0,1\\}^{\\lambda};@> @> Z_{i,j}(1) @sample \\{0,1\\}^{\\lambda};@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];      @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> \\tilde{g}_j @gets \\bot;@> @> @for (b_{\\ell},b_r) \\in \\{0,1\\}^2;@> @> @> b_j @gets op(b_{\\ell}, b_r);@> @> @> k_j @gets Z_{i,j}(b_j);@> @> @> c_{in} @sample enc(Z_{i,\\ell}(b_{\\ell}, k_j));@> @> @> c @sample enc(Z_{i,r}(b_r), c_{in});@> @> @> \\tilde{g}_j @gets \\tilde{g}_j \\cup c; @> @> \\tilde{C}[i,j] @gets \\tilde{g}_j;@for j = 1..n @do;@> \\mathsf{SETKEYS}_j(Z_{0,j});\\mathsf{SETDINF}(Z_{d,1}, \\cdots, Z_{d,n});@return \\tilde{C}",
+		    "params": ["C"]
+		}
+	    }
+	},
+
+	"GB":
+	{
+	    "instance": "GB_{tdyao,n,d}"
+	},
+
+	"SIM_{tdyao}":
+	{
+	    "oracles":
+	    {
+		"GBL":
+		{
+		    "code": "@for i = 0..d @do;@> @for j = 1..n @do;@> @> S_{i,j}(0) @sample \\{0,1\\}^{\\lambda};@> @> S_{i,j}(1) @sample \\{0,1\\}^{\\lambda};@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];      @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> \\tilde{g}_j @gets \\bot;@> @> @for (d_{\\ell},d_r) \\in \\{0,1\\}^2;@> @> @> k_{i-1,\\ell} @gets S_{i-1,\\ell}(d_{\\ell});@> @> @> k_{i-1,r} @gets S_{i-1,r}(d_{r});@> @> @> @if d_{\\ell} = d_r = 0:;@> @> @> @> k_{i,j} @gets S_{i,j}(0);@> @> @> @else k_{i,j} @gets 0^{\\lambda};@> @> @> c_{in} @sample enc(k_{i-1,r}, k_{i,j}));@> @> @> c @sample enc(k_{i-1,\\ell}, c_{in});@> @> @> \\tilde{g}_j @gets \\tilde{g}_j \\cup c; @> @> \\tilde{C}_j @gets \\tilde{g}_j;\\tilde{C}[i] @gets \\tilde{C}_{1,..n};@return \\tilde{C}",
+		    "params": ["C"]
+		},
+
+		"GETDINF":
+		{
+		    "code": "@for j = 1..n @do;@> z_{d,j} @gets \\mathsf{GETBIT}_j;@> Z_{d,j}(z_{d,j}) @gets S_{d,j}(0);@> Z_{d,j}(1-z_{d,j}) @gets S_{d,j}(1);@> \\text{dinf}[j] @gets Z_{d,j};@return \\text{dinf}",
+		    "params": []
+		},
+
+		"GETA_j":
+		{
+		    "code": "@return S_{0,j}(0)",
+		    "params": []
+		}
+
+	    }
+	},
+
+	"SIM":
+	{
+	    "instance": "SIM_{tdyao}"
+	},
+
+	"DINF_{tdyao}":
+	{
+	    "oracles":
+	    {
+		"SETDINF":
+		{
+		    "code": "\\text{dinf} @gets \\text{dinf};@return ()",
+		    "params": ["\\text{dinf}"]
+		},
+		"GETDINF":
+		{
+		    "code": "@return \\text{dinf}",
+		    "params": []
+		}
+	    }
+	},
+
+	"DINF":
+	{
+	    "instance": "DINF_{tdyao}"
 	}
+
+
 
 
     };
