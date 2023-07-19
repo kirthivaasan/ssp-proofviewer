@@ -836,8 +836,250 @@ function newyao_driver() {
 	    ],
 	    "type":
 	    {
-		"reduction":
-		[
+		"codeq": {
+		    "packages":
+		    {
+			"GGATE_n":
+			{
+			    "oracles":
+			    {
+				"SETBIT_i":
+				{
+				    "code": ";;@return \\mathsf{SETBIT}_i(z)",
+				    "params": ["z"]
+				},
+
+				"GETA^{out}_i":
+				{
+				    "code": ";;;;;@return \\mathsf{GETA}^{out}_i",
+				    "params": []
+				},
+
+				"GBLG":
+				{
+				    "code": "\\tilde{g}_j @gets \\bot;;;;Z^{out}_j @gets \\mathsf{GETKEYS}_j^{out};;;;;;;;;;;@for (b_{\\ell},b_r) \\in \\{0,1\\}^2;@> b_j @gets op(b_{\\ell}, b_r);@> k_j @gets Z^{out}_{j}(b_j);;@> c^{0}_{in} @gets \\mathsf{ENC}_{\\ell}(b_{\\ell}, k_j, 0^{\\lambda});;;@> c^1_{in} @gets \\mathsf{ENC}_{\\ell}(b_{\\ell}, 0^{\\lambda}, 0^{\\lambda});@> c^1_{in} @gets \\mathsf{ENC}_{r}(b_{r}, c^1_{in}, c^1_{in});;;;@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
+				    "params": ["\\ell", "r", "op", "j"]
+				},
+
+				"GETKEYS^{in}_j":
+				{
+				    "code": "@return \\mathsf{GETKEYS}^{in}_j",
+				    "params": []
+				},
+
+			    }
+			},
+
+			"GGATE_n(2)":
+			{
+			    "oracles":
+			    {
+				"SETBIT_i":
+				{
+				    "code": ";;@return ()",
+				    "params": ["z"]
+				},
+
+				"GETA^{out}_i":
+				{
+				     "code": ";;;;;@return \\mathsf{GETA}^{out}_i",
+				    "params": []
+				},
+
+				"GBLG":
+				{
+				    "code": "\\tilde{g}_j @gets \\bot;z^{in}_{\\ell} @gets \\mathsf{GETBIT}(\\ell);z^{in}_{r} @gets \\mathsf{GETBIT}(r);;Z^{out}_j @gets \\mathsf{GETKEYS}_j^{out};;;;Z^{in}_{\\ell} @gets \\mathsf{GETKEYS}^{in}_{\\ell};;;;;Z^{in}_r @gets \\mathsf{GETKEYS}^{in}_r;;@for (b_{\\ell},b_r) \\in \\{0,1\\}^2;@> b_j @gets op(b_{\\ell}, b_r);@> k^{out}_j @gets Z^{out}_{j}(b_j);@> k^{out}_j @gets Z^{in}_{\\ell}(b_{\\ell});@> @if z^{in}_{\\ell} = b_{\\ell}:;@> @> c^{0}_{in} @sample enc_(k^{in}_{\\ell}, k^{out}_{j});@> @if z^{in}_{\\ell} \\neq b_{\\ell}:;@> @> c^{0}_{in} @sample enc(k^{in}_{\\ell}, 0^{\\lambda});@> c^1_{in} @sample enc(k_{\\ell}, 0^{\\lambda});@> k^{in}_r @gets Z^{in}_r(b_r);@> @if z^{in}_{r} = b_{r}:;@> @> c @sample enc(k^{in}_r, c^0_{in});@if z^{in}_r \\neq b_r:;@> @> c @sample enc(k^{in}_r, c^1_{in});@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
+				    "params": ["\\ell", "r", "op", "j"]
+				},
+
+				"GETKEYS^{in}_j":
+				{
+				    "code": "line1",
+				    "params": []
+				},
+
+			    }
+			},
+
+			"GGATE_n(3)":
+			{
+			    "oracles":
+			    {
+				"SETBIT_i":
+				{
+				    "code": "line100;line2;line3",
+				    "params": ["z"]
+				},
+
+				"GETA^{out}_i":
+				{
+				    "code": "line1",
+				    "params": []
+				},
+
+				"GBLG":
+				{
+				    "code": "line1",
+				    "params": ["\\ell", "r", "op", "j"]
+				},
+
+				"GETKEYS^{in}_j":
+				{
+				    "code": "line1",
+				    "params": []
+				},
+
+			    }
+			},
+
+			"GGATE_n(4)":
+			{
+			    "oracles":
+			    {
+				"SETBIT_i":
+				{
+				    "code": "line100;line2;line3",
+				    "params": ["z"]
+				},
+
+				"GETA^{out}_i":
+				{
+				    "code": "line1",
+				    "params": []
+				},
+
+				"GBLG":
+				{
+				    "code": "line1",
+				    "params": ["\\ell", "r", "op", "j"]
+				},
+
+				"GETKEYS^{in}_j":
+				{
+				    "code": "line1",
+				    "params": []
+				},
+
+			    }
+			},
+
+			"GGATE_{sim,n}":
+			{
+			    "oracles":
+			    {
+				"SETBIT_i":
+				{
+				    "code": "@assert z^{in}_i = \\bot;z^{in}_i @gets z;@return ()",
+				    "params": ["z"]
+				},
+
+				"GETA^{out}_i":
+				{
+				    "code": "@assert z^{in}_i \\neq @bot;\\mathsf{flag} @gets 1;@if Z^{in}_i = @bot @then;@> Z^{in}_i(0) @sample \\{0,1\\}^\\lambda;@> Z^{in}_i(1) @sample \\{0,1\\}^\\lambda;@return Z^{in}_i(z^{in}_i)",
+				    "params": []
+				},
+
+				"GBLG":
+				{
+				    "code": "\\tilde{g}_j @gets \\bot;@assert z^{in}_{\ell} \\neq \\bot;@assert z^{in}_{r} \\neq \\bot;z^{out}_j @gets op(z^{in}_{\\ell}), z^{in}_{r};@assert z^{out}_j \\neq \\bot;\\mathsf{flag} @gets 1;@if Z^{out}_j = @bot @then;@> Z^{out}_j(0) @sample \\{0,1\\}^\\lambda;@> Z^{out}_j(1) @sample \\{0,1\\}^\\lambda;S^{out}_j(0) @gets Z^{out}_j(z^{in}_j);@assert \\mathsf{flag}^{in}_r = 1;S^{in}_r(0) @gets Z^{in}_r(z^{in}_r);@assert \\mathsf{flag}^{in}_r = 1;S^{in}_r(1) @gets Z^{in}_r(1 \\oplus z^{in}_r);@assert \\mathsf{flag}^{in}_{\\ell} = 1;S^{in}_{\\ell}(0) @gets Z^{in}_{\\ell}(z^{in}_{\\ell});@assert \\mathsf{flag}^{in}_{\\ell} = 1;S^{in}_{\\ell}(1) @gets Z^{in}_{\\ell}(1 \\oplus z^{in}_{\\ell});@for (d_{\\ell},d_r) \\in \\{0,1\\}^2 @do;@> k^{in}_{\\ell} @gets S^{in}_{\\ell}(d_{\\ell});@> k^{in}_r @gets S^{in}_r(d_r);@> @if d_{\\ell} = d_r = 0:;;;@> @> k^{out}_j @gets S^{out}_j(0);@> @else k_j @gets 0^{\\lambda};@> c_{in} @sample enc(k^{in}_r, k^{out}_j);@> c @sample enc_{k^{in}_{\\ell}}(c_{in});@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
+				    "params": ["\\ell", "r", "op", "j"]
+				},
+
+				"GETKEYS^{in}_j":
+				{
+				    "code": "@assert \\mathsf{flag}^{out}_j = 1;@assert Z^{out}_j \\neq \\bot;@return Z^{out}_j;",
+				    "params": []
+				},
+
+			    }
+			},
+
+
+		    }
+
+		},
+
+		"cuts": [
+		    {
+			"i": 0, "j": 0,
+			"cut": ["GATE_n", "KEYS_i", "ENC^1_{1,n}", "KEYS_{i+1}"]
+		    },
+		    {
+			"i": 1, "j": 0,
+			"cut": ["SIM_{gate,n}", "KEYS_i", "LEV_{n,i}", "KEYS_{i+1}"]
+		    }
+		]
+	    }
+
+	},
+
+	"Eq 2-codeq-test":
+	{
+	    "parent": "Claim 2",
+	    "contents": [
+		{
+		    "graphs": [["HYB_{n,i}"], ["LSEC^1_{n,i}(GB^1_{yao,n,i})"]]
+		}
+	    ],
+	    "type":
+	    {
+		"codeq": {
+		    "packages":
+		    {
+			"PKG1":
+			{
+			    "oracles":
+			    {
+				"GET":
+				{
+				    "code": "line1;line2;line3",
+				    "params": []
+				},
+
+				"SET":
+				{
+				    "code": "line1",
+				    "params": []
+				},
+
+			    }
+			},
+
+			"PKG2":
+			{
+			    "oracles":
+			    {
+				"GET":
+				{
+				    "code": "line1;line2;line3",
+				    "params": []
+				},
+
+				"SET":
+				{
+				    "code": "line1",
+				    "params": []
+				},
+
+			    }
+			}
+		    },
+
+		    "annotations":
+		    [
+			{
+			    "cells":
+			    {
+				"................GDENC.DENC4": [26]
+			    },
+
+			    "comment": "Notice that the order of the enumeration of this loop does not matter."
+			}
+		    ]
+
+		},
+
+		"cuts": [
 		    {
 			"i": 0, "j": 0,
 			"cut": ["GATE_n", "KEYS_i", "ENC^1_{1,n}", "KEYS_{i+1}"]
@@ -849,6 +1091,7 @@ function newyao_driver() {
 		]
 	    }
 	}
+
 
     };
 

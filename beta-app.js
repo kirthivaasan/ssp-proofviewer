@@ -710,118 +710,164 @@ function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, 
 }
 
 function add_inlining_oracles(proofstep_container, codeq) {
-    var oracles = codeq.oracles;
+    // var oracles = codeq.oracles;
     var ncols = 0;
     var nrows = 0;
 
-    var header_val = [];
-    for (orc in oracles) {
-	var code = oracles[orc].code;
-	var n = code.split(';').length;
-	if (n > nrows) {
-	    nrows = n;
+    // var header_val = [];
+    // for (orc in oracles) {
+    // 	var code = oracles[orc].code;
+    // 	var n = code.split(';').length;
+    // 	console.log(n);
+    // 	if (n > nrows) {
+    // 	    nrows = n;
+    // 	}
+    // 	ncols += 1;
+    // 	header_val.push(orc);
+    // }
+
+    // assumes that JSON file has oracles ordered in a consistent way (across pkgs)
+    var pkg_lengths = [];
+    for (pkg in codeq.packages) {
+	var num_rows = 0;
+	var oracles = codeq.packages[pkg].oracles;
+	for (orc in oracles) {
+	    var code = oracles[orc].code;
+    	    var n = code.split(';').length;
+	    num_rows += n;
 	}
-	ncols += 1;
-	header_val.push(orc);
+	pkg_lengths.push(num_rows);
     }
+    var max_orc_len = Math.max.apply(null, pkg_lengths);
+    var nrows = max_orc_len + 3*pkg_lengths.length + 1; // enough space for pkg title, oracle titles and spaces
+    ncols = pkg_lengths.length*2; // dummy columns for spacing (yes I know this is bad practice :( )
 
     var table = buildTable(nrows, ncols);
     table.setAttribute('class', 'inlining-table');
 
     var j = 0;
-    var orc_to_id = {};
+    for (pkg in codeq.packages) {
+	var table_cell = table.rows[0].cells[j]; // pkg title cell
+	table_cell.innerHTML = parse_pkg_name(pkg);
+	table_cell.setAttribute('class', 'package_def_title');
 
-    // add parsed lines
-
-    for (orc in oracles) {
-	var code = oracles[orc].code;
-	var lines = code.split(';');
-	for (var i = 0; i < lines.length; i++) {
-	    var table_cell = table.rows[i].cells[j];
- 	    var line_html = parse_pseudocode_line(lines[i]);
-	    table_cell.innerHTML = line_html;
+	var k = 1;
+	var oracles = codeq.packages[pkg].oracles;
+	for (orc in oracles) {
+	    table_cell = table.rows[k].cells[j]; // oracle title cell
+	    table_cell.setAttribute('class', 'oracle-title');
+	    table_cell.innerHTML = parse_oracle_signature(orc, oracles[orc].params);
+	    k++;
+	    var code = oracles[orc].code;
+    	    var lines = code.split(';');
+	    for (var i = 0; i < lines.length; i++) {
+    		var line_html = parse_pseudocode_line(lines[i]);
+		table_cell = table.rows[k].cells[j];
+		var line_div = document.createElement('div');
+		line_div.innerHTML = line_html;
+    		table_cell.appendChild(line_div);
+		k++;
+    	    }
+	    k++;
 	}
-	orc_to_id[orc] = j;
-	j++;
+	j += 2;
     }
 
-    // add parsed header
-    if (header_val != null && header_val.length == ncols) {
-	var header = table.createTHead();
-	var row = header.insertRow(0);
-	for (var j = 0; j < ncols; j++) {
-	    var cell = row.insertCell(j);
-	    var params = []; // default
-	    var orc_sig = parse_oracle_signature(header_val[j], params);
+    return table;
 
-	    var orc_sig_div = document.createElement('div');
-	    orc_sig_div.innerHTML = orc_sig;
-	    orc_sig_div.setAttribute('class', 'oracle-title');
-	    cell.appendChild(orc_sig_div);
+    // var j = 0;
+    // var orc_to_id = {};
 
-	    // cell.innerHTML = orc_sig;
-	    // cell.setAttribute('class', 'oracle-title');
-	}
+    // // add parsed lines
+    // for (orc in oracles) {
+    // 	var code = oracles[orc].code;
+    // 	var lines = code.split(';');
+    // 	for (var i = 0; i < lines.length; i++) {
+    // 	    var table_cell = table.rows[i].cells[j];
+    // 	    var line_html = parse_pseudocode_line(lines[i]);
+    // 	    table_cell.innerHTML = line_html;
+    // 	}
+    // 	orc_to_id[orc] = j;
+    // 	j++;
+    // }
 
-    }
+    // // add parsed header
+    // if (header_val != null && header_val.length == ncols) {
+    // 	var header = table.createTHead();
+    // 	var row = header.insertRow(0);
+    // 	for (var j = 0; j < ncols; j++) {
+    // 	    var cell = row.insertCell(j);
+    // 	    var params = []; // default
+    // 	    var orc_sig = parse_oracle_signature(header_val[j], params);
 
-    if (! ("annotations" in codeq)) {
-	return table;
-    }
+    // 	    var orc_sig_div = document.createElement('div');
+    // 	    orc_sig_div.innerHTML = orc_sig;
+    // 	    orc_sig_div.setAttribute('class', 'oracle-title');
+    // 	    cell.appendChild(orc_sig_div);
+
+    // 	    // cell.innerHTML = orc_sig;
+    // 	    // cell.setAttribute('class', 'oracle-title');
+    // 	}
+
+    // }
+
+    // if (! ("annotations" in codeq)) {
+    // 	return table;
+    // }
 
     // add annotations
-    var annotations = codeq.annotations;
-    for (var ai = 0; ai < annotations.length; ai++) {
-	var annot = annotations[ai];
+    // var annotations = codeq.annotations;
+    // for (var ai = 0; ai < annotations.length; ai++) {
+    // 	var annot = annotations[ai];
 
-	// var random_color = gen_random_color();
-	var random_color = '#bcbcbc';
+    // 	// var random_color = gen_random_color();
+    // 	var random_color = '#bcbcbc';
 
-	for (orc in annot.cells) {
-	    if (! (orc in orc_to_id)) {
-		throw 2;
-	    }
-	    var j = orc_to_id[orc];
-	    var line_numbers = annot.cells[orc];
+    // 	for (orc in annot.cells) {
+    // 	    if (! (orc in orc_to_id)) {
+    // 		throw 2;
+    // 	    }
+    // 	    var j = orc_to_id[orc];
+    // 	    var line_numbers = annot.cells[orc];
 
-	    for (var i = 0; i < line_numbers.length; i++) {
-		var l = line_numbers[i];
+    // 	    for (var i = 0; i < line_numbers.length; i++) {
+    // 		var l = line_numbers[i];
 
-		if (l >= nrows) {
-		    throw 1;
-		}
+    // 		if (l >= nrows) {
+    // 		    throw 1;
+    // 		}
 
-		var cell = table.rows[l+1].cells[j];
+    // 		var cell = table.rows[l+1].cells[j];
 
-		cell.style = "background-color: " + random_color;
-		// cell.setAttribute('class', 'pcode-annotated-line');
-		var tooltip = document.createElement('div');
-		tooltip.setAttribute('class', 'tooltip');
+    // 		cell.style = "background-color: " + random_color;
+    // 		// cell.setAttribute('class', 'pcode-annotated-line');
+    // 		var tooltip = document.createElement('div');
+    // 		tooltip.setAttribute('class', 'tooltip');
 
-		var tooltiptext = document.createElement('div');
-		tooltiptext.setAttribute('class', 'tooltiptext');
-		tooltiptext.innerHTML = annot.comment;
+    // 		var tooltiptext = document.createElement('div');
+    // 		tooltiptext.setAttribute('class', 'tooltiptext');
+    // 		tooltiptext.innerHTML = annot.comment;
 
-		tooltip.appendChild(tooltiptext);
-		cell.appendChild(tooltip);
+    // 		tooltip.appendChild(tooltiptext);
+    // 		cell.appendChild(tooltip);
 
-		cell.addEventListener('mouseover', function(elem, comment) {
-		    var tooltiptext_wrapper = document.getElementById('tooltiptext_wrapper');
-		    tooltiptext_wrapper.innerHTML = comment;
-		    tooltiptext_wrapper.style.visibility = "visible";
-		    tooltiptext_wrapper.style.opacity = 1;
-		}.bind(cell, cell, annot.comment));
+    // 		cell.addEventListener('mouseover', function(elem, comment) {
+    // 		    var tooltiptext_wrapper = document.getElementById('tooltiptext_wrapper');
+    // 		    tooltiptext_wrapper.innerHTML = comment;
+    // 		    tooltiptext_wrapper.style.visibility = "visible";
+    // 		    tooltiptext_wrapper.style.opacity = 1;
+    // 		}.bind(cell, cell, annot.comment));
 
-		cell.addEventListener('mouseout', function(elem) {
-		    var tooltiptext_wrapper = document.getElementById('tooltiptext_wrapper');
-		    tooltiptext_wrapper.style.visibility = "hidden";
-		    tooltiptext_wrapper.style.opacity = 0;
-		}.bind(cell, cell));
+    // 		cell.addEventListener('mouseout', function(elem) {
+    // 		    var tooltiptext_wrapper = document.getElementById('tooltiptext_wrapper');
+    // 		    tooltiptext_wrapper.style.visibility = "hidden";
+    // 		    tooltiptext_wrapper.style.opacity = 0;
+    // 		}.bind(cell, cell));
 
 
-	    }
-	}
-    }
+    // 	    }
+    // 	}
+    // }
 
     return table;
 }
@@ -872,6 +918,7 @@ function add_inlining_steps(proofstep_container, codeq) {
 	    button.innerHTML = "Show inlining";
 	}
     }
+
 }
 
 function add_proofstep_content_text(proofstep_container, text) {
@@ -939,7 +986,6 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
     		    add_inlining_steps(proofstep_container, codeq);
 
 		} else if ("plugin" in type) {
-		    console.log('here');
 		    var plugin = type.plugin;
 		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof, plugin.graph, plugin.cut, 'plugin');
 		} else {
@@ -1251,7 +1297,6 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 
 
     graph.getSelectionModel().addListener(mxEvent.CHANGE, function(sender, evt){
-	console.log('change');
     	updateProofStep(graph);
     });
 
