@@ -690,26 +690,26 @@ function parse_pseudocode(src_pkg, orc, pkg_dependencies, code, mono_pkgs) {
 		var html_frag = PCODE_SYMBOLS[tok];
 		html += html_frag;
 
-	    } else if (is_oracle_call(tok, pkg_dependencies)) { // assuming all uppercase strings are oracles
-		var oracle_call_html = parse_oracle_call(tok);
-		var orc_call_name = tok.substr(0, tok.indexOf('('));
+         // }  else if (is_oracle_call(tok, pkg_dependencies)) { // assuming all uppercase strings are oracles
+	      // 	var oracle_call_html = parse_oracle_call(tok);
+	      // 	var orc_call_name = tok.substr(0, tok.indexOf('('));
 
-		// find pkg where orc_call is from
-		var pkg_name = "";
-		for (let dep of pkg_dependencies) {
-		    if (dep[1] == orc_call_name) {
-			pkg_name = dep[0];
-			if (pkg_name in mono_pkgs) {
-			    pkg_def = mono_pkgs[pkg_name];
-			    if ("instance" in pkg_def) {
-				pkg_name = pkg_def["instance"];
-			    }
-			}
-		    }
-		}
+	      // 	// find pkg where orc_call is from
+	      // 	var pkg_name = "";
+	      // 	for (let dep of pkg_dependencies) {
+	      // 	    if (dep[1] == orc_call_name) {
+	      // 		pkg_name = dep[0];
+	      // 		if (pkg_name in mono_pkgs) {
+	      // 		    pkg_def = mono_pkgs[pkg_name];
+	      // 		    if ("instance" in pkg_def) {
+	      // 			pkg_name = pkg_def["instance"];
+	      // 		    }
+	      // 		}
+	      // 	    }
+	      // 	}
 
-		var pcode_oracle_id = "pcode-oracle-call?" + src_pkg + "." + orc + "?" + pkg_name + "." + orc_call_name;
-		html += '<div id="' + pcode_oracle_id + '" class="pcode-oracle-call">' + oracle_call_html + '</div>';
+	      // 	var pcode_oracle_id = "pcode-oracle-call?" + src_pkg + "." + orc + "?" + pkg_name + "." + orc_call_name;
+	      // 	html += '<div id="' + pcode_oracle_id + '" class="pcode-oracle-call">' + oracle_call_html + '</div>';
 
 	    } else {
 		html += "\\(" + tok + "\\)";
@@ -746,8 +746,8 @@ function parse_pseudocode_line(line) {
 	} else if (tok in PCODE_SYMBOLS) {
 	    var html_frag = PCODE_SYMBOLS[tok];
 	    html += html_frag;
-	} else if (is_upper_case_call(tok)) { // assuming all uppercase strings are oracles
-	    html += parse_oracle_call(tok);
+	// } else if (is_upper_case_call(tok)) { // assuming all uppercase strings are oracles
+	//     html += parse_oracle_call(tok);
 	} else {
 	    html += "\\(" + tok + "\\)";
 	}
