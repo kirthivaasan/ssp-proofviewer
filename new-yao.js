@@ -735,7 +735,172 @@ function newyao_driver() {
 		{
 		    "graphs": [["PRVSIM^0(GB, DINF)", "MOD^0->SEC^0_{n,d}(GB_{yao,n,d})"]]
 		}
-	    ]
+	    ],
+	    "type":
+	    {
+		"codeq":
+		{
+		    "columns":
+		    [
+			{
+			    "packages":
+			    {
+				"G^1_{real}":
+				{
+				    "oracles":
+				    {
+					"GARBLE":
+					{
+					    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{SETBIT}_j(x_j);;\\tilde{C} @gets \\mathsf{GBL}(C);;;;;;;;;;;;;;;;;;;\\text{dinf} @gets \\mathsf{GETDINF};@for j = 1..n @do;@> \\tilde{x}[j] @gets \\mathsf{GETA}^{out}_j;;@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+					    "params": ["C", "x"]
+					}
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"G^2_{real}":
+				{
+				    "oracles":
+				    {
+					"GARBLE":
+					{
+					    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{SETBIT}_j(x_j);;@for i = 0..d @do;@> @for j = 1..n @do;@> @> Z_{i,j}(0) @sample \\{0,1\\}^{\\lambda};@> @> Z_{i,j}(1) @sample \\{0,1\\}^{\\lambda};@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];      @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> \\tilde{g}_j @gets \\bot;@> @> @for (b_{\\ell},b_r) \\in \\{0,1\\}^2;@> @> @> b_j @gets op(b_{\\ell}, b_r);@> @> @> k_j @gets Z_{i,j}(b_j);@> @> @> c_{in} @sample enc(Z_{i,\\ell}(b_{\\ell}, k_j));@> @> @> c @sample enc(Z_{i,r}(b_r), c_{in});@> @> @> \\tilde{g}_j @gets \\tilde{g}_j \\cup c; @> @> \\tilde{C}[i,j] @gets \\tilde{g}_j;@for j = 1..n @do;@> \\mathsf{SETKEYS}_j(Z_{0,j});\\mathsf{SETDINF}(Z_{d,1}, \\cdots, Z_{d,n});\\text{dinf} @gets \\mathsf{GETDINF};@for j = 1..n @do;@> \\tilde{x}[j] @gets \\mathsf{GETA}^{out}_j;;@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+					    "params": ["C", "x"]
+					}
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"G^3_{real}":
+				{
+				    "oracles":
+				    {
+					"GARBLE":
+					{
+					    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> @assert z_j = \\bot;@> z_j @gets x_j;@for i = 0..d @do;@> @for j = 1..n @do;@> @> Z_{i,j}(0) @sample \\{0,1\\}^{\\lambda};@> @> Z_{i,j}(1) @sample \\{0,1\\}^{\\lambda};@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];      @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> \\tilde{g}_j @gets \\bot;@> @> @for (b_{\\ell},b_r) \\in \\{0,1\\}^2;@> @> @> b_j @gets op(b_{\\ell}, b_r);@> @> @> k_j @gets Z_{i,j}(b_j);@> @> @> c_{in} @sample enc(Z_{i,\\ell}(b_{\\ell}, k_j));@> @> @> c @sample enc(Z_{i,r}(b_r), c_{in});@> @> @> \\tilde{g}_j @gets \\tilde{g}_j \\cup c; @> @> \\tilde{C}[i,j] @gets \\tilde{g}_j;@for j = 1..n @do;@> \\mathsf{SETKEYS}_j(Z_{0,j});\\mathsf{SETDINF}(Z_{d,1}, \\cdots, Z_{d,n});\\text{dinf} @gets (Z_{d,1}, ...., Z_{d,n});@for j = 1..n @do;@> z_j \\neq \\bot;\\tilde{x}[j] @gets Z_{0,j}(z_j);@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+					    "params": ["C", "x"]
+					}
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"G^4_{real}":
+				{
+				    "oracles":
+				    {
+					"GARBLE":
+					{
+					    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> @assert z_{0,j} = \\bot;@> z_{0,j} @gets x_j;@> Z_{0,j}(0) @sample \\{0,1\\}^{\\lambda};@> Z_{0,j}(1) @sample \\{0,1\\}^{\\lambda};@> \\tilde{x}[j] @gets Z_{0,j}(z_{0,j});;@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];;@> @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> \\tilde{C}_j @gets \\bot;@> @> Z_{i,j}(0) @sample \\{0,1\\}^{\\lambda};@> @> Z_{i,j}(1) @sample \\{0,1\\}^{\\lambda};@> @> @for (b_{\\ell},b_r) \\in \\{0,1\\}^2;@> @> @> b_j @gets op(b_{\\ell}, b_r);@> @> @> k^0_j @gets Z_{i,j}(b_j);@> @> @> c^0_{in} @sample enc(Z_{i-1,\\ell}(b_{\\ell}, k^0_j));@> @> @> c^1_{in} @sample enc(Z_{i-1,\\ell}(b_{\\ell}), 0^{\\lambda});@> @> @> c @sample enc(Z_{i-1,r}(b_r), c^0_{in});;@> @> @> \\tilde{C}_j @gets \\tilde{C}_j \\cup c;@> \\tilde{C}[i] @gets \\tilde{C}_{1..n};@for j = 1..n @do;@> \\text{dinf}[j] @gets Z_{d,j};@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+					    "params": ["C", "x"]
+					}
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"G^5_{real}":
+				{
+				    "oracles":
+				    {
+					"GARBLE":
+					{
+					    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{SETBIT}_j(x_j);;@> \\tilde{x}[j] @gets \\mathsf{GETA}^{out}_j;;;;@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];;@> @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> @assert \\tilde{C}[i] = \\bot;@> @> @for j = 1..n @do;@> @> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j)); @> @> @> \\tilde{C}_j @gets \\mathsf{GBLG}(\\ell, r, op, j);;;;;;;;@> \\tilde{C}[i] @gets \\tilde{C}_{1..n};@for j = 1..n @do;@> \\text{dinf}[j] @gets \\mathsf{GETKEYS}^{in}_j;@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+					    "params": ["C", "x"]
+					}
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"G^6_{real}":
+				{
+				    "oracles":
+				    {
+					"GARBLE":
+					{
+					    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{SETBIT}_j(x_j);;@> \\tilde{x}[j] @gets \\mathsf{GETA}^{out}_j;;;;@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];@> \\tilde{C}[i] @gets \\mathsf{GBL}_i(\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op});;;;;;;;;;;;;;;@for j = 1..n @do;@> \\text{dinf}[j] @gets \\mathsf{GETKEYS}^{in}_j;@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+					    "params": ["C", "x"]
+					}
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"G^1_{ideal}":
+				{
+				    "oracles":
+				    {
+					"GARBLE":
+					{
+					    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{SETBIT}_j(x_j);;\\mathsf{EVAL}_j(C);;;;\\tilde{C} @gets \\mathsf{GBL}(C);;;;;;;;;;;;;;;;;;;;;;;\\text{dinf} @gets \\mathsf{GETDINF};;;;;@for j = 1..n @do;@> \\text{dinf}[j] @gets \\mathsf{GETKEYS}^{in}_j;@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+					    "params": ["C", "x"]
+					}
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"G^2_{ideal}":
+				{
+				    "oracles":
+				    {
+					"GARBLE":
+					{
+					    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> @assert z_{0,j} = \\bot;@> z_{0,j} @gets x_j;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for i = 1..d  @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];@> @for j = 1..n @do;@> @> z_{i,j} @gets op(z_{i-1,\\ell}, z_{i-1,r});@for i = 1..d @do;@> @for j = 1..n do;@> @> @> S_{i,j}(0) @sample \\{0,1\\}^{\\lambda};@> @> @> S_{i,j}(1) @sample \\{0,1\\}^{\\lambda};@for i = 1..d @do;@> (\\boldsymbol{\\ell}, \\boldsymbol{r}, \\boldsymbol{op}) @gets C[i];@> @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> \\tilde{g}_j @gets \\bot;;;@> @> @for (d_{\\ell},d_r) \\in \\{0,1\\}^2;@> @> @> k_{i-1,\\ell} @gets S_{i-1,\\ell}(d_{\\ell});@> @> @> k_{i-1,r} @gets S_{i-1,r}(d_{r});@> @> @> @if d_{\\ell} = d_r = 0:;@> @> @> @> k_{i,j} @gets S_{i,j}(0);@> @> @> @else k_{i,j} @gets 0^{\\lambda};@> @> @> c_{in} @sample enc(k_{i-1,r}, k_{i,j}));@> @> @> c @sample enc(k_{i-1,\\ell}, c_{in});@> @> @> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@> @> \\tilde{C}_j @gets \\tilde{g}_j;@> \\tilde{C}[i] @gets \\tilde{C}_{1..n};@for j = 1..n @do;@> Z_{d,j}(z_{d,j}) @gets S_{d,j}(0);@> Z_{d,j}(1-z_{d,j}) @gets S_{d,j}(1);@> \\text{dinf}[j] @gets Z_{d,j};@for j = 1..n @do;@> \\tilde{x}[j] @gets S_{0,j}(0);@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+					    "params": ["C", "x"]
+					}
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"G^3_{ideal}":
+				{
+				    "oracles":
+				    {
+					"GARBLE":
+					{
+					    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> @assert z_{0,j} = \\bot;@> z_{0,j} @gets x_j;;;@for i = 1..d  @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];@> @for j = 1..n @do;@> @> z_{i,j} @gets op(z_{i-1,\\ell}, z_{i-1,r});;@for j = 1..n do;@> @> S_{i,j}(0) @sample \\{0,1\\}^{\\lambda};@> @> S_{i,j}(1) @sample \\{0,1\\}^{\\lambda};@for i = 1..d @do;@> (\\boldsymbol{\\ell}, \\boldsymbol{r}, \\boldsymbol{op}) @gets C[i];@> @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> \\tilde{g}_j @gets \\bot;@> @> S_{i,j}(0) @sample \\{0,1\\}^{\\lambda};@> @> S_{i,j}(1) @sample \\{0,1\\}^{\\lambda};@> @> @for (d_{\\ell},d_r) \\in \\{0,1\\}^2;@> @> @> k_{i-1,\\ell} @gets S_{i-1,\\ell}(d_{\\ell});@> @> @> k_{i-1,r} @gets S_{i-1,r}(d_{r});@> @> @> @if d_{\\ell} = d_r = 0:;@> @> @> @> k_{i,j} @gets S_{i,j}(0);@> @> @> @else k_{i,j} @gets 0^{\\lambda};@> @> @> c_{in} @sample enc(k_{i-1,r}, k_{i,j}));@> @> @> c @sample enc(k_{i-1,\\ell}, c_{in});@> @> @> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@> @> \\tilde{C}_j @gets \\tilde{g}_j;@> \\tilde{C}[i] @gets \\tilde{C}_{1..n};@for j = 1..n @do;@> Z_{d,j}(z_{d,j}) @gets S_{d,j}(0);@> Z_{d,j}(1-z_{d,j}) @gets S_{d,j}(1);@> \\text{dinf}[j] @gets Z_{d,j};;;@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+					    "params": ["C", "x"]
+					}
+				    }
+				}
+			    }
+			}
+		    ]
+		},
+
+		"cuts": [
+
+		]
+	    }
 	},
 
 	"Claim 4":
