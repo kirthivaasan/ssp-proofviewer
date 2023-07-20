@@ -784,9 +784,9 @@ function add_inlining_oracles(proofstep_container, codeq) {
     }
 
     // add line numbers
-    for (var line_ctr = 1; line_ctr < nrows; line_ctr++) {
-	table.rows[line_ctr-1].cells[0].innerHTML = line_ctr;
-    }
+    // for (var line_ctr = 1; line_ctr < nrows; line_ctr++) {
+    // 	table.rows[line_ctr-1].cells[0].innerHTML = line_ctr;
+    // }
 
     return table;
 }
