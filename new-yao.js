@@ -754,7 +754,204 @@ function newyao_driver() {
 		{
 		    "graphs": [["2CPA", "RED->IND-CPA^b(se)"]]
 		}
-	    ]
+	    ],
+	    "type":
+	    {
+		"codeq":
+		{
+		    "columns":
+		    [
+			{
+			    "packages":
+			    {
+				"ENC^b":
+				{
+				    "oracles":
+				    {
+					"ENC":
+					{
+					    "code": "Z^{in} @gets \\mathsf{GETKEYS}^{in}();@assert |m_0| = |m_1|;c @sample enc(Z^{in}(d), m_0);@if b = 1:;@> z^{in} @gets \\mathsf{GETBIT}();@> @if z^{in} \\neq d @then;@> @> c @sample enc(Z^{in}(d), m_b);@return c",
+					    "params": ["d", "m_0", "m_1"]
+					}
+				    }
+				},
+
+				"KEYS":
+				{
+				    "oracles":
+				    {
+					"SETBIT" :
+					{
+					    "code": "@assert z = @bot;z @gets z';@return ();",
+					    "params": ["z'"]
+					},
+
+					"GETA^{out}" :
+					{
+					    "code": "@assert z \\neq @bot;\\mathsf{flag} @gets 1;@if Z = @bot @then;    Z(0) @sample \\{0,1\\}^\\lambda;    Z(1) @sample \\{0,1\\}^\\lambda;@return Z(z);",
+					    "params": []
+					},
+
+					"GETBIT" :
+					{
+					    "code": "@assert z \\neq @bot;@return z",
+					    "params": []
+					},
+
+					"GETKEYS^{in}" :
+					{
+					    "code": "@assert \\mathsf{flag};@return Z;",
+					    "params": []
+					}
+
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"GAME^b_2":
+				{
+				    "oracles":
+				    {
+					"ENC":
+					{
+					    "code": "@assert \\mathsf{flag};@assert |m_0| = |m_1|;c @sample enc(Z(d), m_0);@if b = 1:;@> @assert z \\neq \\bot;@> @if z \\neq d @then;@> @> c @sample enc(Z(d), m_b);@return c;",
+					    "params": ["d", "m_0", "m_1"]
+					},
+
+					"SETBIT" :
+					{
+					    "code": "@assert z = @bot;z @gets z';@return ();",
+					    "params": ["z'"]
+					},
+
+					"GETA^{out}" :
+					{
+					    "code": "@assert z \\neq @bot;\\mathsf{flag} @gets 1;@if Z = @bot @then;    Z(0) @sample \\{0,1\\}^\\lambda;    Z(1) @sample \\{0,1\\}^\\lambda;@return Z(z);",
+					    "params": []
+					},
+
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"GAME^b_3":
+				{
+				    "oracles":
+				    {
+					"ENC":
+					{
+					    "code": "@assert \\mathsf{flag};@assert |m_0| = |m_1|;c @sample enc(Z(d), m_0);@if z \\neq d @then;;;@> @> c @sample enc(Z(d), m_b);@return c;",
+					    "params": ["d", "m_0", "m_1"]
+					},
+
+					"SETBIT" :
+					{
+					    "code": "@assert z = @bot;z @gets z';@return ();",
+					    "params": ["z'"]
+					},
+
+					"GETA^{out}" :
+					{
+					    "code": "@assert z \\neq @bot;\\mathsf{flag} @gets 1;@if Z = @bot @then;@> Z(0) @sample \\{0,1\\}^\\lambda;@> Z(1) @sample \\{0,1\\}^\\lambda;@return Z(z);",
+					    "params": []
+					},
+
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"GAME^b_4":
+				{
+				    "oracles":
+				    {
+					"ENC":
+					{
+					    "code": "@assert \\mathsf{flag};@assert |m_0| = |m_1|;c @sample enc(Z(d), m_0);@if z \\neq d @then;@> @assert k \\neq \\bot;@> @> c @sample enc(k, m_b);;@return c;",
+					    "params": ["d", "m_0", "m_1"]
+					},
+
+					"SETBIT" :
+					{
+					    "code": "@assert z = @bot;z @gets z';@return ();",
+					    "params": ["z'"]
+					},
+
+					"GETA^{out}" :
+					{
+					    "code": "@assert z \\neq @bot;\\mathsf{flag} @gets 1;@if Z = @bot @then;@> Z(z) @sample \\{0,1\\}^\\lambda;@> @assert k = \\bot;@> k @sample \\{0,1\\}^{\\lambda};@return Z(z);",
+					    "params": []
+					},
+
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"RED":
+				{
+				    "oracles":
+				    {
+					"ENC":
+					{
+					    "code": "@assert \\mathsf{flag};@assert |m_0| = |m_1|;c @sample enc(Z(d), m_0);@if z \\neq d @then;;@> @> c @sample \\mathsf{ENC}(m_0, m_1);;@return c;",
+					    "params": ["d", "m_0", "m_1"]
+					},
+
+					"SETBIT" :
+					{
+					    "code": "@assert z = @bot;z @gets z';@return ();",
+					    "params": ["z'"]
+					},
+
+					"GETA^{out}" :
+					{
+					    "code": "@assert z \\neq @bot;\\mathsf{flag} @gets 1;@if Z = @bot @then;@> Z(z) @sample \\{0,1\\}^\\lambda;;@> \\mathsf{SMP}();@return Z(z);",
+					    "params": []
+					}
+				    }
+				},
+
+				"IND-CPA^b(se)":
+				{
+				    "oracles":
+				    {
+					"SMP":
+					{
+					    "code": "@assert k = \\bot;k @sample \\{0,1\\}^{\\lambda};@return k",
+					    "params": []
+					},
+
+					"ENC":
+					{
+					    "code": "@assert k \\neq \\bot;@assert |m_0| = |m_1|; c @sample enc(k, m_b);@return c",
+					    "params": ["m_0", "m_1"]
+					}
+				    }
+				}
+			    }
+			}
+		    ]
+		},
+
+		"cuts": [
+
+		]
+	    }
 	},
 
 	"Lemma 4":
