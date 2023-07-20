@@ -23,7 +23,7 @@
     <div id="navbar">
       <ul>
 	<li><a class="active" href="index.html">Home</a></li>
-	<li><a href="definitions.html">Definitions</a></li>
+	<!--<li><a href="definitions.html">Definitions</a></li>-->
 	<!--<li><a href="proofs_index.html">Proofs</a></li>-->
       </ul>
     </div>
@@ -38,9 +38,26 @@
 	  <p>
 		There are currently three case studies available:
 		<ul>
-		  <li>IND-CPA</li>
-		  <li><a href="ggm.html">GGM PRF-from-PRG</a>: We give a proof for the famous <a href="https://eprint.iacr.org/">GGM Tree</a> construction for <emph>constant depth</emph>. The proof uses a <a href="prg-ggm-def.html">PRG</a> and builds a <a href="">PRF</a>.</li>
-		  <li><a href="new-yao.html">Garbling Security of Yao's Protocol</a>: Brzuska and Oechsner <a href="">formalized</a> security of <a href="">Yao's Garblind Scheme</a> in the framework of SSPs. We show their proof in our tool.</li>
+		  <li>
+			<a href="game-to-sim-ind-cpa-for-se.html">IND-CPA</a>: Equivalence of Semantic Security. The proof uses the following definitions:
+			<ul>
+			  <li><a href="ind-cpa-def.html">Indistinguishability chosen plaintext attack (IND-CPA)</a></li>
+			  <li><a href="sim-based-ind-cpa-def.html">Simulation-based IND-CPA</a></li>
+			</ul>
+		  </li>
+		  <li>
+			<a href="ggm.html">GGM PRF-from-PRG</a>: We give a proof for the famous <a href="https://eprint.iacr.org/">GGM Tree</a> construction for <emph>constant depth</emph>. The proof uses the following definitions
+			<ul>
+			  <li><a href="prg-ggm-def.html">(Length Doubling) Pseudo-Random Generators (PRG)</a></li>
+			  <li><a href="">Pseudo-Random Functions (PRF)</a></li>
+			</ul>
+		  </li>
+		  <li>
+			<a href="new-yao.html">Garbling Security of Yao's Protocol</a>: Brzuska and Oechsner <a href="">formalized</a> security of <a href="">Yao's Garblind Scheme</a> in the framework of SSPs. We show their proof in our tool. The proof uses the following definitions
+			<ul>
+			  <li>IND CPA?</li>
+			</ul>
+		  </li>
 		</ul>
 	  </p>
     </div>
