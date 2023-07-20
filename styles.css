@@ -173,7 +173,7 @@ pcode-annotated-line:hover {
     scrollbar-width: thin;
     scrollbar-color: #bcbcbc white;
     overflow-y: auto;
-    padding: 0 0 0 5%;
+    /* padding: 0 0 0 5%; */
     border: 1px solid #333;
 }
 
@@ -182,6 +182,7 @@ pcode-annotated-line:hover {
 }
 
 .inlining-table table, th, td {
+    white-space: nowrap;
     /* border: 1px solid black; */
 }
 
