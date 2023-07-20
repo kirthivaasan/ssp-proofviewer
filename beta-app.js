@@ -317,6 +317,7 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 		    // v.style = 'strokeColor=none;fillColor=#808080;opacity=15';
 		} else if (type == 'codeq') {
 		    // v.style = 'dashed=1;';
+		    v.style = "fillColor=" + pkg_color + ";strokeColor=green;strokeWidth=2;" + ';shape=kplinehatch;opacity=100;';
 		}
 	    } else {
 		v.style = "fillColor=" + pkg_color + ";strokeColor="+ pkg_stroke;
@@ -362,6 +363,15 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 		var x = ghost[pkg_name].x;
 		var y = ghost[pkg_name].y;
 		var edge_style = ghost[pkg_name].style + "dashed=1;";
+
+		if (cut != null && (cut.includes(pkg_name)) && type != null) {
+		    if (type == 'reduction') {
+			edge_style += "strokeColor=brown;";
+		    } else if (type == 'codeq') {
+			edge_style += "strokeColor=green;";
+		    }
+
+		}
 
 		// var src_node = graph.insertVertex(parent, null, pkg, node_cfg.x - 200, node_cfg.y, 0, 0);
 		var pkg = doc.createElement('GhostPackage');
@@ -426,9 +436,9 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 
 		if (cut != null && (cut.includes(src_node.value.attributes.name.value) || cut.includes(v1.value.attributes.name.value)) && type != null) {
 		    if (type == 'reduction') {
-			edge.style += 'opacity=30'; //;fontColor=#ececec
+			edge.style += 'strokeColor=brown;fontColor=brown;'; //;fontColor=#ececec
 		    } else if (type == 'codeq') {
-
+			edge.style += 'strokeColor=green;fontColor=green;'
 		    }
 		}
 
@@ -453,50 +463,59 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 		edge_style = edges_cfg['@oracles_interface'][pkg_name];
 	    }
 
-	    var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
-	}
-
-		// add codeq dashed rect
-	if (cut != null && (type == 'codeq' || type == 'plugin')) {
-	    var bbox_min_x = 99999999999999;
-	    var bbox_min_y = 99999999999999;
-	    var bbox_max_x = -99999999999999;
-	    var bbox_max_y = -99999999999999;
-
-	    for (let node of cut) {
-		if (node in config.nodes) {
-		    var v = config.nodes[node];
-		    var x = v.x;
-		    var y = v.y;
-
-		    var w = v.width;
-		    var h = v.height;
-
-
-		    if (x < bbox_min_x) {
-			bbox_min_x = x;
-		    }
-
-		    if (y < bbox_min_y) {
-			bbox_min_y = y;
-		    }
-
-		    if (x + w > bbox_max_x) {
-			bbox_max_x = x + w;
-		    }
-
-		    if (y + h > bbox_max_y) {
-			bbox_max_y = y + h;
-		    }
-
-		} else {
-		    throw new InvalidCut('pkg name: ' + node + ' in cut not found in graph.');
+	    if (cut != null && (cut.includes(pkg_name)) && type != null) {
+		if (type == 'reduction') {
+		    edge_style += "fontColor=brown;strokeColor=brown;";
+		} else if (type == 'codeq') {
+			edge_style += "fontColor=green;strokeColor=green;";
 		}
 	    }
 
-	    var v = graph.insertVertex(parent, null, '@dashed_rect', bbox_min_x-5, bbox_min_y-5, bbox_max_x - bbox_min_x + 10, (bbox_max_y - bbox_min_y) + 10);
-	    v.style = 'fillColor=gray;dashed=1;opacity=20;';
+
+	    var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
 	}
+
+	// add codeq dashed rect
+	// if (cut != null && (type == 'codeq' || type == 'plugin')) {
+	//     var bbox_min_x = 99999999999999;
+	//     var bbox_min_y = 99999999999999;
+	//     var bbox_max_x = -99999999999999;
+	//     var bbox_max_y = -99999999999999;
+
+	//     for (let node of cut) {
+	// 	if (node in config.nodes) {
+	// 	    var v = config.nodes[node];
+	// 	    var x = v.x;
+	// 	    var y = v.y;
+
+	// 	    var w = v.width;
+	// 	    var h = v.height;
+
+
+	// 	    if (x < bbox_min_x) {
+	// 		bbox_min_x = x;
+	// 	    }
+
+	// 	    if (y < bbox_min_y) {
+	// 		bbox_min_y = y;
+	// 	    }
+
+	// 	    if (x + w > bbox_max_x) {
+	// 		bbox_max_x = x + w;
+	// 	    }
+
+	// 	    if (y + h > bbox_max_y) {
+	// 		bbox_max_y = y + h;
+	// 	    }
+
+	// 	} else {
+	// 	    throw new InvalidCut('pkg name: ' + node + ' in cut not found in graph.');
+	// 	}
+	//     }
+
+	//     var v = graph.insertVertex(parent, null, '@dashed_rect', bbox_min_x-5, bbox_min_y-5, bbox_max_x - bbox_min_x + 10, (bbox_max_y - bbox_min_y) + 10);
+	//     v.style = 'fillColor=gray;dashed=1;opacity=20;';
+	// }
 
 
     } finally {
