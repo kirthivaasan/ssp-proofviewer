@@ -72,7 +72,24 @@
 			</ul>
 		  </li>
 		  <li>
-			<a href="ggm.html">GGM PRF-from-PRG</a>: We give a proof for the famous <a href="https://eprint.iacr.org/">GGM Tree</a> construction for <emph>constant depth</emph>. The proof uses the following definitions
+			<p>
+			  <a href="ggm.html">GGM PRF-from-PRG</a>: We give a proof for the famous <a href="https://eprint.iacr.org/">GGM Tree</a> construction for <emph>constant depth</emph>.
+			</p>
+			<p>
+			  Goldreich, Goldwasser and Micali introduced the notion
+			  of pseudo-random functions and provided a construction
+			  of a pseudorandom function based on a length-doubling
+			  pseudorandom generator. The proof is commonly include in
+			  courses on the foundations of cryptography and
+			  contained, e.g., in Chapter 3.6.2 (Theorem 3.6.6) of the
+			  Foundations of Cryptography I textbook by Goldreich. The
+			  construction is naturally amenable to visualization: It
+			  structures PRG instances into a binary tree and the left
+			  halves and right halves of a PRG output become the input
+			  to the PRG instances on the next tree layer, until
+			  reaching the leaf layer.
+			  The proof uses the following definitions
+			</p>
 			<ul>
 			  <li><a href="prg-ggm-def.html">(Length Doubling) Pseudo-Random Generators (PRG)</a></li>
 			  <li><a href="">Pseudo-Random Functions (PRF)</a></li>
