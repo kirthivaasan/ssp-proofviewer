@@ -775,7 +775,6 @@ function add_inlining_oracles(proofstep_container, codeq) {
 	 	    table_cell = table.rows[k].cells[j];
 		    table_cell.innerHTML = line_html;
 	 	    k++;
-		    line_ctr++;
 	 	}
 	 	k++;
 	    }
