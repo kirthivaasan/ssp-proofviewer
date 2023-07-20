@@ -23,22 +23,45 @@
     <div id="navbar">
       <ul>
 	<li><a class="active" href="index.html">Home</a></li>
-	<li><a href="definitions.html">Definitions</a></li>
-	<li><a href="proofs_index.html">Proofs</a></li>
+	<!--<li><a href="definitions.html">Definitions</a></li>-->
+	<!--<li><a href="proofs_index.html">Proofs</a></li>-->
       </ul>
     </div>
 
     <div id="content">
-      <h2>Welcome to CryptoZoo!</h2>
+      <h2>Welcome to the CryptoZoo!</h2>
+      <h4> A place where state separating proofs (SSPs) live. </h4>
       <p>
-	A place where state separating proofs (SSPs) live.
-      </p>
+		SSPs are a style to define cryptographic properties and in particular to structure the proofs.
+		For a nice introduction, Lúcás Meier wrote a <a href="https://cronokirby.com/posts/2022/05/state-separable-proofs-for-the-curious-cryptographer/">overview blogpost</a> that is highly recommended.
+		For a formal and rigorous introduction to SSPs please check out:
+		<a href="https://eprint.iacr.org/2018/306/20180403:132933" target="_blank">BDFKK paper</a>.
       <p>
-      For a formal and rigorous introduction to SSPs please check out:
-      <a href="https://eprint.iacr.org/2018/306/20180403:132933" target="_blank">BDFKK paper</a>.
-      <p>
-
+	  <p>
+		There are currently three case studies available:
+		<ul>
+		  <li>
+			<a href="game-to-sim-ind-cpa-for-se.html">IND-CPA</a>: Equivalence of Semantic Security. The proof uses the following definitions:
+			<ul>
+			  <li><a href="ind-cpa-def.html">Indistinguishability chosen plaintext attack (IND-CPA)</a></li>
+			  <li><a href="sim-based-ind-cpa-def.html">Simulation-based IND-CPA</a></li>
+			</ul>
+		  </li>
+		  <li>
+			<a href="ggm.html">GGM PRF-from-PRG</a>: We give a proof for the famous <a href="https://eprint.iacr.org/">GGM Tree</a> construction for <emph>constant depth</emph>. The proof uses the following definitions
+			<ul>
+			  <li><a href="prg-ggm-def.html">(Length Doubling) Pseudo-Random Generators (PRG)</a></li>
+			  <li><a href="">Pseudo-Random Functions (PRF)</a></li>
+			</ul>
+		  </li>
+		  <li>
+			<a href="new-yao.html">Garbling Security of Yao's Protocol</a>: Brzuska and Oechsner <a href="">formalized</a> security of <a href="">Yao's Garblind Scheme</a> in the framework of SSPs. We show their proof in our tool. The proof uses the following definitions
+			<ul>
+			  <li>IND CPA?</li>
+			</ul>
+		  </li>
+		</ul>
+	  </p>
     </div>
-
   </body>
 </html>
