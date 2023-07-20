@@ -102,6 +102,48 @@ function newyao_driver() {
 	    "instance": "KEYS"
 	},
 
+	"IND-CPA^b":
+	{
+	    "oracles":
+	    {
+		"SMP":
+		{
+		    "code": "@assert k = \\bot;k @sample \\{0,1\\}^{\\lambda};@return ()",
+		    "params": []
+		},
+
+		"ENC":
+		{
+		    "code": "@assert k \\neq \\bot;@assert |m_0| = |m_1|; c @sample enc(k, m_b);@return c",
+		    "params": ["m_0", "m_1"]
+		}
+	    }
+	},
+
+	"RED":
+	{
+	    "oracles":
+	    {
+		"SETBIT":
+		{
+		    "code": "@assert z = \\bot;z @gets z';@return ()",
+		    "params": ["z'"]
+		},
+
+		"GETA^{out}":
+		{
+		    "code": "@assert z \\neq \\bot;\\mathsf{flag} @gets 1;@if Z = \\bot @then;@> Z(z) @sample \\{0,1\\}^{\\lambda};@> \\mathsf{SMP}();@return Z(z)",
+		    "params": []
+		},
+
+		"ENC":
+		{
+		    "code": "@assert \\mathsf{flag} = 1;@assert |m_0| = |m_1|; c @sample enc(Z(z), m_0);@if z \\neq d @then;@> c @gets \\mathsf{ENC}(m_0, m_1);@return c",
+		    "params": ["d", "m_0", "m_1"]
+		}
+	    }
+	},
+
 	"LEV_j":
 	{
 	    "oracles":
@@ -411,6 +453,28 @@ function newyao_driver() {
 
 
     var modular_pkgs = {
+	"2CPA":
+	{
+	    "oracles": [["KEYS", "SETBIT|GETA^{out}"], ["ENC^b", "ENC"]],
+	    "graph":
+	    {
+		"ENC^b": [["KEYS", "GETBIT|GETKEYS^{in}"]],
+		"KEYS": []
+	    },
+	    "layout": {"nodes":{"@oracles_interface":{"x":10,"y":0,"width":10,"height":80},"ENC^b":{"x":90,"y":30,"width":90,"height":50},"KEYS":{"x":300,"y":0,"width":90,"height":50}},"edges":{"@oracles_interface":{"KEYS":"exitX=0.7;exitY=0.35;entryX=0;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","ENC^b":"exitX=0.65;exitY=0.55;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;"},"ENC^b":{"KEYS":"exitX=0.85;exitY=0.3;entryX=0.05;entryY=0.7;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[],"ENC^b":[]}}
+	},
+
+	"RED->IND-CPA^b(se)":
+	{
+	    "oracles": [["RED", "SETBIT|GETA^{out}|ENC"]],
+	    "graph":
+	    {
+		"RED": [["IND-CPA^b", "SMP|ENC"]],
+		"IND-CPA^b": []
+	    },
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":50},"RED":{"x":80,"y":0,"width":90,"height":50},"IND-CPA^b":{"x":250,"y":0,"width":90,"height":50}},"edges":{"@oracles_interface":{"RED":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"RED":{"IND-CPA^b":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"RED":[]}}
+	},
+
 	"PRVSIM^0(GB, DINF)":
 	{
 	    "oracles": [["MOD-PRIVSIM^0", "GARBLE"]],
@@ -684,6 +748,15 @@ function newyao_driver() {
 	    ]
 	},
 
+	"Lemma 2": {
+	    "parent": "Theorem(Monolithic)",
+	    "contents": [
+		{
+		    "graphs": [["2CPA", "RED->IND-CPA^b(se)"]]
+		}
+	    ]
+	},
+
 	"Lemma 4":
 	{
 	    "parent": "Theorem 1",
@@ -837,194 +910,224 @@ function newyao_driver() {
 	    "type":
 	    {
 		"codeq": {
-		    "packages":
-		    {
-			"GGATE_n":
+		    "columns": [
 			{
-			    "oracles":
+			    "packages":
 			    {
-				"SETBIT_i":
+				"GGATE_n":
 				{
-				    "code": ";;@return \\mathsf{SETBIT}_i(z)",
-				    "params": ["z"]
-				},
+				    "oracles":
+				    {
+					"SETBIT_i":
+					{
+					    "code": ";;@return \\mathsf{SETBIT}_i(z)",
+					    "params": ["z"]
+					},
 
-				"GETA^{out}_i":
-				{
-				    "code": ";;;;;@return \\mathsf{GETA}^{out}_i",
-				    "params": []
-				},
+					"GETA^{out}_i":
+					{
+					    "code": ";;;;;@return \\mathsf{GETA}^{out}_i",
+					    "params": []
+					},
 
-				"GBLG":
-				{
-				    "code": "\\tilde{g}_j @gets \\bot;;;;Z^{out}_j @gets \\mathsf{GETKEYS}_j^{out};;;;;;;;;;;@for (b_{\\ell},b_r) \\in \\{0,1\\}^2;@> b_j @gets op(b_{\\ell}, b_r);@> k_j @gets Z^{out}_{j}(b_j);;@> c^{0}_{in} @gets \\mathsf{ENC}_{\\ell}(b_{\\ell}, k_j, 0^{\\lambda});;;;@> c^1_{in} @gets \\mathsf{ENC}_{\\ell}(b_{\\ell}, 0^{\\lambda}, 0^{\\lambda});@> c^1_{in} @gets \\mathsf{ENC}_{r}(b_{r}, c^1_{in}, c^1_{in});;;;;@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
-				    "params": ["\\ell", "r", "op", "j"]
-				},
+					"GBLG":
+					{
+					    "code": "\\tilde{g}_j @gets \\bot;;;;Z^{out}_j @gets \\mathsf{GETKEYS}_j^{out};;;;;;;;;;;@for (b_{\\ell},b_r) \\in \\{0,1\\}^2;@> b_j @gets op(b_{\\ell}, b_r);@> k_j @gets Z^{out}_{j}(b_j);;@> c^{0}_{in} @gets \\mathsf{ENC}_{\\ell}(b_{\\ell}, k_j, 0^{\\lambda});;;;@> c^1_{in} @gets \\mathsf{ENC}_{\\ell}(b_{\\ell}, 0^{\\lambda}, 0^{\\lambda});@> c^1_{in} @gets \\mathsf{ENC}_{r}(b_{r}, c^1_{in}, c^1_{in});;;;;@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
+					    "params": ["\\ell", "r", "op", "j"]
+					},
 
-				"GETKEYS^{in}_j":
-				{
-				    "code": "@return \\mathsf{GETKEYS}^{in}_j",
-				    "params": []
-				},
+					"GETKEYS^{in}_j":
+					{
+					    "code": "@return \\mathsf{GETKEYS}^{in}_j",
+					    "params": []
+					},
 
-			    }
-			},
-
-			"GGATE_n(2)":
-			{
-			    "oracles":
-			    {
-				"SETBIT_i":
-				{
-				    "code": ";;@return ()",
-				    "params": ["z"]
-				},
-
-				"GETA^{out}_i":
-				{
-				     "code": ";;;;;@return \\mathsf{GETA}^{out}_i",
-				    "params": []
-				},
-
-				"GBLG":
-				{
-				    "code": "\\tilde{g}_j @gets \\bot;z^{in}_{\\ell} @gets \\mathsf{GETBIT}(\\ell);z^{in}_{r} @gets \\mathsf{GETBIT}(r);;Z^{out}_j @gets \\mathsf{GETKEYS}_j^{out};;;;Z^{in}_{\\ell} @gets \\mathsf{GETKEYS}^{in}_{\\ell};;;;;Z^{in}_r @gets \\mathsf{GETKEYS}^{in}_r;;@for (b_{\\ell},b_r) \\in \\{0,1\\}^2;@> b_j @gets op(b_{\\ell}, b_r);@> k^{out}_j @gets Z^{out}_{j}(b_j);@> k^{out}_j @gets Z^{in}_{\\ell}(b_{\\ell});@> @if z^{in}_{\\ell} = b_{\\ell}:;@> @> c^{0}_{in} @sample enc_(k^{in}_{\\ell}, k^{out}_{j});@> @if z^{in}_{\\ell} \\neq b_{\\ell}:;@> @> c^{0}_{in} @sample enc(k^{in}_{\\ell}, 0^{\\lambda});@> c^1_{in} @sample enc(k_{\\ell}, 0^{\\lambda});@> k^{in}_r @gets Z^{in}_r(b_r);@> @if z^{in}_{r} = b_{r}:;@> @> c @sample enc(k^{in}_r, c^0_{in});@> @if z^{in}_r \\neq b_r:;@> @> c @sample enc(k^{in}_r, c^1_{in});@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
-				    "params": ["\\ell", "r", "op", "j"]
-				},
-
-				"GETKEYS^{in}_j":
-				{
-				    "code": "@return \\mathsf{GETKEYS}^{in}_j",
-				    "params": []
-				},
-
-			    }
-			},
-
-			"GGATE_n(3)":
-			{
-			    "oracles":
-			    {
-				"SETBIT_i":
-				{
-				    "code": "@assert z^{in}_i = \\bot;z^{in}_i @gets z;@return ()",
-				    "params": ["z"]
-				},
-
-				"GETA^{out}_i":
-				{
-				    "code": "@assert z^{in}_i \\neq \\bot;\\mathsf{flag}^{in}_i @gets 1;@if Z^{in}_i = \\bot:;@> Z^{in}_i(0) @sample \\{0,1\\}^\\lambda;@> Z^{in}_i(1) @sample \\{0,1\\}^\\lambda;@return Z^{in}_i(z^{in}_i)",
-				    "params": []
-				},
-
-				"GBLG":
-				{
-				    "code": "\\tilde{g}_j @gets @bot;@assert z_{\\ell} \\neq \\bot;@assert z_r \\neq \\bot;;\\mathsf{flag}^{out}_j @gets 1;@if Z^{out}_i = \\bot:;@> Z^{out}_i(0) @sample \\{0,1\\}^\\lambda;@> Z^{out}_i(1) @sample \\{0,1\\}^\\lambda;@assert \\mathsf{flag}^{in}_{\\ell} = 1;;;;;@assert \\mathsf{flag}^{in}_r = 1;;@for (b_{\\ell},b_r) \\in \\{0,1\\}^2;;;;@> k^{in}_{\\ell} @gets Z^{in}_{\\ell}(b_{\\ell});@> k^{in}_r @gets Z^{in}_r(b_r);@> @if b_{\\ell} = z^{in}_{\\ell} \\wedge b_r = z^{in}_r:;@> @> b_j @gets op(b_{\\ell}, b_r);@> @> k^{out}_j @gets Z^{out}_j(b_j);@> @else k^{out}_j @gets 0^{\\lambda};@> c_{in} @sample enc(k^{in}_{\\ell}, k^{out}_{j});@> c @sample enc(k^{in}_r, c_{in};@> \\tilde{g} @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
-				    "params": ["\\ell", "r", "op", "j"]
-				},
-
-				"GETKEYS^{in}_j":
-				{
-				    "code": "@assert \\mathsf{flag}^{out}_j = 1;@assert Z^{out}_j \\neq \\bot;@return Z^{out}_j",
-				    "params": []
+				    }
 				}
 
 			    }
 			},
 
-			"GGATE_n(4)":
 			{
-			    "oracles":
+			    "packages":
 			    {
-				"SETBIT_i":
+				"GGATE_n(2)":
 				{
-				    "code": "@assert z^{in}_i = \\bot;z^{in}_i @gets z;@return ()",
-				    "params": ["z"]
-				},
+				    "oracles":
+				    {
+					"SETBIT_i":
+					{
+					    "code": ";;@return ()",
+					    "params": ["z"]
+					},
 
-				"GETA^{out}_i":
-				{
-				    "code": "@assert z^{in}_i \\neq \\bot;\\mathsf{flag}^{in}_i @gets 1;@if Z^{in}_i = \\bot:;@> Z^{in}_i(0) @sample \\{0,1\\}^\\lambda;@> Z^{in}_i(1) @sample \\{0,1\\}^\\lambda;@return Z^{in}_i(z^{in}_i)",
-				    "params": []
-				},
+					"GETA^{out}_i":
+					{
+					    "code": ";;;;;@return \\mathsf{GETA}^{out}_i",
+					    "params": []
+					},
 
-				"GBLG":
-				{
-				    "code": "\\tilde{g}_j @gets @bot;@assert z_{\\ell} \\neq \\bot;@assert z_r \\neq \\bot;;\\mathsf{flag}^{out}_j @gets 1;@if Z^{out}_i = \\bot:;@> Z^{out}_i(0) @sample \\{0,1\\}^\\lambda;@> Z^{out}_i(1) @sample \\{0,1\\}^\\lambda;@assert \\mathsf{flag}^{in}_{\\ell} = 1;;;;;@assert \\mathsf{flag}^{in}_r = 1;;@for (b_{\\ell} \\oplus z^{in}_{\\ell},b_r \\oplus z^{in}_r) \\in \\{0,1\\}^2;;;;@> k^{in}_{\\ell} @gets Z^{in}_{\\ell}(b_{\\ell});@> k^{in}_r @gets Z^{in}_r(b_r);@> @if b_{\\ell} \\oplus z^{in}_{\\ell} = b_r \\oplus z^{in}_r:;@> @> b_j @gets op(b_{\\ell}, b_r);@> @> k^{out}_j @gets Z^{out}_j(b_j);@> @else k^{out}_j @gets 0^{\\lambda};@> c_{in} @sample enc(k^{in}_{\\ell}, k^{out}_{j});@> c @sample enc(k^{in}_r, c_{in};@> \\tilde{g} @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
-				    "params": ["\\ell", "r", "op", "j"]
-				},
+					"GBLG":
+					{
+					    "code": "\\tilde{g}_j @gets \\bot;z^{in}_{\\ell} @gets \\mathsf{GETBIT}(\\ell);z^{in}_{r} @gets \\mathsf{GETBIT}(r);;Z^{out}_j @gets \\mathsf{GETKEYS}_j^{out};;;;Z^{in}_{\\ell} @gets \\mathsf{GETKEYS}^{in}_{\\ell};;;;;Z^{in}_r @gets \\mathsf{GETKEYS}^{in}_r;;@for (b_{\\ell},b_r) \\in \\{0,1\\}^2;@> b_j @gets op(b_{\\ell}, b_r);@> k^{out}_j @gets Z^{out}_{j}(b_j);@> k^{out}_j @gets Z^{in}_{\\ell}(b_{\\ell});@> @if z^{in}_{\\ell} = b_{\\ell}:;@> @> c^{0}_{in} @sample enc_(k^{in}_{\\ell}, k^{out}_{j});@> @if z^{in}_{\\ell} \\neq b_{\\ell}:;@> @> c^{0}_{in} @sample enc(k^{in}_{\\ell}, 0^{\\lambda});@> c^1_{in} @sample enc(k_{\\ell}, 0^{\\lambda});@> k^{in}_r @gets Z^{in}_r(b_r);@> @if z^{in}_{r} = b_{r}:;@> @> c @sample enc(k^{in}_r, c^0_{in});@> @if z^{in}_r \\neq b_r:;@> @> c @sample enc(k^{in}_r, c^1_{in});@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
+					    "params": ["\\ell", "r", "op", "j"]
+					},
 
-				"GETKEYS^{in}_j":
-				{
-				    "code": "@assert \\mathsf{flag}^{out}_j = 1;@assert Z^{out}_j \\neq \\bot;@return Z^{out}_j",
-				    "params": []
+					"GETKEYS^{in}_j":
+					{
+					    "code": "@return \\mathsf{GETKEYS}^{in}_j",
+					    "params": []
+					},
+
+				    }
 				}
 			    }
 			},
 
-			"GGATE_{sim,n}":
 			{
-			    "oracles":
+			    "packages":
 			    {
-				"SETBIT_i":
+				"GGATE_n(3)":
 				{
-				    "code": "@assert z^{in}_i = \\bot;z^{in}_i @gets z;@return ()",
-				    "params": ["z"]
-				},
+				    "oracles":
+				    {
+					"SETBIT_i":
+					{
+					    "code": "@assert z^{in}_i = \\bot;z^{in}_i @gets z;@return ()",
+					    "params": ["z"]
+					},
 
-				"GETA^{out}_i":
-				{
-				    "code": "@assert z^{in}_i \\neq @bot;\\mathsf{flag} @gets 1;@if Z^{in}_i = @bot @then;@> Z^{in}_i(0) @sample \\{0,1\\}^\\lambda;@> Z^{in}_i(1) @sample \\{0,1\\}^\\lambda;@return Z^{in}_i(z^{in}_i)",
-				    "params": []
-				},
+					"GETA^{out}_i":
+					{
+					    "code": "@assert z^{in}_i \\neq \\bot;\\mathsf{flag}^{in}_i @gets 1;@if Z^{in}_i = \\bot:;@> Z^{in}_i(0) @sample \\{0,1\\}^\\lambda;@> Z^{in}_i(1) @sample \\{0,1\\}^\\lambda;@return Z^{in}_i(z^{in}_i)",
+					    "params": []
+					},
 
-				"GBLG":
-				{
-				    "code": "\\tilde{g}_j @gets \\bot;@assert z^{in}_{\ell} \\neq \\bot;@assert z^{in}_{r} \\neq \\bot;z^{out}_j @gets op(z^{in}_{\\ell}), z^{in}_{r};@assert z^{out}_j \\neq \\bot;\\mathsf{flag} @gets 1;@if Z^{out}_j = @bot @then;@> Z^{out}_j(0) @sample \\{0,1\\}^\\lambda;@> Z^{out}_j(1) @sample \\{0,1\\}^\\lambda;S^{out}_j(0) @gets Z^{out}_j(z^{in}_j);@assert \\mathsf{flag}^{in}_r = 1;S^{in}_r(0) @gets Z^{in}_r(z^{in}_r);@assert \\mathsf{flag}^{in}_r = 1;S^{in}_r(1) @gets Z^{in}_r(1 \\oplus z^{in}_r);@assert \\mathsf{flag}^{in}_{\\ell} = 1;S^{in}_{\\ell}(0) @gets Z^{in}_{\\ell}(z^{in}_{\\ell});@assert \\mathsf{flag}^{in}_{\\ell} = 1;S^{in}_{\\ell}(1) @gets Z^{in}_{\\ell}(1 \\oplus z^{in}_{\\ell});@for (d_{\\ell},d_r) \\in \\{0,1\\}^2 @do;@> k^{in}_{\\ell} @gets S^{in}_{\\ell}(d_{\\ell});@> k^{in}_r @gets S^{in}_r(d_r);@> @if d_{\\ell} = d_r = 0:;;@> @> k^{out}_j @gets S^{out}_j(0);@> @else k_j @gets 0^{\\lambda};@> c_{in} @sample enc(k^{in}_r, k^{out}_j);@> c @sample enc_{k^{in}_{\\ell}}(c_{in});@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
-				    "params": ["\\ell", "r", "op", "j"]
-				},
+					"GBLG":
+					{
+					    "code": "\\tilde{g}_j @gets @bot;@assert z_{\\ell} \\neq \\bot;@assert z_r \\neq \\bot;;\\mathsf{flag}^{out}_j @gets 1;@if Z^{out}_i = \\bot:;@> Z^{out}_i(0) @sample \\{0,1\\}^\\lambda;@> Z^{out}_i(1) @sample \\{0,1\\}^\\lambda;@assert \\mathsf{flag}^{in}_{\\ell} = 1;;;;;@assert \\mathsf{flag}^{in}_r = 1;;@for (b_{\\ell},b_r) \\in \\{0,1\\}^2;;;;@> k^{in}_{\\ell} @gets Z^{in}_{\\ell}(b_{\\ell});@> k^{in}_r @gets Z^{in}_r(b_r);@> @if b_{\\ell} = z^{in}_{\\ell} \\wedge b_r = z^{in}_r:;@> @> b_j @gets op(b_{\\ell}, b_r);@> @> k^{out}_j @gets Z^{out}_j(b_j);@> @else k^{out}_j @gets 0^{\\lambda};@> c_{in} @sample enc(k^{in}_{\\ell}, k^{out}_{j});@> c @sample enc(k^{in}_r, c_{in};@> \\tilde{g} @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
+					    "params": ["\\ell", "r", "op", "j"]
+					},
 
-				"GETKEYS^{in}_j":
-				{
-				    "code": "@assert \\mathsf{flag}^{out}_j = 1;@assert Z^{out}_j \\neq \\bot;@return Z^{out}_j;",
-				    "params": []
-				},
+					"GETKEYS^{in}_j":
+					{
+					    "code": "@assert \\mathsf{flag}^{out}_j = 1;@assert Z^{out}_j \\neq \\bot;@return Z^{out}_j",
+					    "params": []
+					}
 
+				    }
+				},
 			    }
 			},
 
-			"GGATE_{sim,n}(2)":
 			{
-			    "oracles":
+			    "packages":
 			    {
-				"SETBIT_i":
+				"GGATE_n(4)":
 				{
-				    "code": ";;@return \\mathsf{SETBIT}_i(z)",
-				    "params": ["z"]
-				},
+				    "oracles":
+				    {
+					"SETBIT_i":
+					{
+					    "code": "@assert z^{in}_i = \\bot;z^{in}_i @gets z;@return ()",
+					    "params": ["z"]
+					},
 
-				"GETA^{out}_i":
+					"GETA^{out}_i":
+					{
+					    "code": "@assert z^{in}_i \\neq \\bot;\\mathsf{flag}^{in}_i @gets 1;@if Z^{in}_i = \\bot:;@> Z^{in}_i(0) @sample \\{0,1\\}^\\lambda;@> Z^{in}_i(1) @sample \\{0,1\\}^\\lambda;@return Z^{in}_i(z^{in}_i)",
+					    "params": []
+					},
+
+					"GBLG":
+					{
+					    "code": "\\tilde{g}_j @gets @bot;@assert z_{\\ell} \\neq \\bot;@assert z_r \\neq \\bot;;\\mathsf{flag}^{out}_j @gets 1;@if Z^{out}_i = \\bot:;@> Z^{out}_i(0) @sample \\{0,1\\}^\\lambda;@> Z^{out}_i(1) @sample \\{0,1\\}^\\lambda;@assert \\mathsf{flag}^{in}_{\\ell} = 1;;;;;@assert \\mathsf{flag}^{in}_r = 1;;@for (b_{\\ell} \\oplus z^{in}_{\\ell},b_r \\oplus z^{in}_r) \\in \\{0,1\\}^2;;;;@> k^{in}_{\\ell} @gets Z^{in}_{\\ell}(b_{\\ell});@> k^{in}_r @gets Z^{in}_r(b_r);@> @if b_{\\ell} \\oplus z^{in}_{\\ell} = b_r \\oplus z^{in}_r:;@> @> b_j @gets op(b_{\\ell}, b_r);@> @> k^{out}_j @gets Z^{out}_j(b_j);@> @else k^{out}_j @gets 0^{\\lambda};@> c_{in} @sample enc(k^{in}_{\\ell}, k^{out}_{j});@> c @sample enc(k^{in}_r, c_{in};@> \\tilde{g} @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
+					    "params": ["\\ell", "r", "op", "j"]
+					},
+
+					"GETKEYS^{in}_j":
+					{
+					    "code": "@assert \\mathsf{flag}^{out}_j = 1;@assert Z^{out}_j \\neq \\bot;@return Z^{out}_j",
+					    "params": []
+					}
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"GGATE_{sim,n}":
 				{
-				    "code": ";;;;;@return \\mathsf{GETA}^{out}_i",
-				    "params": []
-				},
+				    "oracles":
+				    {
+					"SETBIT_i":
+					{
+					    "code": "@assert z^{in}_i = \\bot;z^{in}_i @gets z;@return ()",
+					    "params": ["z"]
+					},
 
-				"GBLG":
+					"GETA^{out}_i":
+					{
+					    "code": "@assert z^{in}_i \\neq @bot;\\mathsf{flag} @gets 1;@if Z^{in}_i = @bot @then;@> Z^{in}_i(0) @sample \\{0,1\\}^\\lambda;@> Z^{in}_i(1) @sample \\{0,1\\}^\\lambda;@return Z^{in}_i(z^{in}_i)",
+					    "params": []
+					},
+
+					"GBLG":
+					{
+					    "code": "\\tilde{g}_j @gets \\bot;@assert z^{in}_{\ell} \\neq \\bot;@assert z^{in}_{r} \\neq \\bot;z^{out}_j @gets op(z^{in}_{\\ell}), z^{in}_{r};@assert z^{out}_j \\neq \\bot;\\mathsf{flag} @gets 1;@if Z^{out}_j = @bot @then;@> Z^{out}_j(0) @sample \\{0,1\\}^\\lambda;@> Z^{out}_j(1) @sample \\{0,1\\}^\\lambda;S^{out}_j(0) @gets Z^{out}_j(z^{in}_j);@assert \\mathsf{flag}^{in}_r = 1;S^{in}_r(0) @gets Z^{in}_r(z^{in}_r);@assert \\mathsf{flag}^{in}_r = 1;S^{in}_r(1) @gets Z^{in}_r(1 \\oplus z^{in}_r);@assert \\mathsf{flag}^{in}_{\\ell} = 1;S^{in}_{\\ell}(0) @gets Z^{in}_{\\ell}(z^{in}_{\\ell});@assert \\mathsf{flag}^{in}_{\\ell} = 1;S^{in}_{\\ell}(1) @gets Z^{in}_{\\ell}(1 \\oplus z^{in}_{\\ell});@for (d_{\\ell},d_r) \\in \\{0,1\\}^2 @do;@> k^{in}_{\\ell} @gets S^{in}_{\\ell}(d_{\\ell});@> k^{in}_r @gets S^{in}_r(d_r);@> @if d_{\\ell} = d_r = 0:;;@> @> k^{out}_j @gets S^{out}_j(0);@> @else k_j @gets 0^{\\lambda};@> c_{in} @sample enc(k^{in}_r, k^{out}_j);@> c @sample enc_{k^{in}_{\\ell}}(c_{in});@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
+					    "params": ["\\ell", "r", "op", "j"]
+					},
+
+					"GETKEYS^{in}_j":
+					{
+					    "code": "@assert \\mathsf{flag}^{out}_j = 1;@assert Z^{out}_j \\neq \\bot;@return Z^{out}_j;",
+					    "params": []
+					},
+
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"GGATE_{sim,n}(2)":
 				{
-				    "code": "\\tilde{g}_j @gets \\bot;\\mathsf{EVAL}_j(\\ell, r, op);;;S^{out}_j(0) @gets \\mathsf{GETA}^{out}_j;;;;;;S^{in}_r(0) @gets \\mathsf{GETA}^{in}_r;;S^{in}_r(1) @gets \\mathsf{GETINA}^{in}_r;;S^{in}_{\\ell}(0) @gets \\mathsf{GETA}^{in}_{\\ell};;S^{in}_{\\ell}(1) @gets \\mathsf{GETINA}^{in}_{\\ell};;@for (d_{\\ell},d_r) \\in \\{0,1\\}^2 @do;@> k^{in}_{\\ell} @gets S^{in}_{\\ell}(d_{\\ell});@> k^{in}_r @gets S^{in}_r(d_r);@> @if d_{\\ell} = d_r = 0:;;@> @> k^{out}_j @gets S^{out}_j(0);@> @else k_j @gets 0^{\\lambda};@> c_{in} @sample enc(k^{in}_r, k^{out}_j);@> c @sample enc_{k^{in}_{\\ell}}(c_{in});@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
-				    "params": ["\\ell", "r", "op", "j"]
-				},
+				    "oracles":
+				    {
+					"SETBIT_i":
+					{
+					    "code": ";;@return \\mathsf{SETBIT}_i(z)",
+					    "params": ["z"]
+					},
 
-				"GETKEYS^{in}_j":
-				{
-				    "code": "@return \\mathsf{GETKEYS}^{in}_j",
-				    "params": []
-				},
+					"GETA^{out}_i":
+					{
+					    "code": ";;;;;@return \\mathsf{GETA}^{out}_i",
+					    "params": []
+					},
 
+					"GBLG":
+					{
+					    "code": "\\tilde{g}_j @gets \\bot;\\mathsf{EVAL}_j(\\ell, r, op);;;S^{out}_j(0) @gets \\mathsf{GETA}^{out}_j;;;;;;S^{in}_r(0) @gets \\mathsf{GETA}^{in}_r;;S^{in}_r(1) @gets \\mathsf{GETINA}^{in}_r;;S^{in}_{\\ell}(0) @gets \\mathsf{GETA}^{in}_{\\ell};;S^{in}_{\\ell}(1) @gets \\mathsf{GETINA}^{in}_{\\ell};;@for (d_{\\ell},d_r) \\in \\{0,1\\}^2 @do;@> k^{in}_{\\ell} @gets S^{in}_{\\ell}(d_{\\ell});@> k^{in}_r @gets S^{in}_r(d_r);@> @if d_{\\ell} = d_r = 0:;;@> @> k^{out}_j @gets S^{out}_j(0);@> @else k_j @gets 0^{\\lambda};@> c_{in} @sample enc(k^{in}_r, k^{out}_j);@> c @sample enc_{k^{in}_{\\ell}}(c_{in});@> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@return \\tilde{g}_j",
+					    "params": ["\\ell", "r", "op", "j"]
+					},
+
+					"GETKEYS^{in}_j":
+					{
+					    "code": "@return \\mathsf{GETKEYS}^{in}_j",
+					    "params": []
+					},
+
+				    }
+				}
 			    }
 			}
 
-		    }
+		    ]
 
 		},
 
