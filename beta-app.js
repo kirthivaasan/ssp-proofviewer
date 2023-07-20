@@ -742,13 +742,13 @@ function add_inlining_oracles(proofstep_container, codeq) {
 		    var n = code.split(';').length;
 		    num_rows += n;
 		}
+	    num_rows += 2;
 	}
 	col_lengths.push(num_rows);
     }
 
-    console.log(col_lengths);
     var max_orc_len = Math.max.apply(null, col_lengths);
-    var nrows = max_orc_len + 3*col_lengths.length + 1; // enough space for pkg title, oracle titles and spaces
+    var nrows = max_orc_len + col_lengths.length + 5; // enough space for pkg title, oracle titles and spaces
     var ncols = col_lengths.length*2; // dummy columns for spacing (yes I know this is bad practice :( )
     var table = buildTable(nrows, ncols);
     table.setAttribute('class', 'inlining-table');
@@ -756,30 +756,30 @@ function add_inlining_oracles(proofstep_container, codeq) {
     var j = 0;
     for (var l = 0; l < codeq.columns.length; l++) {
 	var packages = codeq.columns[l].packages;
+	var k = 0;
 	for (pkg in packages) {
-	 	var table_cell = table.rows[0].cells[j]; // pkg title cell
-	 	table_cell.innerHTML = parse_pkg_name(pkg);
-	 	table_cell.setAttribute('class', 'package_def_title');
-
-	 	var k = 1;
-	 	var oracles = packages[pkg].oracles;
-	 	for (orc in oracles) {
-	 	    table_cell = table.rows[k].cells[j]; // oracle title cell
-	 	    table_cell.setAttribute('class', 'oracle-title');
-	 	    table_cell.innerHTML = parse_oracle_signature(orc, oracles[orc].params);
-	 	    k++;
-	 	    var code = oracles[orc].code;
-	 	    var lines = code.split(';');
-	 	    for (var i = 0; i < lines.length; i++) {
-	 		var line_html = parse_pseudocode_line(lines[i]);
-	 		table_cell = table.rows[k].cells[j];
-	 		var line_div = document.createElement('div');
-	 		line_div.innerHTML = line_html;
-	 		table_cell.appendChild(line_div);
-	 		k++;
-	 	    }
+	    var table_cell = table.rows[k].cells[j]; // pkg title cell
+	    table_cell.innerHTML = parse_pkg_name(pkg);
+	    table_cell.setAttribute('class', 'package_def_title');
+	    k++;
+	    var oracles = packages[pkg].oracles;
+	    for (orc in oracles) {
+	 	table_cell = table.rows[k].cells[j]; // oracle title cell
+	 	table_cell.setAttribute('class', 'oracle-title');
+	 	table_cell.innerHTML = parse_oracle_signature(orc, oracles[orc].params);
+	 	k++;
+	 	var code = oracles[orc].code;
+	 	var lines = code.split(';');
+	 	for (var i = 0; i < lines.length; i++) {
+	 	    var line_html = parse_pseudocode_line(lines[i]);
+	 	    table_cell = table.rows[k].cells[j];
+	 	    var line_div = document.createElement('div');
+	 	    line_div.innerHTML = line_html;
+	 	    table_cell.appendChild(line_div);
 	 	    k++;
 	 	}
+	 	k++;
+	    }
 	}
 	j += 2;
     }
