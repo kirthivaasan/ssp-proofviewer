@@ -749,11 +749,11 @@ function add_inlining_oracles(proofstep_container, codeq) {
 
     var max_orc_len = Math.max.apply(null, col_lengths);
     var nrows = max_orc_len + col_lengths.length + 5; // enough space for pkg title, oracle titles and spaces
-    var ncols = col_lengths.length*2; // dummy columns for spacing (yes I know this is bad practice :( )
+    var ncols = col_lengths.length*2 + 1; // dummy columns for spacing (yes I know this is bad practice :( )
     var table = buildTable(nrows, ncols);
     table.setAttribute('class', 'inlining-table');
 
-    var j = 0;
+    var j = 1;
     for (var l = 0; l < codeq.columns.length; l++) {
 	var packages = codeq.columns[l].packages;
 	var k = 0;
@@ -773,15 +773,19 @@ function add_inlining_oracles(proofstep_container, codeq) {
 	 	for (var i = 0; i < lines.length; i++) {
 	 	    var line_html = parse_pseudocode_line(lines[i]);
 	 	    table_cell = table.rows[k].cells[j];
-	 	    var line_div = document.createElement('div');
-	 	    line_div.innerHTML = line_html;
-	 	    table_cell.appendChild(line_div);
+		    table_cell.innerHTML = line_html;
 	 	    k++;
+		    line_ctr++;
 	 	}
 	 	k++;
 	    }
 	}
 	j += 2;
+    }
+
+    // add line numbers
+    for (var line_ctr = 1; line_ctr < nrows; line_ctr++) {
+	table.rows[line_ctr-1].cells[0].innerHTML = line_ctr;
     }
 
     return table;
