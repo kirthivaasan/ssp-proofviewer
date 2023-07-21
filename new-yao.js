@@ -1259,6 +1259,9 @@ function newyao_driver() {
 	    "parent": "Lemma 5",
 	    "contents": [
 		{
+		    "text": "$$\\mathsf{SEC}^0_{n,d}(\\mathsf{GB}_{yao,n,d}) \\stackrel{\\text{code}}{\\equiv} \\mathcal{R}^1_{circ,n,d} \\rightarrow \\mathsf{LSEC}^0_{n}(\\mathsf{GB}^0_{yao,1,n}).$$",
+		},
+		{
 		    "graphs": [["SEC^0_{n,d}(GB_{yao,n,d})", "SEC^0_{n,d}(GB_{yao,n,d})"]]
 		},
 	    ],
@@ -1279,6 +1282,9 @@ function newyao_driver() {
 	{
 	    "parent": "Lemma 5",
 	    "contents": [
+		{
+		    "text": "$$\\mathsf{SEC}^1_{n,d}(\\mathsf{SIM}_{yao,n,d}) \\stackrel{\\text{code}}{\\equiv} \\mathcal{R}^d_{circ,n,d} \\rightarrow \\mathsf{LSEC}^1_{n}(\\mathsf{GB}^1_{yao,n,d}).$$",
+		},
 		{
 		    "graphs": [["SEC^1_{n,d}(SIM_{yao,n,d})", "SEC^1_{n,d}(SIM_{yao,n,d})"]]
 		}
@@ -1301,6 +1307,10 @@ function newyao_driver() {
 	{
 	    "parent": "Lemma 5",
 	    "contents": [
+		{
+		    "text": "$$\\mathcal{R}^i_{circ,n,d} \\rightarrow \\mathsf{LSEC}^1_{n}(\\mathsf{GB}^1_{yao,n,i}) \\stackrel{\\text{code}}{\\equiv} \\mathcal{R}^{i+1}_{circ,n,d} \\rightarrow \\mathsf{LSEC}^0_{n}(\\mathsf{GB}^0_{yao,n,i+1}).$$",
+		},
+
 		{
 		    "graphs": [["H_i", "H_i"]]
 		}
