@@ -1233,6 +1233,9 @@ function newyao_driver() {
 	    "parent": "Theorem 1",
 	    "contents": [
 		{
+		    "text": "(Layer Security). <br> Let \\(n, i \\in \\mathbb{N}\\). Let \\(\\mathcal{R}^i_{layer,n}\\) be the reduction defined in Claim 1 (top), \\(\\mathsf{GB}_{yao,i} := \\mathcal{R}^i_{layer,n}\\) and [placeholder]. Then for all PPT adversaries \\(\\mathcal{A}\\),$$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{LSEC}^0_n(\\mathsf{GB}_{yao,n,i}), \\mathsf{LSEC}^1_n(\\mathsf{GB}^1_{yao,n,i})) = \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}^i_{layer,n}; \\mathsf{2CPA}^0_{1..n}(se), \\mathsf{2CPA}^1_{1..n}(se)).$$"
+		},
+		{
 		    "graphs": []
 		}
 	    ]
