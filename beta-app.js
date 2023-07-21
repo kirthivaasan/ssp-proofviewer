@@ -537,6 +537,12 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 	    return -1;
 	}
 
+	var result = document.querySelectorAll(`[id*="package_def_container_"]`);
+	for (var i = 0; i < result.length; i++) {
+	    result[i].style.display = "none";
+	}
+
+
 	if (pkg_name in mono_pkgs) {
 	    if ("instance" in mono_pkgs[pkg_name]) {
 		// redirect to definition pkg that this instance derives from
@@ -551,7 +557,9 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 		graph.selectionModel.setCells([]);
 	    }, 2000);
 
-	    pkg_def_div.scrollIntoView({ behavior: 'smooth'});
+	    // pkg_def_div.scrollIntoView({ behavior: 'smooth'});
+	    pkg_def_div.style.display = "block";
+
 	} else {
 	    // console.log(pkg_name + " was not found in mono_pkgs")
 	}
