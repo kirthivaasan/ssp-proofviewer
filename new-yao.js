@@ -710,7 +710,7 @@ function newyao_driver() {
 	    "parent": null,
 	    "contents": [
 		{
-		    "text": "The following games are indistinguishable assuming IND-CPA secure schemes exist."
+		    "text": "(Security of Yao’s garbling scheme).<br> Let \\(se\\) be the symmetric encryption scheme used within \\(\\mathsf{gs}_{tdyao}\\) . Then for all \\(n, d \\in \\mathbb{N}\\), there exists a PPT simulator \\(\\mathsf{SIM}_{tdyao,n,d}\\) and reduction \\(\\mathcal{R}\\) such for all PPT adversaries \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{PRVSIM}^0_{n,d}(\\mathsf{GB}_{tdyao,n,d}, \\mathsf{DINF}_{tdyao}), \\mathsf{PRVSIM}^1_{n,d}(\\mathsf{SIM}_{tdyao,n,d})) \\leq dn \\cdot \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}; \\mathsf{IND\\text{-}CPA}^0(se), \\mathsf{IND\\text{-}CPA}^1(se)).$$"
 		},
 		{
 		    "graphs": [["PRVSIM^0(GB, DINF)"], ["PRVSIM^1(SIM)"]]
