@@ -504,7 +504,7 @@ function newyao_driver() {
 	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":120},"MOD-PRIVSIM^1":{"x":80,"y":0,"width":90,"height":120},"EV":{"x":360,"y":30,"width":90,"height":50},"SIM":{"x":260,"y":70,"width":90,"height":50},"BITS_1":{"x":500,"y":0,"width":90,"height":50},"BITS_n":{"x":500,"y":60,"width":90,"height":50}},"edges":{"@oracles_interface":{"MOD-PRIVSIM^1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"MOD-PRIVSIM^1":{"BITS_1":"exitX=0.9;exitY=0.15;entryX=0.15;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","EV":"exitX=1;exitY=0.45;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","SIM":"exitX=0.75;exitY=0.65;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EV":{"BITS_1":"exitX=0.85;exitY=0.25;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","BITS_n":"exitX=0.75;exitY=0.65;entryX=0.1;entryY=0.25;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"},"SIM":{"BITS_n":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.05;entryY=0.7;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"MOD-PRIVSIM^1":[],"EV":[],"SIM":[]}}
 	},
 
-	"MOD^0->SEC^0_{n,d}(GB_{yao,n,d})":
+	"MOD \\rightarrow SEC^0_{n,d}(GB_{yao,n,d})":
 	{
 	    "oracles": [["MOD", "GARBLE"]],
 	    "graph":
@@ -733,7 +733,10 @@ function newyao_driver() {
 	    "parent": "Theorem(Monolithic)",
 	    "contents": [
 		{
-		    "graphs": [["PRVSIM^0(GB, DINF)", "MOD^0->SEC^0_{n,d}(GB_{yao,n,d})"]]
+		    "text": "(Real game equivalence)<br>For all \\(n,d \\in \\mathbb{N},\\) $$\\mathsf{PRVSIM}^0_{n,d}(\\mathsf{GB}_{tdyao,n,d}, \\mathsf{DINF}_{tdyao}) \\stackrel{\\text{code}}{\\equiv} \\mathsf{MOD}_{n,d} \\rightarrow \\mathsf{SEC}^0_{n,d}(\\mathsf{GB}_{yao,n,d}).$$"
+		},
+		{
+		    "graphs": [["PRVSIM^0(GB, DINF)", "MOD \\rightarrow SEC^0_{n,d}(GB_{yao,n,d})"]]
 		}
 	    ],
 	    "type":
