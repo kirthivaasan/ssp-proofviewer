@@ -1243,6 +1243,9 @@ function newyao_driver() {
 	    "parent": "Theorem 1",
 	    "contents": [
 		{
+		    "text": "(Circuit Security). <br> Let \\(n, d \\in \\mathbb{N}\\). Then, for each \\(1 \\leq i \\leq d\\), there exists a PPT reduction \\(\\mathcal{R}^i_{circ,n,d}\\) such that for all PPT adversaries \\(\\mathcal{A}\\),$$\\begin{align} \\mathsf{Adv}(\\mathcal{A}; \\mathsf{SEC}^0_{n,d}(\\mathsf{GB}_{yao,n,d}), \\mathsf{SEC}^1_{n,d}(\\mathsf{SIM}_{yao,n,d})) \\\\ \\sum^{d}_{i=1} \\leq \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}^i_{circ,n,d}; \\mathsf{LSEC}^0_n(\\mathsf{GB}^0_{yao,n,i}), \\mathsf{LSEC}^1_n(\\mathsf{SIM}_{yao,n,i}).\\end{align}$$"
+		},
+		{
 		    "graphs": []
 		}
 	    ]
