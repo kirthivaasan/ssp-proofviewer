@@ -842,8 +842,30 @@ function newyao_driver() {
 				    }
 				}
 			    }
-			},
+			}
+		    ]
+		},
 
+		"cuts": [
+
+		]
+	    }
+	},
+
+	"Claim 4":
+	{
+	    "parent": "Theorem(Monolithic)",
+	    "contents": [
+		{
+		    "graphs": [["PRVSIM^1(SIM)", "MOD_{n,d}->SEC^1_{n,d}(SIM_{yao,n,d})"]]
+		}
+	    ],
+	    "type":
+	    {
+		"codeq":
+		{
+		    "columns":
+		    [
 			{
 			    "packages":
 			    {
@@ -893,6 +915,91 @@ function newyao_driver() {
 				    }
 				}
 			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"G^4_{ideal}":
+				{
+				    "oracles":
+				    {
+					"GARBLE":
+					{
+					    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> @assert z_{0,j} = \\bot;@> z_{0,j} @gets x_j;@> \\mathsf{flag}_{0,j} @gets 1;@> S_{0,j} @sample \\{0,1\\}^{\\lambda};@> S_{0,j}(1) @sample \\{0,1\\}^{\\lambda};@> \\tilde{x}[j] @gets S_{0,j}(0);@for i = 1..d @do;@> (\\boldsymbol{\\ell}, \\boldsymbol{r}, \\boldsymbol{op}) @gets C[i];;;@> @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> \\tilde{g}_j @gets \\bot;;;@> @> z_{i,j} @gets op(z_{i-1,\\ell},z_{i-1,r});;@> @> S_{i,j}(0) @sample \\{0,1\\}^{\\lambda};@> @> S_{i,j}(1) @sample \\{0,1\\}^{\\lambda};;;;;;@> @> @for (d_{\\ell},d_r) \\in \\{0,1\\}^2;@> @> @> k_{i-1,\\ell} @gets S_{i-1,\\ell}(d_{\\ell});@> @> @> k_{i-1,r} @gets S_{i-1,r}(d_{r});@> @> @> @if d_{\\ell} = d_r = 0:;@> @> @> @> k_{i,j} @gets S_{i,j}(0);@> @> @> @else k_{i,j} @gets 0^{\\lambda};@> @> @> c_{in} @sample enc(k_{i-1,r}, k_{i,j}));@> @> @> c @sample enc(k_{i-1,\\ell}, c_{in});@> @> @> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@> @> \\tilde{C}_j @gets \\tilde{g}_j;@> \\tilde{C}[i] @gets \\tilde{C}_{1..n};@for j = 1..n @do;@> Z_{d,j}(z_{d,j}) @gets S_{d,j}(0);@> Z_{d,j}(1-z_{d,j}) @gets S_{d,j}(1);@> \\text{dinf}[j] @gets Z_{d,j};@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+					    "params": ["C", "x"]
+					}
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"G^5_{ideal}":
+				{
+				    "oracles":
+				    {
+					"GARBLE":
+					{
+					    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> @assert z_{0,j} = \\bot;@> z_{0,j} @gets x_j;@> \\mathsf{flag}_{0,j} @gets 1;@> Z_{0,j} @sample \\{0,1\\}^{\\lambda};@> Z_{0,j}(1) @sample \\{0,1\\}^{\\lambda};@> \\tilde{x}[j] @gets Z(z_{0,j});@for i = 1..d @do;@> (\\boldsymbol{\\ell}, \\boldsymbol{r}, \\boldsymbol{op}) @gets C[i];;;@> @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> \\tilde{g}_j @gets \\bot;;;@> @> z_{i,j} @gets op(z_{i-1,\\ell},z_{i-1,r});;@> @> Z_{i,j}(0) @sample \\{0,1\\}^{\\lambda};@> @> Z_{i,j}(1) @sample \\{0,1\\}^{\\lambda};@> @> S_{i,j}(0) @gets Z_{i,j}(z_{i,j});@> @> S_{i-1,r}(0) @gets Z_{i-1,r}(z_{i-1,r});@> @> S_{i-1,r} @gets Z_{i-1,r}(1  - z_{i-1,r});@> @> S_{i-1,\\ell}(0) @gets Z_{i-1,r}(z_{i-1,\\ell});@> @> S_{i-1,\\ell} @gets Z_{i-1,r}(1- z_{i-1,\\ell});@> @> @for (d_{\\ell},d_r) \\in \\{0,1\\}^2;@> @> @> k_{i-1,\\ell} @gets S_{i-1,\\ell}(d_{\\ell});@> @> @> k_{i-1,r} @gets S_{i-1,r}(d_{r});@> @> @> @if d_{\\ell} = d_r = 0:;@> @> @> @> k_{i,j} @gets S_{i,j}(0);@> @> @> @else k_{i,j} @gets 0^{\\lambda};@> @> @> c_{in} @sample enc(k_{i-1,r}, k_{i,j}));@> @> @> c @sample enc(k_{i-1,\\ell}, c_{in});@> @> @> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@> @> \\tilde{C}_j @gets \\tilde{g}_j;@> \\tilde{C}[i] @gets \\tilde{C}_{1..n};@for j = 1..n @do;@> \\text{dinf}[j] @gets Z_{d,j};;;@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+					    "params": ["C", "x"]
+					}
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"G^6_{ideal}":
+				{
+				    "oracles":
+				    {
+					"GARBLE":
+					{
+					    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{SETBIT}_{0,j}(x_j);;@> \\tilde{x}[j] @gets \\mathsf{GETA}^{out}_{0,j};;;;@for i = 1..d @do;@> (\\boldsymbol{\\ell}, \\boldsymbol{r}, \\boldsymbol{op}) @gets C[i];;;@> @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> \\tilde{g}_j @gets \\bot;@> @> z_{i-1,\\ell} @gets \\mathsf{GETBIT}_{i-1,\\ell};@> @> z_{i-1,r} @gets \\mathsf{GETBIT}_{i-1,r};@> @> z_{i,j} @gets op(z_{i-1,\\ell},z_{i-1,r});@> @> \\mathsf{SETBIT}_{i,j}(z_{i,j});@> @> S_{i,j}(0) @sample \\mathsf{GETA}^{out}_{i,j};;;@> @> S_{i-1,r}(0) @gets \\mathsf{GETA}^{in}_{i-1,r};@> @> S_{i-1,r} @gets \\mathsf{GETINA}^{in}_{i-1,r};@> @> S_{i-1,\\ell}(0) @gets \\mathsf{GETA}^{in}_{i-1,\\ell};@> @> S_{i-1,\\ell} @gets \\mathsf{GETINA}^{in}_{i-1,\\ell};@> @> @for (d_{\\ell},d_r) \\in \\{0,1\\}^2;@> @> @> k_{i-1,\\ell} @gets S_{i-1,\\ell}(d_{\\ell});@> @> @> k_{i-1,r} @gets S_{i-1,r}(d_{r});@> @> @> @if d_{\\ell} = d_r = 0:;@> @> @> @> k^{out}_{i,j} @gets S_{i,j}(0);@> @> @> @else k^{out}_{i,j} @gets 0^{\\lambda};@> @> @> c_{in} @sample enc(k_{i-1,r}, k_{i,j}));@> @> @> c @sample enc(k_{i-1,\\ell}, c_{in});@> @> @> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@> @> \\tilde{C}_j @gets \\tilde{g}_j;@> \\tilde{C}[i] @gets \\tilde{C}_{1..n};@for j = 1..n @do;@> \\text{dinf}[j] @gets \\mathsf{GETKEYS}^{in}_{d,j};;;@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+					    "params": ["C", "x"]
+					}
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"G^7_{ideal}":
+				{
+				    "oracles":
+				    {
+					"GARBLE":
+					{
+					    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{SETBIT}_{0,j}(x_j);;@> \\tilde{x}[j] @gets \\mathsf{GETA}^{out}_{0,j};;;;@for i = 1..d @do;@> (\\boldsymbol{\\ell}, \\boldsymbol{r}, \\boldsymbol{op}) @gets C[i];@> @assert \\tilde{C}[i] = \\bot;@> @assert |\\boldsymbol{\\ell}|, |\\boldsymbol{r}|, |\\boldsymbol{op}| = n;@> @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> \\tilde{g}_j @gets \\bot;@> @> \\mathsf{EVAL}_{i,j}(\\ell,r,op);;;@> @> \\mathsf{SETBIT}_{i,j}(z_{i,j});@> @> S_{i,j}(0) @sample \\mathsf{GETA}^{out}_{i,j};;;@> @> S_{i-1,r}(0) @gets \\mathsf{GETA}^{in}_{i-1,r};@> @> S_{i-1,r} @gets \\mathsf{GETINA}^{in}_{i-1,r};@> @> S_{i-1,\\ell}(0) @gets \\mathsf{GETA}^{in}_{i-1,\\ell};@> @> S_{i-1,\\ell} @gets \\mathsf{GETINA}^{in}_{i-1,\\ell};@> @> @for (d_{\\ell},d_r) \\in \\{0,1\\}^2;@> @> @> k_{i-1,\\ell} @gets S^{in}_{i-1,\\ell}(d_{\\ell});@> @> @> k_{i-1,r} @gets S^{in}_{i-1,r}(d_{r});@> @> @> @if d_{\\ell} = d_r = 0:;@> @> @> @> k_{i,j} @gets S^{out}_{i,j}(0);@> @> @> @else k_{i,j} @gets 0^{\\lambda};@> @> @> c_{in} @sample enc(k_{i-1,r}, k_{i,j}));@> @> @> c @sample enc(k_{i-1,\\ell}, c_{in});@> @> @> \\tilde{g}_j @gets \\tilde{g}_j \\cup c;@> @> \\tilde{C}_j @gets \\tilde{g}_j;@> \\tilde{C}[i] @gets \\tilde{C}_{1..n};@for j = 1..n @do;@> \\text{dinf}[j] @gets \\mathsf{GETKEYS}^{in}_{d,j};;;@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+					    "params": ["C", "x"]
+					}
+				    }
+				}
+			    }
+			},
+
+			{
+			    "packages":
+			    {
+				"G^8_{ideal}":
+				{
+				    "oracles":
+				    {
+					"GARBLE":
+					{
+					    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{SETBIT}_{0,j}(x_j);;@> \\tilde{x}[j] @gets \\mathsf{GETA}^{out}_{0,j};;;;@for i = 1..d @do;@> (\\boldsymbol{\\ell}, \\boldsymbol{r}, \\boldsymbol{op}) @gets C[i];@> \\tilde{C}[i] @gets \\mathsf{GBL}_i(\\boldsymbol{\\ell}, \\boldsymbol{r}, \\boldsymbol{op});;;;;;;;;;;;;;;;;;;;;;;;;;;@for j = 1..n @do;@> \\text{dinf}[j] @gets \\mathsf{GETKEYS}^{in}_{d,j};;;@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+					    "params": ["C", "x"]
+					}
+				    }
+				}
+			    }
 			}
 		    ]
 		},
@@ -901,16 +1008,6 @@ function newyao_driver() {
 
 		]
 	    }
-	},
-
-	"Claim 4":
-	{
-	    "parent": "Theorem(Monolithic)",
-	    "contents": [
-		{
-		    "graphs": [["PRVSIM^1(SIM)", "MOD_{n,d}->SEC^1_{n,d}(SIM_{yao,n,d})"]]
-		}
-	    ]
 	},
 
 	"Lemma 2": {
