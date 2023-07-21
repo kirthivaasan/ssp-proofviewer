@@ -1270,6 +1270,7 @@ function newyao_driver() {
 		"reduction":
 		[
 		    {
+			"name": "\\mathcal{R}^1_{circ,n,d} \\rightarrow \\mathsf{LSEC}^0_{n}(\\mathsf{GB}^0_{yao,1,n})",
 			"i": 0, "j": 1,
 			"cut": ["GB^0_{n,2}", "GB^0_{n,d}", "KEYS_3", "KEYS_d", "KEYS_{d+1}"]
 		    }
@@ -1320,13 +1321,13 @@ function newyao_driver() {
 		"reduction":
 		[
 		    {
-			"name": "H_i",
+			"name": "\\mathcal{R}^i_{circ,n,d} \\rightarrow \\mathsf{LSEC}^1_{n}(\\mathsf{GB}^1_{yao,n,i})",
 			"i": 0, "j": 0,
 			"cut": ["GB^1_1", "LEV_{n,1}", "KEYS_1", "KEYS_2", "GB^1_{i-1}", "LEV_{n,i-1}", "KEYS_{i-1}", "KEYS_{i+2}", "GB^0_{n,i+1}", "KEYS_{i+3}", "GB^0_{n,i+2}", "KEYS_d", "KEYS_{d+1}", "GB^0_{n,d}"]
 		    },
 
 		    {
-			"name": "H_i",
+			"name": "\\mathcal{R}^{i+1}_{circ,n,d} \\rightarrow \\mathsf{LSEC}^0_{n}(\\mathsf{GB}^0_{yao,n,i+1})",
 			"i": 0, "j": 1,
 			"cut": ["GB^1_1", "LEV_{n,1}", "KEYS_1", "KEYS_2", "GB^1_{i-1}", "LEV_{n,i-1}", "KEYS_{i-1}", "KEYS_i", "GB^1_i", "LEV_{n,i}", "KEYS_{i+3}", "GB^0_{n,i+2}", "KEYS_d", "KEYS_{d+1}", "GB^0_{n,d}"]
 		    }
