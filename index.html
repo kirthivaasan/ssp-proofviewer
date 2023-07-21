@@ -35,70 +35,36 @@
 		<a href="#sspresources">State-separating proofs SSPs</a>
 	      are a style to define cryptographic properties and in particular to structure their proofs.
 	        The CryptoZoo proof viewer allows you to engage with proofs interactively, find relevant information quickly, hide information
-	        that isn't interesting to you at the moment and much more. Want to check out how it works?
+	        that isn't interesting to you at the moment and much more. 
 	      
       <p>
 	  <p>
-		There are currently three case studies available:
+		Want to check out how it works? Here are three nice examples!
 		<ul>
 		  <li>
 			<p>
-			  <a href="game-to-sim-ind-cpa-for-se.html">IND-CPA</a>: Equivalence of Semantic Security.
+			  <a href="game-to-sim-ind-cpa-for-se.html">IND-CPA</a>: This is a warm-up example if you are not so familiar
+			  with SSPs or cryptographic definitions as a whole. It shows that two security notions for
+			  symmetric encryption are equivalent.
 			</p>
-			<p>
-			  Simulation-based security notions for symmetric
-			  encryption state that the adversary should not learn
-			  more than some ideal leakage and that everything the
-			  adversary can do when given a ciphertext can also be
-			  done when only given the ideal leakage, but not the
-			  ciphertext. While different views on ideal leakage are
-			  possible, the minimal approach is to leak the length of
-			  the message that is encrypted, since an adversary can
-			  infer the length of the message from the length of the
-			  ciphertext. Simulation-based notions which leak the
-			  length of the message are typically equivalent to their
-			  game-based counterparts.
-			</p>
-			<p>
-			  In this case study, we provide a proof that
-			  indistinguishability under chosen plaintext attacks
-			  (IND-CPA) security in its Real-or-Zeroes formulation is
-			  equivalent to a simulation-based formulation where the
-			  simulator receives only the length of the message m. The
-			  proof uses the following definitions:
-			</p>
-			<ul>
-			  <li><a href="ind-cpa-def.html">Indistinguishability chosen plaintext attack (IND-CPA)</a></li>
-			  <li><a href="landing-game-to-sim-ind-cpa-for-se.html">Simulation-based IND-CPA</a></li>
-			</ul>
 		  </li>
 		  <li>
 			<p>
-			  <a href="landing-ggm.html">GGM PRF-from-PRG</a>: We give a proof for the famous <a href="https://eprint.iacr.org/">GGM Tree</a> construction for <emph>constant depth</emph>.
+			  <a href="landing-ggm.html">GGM PRF-from-PRG</a>: This is a (constant-depth) version of a famous proof by
+			  <a href="https://www.wisdom.weizmann.ac.il/~oded/ggm.html">Goldreich, Goldwasser and Micali (GGM)</a> who show
+			  that pseudorandom generators (PRGs) imply stream ciphers, a.k.a. pseudorandom functions (PRFs),
+			  by stacking PRGs in a tree-like fashion. In SSP-style fashion, the proof is very
+			  short and neat (for a constant-depth tree) and thus a nice intermediate example.
+			  It is also a very clean example of a <a href="#sspresources">hybrid proof</a>.			  .
 			</p>
-			<p>
-			  Goldreich, Goldwasser and Micali introduced the notion
-			  of pseudo-random functions and provided a construction
-			  of a pseudorandom function based on a length-doubling
-			  pseudorandom generator. The proof is commonly include in
-			  courses on the foundations of cryptography and
-			  contained, e.g., in Chapter 3.6.2 (Theorem 3.6.6) of the
-			  Foundations of Cryptography I textbook by Goldreich. The
-			  construction is naturally amenable to visualization: It
-			  structures PRG instances into a binary tree and the left
-			  halves and right halves of a PRG output become the input
-			  to the PRG instances on the next tree layer, until
-			  reaching the leaf layer.
-			  The proof uses the following definitions
-			</p>
-			<ul>
-			  <li><a href="prg-ggm-def.html">(Length Doubling) Pseudo-Random Generators (PRG)</a></li>
-			  <li><a href="">Pseudo-Random Functions (PRF)</a></li>
-			</ul>
 		  </li>
 		  <li>
 			<p>
-			  <a href="landing-new-yao.html">Garbling Security of Yao's Protocol</a>: Brzuska and Oechsner <a href="">formalized</a> security of <a href="">Yao's Garblind Scheme</a> in the framework of SSPs.
+			  <a href="landing-new-yao.html">Garbling Security of Yao's Protocol</a>: This is a
+			  proof of <a href="https://eprint.iacr.org/2004/175">Yao's famous garbling scheme</a>, 
+			  which is a core building block for secure multi-party computation. This is the most advanced
+			  example and involves a hybrid over the depth and width of a circuit. We visualize
+			  the <a href="https://eprint.iacr.org/2021/1453">state-separating proof</a> of Yao's garbling scheme by Brzuska and Oechsner.
 			</p>
 			<ul>
 			</ul>
@@ -109,7 +75,8 @@
 	  <p>
 		For a nice introduction to SSPs, Lúcás Meier wrote a <a href="https://cronokirby.com/posts/2022/05/state-separable-proofs-for-the-curious-cryptographer/">overview blogpost</a> that is highly recommended.
 		For a formal and rigorous introduction to SSPs you can check out the
-		<a href="https://eprint.iacr.org/2018/306/20180403:132933" target="_blank">BDFKK paper</a>.
+		<a href="https://eprint.iacr.org/2018/306/20180403:132933" target="_blank">BDFKK paper</a>
+		who also have a nice introduction to hybrid proofs in Appendix B.
 	  </p>
     </div>
   </body>
