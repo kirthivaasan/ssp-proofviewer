@@ -1023,6 +1023,9 @@ function newyao_driver() {
 	    "parent": "Theorem(Monolithic)",
 	    "contents": [
 		{
+		    "text": "Let \\(se\\) be a symmetric encryption scheme. For reduction \\(\\mathcal{R}_{cpa} := \\mathsf{RED}\\), it holds that for any PPT adversary \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{2CPA}^0(se), \\mathsf{2CPA}^1(se)) \\leq \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}_{cpa}; \\mathsf{IND\\text{-}CPA}^0(se), \\mathsf{IND\\text{-}CPA}^1(se)).$$"
+		},
+		{
 		    "graphs": [["2CPA", "RED->IND-CPA^b(se)"]]
 		}
 	    ],
