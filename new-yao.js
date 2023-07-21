@@ -714,6 +714,9 @@ function newyao_driver() {
 		},
 		{
 		    "graphs": [["PRVSIM^0(GB, DINF)"], ["PRVSIM^1(SIM)"]]
+		},
+		{
+		    "text": "Putting together "
 		}
 	    ]
 	},
@@ -859,6 +862,9 @@ function newyao_driver() {
 	{
 	    "parent": "Theorem(Monolithic)",
 	    "contents": [
+		{
+		    "text": "(Ideal game equivalence)<br>For all \\(n,d \\in \\mathbb{N},\\) $$\\mathsf{PRVSIM}^1_{n,d}(\\mathsf{SIM}_{tdyao,n,d}) \\stackrel{\\text{code}}{\\equiv} \\mathsf{MOD}_{n,d} \\rightarrow \\mathsf{SEC}^1_{n,d}(\\mathsf{SIM}_{yao,n,d}).$$",
+		},
 		{
 		    "graphs": [["PRVSIM^1(SIM)", "MOD_{n,d}->SEC^1_{n,d}(SIM_{yao,n,d})"]]
 		}
