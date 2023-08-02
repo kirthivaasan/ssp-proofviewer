@@ -29,37 +29,45 @@
     </div>
 
     <div id="content">
-      <h4>Landing page for sim ind cpa to se</h4>
+      <h4>Equivalence of two security notions for symmetric encryption</h4>
       <p>
-	<a href="game-to-sim-ind-cpa-for-se.html">Proof</a>: Equivalence of Semantic Security.
+      Symmetric encryption should provide confidentiality, i.e., leak no
+      information about a message except for its length (since an adversary can
+      infer the length of the message from the length of the ciphertext). So, an encryption
+      of a message m should look like an encryption of a message consisting
+      of |m| zeroes. This notion is captured by <a href="ind-cpa-def.html">indistinguishability under
+      chosen plaintext attacks (IND-CPA)</a>, where the adversary chooses a message
+      m and submits it to an ENC oracle which either returns an encryption of
+      m or an encryption of |m| zeroes. The adversary can query the oracle
+      multiple times.
+    </p>
+    <p>
+      An equally valid way of defining confidentiality is that whatever knowledge
+      the adversary gets from ciphertexts, the adversary should have been able to <b>simulate</b> this 
+      knowledge just given the length of the message |m|. This <b>simulation</b>-based
+      definition is usually called <a href="sim-based-ind-cpa-def.html">semantic security</a> of encryption and is 
+      equivalent to the aforementioned game-based IND-CPA definition of confidentiality.
+    </p>
+      <p>
+      See	
+      <a href="game-to-sim-ind-cpa-for-se.html">here</a> for an SSP-style proof.</br></br></p>
       </p>
       <p>
-	Simulation-based security notions for symmetric
-	encryption state that the adversary should not learn
-	more than some ideal leakage and that everything the
-	adversary can do when given a ciphertext can also be
-	done when only given the ideal leakage, but not the
-	ciphertext. While different views on ideal leakage are
-	possible, the minimal approach is to leak the length of
-	the message that is encrypted, since an adversary can
-	infer the length of the message from the length of the
-	ciphertext. Simulation-based notions which leak the
-	length of the message are typically equivalent to their
-	game-based counterparts.
+        <b>Note:</b> Often, IND-CPA security is also defined as a <b>left-or-right</b> distinguishing
+        game which allows the adversary to submit
+        two messages m0 and m1 of equal length and the game either encrypts the left or the right message.
+        This notion is (up to a factor 2) equivalent to the aforementioned 
+        real-or-zeroes formulation, because encryptions of m0 and m1 are both
+        indistinguishable from encryptions of |m0|=|m1| zeroes and because
+        we can choose one of the two messages to be the all-zeroes message.  
       </p>
       <p>
-	In this case study, we provide a proof that
-	indistinguishability under chosen plaintext attacks
-	(IND-CPA) security in its Real-or-Zeroes formulation is
-	equivalent to a simulation-based formulation where the
-	simulator receives only the length of the message m. The
-	proof uses the following definitions:
-      </p>
-      <ul>
-	<li><a href="ind-cpa-def.html">Indistinguishability chosen plaintext attack (IND-CPA)</a></li>
-	<li><a href="sim-based-ind-cpa-def.html">Simulation-based IND-CPA</a></li>
-      </ul>
-
+      See 
+      <a href="https://joyofcryptography.com/pdf/chap7.pdf">Chapter 7</a> 
+      of Rosulek's The Joy of 
+      Cryptography for constructions and more discussion of security definitions for symmetric encryption.
+    </p>
+      
     </div>
   </body>
 </html>
