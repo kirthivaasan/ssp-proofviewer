@@ -29,12 +29,29 @@
     </div>
 
     <div id="content">
-      <h4>Landing page for Yao's garbling scheme proof</h4>
+      <h4>Yao's garbling scheme</h4>
       <p>
-	<a href="new-yao.html">Proof</a>: Yao's Garbling Scheme
+        Yao's garbling scheme is a core tool for secure multi-party computation.
+        The scheme first associates a pair of keys (a key for 0 and a key for 1) with the output (wire) of each
+        gate and then double-encrypts the output keys of a gate under the "matching" input keys to obtain
+        an <b>unordered set</b> of 4 ciphertexts so that, when holding keys corresponding to the
+        input bits, one can decrypt one of the ciphertexts of each gate in the first layer
+        of the circuit and, in this way, obtain keys corresponding to the wire values after
+        the first layer etc. until the last layer.
       </p>
       <p>
-	Yao test
+        <a href="https://eprint.iacr.org/2004/175">Lindell and Pinkas</a> 
+        gave the first security analysis of Yao's garbled circuit approach.
+        Later,
+        <a href="https://eprint.iacr.org/2012/265">Bellare, Hoang and Rogaway</a> introduced the garbling scheme abstraction and
+        provided a code-based game-playing, modular analysis of Yao's garbling scheme.
+        Recently, <a href="https://eprint.iacr.org/2021/1453">Brzuska and Oechsner</a>
+        also gave an SSP-style proof for Yao's garbling scheme,
+        which we visualize here.
+      </p>      
+
+      <p>
+	<a href="new-yao.html">SSP-style proof</a> of Yao's Garbling Scheme
       </p>
 
     </div>
