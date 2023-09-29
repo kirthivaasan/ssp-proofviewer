@@ -183,7 +183,7 @@ function reduce_same_dest(neighbours) {
 
 
 // app drawing
-function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=null, ghost=null, dashed=null, display=null, decoration=null) {
+function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=null, ghost=null, dashed=null, display=null, decoration=null, outghost=null) {
     if (!mxClient.isBrowserSupported()) {
 	return -1;
     }
@@ -357,9 +357,6 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 	// add ghost oracles
 	if (ghost != null) {
 	    for (pkg_name in ghost) {
-		// console.log("GHOST: " + pkg);
-		// var node_cfg = nodes_cfg[pkg_name];
-
 		var x = ghost[pkg_name].x;
 		var y = ghost[pkg_name].y;
 		var edge_style = ghost[pkg_name].style + "dashed=1;";
@@ -384,6 +381,42 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 		// var edge_style = 'exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;dashed=1;';
 
 		var edge = graph.insertEdge(parent, null, e1, src_node, v1, edge_style);
+
+	    }
+	}
+
+	// add outghost oracles
+	if (outghost != null) {
+	    for (pkg_name in outghost) {
+		var x = outghost[pkg_name].x;
+		var y = outghost[pkg_name].y;
+		var edge_style = outghost[pkg_name].style + "dashed=1;";
+
+		if (cut != null && (cut.includes(pkg_name)) && type != null) {
+		    if (type == 'reduction') {
+			edge_style += "strokeColor=brown;";
+		    } else if (type == 'codeq') {
+			edge_style += "strokeColor=green;";
+		    }
+
+		}
+
+		var pkg = doc.createElement('OutghostPackage');
+		var dest_node = graph.insertVertex(parent, null, pkg, x, y, 0, 0);
+
+	 	var v1 = packages.get(pkg_name);
+		var e1 = doc.createElement("Oracle");
+
+		var label = "";
+		if ("label" in outghost[pkg_name]) {
+		    label = outghost[pkg_name].label;
+		}
+
+	    	e1.setAttribute('oracle_name', label);
+		e1.setAttribute('label', label);
+		// var edge_style = 'exitX=0.5;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;dashed=1;';
+
+		var edge = graph.insertEdge(parent, null, e1, v1, dest_node, edge_style);
 
 	    }
 	}
@@ -617,6 +650,11 @@ function add_proofstep_content_graphs_reduction(proofstep_container, step, graph
 		    ghost = pkg.ghost;
 		}
 
+		var outghost = null;
+		if ("outghost" in pkg) {
+		    outghost = pkg.outghost;
+		}
+
 		var decoration = null;
 		if ("decoration" in pkg) {
 		    decoration = pkg.decoration;
@@ -639,12 +677,12 @@ function add_proofstep_content_graphs_reduction(proofstep_container, step, graph
 			if ("name" in elem) {
 			    pkg_name = elem.name;
 			}
-			draw_graph(table_cell, cg, mono_pkgs, config, cut, type, ghost, null, display, decoration);
+			draw_graph(table_cell, cg, mono_pkgs, config, cut, type, ghost, null, display, decoration, outghost);
 		    } else {
-			draw_graph(table_cell, cg, mono_pkgs, config, null, type, ghost, null, display, decoration);
+			draw_graph(table_cell, cg, mono_pkgs, config, null, type, ghost, null, display, decoration, outghost);
 		    }
 		} else {
-		    draw_graph(table_cell, cg, mono_pkgs, config, null, null, ghost, null, display, decoration);
+		    draw_graph(table_cell, cg, mono_pkgs, config, null, null, ghost, null, display, decoration, outghost);
 		}
 
 
@@ -707,6 +745,12 @@ function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, 
 		    ghost = pkg.ghost;
 		}
 
+		var outghost = null;
+		if ("outghost" in pkg) {
+		    outghost = pkg.outghost;
+		}
+
+
 		var decoration = null;
 		if ("decoration" in pkg) {
 		    decoration = pkg.decoration;
@@ -715,9 +759,9 @@ function add_proofstep_content_graphs(proofstep_container, step, graphs, proof, 
 		var table_cell = table.rows[i].cells[j];
 
 		if (pkg_name == graph_name) {
-		    draw_graph(table_cell, cg, mono_pkgs, config, cut, type, ghost, null, display, decoration);
+		    draw_graph(table_cell, cg, mono_pkgs, config, cut, type, ghost, null, display, decoration, outghost);
 		} else {
-		    draw_graph(table_cell, cg, mono_pkgs, config, null, null, ghost, null, display, decoration);
+		    draw_graph(table_cell, cg, mono_pkgs, config, null, null, ghost, null, display, decoration, outghost);
 		}
 
 		var game_title = document.createElement('div');
