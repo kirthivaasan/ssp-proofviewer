@@ -178,7 +178,7 @@ function ggm_driver() {
 		"Gprf-cons": [["Key", "GET"]],
 		"Key": []
 	    },
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":50},"Gprf-cons":{"x":50,"y":0,"width":90,"height":50, "color":"yellow"},"Key":{"x":200,"y":0,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Gprf-cons":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprf-cons":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Gprf-cons":[]}}
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":50},"Gprf-cons":{"x":50,"y":0,"width":90,"height":50},"Key":{"x":200,"y":0,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Gprf-cons":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprf-cons":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Gprf-cons":[]}}
 
 	},
 
@@ -189,7 +189,7 @@ function ggm_driver() {
 	    {
 		"Gprf-cons": [],
 	    },
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":50},"Gprf-cons":{"x":50,"y":0,"width":90,"height":50, "color":"yellow"}},"edges":{"@oracles_interface":{"Gprf-cons":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[]}},
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":50},"Gprf-cons":{"x":50,"y":0,"width":90,"height":50}},"edges":{"@oracles_interface":{"Gprf-cons":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[]}},
 	    "outghost":
 	    {
 		"Gprf-cons": {"x":200, "y":25, "style":"exitX=0.999;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;", "label": "GET"}
@@ -225,7 +225,7 @@ function ggm_driver() {
 	    "graph": {
 		"RO": []
 	    },
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":450},"RO":{"x":80,"y":0,"width":90,"height":450}},"edges":{"@oracles_interface":{"RO":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[]}}
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":450},"RO":{"x":80,"y":0,"width":90,"height":450, "color": "blue"}},"edges":{"@oracles_interface":{"RO":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[]}}
 
 	},
 
