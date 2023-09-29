@@ -9,7 +9,7 @@ function ggm_driver() {
 		"EVAL" :
 		{
 		    "params": ["x"],
-		    "code": "@if T[x] = @bot; @> T[x] @sample  \\{0,1\\}^\\lambda;@return T[x]"
+		    "code": "@assert |x| = 3;@if T[x] = @bot; @> T[x] @sample  \\{0,1\\}^\\lambda;@return T[x]"
 		}
 	    }
 	},
@@ -170,6 +170,32 @@ function ggm_driver() {
 
 
     var modular_pkgs = {
+	"Modular-Gprf":
+	{
+	    "oracles": [["Gprf-cons", "EVAL"]],
+	    "graph":
+	    {
+		"Gprf-cons": [["Key", "GET"]],
+		"Key": []
+	    },
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":50},"Gprf-cons":{"x":50,"y":0,"width":90,"height":50, "color":"yellow"},"Key":{"x":200,"y":0,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Gprf-cons":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprf-cons":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Gprf-cons":[]}}
+
+	},
+
+	"Modular-Gprf-cons":
+	{
+	    "oracles": [["Gprf-cons", "EVAL"]],
+	    "graph":
+	    {
+		"Gprf-cons": [],
+	    },
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":50},"Gprf-cons":{"x":50,"y":0,"width":90,"height":50, "color":"yellow"}},"edges":{"@oracles_interface":{"Gprf-cons":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[]}},
+	    "outghost":
+	    {
+		"Gprf-cons": {"x":200, "y":25, "style":"exitX=0.999;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;", "label": "GET"}
+	    }
+	},
+
 	"GPrg-id0":
 	{
 	    "oracles": [["Gprg_{x_0}", "GET_{x_0}"], ["Gprg_{x_1}", "GET_{x_1}"]],
@@ -506,6 +532,12 @@ function ggm_driver() {
 		},
 		{
 		    "graphs": [["PRF_{GGM}"]]
+		},
+		{
+		    "text": "Recall that in SSPs we tend to define security games modularly. Similarly we can think of the security of a PRF as the standard monolithic PRF game, but with the key requested from a \\(\\mathsf{Key}\\) package. Now, that we have abstracted out the key/randomness, we can consider the \\(\\mathsf{Gprf\\text{-}cons}\\) package alone, as a stateless package that represents the PRF construction alone. This is useful, since now our construction is a re-usable and can be plugged into other places which satisfy the GET interface and security properties of the \\(\\mathsf{Key}\\) package."
+		},
+		{
+		    "graphs": [["Modular-Gprf", "Modular-Gprf-cons"]]
 		}
 	    ]
 	},
@@ -745,13 +777,13 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{10}},\\mathsf{Hybrid_{11}}) = \\ma
 				{
 				    "packages":
 				    {
-					"RO":
+					"Hybrid_{000}":
 					{
 					    "oracles":
 					    {
 				    		"EVAL":
 						{
-						    "code": ";;@return todo",
+						    "code": "@assert |x| = 3; x_1||...||x_3 @gets x; y @gets \\mathsf{Gprg}\\text{-}x_{1}x_{2}x_{3}.\\mathsf{GET}(); ;; @return y;",
 						    "params": ["x"]
 						}
 
@@ -763,13 +795,49 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{10}},\\mathsf{Hybrid_{11}}) = \\ma
 				{
 				    "packages":
 				    {
-					"Hybrid_{000}":
+					"Hybrid_{000}'":
 					{
 					    "oracles":
 					    {
 				    		"EVAL":
 						{
-						    "code": ";;@return todo",
+						    "code": "@assert |x| = 3; x_1||...||x_3 @gets x; @if k_{x_1||x_2||x_3} = @bot; @> k_{x_1||x_2||x_3} @sample  \\{0,1\\}^\\lambda; y @gets k_{x_1||x_2||x_3}; @return y;",
+						    "params": ["x"]
+						}
+
+					    }
+					}
+				    }
+				},
+
+				{
+				    "packages":
+				    {
+					"RO'":
+					{
+					    "oracles":
+					    {
+				    		"EVAL":
+						{
+						    "code": "@assert |x| = 3; x_1||...||x_3 @gets x; @if T[x_1||x_2||x_3] = @bot; @> T[x_1||x_2||x_3] @sample  \\{0,1\\}^\\lambda; y @gets T[x_1||x_2||x_3]; @return y;",
+						    "params": ["x"]
+						}
+
+					    }
+					}
+				    }
+				},
+
+				{
+				    "packages":
+				    {
+					"RO":
+					{
+					    "oracles":
+					    {
+				    		"EVAL":
+						{
+						    "code": "@assert |x| = 3;;@if T[x] = @bot; @> T[x] @sample  \\{0,1\\}^\\lambda;;@return T[x]",
 						    "params": ["x"]
 						}
 
