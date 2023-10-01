@@ -389,12 +389,7 @@ function newyao_driver() {
 	    }
 	},
 
-	"GB":
-	{
-	    "instance": "GB_{tdyao,n,d}"
-	},
-
-	"SIM_{tdyao}":
+	"SIM_{tdyao,n,d}":
 	{
 	    "oracles":
 	    {
@@ -419,11 +414,6 @@ function newyao_driver() {
 	    }
 	},
 
-	"SIM":
-	{
-	    "instance": "SIM_{tdyao}"
-	},
-
 	"DINF_{tdyao}":
 	{
 	    "oracles":
@@ -439,14 +429,7 @@ function newyao_driver() {
 		    "params": []
 		}
 	    }
-	},
-
-	"DINF":
-	{
-	    "instance": "DINF_{tdyao}"
 	}
-
-
 
 
     };
@@ -475,33 +458,33 @@ function newyao_driver() {
 	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":50},"RED":{"x":80,"y":0,"width":90,"height":50},"IND-CPA^b":{"x":250,"y":0,"width":90,"height":50}},"edges":{"@oracles_interface":{"RED":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"RED":{"IND-CPA^b":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"RED":[]}}
 	},
 
-	"PRVSIM^0(GB, DINF)":
+	"PRVSIM^0(GB_{tdyao,n,d}, DINF_{tdyao})":
 	{
 	    "oracles": [["MOD-PRIVSIM^0", "GARBLE"]],
 	    "graph":
 	    {
-		"MOD-PRIVSIM^0": [["EN", "SETBIT_{1,...,n}|GETA^{out}_{1,...,n}"], ["GB", "GBL"], ["DINF", "GETDINF"]],
+		"MOD-PRIVSIM^0": [["EN", "SETBIT_{1,...,n}|GETA^{out}_{1,...,n}"], ["GB_{tdyao,n,d}", "GBL"], ["DINF_{tdyao}", "GETDINF"]],
 		"EN": [["EKEYS_{1,...,n}", "GETKEYS_{1,...,n}"]],
-		"GB": [["EKEYS_{1,...,n}", "SETKEYS_{1,...,n}"], ["DINF", "SETDINF"]],
-		"DINF": [],
+		"GB_{tdyao,n,d}": [["EKEYS_{1,...,n}", "SETKEYS_{1,...,n}"], ["DINF_{tdyao}", "SETDINF"]],
+		"DINF_{tdyao}": [],
 		"EKEYS_{1,...,n}": []
 	    },
 
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":130},"MOD-PRIVSIM^0":{"x":80,"y":0,"width":90,"height":130},"EN":{"x":260,"y":0,"width":90,"height":50},"GB":{"x":260,"y":60,"width":90,"height":50},"DINF":{"x":500,"y":80,"width":90,"height":50},"EKEYS_{1,...,n}":{"x":500,"y":20,"width":90,"height":50}},"edges":{"@oracles_interface":{"MOD-PRIVSIM^0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"MOD-PRIVSIM^0":{"EN":"exitX=0.65;exitY=0.4;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","GB":"exitX=1;exitY=0.65;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","DINF":"exitX=0.8;exitY=0.75;entryX=0.1;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EN":{"EKEYS_{1,...,n}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.15;entryY=0.25;entryDx=0;entryDy=0;"},"GB":{"EKEYS_{1,...,n}":"exitX=0.85;exitY=0.3;entryX=0.05;entryY=0.85;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","DINF":"exitX=0.85;exitY=0.7;entryX=0;entryY=0.4;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[],"MOD-PRIVSIM^0":[],"EN":[],"GB":[]}}
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":130},"MOD-PRIVSIM^0":{"x":80,"y":0,"width":90,"height":130},"EN":{"x":260,"y":0,"width":90,"height":50},"GB_{tdyao,n,d}":{"x":260,"y":60,"width":90,"height":50},"DINF_{tdyao}":{"x":500,"y":80,"width":90,"height":50},"EKEYS_{1,...,n}":{"x":500,"y":20,"width":90,"height":50}},"edges":{"@oracles_interface":{"MOD-PRIVSIM^0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"MOD-PRIVSIM^0":{"EN":"exitX=0.65;exitY=0.4;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","GB_{tdyao,n,d}":"exitX=1;exitY=0.65;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","DINF_{tdyao}":"exitX=0.8;exitY=0.75;entryX=0.1;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EN":{"EKEYS_{1,...,n}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.15;entryY=0.25;entryDx=0;entryDy=0;"},"GB_{tdyao,n,d}":{"EKEYS_{1,...,n}":"exitX=0.85;exitY=0.3;entryX=0.05;entryY=0.85;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","DINF_{tdyao}":"exitX=0.85;exitY=0.7;entryX=0;entryY=0.4;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[],"MOD-PRIVSIM^0":[],"EN":[],"GB_{tdyao,n,d}":[]}}
 	},
 
-	"PRVSIM^1(SIM)":
+	"PRVSIM^1(SIM_{tdyao,n,d})":
 	{
 	    "oracles": [["MOD-PRIVSIM^1", "GARBLE"]],
 	    "graph":
 	    {
-		"MOD-PRIVSIM^1": [["BITS_1", "SETBIT_{1,...,n}"], ["EV", "EVAL"], ["SIM", "GETDINF|GETA^{out}_{1,...,n}|GBL"]],
+		"MOD-PRIVSIM^1": [["BITS_1", "SETBIT_{1,...,n}"], ["EV", "EVAL"], ["SIM_{tdyao,n,d}", "GETDINF|GETA^{out}_{1,...,n}|GBL"]],
 		"EV": [["BITS_1", "GETBIT_{1,...,n}"], ["BITS_n", "SETBIT_{1,...,n}"]],
-		"SIM": [["BITS_n", "GETBIT_{1,...,n}"]],
+		"SIM_{tdyao,n,d}": [["BITS_n", "GETBIT_{1,...,n}"]],
 		"BITS_1": [],
 		"BITS_n": []
 	    },
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":120},"MOD-PRIVSIM^1":{"x":80,"y":0,"width":90,"height":120},"EV":{"x":360,"y":30,"width":90,"height":50},"SIM":{"x":260,"y":70,"width":90,"height":50},"BITS_1":{"x":500,"y":0,"width":90,"height":50},"BITS_n":{"x":500,"y":60,"width":90,"height":50}},"edges":{"@oracles_interface":{"MOD-PRIVSIM^1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"MOD-PRIVSIM^1":{"BITS_1":"exitX=0.9;exitY=0.15;entryX=0.15;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","EV":"exitX=1;exitY=0.45;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","SIM":"exitX=0.75;exitY=0.65;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EV":{"BITS_1":"exitX=0.85;exitY=0.25;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","BITS_n":"exitX=0.75;exitY=0.65;entryX=0.1;entryY=0.25;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"},"SIM":{"BITS_n":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.05;entryY=0.7;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"MOD-PRIVSIM^1":[],"EV":[],"SIM":[]}}
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":120},"MOD-PRIVSIM^1":{"x":80,"y":0,"width":90,"height":120},"EV":{"x":360,"y":30,"width":90,"height":50},"SIM_{tdyao,n,d}":{"x":260,"y":70,"width":90,"height":50},"BITS_1":{"x":500,"y":0,"width":90,"height":50},"BITS_n":{"x":500,"y":60,"width":90,"height":50}},"edges":{"@oracles_interface":{"MOD-PRIVSIM^1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"MOD-PRIVSIM^1":{"BITS_1":"exitX=0.9;exitY=0.15;entryX=0.15;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","EV":"exitX=1;exitY=0.45;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","SIM_{tdyao,n,d}":"exitX=0.75;exitY=0.65;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EV":{"BITS_1":"exitX=0.85;exitY=0.25;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","BITS_n":"exitX=0.75;exitY=0.65;entryX=0.1;entryY=0.25;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"},"SIM_{tdyao,n,d}":{"BITS_n":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.05;entryY=0.7;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"MOD-PRIVSIM^1":[],"EV":[],"SIM_{tdyao,n,d}":[]}}
 	},
 
 	"MOD \\rightarrow SEC^0_{n,d}(GB_{yao,n,d})":
@@ -515,7 +498,7 @@ function newyao_driver() {
 		"KEYS_{d+1}": []
 	    },
 
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":130},"MOD":{"x":80,"y":0,"width":90,"height":130},"GB_{yao,n,d}":{"x":260,"y":60,"width":90,"height":50},"KEYS_{d+1}":{"x":500,"y":80,"width":90,"height":50},"KEYS_{1,...,d}":{"x":500,"y":20,"width":90,"height":50}},"edges":{"@oracles_interface":{"MOD":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"MOD":{"KEYS_{1,...,d}":"exitX=0.65;exitY=0.415;entryX=0;entryY=0.15;entryPerimeter=1;exitDx=0;exitDy=0;","GB_{yao,n,d}":"exitX=1;exitY=0.65;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","KEYS_{d+1}":"exitX=0.8;exitY=0.75;entryX=0.1;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EN":{"KEYS_{1,...,d}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.15;entryY=0.25;entryDx=0;entryDy=0;"},"GB_{yao,n,d}":{"KEYS_{1,...,d}":"exitX=0.85;exitY=0.3;entryX=0.05;entryY=0.85;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","KEYS_{d+1}":"exitX=0.85;exitY=0.7;entryX=0;entryY=0.4;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[],"MOD":[],"EN":[],"GB_{yao,n,d}":[]}}
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":130},"MOD":{"x":80,"y":0,"width":90,"height":130},"GB_{yao,n,d}":{"x":260,"y":60,"width":90,"height":50, "color":"yellow"},"KEYS_{d+1}":{"x":500,"y":80,"width":90,"height":50},"KEYS_{1,...,d}":{"x":500,"y":20,"width":90,"height":50}},"edges":{"@oracles_interface":{"MOD":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"MOD":{"KEYS_{1,...,d}":"exitX=0.65;exitY=0.415;entryX=0;entryY=0.15;entryPerimeter=1;exitDx=0;exitDy=0;","GB_{yao,n,d}":"exitX=1;exitY=0.65;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","KEYS_{d+1}":"exitX=0.8;exitY=0.75;entryX=0.1;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EN":{"KEYS_{1,...,d}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.15;entryY=0.25;entryDx=0;entryDy=0;"},"GB_{yao,n,d}":{"KEYS_{1,...,d}":"exitX=0.85;exitY=0.3;entryX=0.05;entryY=0.85;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","KEYS_{d+1}":"exitX=0.85;exitY=0.7;entryX=0;entryY=0.4;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[],"MOD":[],"EN":[],"GB_{yao,n,d}":[]}}
 	},
 
 	"MOD_{n,d}->SEC^1_{n,d}(SIM_{yao,n,d})":
@@ -705,7 +688,7 @@ function newyao_driver() {
 
 
     var prooftree = {
-	"Theorem(Monolithic)":
+	"Theorem 1":
 	{
 	    "parent": null,
 	    "contents": [
@@ -713,7 +696,7 @@ function newyao_driver() {
 		    "text": "(Security of Yao’s garbling scheme).<br> Let \\(se\\) be the symmetric encryption scheme used within \\(\\mathsf{gs}_{tdyao}\\) . Then for all \\(n, d \\in \\mathbb{N}\\), there exists a PPT simulator \\(\\mathsf{SIM}_{tdyao,n,d}\\) and reduction \\(\\mathcal{R}\\) such for all PPT adversaries \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{PRVSIM}^0_{n,d}(\\mathsf{GB}_{tdyao,n,d}, \\mathsf{DINF}_{tdyao}), \\mathsf{PRVSIM}^1_{n,d}(\\mathsf{SIM}_{tdyao,n,d})) \\leq dn \\cdot \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}; \\mathsf{IND\\text{-}CPA}^0(se), \\mathsf{IND\\text{-}CPA}^1(se)).$$"
 		},
 		{
-		    "graphs": [["PRVSIM^0(GB, DINF)"], ["PRVSIM^1(SIM)"]]
+		    "graphs": [["PRVSIM^0(GB_{tdyao,n,d}, DINF_{tdyao})"], ["PRVSIM^1(SIM_{tdyao,n,d})"]]
 		},
 		{
 		    "text": "<a href=\"yao-cons.html\">Garbling schemes definition and Yao's construction</a>"
@@ -721,25 +704,25 @@ function newyao_driver() {
 	    ]
 	},
 
-	"Theorem 1":
+	"Corollary 2":
 	{
-	    "parent": "Theorem(Monolithic)",
+	    "parent": "Theorem 1",
 	    "contents": [
 		{
-		    "graphs": []
+		    "text": "Let \\(n,d \\in \\mathbb{N},\\) and let \\(\\mathcal{R}_{hyb,n,d}\\) be the reduction that samples \\(i \\leftarrow$ \\{1, \\dots, d\\} \\) and then executes \\(\\mathcal{R}^i_{circ,n,d} \\rightarrow \\mathcal{R}_{layer,n,i} \\rightarrow \\mathcal{R}_{2cpa}\\). Then for all PPT adversaries \\(\\mathcal{A}\\) $$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{SEC}^0_{n,d}(\\mathsf{GB}_{yao,n,d}), \\mathsf{SEC}^1_{n,d}(\\mathsf{SIM}_{yao,n,d})) \\leq n \\cdot d \\cdot \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}_{hyb}; \\mathsf{IND\\text{-}CPA}^0(se), \\mathsf{IND\\text{-}CPA}^1(se)).$$"
 		}
 	    ]
 	},
 
 	"Claim 3":
 	{
-	    "parent": "Theorem(Monolithic)",
+	    "parent": "Theorem 1",
 	    "contents": [
 		{
 		    "text": "(Real game equivalence)<br>For all \\(n,d \\in \\mathbb{N},\\) $$\\mathsf{PRVSIM}^0_{n,d}(\\mathsf{GB}_{tdyao,n,d}, \\mathsf{DINF}_{tdyao}) \\stackrel{\\text{code}}{\\equiv} \\mathsf{MOD}_{n,d} \\rightarrow \\mathsf{SEC}^0_{n,d}(\\mathsf{GB}_{yao,n,d}).$$"
 		},
 		{
-		    "graphs": [["PRVSIM^0(GB, DINF)", "MOD \\rightarrow SEC^0_{n,d}(GB_{yao,n,d})"]]
+		    "graphs": [["PRVSIM^0(GB_{tdyao,n,d}, DINF_{tdyao})", "MOD \\rightarrow SEC^0_{n,d}(GB_{yao,n,d})"]]
 		}
 	    ],
 	    "type":
@@ -860,13 +843,13 @@ function newyao_driver() {
 
 	"Claim 4":
 	{
-	    "parent": "Theorem(Monolithic)",
+	    "parent": "Theorem 1",
 	    "contents": [
 		{
 		    "text": "(Ideal game equivalence)<br>For all \\(n,d \\in \\mathbb{N},\\) $$\\mathsf{PRVSIM}^1_{n,d}(\\mathsf{SIM}_{tdyao,n,d}) \\stackrel{\\text{code}}{\\equiv} \\mathsf{MOD}_{n,d} \\rightarrow \\mathsf{SEC}^1_{n,d}(\\mathsf{SIM}_{yao,n,d}).$$",
 		},
 		{
-		    "graphs": [["PRVSIM^1(SIM)", "MOD_{n,d}->SEC^1_{n,d}(SIM_{yao,n,d})"]]
+		    "graphs": [["PRVSIM^1(SIM_{tdyao,n,d})", "MOD_{n,d}->SEC^1_{n,d}(SIM_{yao,n,d})"]]
 		}
 	    ],
 	    "type":
@@ -1020,7 +1003,7 @@ function newyao_driver() {
 	},
 
 	"Lemma 2": {
-	    "parent": "Theorem(Monolithic)",
+	    "parent": "Theorem 1",
 	    "contents": [
 		{
 		    "text": "Let \\(se\\) be a symmetric encryption scheme. For reduction \\(\\mathcal{R}_{cpa} := \\mathsf{RED}\\), it holds that for any PPT adversary \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{2CPA}^0(se), \\mathsf{2CPA}^1(se)) \\leq \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}_{cpa}; \\mathsf{IND\\text{-}CPA}^0(se), \\mathsf{IND\\text{-}CPA}^1(se)).$$"
@@ -1233,7 +1216,7 @@ function newyao_driver() {
 
 	"Lemma 4":
 	{
-	    "parent": "Theorem 1",
+	    "parent": "Corollary 2",
 	    "contents": [
 		{
 		    "text": "(Layer Security). <br> Let \\(n, i \\in \\mathbb{N}\\). Let \\(\\mathcal{R}^i_{layer,n}\\) be the reduction defined in Claim 1 (top), \\(\\mathsf{GB}_{yao,i} := \\mathcal{R}^i_{layer,n}\\) and [placeholder]. Then for all PPT adversaries \\(\\mathcal{A}\\),$$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{LSEC}^0_n(\\mathsf{GB}_{yao,n,i}), \\mathsf{LSEC}^1_n(\\mathsf{GB}^1_{yao,n,i})) = \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}^i_{layer,n}; \\mathsf{2CPA}^0_{1..n}(se), \\mathsf{2CPA}^1_{1..n}(se)).$$"
@@ -1249,7 +1232,7 @@ function newyao_driver() {
 
 	"Lemma 5":
 	{
-	    "parent": "Theorem 1",
+	    "parent": "Corollary 2",
 	    "contents": [
 		{
 		    "text": "(Circuit Security). <br> Let \\(n, d \\in \\mathbb{N}\\). Then, for each \\(1 \\leq i \\leq d\\), there exists a PPT reduction \\(\\mathcal{R}^i_{circ,n,d}\\) such that for all PPT adversaries \\(\\mathcal{A}\\),$$\\begin{align} \\mathsf{Adv}(\\mathcal{A}; \\mathsf{SEC}^0_{n,d}(\\mathsf{GB}_{yao,n,d}), \\mathsf{SEC}^1_{n,d}(\\mathsf{SIM}_{yao,n,d})) \\\\ \\sum^{d}_{i=1} \\leq \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}^i_{circ,n,d}; \\mathsf{LSEC}^0_n(\\mathsf{GB}^0_{yao,n,i}), \\mathsf{LSEC}^1_n(\\mathsf{SIM}_{yao,n,i}).\\end{align}$$"
