@@ -1,5 +1,5 @@
 function newyao_driver() {
-    var proof_name = "Game-based security and simulation-based security equivalence of IND-CPA for symmetric encryption";
+    var proof_name = "Yao's Garbling Scheme";
 
     var monolithic_pkgs = {
 	"KEYS":
@@ -716,7 +716,7 @@ function newyao_driver() {
 		    "graphs": [["PRVSIM^0(GB, DINF)"], ["PRVSIM^1(SIM)"]]
 		},
 		{
-		    "text": "Putting together "
+		    "text": "<a href=\"yao-cons.html\">Garbling schemes definition and Yao's construction</a>"
 		}
 	    ]
 	},
@@ -1026,6 +1026,9 @@ function newyao_driver() {
 		    "text": "Let \\(se\\) be a symmetric encryption scheme. For reduction \\(\\mathcal{R}_{cpa} := \\mathsf{RED}\\), it holds that for any PPT adversary \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{2CPA}^0(se), \\mathsf{2CPA}^1(se)) \\leq \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}_{cpa}; \\mathsf{IND\\text{-}CPA}^0(se), \\mathsf{IND\\text{-}CPA}^1(se)).$$"
 		},
 		{
+		    "text": "Full proof/definition: <a href=\"2cpa-equiv.html\">2CPA and (standard IND-CPA equivalence</a>"
+		},
+		{
 		    "graphs": [["2CPA", "RED->IND-CPA^b(se)"]]
 		}
 	    ],
@@ -1234,6 +1237,9 @@ function newyao_driver() {
 	    "contents": [
 		{
 		    "text": "(Layer Security). <br> Let \\(n, i \\in \\mathbb{N}\\). Let \\(\\mathcal{R}^i_{layer,n}\\) be the reduction defined in Claim 1 (top), \\(\\mathsf{GB}_{yao,i} := \\mathcal{R}^i_{layer,n}\\) and [placeholder]. Then for all PPT adversaries \\(\\mathcal{A}\\),$$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{LSEC}^0_n(\\mathsf{GB}_{yao,n,i}), \\mathsf{LSEC}^1_n(\\mathsf{GB}^1_{yao,n,i})) = \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}^i_{layer,n}; \\mathsf{2CPA}^0_{1..n}(se), \\mathsf{2CPA}^1_{1..n}(se)).$$"
+		},
+		{
+		    "text": "Proof: Let \\(\\mathcal{A}\\) be an adversary. In order to apply the perfect reduction lemma (Lemma 1), we prove two claims."
 		},
 		{
 		    "graphs": []
