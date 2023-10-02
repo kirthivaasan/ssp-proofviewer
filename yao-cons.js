@@ -448,9 +448,25 @@ function newyao_driver() {
 
 
     var deftree = {
-	"Def":
+	"Preface":
 	{
 	    "parent": null,
+	    "contents": [
+		{
+		    "text": "some text",
+		},
+		{
+		    "graphs": [["PRVSIM^1(SIM)"]]
+		}
+	    ],
+	    "type": {
+		"unstructured": true
+	    }
+	},
+
+	"Def":
+	{
+	    "parent": "Preface",
 	    "contents": [
 		{
 		    "text": "",
@@ -460,6 +476,20 @@ function newyao_driver() {
 		}
 	    ]
 	},
+
+	"Preface2":
+	{
+	    "parent": "Def",
+	    "contents": [
+		{
+		    "text": "more unstructured thing text",
+		}
+	    ],
+	    "type": {
+		"unstructured": true
+	    }
+	},
+
 
 	"Yao Construction":
 	{
