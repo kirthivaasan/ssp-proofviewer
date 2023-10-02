@@ -61,12 +61,12 @@ function newyao_driver() {
 	    }
 	},
 
-	"BITS_1":
+	"BITS_{1..n}^{top}":
 	{
 	    "instance": "BITS"
 	},
 
-	"BITS_n":
+	"BITS_{1..n}^{bottom}":
 	{
 	    "instance": "BITS"
 	},
@@ -238,13 +238,13 @@ function newyao_driver() {
 	    "oracles": [["MOD-PRIVSIM^1", "GARBLE"]],
 	    "graph":
 	    {
-		"MOD-PRIVSIM^1": [["BITS_1", "SETBIT_{1,...,n}"], ["EV", "EVAL"], ["SIM", "GETDINF|GETA^{out}_{1,...,n}|GBL"]],
-		"EV": [["BITS_1", "GETBIT_{1,...,n}"], ["BITS_n", "SETBIT_{1,...,n}"]],
-		"SIM": [["BITS_n", "GETBIT_{1,...,n}"]],
-		"BITS_1": [],
-		"BITS_n": []
+		"MOD-PRIVSIM^1": [["BITS_{1..n}^{top}", "SETBIT_{1,...,n}"], ["EV", "EVAL"], ["SIM", "GETDINF|GETA^{out}_{1,...,n}|GBL"]],
+		"EV": [["BITS_{1..n}^{top}", "GETBIT_{1,...,n}"], ["BITS_{1..n}^{botttom}", "SETBIT_{1,...,n}"]],
+		"SIM": [["BITS_{1..n}^{botttom}", "GETBIT_{1,...,n}"]],
+		"BITS_{1..n}^{top}": [],
+		"BITS_{1..n}^{botttom}": []
 	    },
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":120},"MOD-PRIVSIM^1":{"x":80,"y":0,"width":90,"height":120},"EV":{"x":360,"y":30,"width":90,"height":50},"SIM":{"x":260,"y":70,"width":90,"height":50},"BITS_1":{"x":500,"y":0,"width":90,"height":50},"BITS_n":{"x":500,"y":60,"width":90,"height":50}},"edges":{"@oracles_interface":{"MOD-PRIVSIM^1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"MOD-PRIVSIM^1":{"BITS_1":"exitX=0.9;exitY=0.15;entryX=0.15;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","EV":"exitX=1;exitY=0.45;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","SIM":"exitX=0.75;exitY=0.65;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EV":{"BITS_1":"exitX=0.85;exitY=0.25;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","BITS_n":"exitX=0.75;exitY=0.65;entryX=0.1;entryY=0.25;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"},"SIM":{"BITS_n":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.05;entryY=0.7;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"MOD-PRIVSIM^1":[],"EV":[],"SIM":[]}}
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":120},"MOD-PRIVSIM^1":{"x":80,"y":0,"width":90,"height":120},"EV":{"x":360,"y":30,"width":90,"height":50},"SIM":{"x":260,"y":70,"width":90,"height":50},"BITS_{1..n}^{top}":{"x":500,"y":0,"width":90,"height":50},"BITS_{1..n}^{botttom}":{"x":500,"y":60,"width":90,"height":50}},"edges":{"@oracles_interface":{"MOD-PRIVSIM^1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"MOD-PRIVSIM^1":{"BITS_{1..n}^{top}":"exitX=0.9;exitY=0.15;entryX=0.15;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","EV":"exitX=1;exitY=0.45;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","SIM":"exitX=0.75;exitY=0.65;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EV":{"BITS_{1..n}^{top}":"exitX=0.85;exitY=0.25;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","BITS_{1..n}^{botttom}":"exitX=0.75;exitY=0.65;entryX=0.1;entryY=0.25;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"},"SIM":{"BITS_{1..n}^{botttom}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.05;entryY=0.7;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"MOD-PRIVSIM^1":[],"EV":[],"SIM":[]}}
 	},
 
 	"MOD \\rightarrow SEC^0_{n,d}(GB_{yao,n,d})":
@@ -453,23 +453,20 @@ function newyao_driver() {
 	    "parent": null,
 	    "contents": [
 		{
-		    "text": "some text",
+		    "text": "A garbling scheme allows a garbler to garble a circuit C into  \\tilde{C}, and it additionally also returns input encoding information Z and output encoding information \\mathsf{dinf}. Given an input x and input garbling encoding information Z, the garbling scheme produces an input encoding \\tilde{x}, and an evaluator can run garbled evaluation on \\tilde{C}, \\tilde{x} and \\mathsf{dinf} and correctness of a garbling scheme requires that the evaluator obtains C(x) as output. Selective security of a garbling scheme requires that \\tilde{C}, \\tilde{x} and \\mathsf{dinf} do not leak more information than C(x) and the public information C which is modelled by a simulator who can simulate \\tilde{C}, \\tilde{x} and \\mathsf{dinf} given only C(x) and C. We now discuss syntax and security of garbling schemes in SSPs. <p\> Syntax. A garbling scheme consists of 3 packages (EN,GB,GEV): The garbling package GB exposes a GBL query and makes a SETKEYS query and a SETDINF query to output Z and decoding information dinf, respectively. The input encoding package EN exposes a SETBIT query which allows to choose the input, makes a GETKEYS query to retrieve Z and exposes a GETA^{out} query which returns the input encoding \\tilde{x}. Here, we only consider projective garbling schemes and thus consider Z to have a pair of keys for each bit of x and EN will just return Z_i(x_i) for all i. We subsequently omit EN from the garbling scheme syntax and consider it fixed in this way. The garbled evaluation package GEV exposes an EVAL query (which takes as input a circuit C), makes a GBL(C) query to obtain \\tilde{C}, a GETA^{out} query to retrieve \\tilde{x}, and a GETDINF query to obtain dinf. We omit the modelling of correctness here (but see Brzuska-Oechser) and now focus on security. The real game has two additional packages EKEYS and DINF which store the input and output encoding information, respectively.	Security states that there exists a simulation package SIM which makes GETBIT queries to retrieve C(x) and can simulate (\\tilde{C},\\tilde{x},dinf). The real game PRVSIM^0(EN,GB) and the ideal game PRVSIM^1(SIM) are parametrized by the packages (EN,GB) and SIM, respectively, and additionally have an adaptor package MODPRVSIM^b which ensures that the adversary's interface is identical in the real and the ideal game.",
 		},
-		{
-		    "graphs": [["PRVSIM^1(SIM)"]]
-		}
 	    ],
 	    "type": {
 		"unstructured": true
 	    }
 	},
 
-	"Def":
+	"Definition (Simluation-based security of garbling schemes)":
 	{
 	    "parent": "Preface",
 	    "contents": [
 		{
-		    "text": "",
+		    "text": "A garbling scheme (GB,DINF,GEV) achieves simulation-based security if there exists a PPT simulator package \\mathsf{SIM} such that for all PPT adversaries \\mathcal{A}, $$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{PRVSIM}^0(\\mathsf{GB}, \\mathsf{DINF}), \\mathsf{PRVSIM}^1(\\mathsf{SIM}))$$ is negligible.",
 		},
 		{
 		    "graphs": [["PRVSIM^0(GB, DINF)"], ["PRVSIM^1(SIM)"]]
@@ -482,7 +479,7 @@ function newyao_driver() {
 	    "parent": "Def",
 	    "contents": [
 		{
-		    "text": "more unstructured thing text",
+		    "text": "We consider Yao's garbling scheme which associates with each wire in a circuit a pair of keys and then garbles a gate by... todo: explain Yao and then just put the GB_{tdyao} package in a clickable way with phantom arrows. Afterwards, explain composed packages that will be used in the proof and how they model gate garbling / layer garbling.",
 		}
 	    ],
 	    "type": {
