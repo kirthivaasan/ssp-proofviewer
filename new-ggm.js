@@ -181,7 +181,71 @@ function ggm_driver() {
 	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":50},"Gprf-cons":{"x":50,"y":0,"width":90,"height":50},"Key":{"x":200,"y":0,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Gprf-cons":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprf-cons":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Gprf-cons":[]}}
 
 	},
+	"Real-Gprf":
+	{
+	    "oracles": [["Gprf-cons", "EVAL"]],
+	    "graph":
+	    {
+		"Gprf-cons": [["Key", "GET"]],
+		"Key": []
+	    },
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":50},"Gprf-cons":{"x":50,"y":0,"width":90,"height":50},"Key":{"x":200,"y":0,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Gprf-cons":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprf-cons":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Gprf-cons":[]}}
 
+	},
+	"Ideal-Gprf":
+	{
+	    "oracles": [["RO", "EVAL"]],
+	    "graph":
+	    {
+		"RO": [],
+	    },
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":50},"RO":{"x":50,"y":0,"width":90,"height":50},
+							"Key":{"x":200,"y":0,"width":90,"height":50, "color":"blue"}},
+				   "edges":{"@oracles_interface":{"RO":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}}}
+	},
+		"Real-Gprg":
+	{
+	    "oracles": [["Prg-0", "GET"], ["Prg-1", "GET"]],
+
+	    "graph":
+	    {
+		"Prg-0": [["Key", "GET"]],
+		"Prg-1": [["Key", "GET"]],
+		"Key": []
+	    },
+
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":50,"width":1,"height":50},
+							"Prg-0":{"x":75,"y":0,"width":90,"height":50, "color":"yellow"},
+							"Prg-1":{"x":75,"y":100,"width":90,"height":50, "color":"yellow"},
+							"Key":{"x":200,"y":50,"width":90,"height":50, "color":"blue"}},
+				   "edges":{"@oracles_interface":{"Prg-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;",
+												  "Prg-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},
+							"Prg-0":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},
+							"Prg-1":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},
+				   "edge_points":{"@oracles_interface":[],"Mod-prf":[],"Prg-000":[],"Prg-001":[],"Prg-010":[],"Prg-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[],"Prg-00":[],"Prg-01":[],"Prg-10":[],"Prg-11":[],"Prg-0":[],"Prg-1":[]}}
+
+	},
+		"Ideal-Gprg":
+	{
+	    "oracles": [["Key-0", "GET"], ["Key-1", "GET"]],
+
+	    "graph":
+	    {
+		"Key-0": [],
+		"Key-1": [],
+	    },
+
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":50,"width":1,"height":50},
+							"Key-0":{"x":75,"y":0,"width":90,"height":50, "color":"blue"},
+							"Key-1":{"x":75,"y":100,"width":90,"height":50, "color":"blue"}},
+				   "edges":{"@oracles_interface":{"Key-0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;",
+												  "Key-1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},
+				   "edge_points":{"@oracles_interface":[],"Mod-prf":[],"Prg-000":[],"Prg-001":[],"Prg-010":[],"Prg-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[],"Prg-00":[],"Prg-01":[],"Prg-10":[],"Prg-11":[],"Prg-0":[],"Prg-1":[]}}
+
+	},
+
+
+		
 	"Modular-Gprf-cons":
 	{
 	    "oracles": [["Gprf-cons", "EVAL"]],
@@ -523,6 +587,30 @@ function ggm_driver() {
     };
 
     var prooftree = {
+		"Definition (PRF)" :
+		{
+			parent : null,
+			contents: [
+				{
+					graphs: [["Real-Gprf", "Ideal-Gprf"]]
+				},
+				{
+					text: "The construction \\(\\mathbf{Gprf_\\mathsf{cons}}\\) is a prf if for any PPT adversary \\(\\mathcal{A}\\) if the following holds: $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Gprf}_{\\mathsf{cons}}\\rightarrow\\mathsf{Key},\\mathsf{RO}) \\leq \\mathsf{negl}$$"
+				}
+			]
+		},
+		"Definition (PRG)" :
+		{
+			parent : null,
+			contents: [
+				{
+					graphs: [["Real-Gprg", "Ideal-Gprg"]]
+				},
+				{
+					text: "The construction \\(\\mathbf{Gprf_\\mathsf{cons}}\\) is a prf if for any PPT adversary \\(\\mathcal{A}\\) if the following holds: $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Gprf}_{\\mathsf{cons}}\\rightarrow\\mathsf{Key},\\mathsf{RO}) \\leq \\mathsf{negl}$$"
+				}
+			]
+		},
 	"Construction" :
 	{
 	    "parent": null,
