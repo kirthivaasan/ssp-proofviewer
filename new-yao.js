@@ -318,12 +318,12 @@ function newyao_driver() {
 	    }
 	},
 
-	"BITS_1":
+	"BITS_{1..n}^{top}":
 	{
 	    "instance": "BITS"
 	},
 
-	"BITS_n":
+	"BITS_{1..n}^{botttom}":
 	{
 	    "instance": "BITS"
 	},
@@ -478,13 +478,13 @@ function newyao_driver() {
 	    "oracles": [["MOD-PRIVSIM^1", "GARBLE"]],
 	    "graph":
 	    {
-		"MOD-PRIVSIM^1": [["BITS_1", "SETBIT_{1,...,n}"], ["EV", "EVAL"], ["SIM_{tdyao,n,d}", "GETDINF|GETA^{out}_{1,...,n}|GBL"]],
-		"EV": [["BITS_1", "GETBIT_{1,...,n}"], ["BITS_n", "SETBIT_{1,...,n}"]],
-		"SIM_{tdyao,n,d}": [["BITS_n", "GETBIT_{1,...,n}"]],
-		"BITS_1": [],
-		"BITS_n": []
+		"MOD-PRIVSIM^1": [["BITS_{1..n}^{top}", "SETBIT_{1,...,n}"], ["EV", "EVAL"], ["SIM_{tdyao,n,d}", "GETDINF|GETA^{out}_{1,...,n}|GBL"]],
+		"EV": [["BITS_{1..n}^{top}", "GETBIT_{1,...,n}"], ["BITS_{1..n}^{botttom}", "SETBIT_{1,...,n}"]],
+		"SIM_{tdyao,n,d}": [["BITS_{1..n}^{botttom}", "GETBIT_{1,...,n}"]],
+		"BITS_{1..n}^{top}": [],
+		"BITS_{1..n}^{botttom}": []
 	    },
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":120},"MOD-PRIVSIM^1":{"x":80,"y":0,"width":90,"height":120},"EV":{"x":360,"y":30,"width":90,"height":50},"SIM_{tdyao,n,d}":{"x":260,"y":70,"width":90,"height":50},"BITS_1":{"x":500,"y":0,"width":90,"height":50},"BITS_n":{"x":500,"y":60,"width":90,"height":50}},"edges":{"@oracles_interface":{"MOD-PRIVSIM^1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"MOD-PRIVSIM^1":{"BITS_1":"exitX=0.9;exitY=0.15;entryX=0.15;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","EV":"exitX=1;exitY=0.45;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","SIM_{tdyao,n,d}":"exitX=0.75;exitY=0.65;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EV":{"BITS_1":"exitX=0.85;exitY=0.25;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","BITS_n":"exitX=0.75;exitY=0.65;entryX=0.1;entryY=0.25;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"},"SIM_{tdyao,n,d}":{"BITS_n":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.05;entryY=0.7;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"MOD-PRIVSIM^1":[],"EV":[],"SIM_{tdyao,n,d}":[]}}
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":120},"MOD-PRIVSIM^1":{"x":80,"y":0,"width":90,"height":120},"EV":{"x":360,"y":30,"width":90,"height":50},"SIM_{tdyao,n,d}":{"x":260,"y":70,"width":90,"height":50},"BITS_{1..n}^{top}":{"x":500,"y":0,"width":90,"height":50},"BITS_{1..n}^{botttom}":{"x":500,"y":60,"width":90,"height":50}},"edges":{"@oracles_interface":{"MOD-PRIVSIM^1":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"MOD-PRIVSIM^1":{"BITS_{1..n}^{top}":"exitX=0.9;exitY=0.15;entryX=0.15;entryY=0.25;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","EV":"exitX=1;exitY=0.45;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","SIM_{tdyao,n,d}":"exitX=0.75;exitY=0.65;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EV":{"BITS_{1..n}^{top}":"exitX=0.85;exitY=0.25;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","BITS_{1..n}^{botttom}":"exitX=0.75;exitY=0.65;entryX=0.1;entryY=0.25;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"},"SIM_{tdyao,n,d}":{"BITS_{1..n}^{botttom}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.05;entryY=0.7;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"MOD-PRIVSIM^1":[],"EV":[],"SIM_{tdyao,n,d}":[]}}
 	},
 
 	"MOD \\rightarrow SEC^0_{n,d}(GB_{yao,n,d})":
@@ -693,7 +693,7 @@ function newyao_driver() {
 	    "parent": null,
 	    "contents": [
 		{
-		    "text": "(Security of Yao’s garbling scheme).<br> Let \\(se\\) be the symmetric encryption scheme used within \\(\\mathsf{gs}_{tdyao}\\) . Then for all \\(n, d \\in \\mathbb{N}\\), there exists a PPT simulator \\(\\mathsf{SIM}_{tdyao,n,d}\\) and reduction \\(\\mathcal{R}\\) such for all PPT adversaries \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{PRVSIM}^0_{n,d}(\\mathsf{GB}_{tdyao,n,d}, \\mathsf{DINF}_{tdyao}), \\mathsf{PRVSIM}^1_{n,d}(\\mathsf{SIM}_{tdyao,n,d})) \\leq dn \\cdot \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}; \\mathsf{IND\\text{-}CPA}^0(se), \\mathsf{IND\\text{-}CPA}^1(se)).$$"
+		    "text": "Let \\(se\\) be the symmetric encryption scheme used within \\(\\mathsf{gs}_{tdyao}\\) . Then for all \\(n, d \\in \\mathbb{N}\\), there exists a PPT simulator \\(\\mathsf{SIM}_{tdyao,n,d}\\) and reduction \\(\\mathcal{R}\\) such for all PPT adversaries \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{PRVSIM}^0_{n,d}(\\mathsf{GB}_{tdyao,n,d}, \\mathsf{DINF}_{tdyao}), \\mathsf{PRVSIM}^1_{n,d}(\\mathsf{SIM}_{tdyao,n,d})) \\leq dn \\cdot \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}; \\mathsf{IND\\text{-}CPA}^0(se), \\mathsf{IND\\text{-}CPA}^1(se)).$$"
 		},
 		{
 		    "graphs": [["PRVSIM^0(GB_{tdyao,n,d}, DINF_{tdyao})"], ["PRVSIM^1(SIM_{tdyao,n,d})"]]
