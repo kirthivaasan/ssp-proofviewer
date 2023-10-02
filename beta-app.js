@@ -915,7 +915,13 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 	step_name.innerHTML = step;
     }
 
-    proofstep_container.appendChild(step_name);
+    if ("type" in proof.prooftree[step] && "unstructured" in proof.prooftree[step].type) {
+	// ignore adding proofstep title
+    } else {
+	proofstep_container.appendChild(step_name);
+    }
+
+
 
     // add contents to proofstep
     var contents = proof.prooftree[step].contents;
@@ -924,6 +930,7 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 	    var graphs = content.graphs;
 	    if ("type" in proof.prooftree[step]) {
 		var type = proof.prooftree[step].type;
+
 		if ("reduction" in type) {
 		    var reduction = type.reduction;
 		    add_proofstep_content_graphs_reduction(proofstep_container, step, graphs, proof, reduction, "reduction");
@@ -938,6 +945,8 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 		} else if ("plugin" in type) {
 		    var plugin = type.plugin;
 		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof, plugin.graph, plugin.cut, 'plugin');
+		} else if ("unstructured" in type) {
+		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof);
 		} else {
 		    add_proofstep_content_graphs(proofstep_container, step, graphs, proof);
 		}
@@ -1281,11 +1290,11 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 
 }
 
+
 function add_def(proof, wrapper_width) {
     var proof_wrapper = document.getElementById('proof_wrapper');
     var oracle_wrapper = document.getElementById('oracle_wrapper');
 
-    console.log(wrapper_width);
     proof_wrapper.style.width = wrapper_width.proof_width;
     oracle_wrapper.style.width = wrapper_width.oracle_width;
 
@@ -1293,9 +1302,15 @@ function add_def(proof, wrapper_width) {
 
     var proof_wrapper = document.getElementById("proof_wrapper");
 
+    console.log(proof);
+    console.log(contents);
     // Add all contents
     for (step in contents) {
-	add_proofstep(null, null, step, proof);
+	// if ("type" in contents[step] && contents[step]["type"] == "unstructured") {
+	//     add_unstructured(contents[step]);
+	// } else {
+	    add_proofstep(null, null, step, proof);
+	// }
     }
 
     var pkg_defs_sofar = {};
