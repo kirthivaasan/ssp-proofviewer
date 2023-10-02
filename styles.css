@@ -71,12 +71,13 @@ body {
 
 .proofstep-title {
     margin: 20 0 0 0;
-    font-size: 1vw;
+    font-size: 14pt;
     border-bottom: 1px solid gray;
 }
 
 .proofstep-text {
-    font-size: 0.8vw;
+    font-size: 12pt;
+    /* font-size: 0.8vw; */
     padding: 20 0 10 0;
     margin: 0;
 }
@@ -90,7 +91,7 @@ body {
 
 #oracle_wrapper {
     padding: 10px;
-    font-size: 0.8vw;
+    font-size: 12pt;
     height: 93%;
     border: 0.5px solid gray;
     overflow: auto;
@@ -116,7 +117,7 @@ body {
 }
 
 .package_def_title {
-    font-size: 1vw;
+    font-size: 14pt;
     border-bottom: 4px double #333;
     padding: 0;
     margin: 0;
