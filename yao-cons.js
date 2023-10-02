@@ -196,6 +196,20 @@ function newyao_driver() {
 
 
     var modular_pkgs = {
+	"GC-correctness":
+	{
+	    "oracles": [["EN_n", "SETBIT"], ["GEV_{n,d}", "EVAL"]],
+	    "graph":
+	    {
+		"GEV_{n,d}": [["GB_{n,d}", "GBL"], ["EN_n", "GETA^{out}_{1..n}"], ["DINF", "GETDINF"]],
+		"EN_n": [["EKEYS_{1..n}", "GETKEYS"]],
+		"GB_{n,d}": [["EKEYS_{1..n}", "SETKEYS_{1..n}"], ["DINF", "SETDINF"]],
+		"EKEYS_{1..n}": [],
+		"DINF": []
+	    },
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":40,"height":170},"GEV_{n,d}":{"x":90,"y":40,"width":90,"height":100},"EN_n":{"x":280,"y":0,"width":90,"height":50},"GB_{n,d}":{"x":280,"y":60,"width":90,"height":50},"EKEYS_{1..n}":{"x":480,"y":20,"width":90,"height":50},"DINF":{"x":480,"y":90,"width":90,"height":50}},"edges":{"@oracles_interface":{"EN_n":"exitX=1;exitY=0.15;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","GEV_{n,d}":"exitX=1;exitY=0.525;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"GEV_{n,d}":{"GB_{n,d}":"exitX=1;exitY=0.45;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","EN_n":"exitX=1;exitY=0.05;entryX=0;entryY=0.85;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","DINF":"exitX=0.85;exitY=0.75;entryX=0.05;entryY=0.7;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EN_n":{"EKEYS_{1..n}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.1;entryDx=0;entryDy=0;"},"GB_{n,d}":{"EKEYS_{1..n}":"exitX=0.65;exitY=0.4;entryX=0;entryY=0.95;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","DINF":"exitX=0.65;exitY=0.6;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"GEV_{n,d}":[],"EN_n":[],"GB_{n,d}":[]}}
+	},
+
 	"2CPA":
 	{
 	    "oracles": [["KEYS", "SETBIT|GETA^{out}"], ["ENC^b", "ENC"]],
@@ -455,6 +469,9 @@ function newyao_driver() {
 		{
 		    "text": "A garbling scheme allows a garbler to garble a circuit C into  \\tilde{C}, and it additionally also returns input encoding information Z and output encoding information \\mathsf{dinf}. Given an input x and input garbling encoding information Z, the garbling scheme produces an input encoding \\tilde{x}, and an evaluator can run garbled evaluation on \\tilde{C}, \\tilde{x} and \\mathsf{dinf} and correctness of a garbling scheme requires that the evaluator obtains C(x) as output. Selective security of a garbling scheme requires that \\tilde{C}, \\tilde{x} and \\mathsf{dinf} do not leak more information than C(x) and the public information C which is modelled by a simulator who can simulate \\tilde{C}, \\tilde{x} and \\mathsf{dinf} given only C(x) and C. We now discuss syntax and security of garbling schemes in SSPs. <p\> Syntax. A garbling scheme consists of 3 packages (EN,GB,GEV): The garbling package GB exposes a GBL query and makes a SETKEYS query and a SETDINF query to output Z and decoding information dinf, respectively. The input encoding package EN exposes a SETBIT query which allows to choose the input, makes a GETKEYS query to retrieve Z and exposes a GETA^{out} query which returns the input encoding \\tilde{x}. Here, we only consider projective garbling schemes and thus consider Z to have a pair of keys for each bit of x and EN will just return Z_i(x_i) for all i. We subsequently omit EN from the garbling scheme syntax and consider it fixed in this way. The garbled evaluation package GEV exposes an EVAL query (which takes as input a circuit C), makes a GBL(C) query to obtain \\tilde{C}, a GETA^{out} query to retrieve \\tilde{x}, and a GETDINF query to obtain dinf. We omit the modelling of correctness here (but see Brzuska-Oechser) and now focus on security. The real game has two additional packages EKEYS and DINF which store the input and output encoding information, respectively.	Security states that there exists a simulation package SIM which makes GETBIT queries to retrieve C(x) and can simulate (\\tilde{C},\\tilde{x},dinf). The real game PRVSIM^0(EN,GB) and the ideal game PRVSIM^1(SIM) are parametrized by the packages (EN,GB) and SIM, respectively, and additionally have an adaptor package MODPRVSIM^b which ensures that the adversary's interface is identical in the real and the ideal game.",
 		},
+		{
+		    "graphs": [["GC-correctness"]]
+		}
 	    ],
 	    "type": {
 		"unstructured": true
