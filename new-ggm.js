@@ -863,7 +863,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{11}},\\mathrm{Hybrid_{000}}) = \\m
             "parent": "Theorem",
             "contents": [
                 {
-                    "text": "$$\\mathsf{RO}\\stackrel{\\text{code}}{\\equiv}\\mathsf{Hybrid}_{000}.$$. <p class=\"proofstep-title\">Proof of Claim 2</p><p> We show via inlining that the following two graphs are code-equivalent."
+                    "text": "$$\\mathrm{RO}\\stackrel{\\text{code}}{\\equiv}\\mathrm{Hybrid}_{000}.$$. <p class=\"proofstep-title\">Proof of Claim 2</p><p> We show via inlining that the following two graphs are code-equivalent."
                 },
                 {
                     "graphs": [["RO", "Hybrid_{000}"]]
