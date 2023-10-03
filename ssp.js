@@ -639,7 +639,8 @@ var PCODE_TEXT = {
 
 function parse_pkg_name(pkg_name) {
     pkg_name = pkg_name.replaceAll('-', '\\text{-}');
-    return "\\(\\mathsf{" + pkg_name + "}\\)";
+    // return "\\(\\mathsf{" + pkg_name + "}\\)";
+    return "\\(\\mathrm{" + pkg_name + "}\\)";
 }
 
 function is_oracle_call(str, deps) {
@@ -664,11 +665,11 @@ function is_oracle_call(str, deps) {
 function parse_oracle_call(str) {
     var lp_pos = str.indexOf('(');
     var orc = str.substr(0, lp_pos); // mysterious bug (no var makes orc global!)
-    return "\\(\\mathtt{" + orc + "}" + str.substr(lp_pos) + '\\)';
+    return "\\(\\mathsf{" + orc + "}" + str.substr(lp_pos) + '\\)';
 }
 
 function parse_oracle_signature(name, params) {
-    var oracle_name = "\\mathtt\{" + name + "\}";
+    var oracle_name = "\\mathsf\{" + name + "\}";
     return '\\(' + oracle_name + '(' + params.join(',') + ')' + '\\)';
 }
 
