@@ -699,7 +699,7 @@ function newyao_driver() {
 		    "graphs": [["PRVSIM^0(GB_{tdyao,n,d}, DINF_{tdyao})"], ["PRVSIM^1(SIM_{tdyao,n,d})"]]
 		},
 		{
-		    "text": "<a href=\"yao-cons.html\">Garbling schemes definition and Yao's construction</a>"
+		    "text": "This page implements the Brzuska-Oechsner proof of Theorem 1 and assumes familiarity with the SSP encoding of garbling schemes and their security as well as Yao's garbling scheme construction all of which we explain <a href=\"yao-cons.html\">here.</a></p>In a first proof traversal, we recommend to start by reading Lemma 4 and Lemma 5 and their proof (Click on the corresponding statements in the proof tree for navigation) and, subsequently, Corollary 2 which follows as a consequence of Lemma 4 and 5. Together with Claim 3, Claim 4 and Lemma 2, it then implies Theorem 1. After a first such bottom-up traversal, we recommend a 2nd traversal through the proof, this time in top-down direction."
 		}
 	    ]
 	},
