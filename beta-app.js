@@ -11,6 +11,17 @@ var PKG_COLORS = {
     "default_color": {fill: "#ffffff", stroke: "#000000"}
 }
 
+// OWASP recommendation https://stackoverflow.com/questions/12799539/javascript-xss-prevention
+function escapeFunnyChars(value) {
+    var lt = /</g,
+	gt = />/g,
+	ap = /'/g,
+	ic = /"/g;
+    value = value.toString().replace(lt, "&lt;").replace(gt, "&gt;").replace(ap, "&#39;").replace(ic, "&#34;");
+    return value;
+}
+
+
 // ======================================
 // custom line hatch shape for reductions
 // ======================================
@@ -985,6 +996,9 @@ function add_proofstep(nodes_lookup, graph, step, proof) {
 }
 
 function add_proof(proof, wnd_pos, wrapper_width) {
+    var title_div = document.getElementById("proof_title");
+    title_div.innerHTML = escapeFunnyChars("Proof: " + proof["name"]);
+
     var proof_wrapper = document.getElementById('proof_wrapper');
     var oracle_wrapper = document.getElementById('oracle_wrapper');
 
@@ -1292,6 +1306,9 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 
 
 function add_def(proof, wrapper_width) {
+    var title_div = document.getElementById("proof_title");
+    title_div.innerHTML = escapeFunnyChars(name);
+
     var proof_wrapper = document.getElementById('proof_wrapper');
     var oracle_wrapper = document.getElementById('oracle_wrapper');
 
@@ -1300,10 +1317,6 @@ function add_def(proof, wrapper_width) {
 
     var contents = proof.prooftree;
 
-    var proof_wrapper = document.getElementById("proof_wrapper");
-
-    console.log(proof);
-    console.log(contents);
     // Add all contents
     for (step in contents) {
 	// if ("type" in contents[step] && contents[step]["type"] == "unstructured") {

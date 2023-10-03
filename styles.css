@@ -154,6 +154,12 @@ pcode-annotated-line:hover {
     animation: highlight 2s;
 }
 
+#proof_title {
+    font-size: 16pt;
+    padding: 0 0 0 20;
+    background-color: transparent;
+}
+
 .game-title {
     padding: 20 0 0 0;
     font-size: 14pt;
