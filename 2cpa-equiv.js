@@ -2,7 +2,37 @@ function driver() {
     var proof_name = "2CPA and (standard) IND-CPA equivalence";
 
     var monolithic_pkgs = {
-	"KEYS":
+		"IND-CPA^b":
+		{
+			"oracles":
+			{
+			"SMP":
+			{
+				"code": "@assert k = \\bot;k @sample \\{0,1\\}^{\\lambda};@return ()",
+				"params": []
+			},
+	
+			"ENC":
+			{
+				"code": "@assert k \\neq \\bot;@assert |m_0| = |m_1|; c @sample enc(k, m_b);@return c",
+				"params": ["m_0", "m_1"]
+			}
+			}
+		},
+
+		"ENC^b":
+		{
+			"oracles":
+			{
+			"ENC":
+			{
+				"code": "Z^{in} @gets \\mathsf{GETKEYS}^{in}();@assert |m_0| = |m_1|;c @sample enc(Z^{in}(d), m_0);@if b = 1:;@> z^{in} @gets \\mathsf{GETBIT}();@> @if z^{in} \\neq d @then;@> @> c @sample enc(Z^{in}(d), m_b);@return c",
+				"params": ["d", "m_0", "m_1"]
+			}
+			}
+		},
+	
+		"KEYS":
 	{
 	    "oracles":
 	    {
@@ -10,6 +40,12 @@ function driver() {
 		{
 		    "code": "@assert z = @bot;z @gets z';@return ();",
 		    "params": ["z'"]
+		},
+
+		"GETKEYS^{in}" :
+		{
+		    "code": "@assert \\mathsf{flag};@return Z;",
+		    "params": []
 		},
 
 		"GETBIT" :
@@ -24,44 +60,11 @@ function driver() {
 		    "params": []
 		},
 
-		"GETA^{in}" :
-		{
-		    "code": "@assert \\mathsf{flag};@return Z(z)",
-		    "params": []
-		},
 
-		"GETINA^{in}" :
-		{
-		    "code": "@assert \\mathsf{flag};@return Z(1-z)",
-		    "params": []
-		},
-
-		"GETKEYS^{in}" :
-		{
-		    "code": "@assert \\mathsf{flag};@return Z;",
-		    "params": []
-		},
-
-		"GETKEYS^{out}" :
-		{
-		    "code": "@assert \\mathsf{flag} = 0;\\mathsf{flag} @gets 1;@if Z = @bot @then;    Z(0) @sample \\{0,1\\}^\\lambda;    Z(1) @sample \\{0,1\\}^\\lambda;@return Z",
-		    "params": []
-		}
 	    }
 
 	},
 
-	"ENC^b":
-	{
-	    "oracles":
-	    {
-		"ENC":
-		{
-		    "code": "Z^{in} @gets \\mathsf{GETKEYS}^{in}();@assert |m_0| = |m_1|;c @sample enc(Z^{in}(d), m_0);@if b = 1:;@> z^{in} @gets \\mathsf{GETBIT}();@> @if z^{in} \\neq d @then;@> @> c @sample enc(Z^{in}(d), m_b);@return c",
-		    "params": ["d", "m_0", "m_1"]
-		}
-	    }
-	},
 
 	"RED":
 	{
@@ -87,23 +90,6 @@ function driver() {
 	    }
 	},
 
-	"IND-CPA^b":
-	{
-	    "oracles":
-	    {
-		"SMP":
-		{
-		    "code": "@assert k = \\bot;k @sample \\{0,1\\}^{\\lambda};@return ()",
-		    "params": []
-		},
-
-		"ENC":
-		{
-		    "code": "@assert k \\neq \\bot;@assert |m_0| = |m_1|; c @sample enc(k, m_b);@return c",
-		    "params": ["m_0", "m_1"]
-		}
-	    }
-	}
     };
 
     var modular_pkgs = {
