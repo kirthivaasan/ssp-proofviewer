@@ -132,13 +132,13 @@ function newyao_driver() {
 	    }
 	},
 
-	"GB":
+	"GB_{n,d}":
 	{
 	    "oracles":
 	    {
 		"GBL":
 		{
-		    "code": "(defined by the garbling scheme)",
+		    "code": "##(defined by the garbling scheme)",
 		    "params": ["C"]
 		}
 	    }
@@ -174,7 +174,7 @@ function newyao_driver() {
 	    "instance": "SIM_{tdyao}"
 	},
 
-	"DINF_{tdyao}":
+	"DINF_{tdyao,n,d}":
 	{
 	    "oracles":
 	    {
@@ -197,12 +197,12 @@ function newyao_driver() {
 	    {
 		"SETDINF":
 		{
-		    "code": "(defined by the garbling scheme)",
+		    "code": "##(defined by the garbling scheme)",
 		    "params": ["\\text{dinf}"]
 		},
 		"GETDINF":
 		{
-		    "code": "(defined by the garbling scheme)",
+		    "code": "##(defined by the garbling scheme)",
 		    "params": []
 		}
 	    }
