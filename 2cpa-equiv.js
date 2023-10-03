@@ -127,7 +127,7 @@ function driver() {
 
     var prooftree = {
 
-	"Preface":
+	"Def1":
 	{
 	    "parent": null,
 	    "contents": [
@@ -138,9 +138,19 @@ function driver() {
 		    "graphs": [["IND-CPA^b"]]
 		}
 	    ],
-	    "type": {
-		"unstructured": true
-	    }
+	},
+
+	"Def2":
+	{
+	    "parent": "Def1",
+	    "contents": [
+		{
+		    "text": "More text"
+		},
+		{
+		    "graphs": [["2CPA"]]
+		}
+	    ],
 	},
 
 	"Lemma": {
