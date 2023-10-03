@@ -132,9 +132,16 @@ function newyao_driver() {
 	    }
 	},
 
-	"GB_{tdyao,n,d}":
+	"GB":
 	{
-	    "instance": "GB_{tdyao,n,d}"
+	    "oracles":
+	    {
+		"GBL":
+		{
+		    "code": "(defined by the garbling scheme)",
+		    "params": ["C"]
+		}
+	    }
 	},
 
 	"SIM_{tdyao}":
@@ -184,12 +191,22 @@ function newyao_driver() {
 	    }
 	},
 
-	"DINF_{tdyao}":
+	"DINF":
 	{
-	    "instance": "DINF_{tdyao}"
+	    "oracles":
+	    {
+		"SETDINF":
+		{
+		    "code": "(defined by the garbling scheme)",
+		    "params": ["\\text{dinf}"]
+		},
+		"GETDINF":
+		{
+		    "code": "(defined by the garbling scheme)",
+		    "params": []
+		}
+	    }
 	}
-
-
 
 
     };
@@ -216,11 +233,11 @@ function newyao_driver() {
 	    "graph":
 	    {
 		"EN_{1,..,n}": [["EKEYS_{1..n}", "GETKEYS"]],
-		"GB_{n,d}": [["EKEYS_{1..n}", "SETKEYS_{1..n}"], ["DINF", "SETDINF"]],
+		"GB_{tdyao,n,d}": [["EKEYS_{1..n}", "SETKEYS_{1..n}"], ["DINF_{tdyao,n,d}", "SETDINF"]],
 		"EKEYS_{1..n}": [],
-		"DINF": []
+		"DINF_{tdyao,n,d}": []
 	    },
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":40,"height":170},"EN_{1,..,n}":{"x":280,"y":0,"width":90,"height":50},"GB_{n,d}":{"x":280,"y":60,"width":90,"height":50},"EKEYS_{1..n}":{"x":480,"y":20,"width":90,"height":50},"DINF":{"x":480,"y":90,"width":90,"height":50}},"edges":{"@oracles_interface":{"EN_{1,..,n}":"exitX=1;exitY=0.15;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;", "GB_{n,d}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;", "DINF":"exitX=0.85;exitY=0.67;entryX=0.05;entryY=0.7;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EN_{1,..,n}":{"EKEYS_{1..n}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.1;entryDx=0;entryDy=0;"},"GB_{n,d}":{"EKEYS_{1..n}":"exitX=0.65;exitY=0.4;entryX=0;entryY=0.95;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","DINF":"exitX=0.65;exitY=0.6;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"EN_{1,..,n}":[],"GB_{n,d}":[]}}
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":40,"height":170},"EN_{1,..,n}":{"x":280,"y":0,"width":90,"height":50},"GB_{tdyao,n,d}":{"x":280,"y":60,"width":90,"height":50},"EKEYS_{1..n}":{"x":480,"y":20,"width":90,"height":50},"DINF_{tdyao,n,d}":{"x":480,"y":90,"width":90,"height":50}},"edges":{"@oracles_interface":{"EN_{1,..,n}":"exitX=1;exitY=0.15;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;", "GB_{tdyao,n,d}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;", "DINF_{tdyao,n,d}":"exitX=0.85;exitY=0.67;entryX=0.05;entryY=0.7;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EN_{1,..,n}":{"EKEYS_{1..n}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.1;entryDx=0;entryDy=0;"},"GB_{tdyao,n,d}":{"EKEYS_{1..n}":"exitX=0.65;exitY=0.4;entryX=0;entryY=0.95;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","DINF_{tdyao,n,d}":"exitX=0.65;exitY=0.6;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"EN_{1,..,n}":[],"GB_{tdyao,n,d}":[]}}
 	},
 
 	"2CPA":
