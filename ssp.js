@@ -680,42 +680,48 @@ function parse_pseudocode(src_pkg, orc, pkg_dependencies, code, mono_pkgs) {
     var lines = code.split(';');
     for (let line of lines) {
 	html += "<div class=\"pcode-oracle-line\">";
-	var tokens = line.split(' ');
 
-	for (let tok of tokens) {
-	    if (tok in PCODE_TEXT) {
-		tok = tok.substr(1);
-		html += "\\(\\textbf\{" + tok + "\}\\)";
+	if (line.length > 1 && line.substr(0,2) == "##") {
+	    // line is a comment
+	    html += line.substr(2, line.length);
+	} else {
 
-	    } else if (tok in PCODE_SYMBOLS) {
-		var html_frag = PCODE_SYMBOLS[tok];
-		html += html_frag;
+	    var tokens = line.split(' ');
+	    for (let tok of tokens) {
+		if (tok in PCODE_TEXT) {
+		    tok = tok.substr(1);
+		    html += "\\(\\textbf\{" + tok + "\}\\)";
 
-         // }  else if (is_oracle_call(tok, pkg_dependencies)) { // assuming all uppercase strings are oracles
-	      // 	var oracle_call_html = parse_oracle_call(tok);
-	      // 	var orc_call_name = tok.substr(0, tok.indexOf('('));
+		} else if (tok in PCODE_SYMBOLS) {
+		    var html_frag = PCODE_SYMBOLS[tok];
+		    html += html_frag;
 
-	      // 	// find pkg where orc_call is from
-	      // 	var pkg_name = "";
-	      // 	for (let dep of pkg_dependencies) {
-	      // 	    if (dep[1] == orc_call_name) {
-	      // 		pkg_name = dep[0];
-	      // 		if (pkg_name in mono_pkgs) {
-	      // 		    pkg_def = mono_pkgs[pkg_name];
-	      // 		    if ("instance" in pkg_def) {
-	      // 			pkg_name = pkg_def["instance"];
-	      // 		    }
-	      // 		}
-	      // 	    }
-	      // 	}
+		    // }  else if (is_oracle_call(tok, pkg_dependencies)) { // assuming all uppercase strings are oracles
+		    // 	var oracle_call_html = parse_oracle_call(tok);
+		    // 	var orc_call_name = tok.substr(0, tok.indexOf('('));
 
-	      // 	var pcode_oracle_id = "pcode-oracle-call?" + src_pkg + "." + orc + "?" + pkg_name + "." + orc_call_name;
-	      // 	html += '<div id="' + pcode_oracle_id + '" class="pcode-oracle-call">' + oracle_call_html + '</div>';
+		    // 	// find pkg where orc_call is from
+		    // 	var pkg_name = "";
+		    // 	for (let dep of pkg_dependencies) {
+		    // 	    if (dep[1] == orc_call_name) {
+		    // 		pkg_name = dep[0];
+		    // 		if (pkg_name in mono_pkgs) {
+		    // 		    pkg_def = mono_pkgs[pkg_name];
+		    // 		    if ("instance" in pkg_def) {
+		    // 			pkg_name = pkg_def["instance"];
+		    // 		    }
+		    // 		}
+		    // 	    }
+		    // 	}
 
-	    } else {
-		html += "\\(" + tok + "\\)";
+		    // 	var pcode_oracle_id = "pcode-oracle-call?" + src_pkg + "." + orc + "?" + pkg_name + "." + orc_call_name;
+		    // 	html += '<div id="' + pcode_oracle_id + '" class="pcode-oracle-call">' + oracle_call_html + '</div>';
+
+		} else {
+		    html += "\\(" + tok + "\\)";
+		}
+		html += " ";
 	    }
-	    html += " ";
 	}
 	// html += "<br>";
 	html += "</div>";
