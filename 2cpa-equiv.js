@@ -11,7 +11,7 @@ function driver() {
 				"code": "@assert k = \\bot;k @sample \\{0,1\\}^{\\lambda};@return ()",
 				"params": []
 			},
-	
+
 			"ENC":
 			{
 				"code": "@assert k \\neq \\bot;@assert |m_0| = |m_1|; c @sample enc(k, m_b);@return c",
@@ -31,11 +31,17 @@ function driver() {
 			}
 			}
 		},
-	
+
 		"KEYS":
 	{
 	    "oracles":
 	    {
+		"GETA^{out}" :
+		{
+		    "code": "@assert z \\neq @bot;\\mathsf{flag} @gets 1;@if Z = @bot @then;    Z(0) @sample \\{0,1\\}^\\lambda;    Z(1) @sample \\{0,1\\}^\\lambda;@return Z(z);",
+		    "params": []
+		},
+
 		"SETBIT" :
 		{
 		    "code": "@assert z = @bot;z @gets z';@return ();",
@@ -52,14 +58,7 @@ function driver() {
 		{
 		    "code": "@assert z \\neq @bot;@return z",
 		    "params": []
-		},
-
-		"GETA^{out}" :
-		{
-		    "code": "@assert z \\neq @bot;\\mathsf{flag} @gets 1;@if Z = @bot @then;    Z(0) @sample \\{0,1\\}^\\lambda;    Z(1) @sample \\{0,1\\}^\\lambda;@return Z(z);",
-		    "params": []
-		},
-
+		}
 
 	    }
 
@@ -93,6 +92,16 @@ function driver() {
     };
 
     var modular_pkgs = {
+	"IND-CPA^b":
+	{
+	    "oracles": [["IND-CPA^b", "SMP|ENC"]],
+	    "graph":
+	    {
+		"IND-CPA^b": []
+	    },
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":50},"IND-CPA^b":{"x":100,"y":0,"width":90,"height":50}},"edges":{"@oracles_interface":{"IND-CPA^b":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[]}}
+	},
+
 	"2CPA":
 	{
 	    "oracles": [["KEYS", "SETBIT|GETA^{out}"], ["ENC^b", "ENC"]],
@@ -117,7 +126,10 @@ function driver() {
     };
 
     var prooftree = {
-	"ExplanationStepTemplate": {
+
+	"Preface":
+	{
+	    "parent": null,
 	    "contents": [
 			{
 				"text":	"A symmetric encryption scheme \\(\\mathsf{se}\\) consists of two PPT algorithms \\(\\mathsf{se.enc}\\) and \\(\\mathsf{se.dec}\\) such that for all messages \\(m\\), keys \\(k\\) and (implicit) randomness of encryption, it holds that \\(\\mathsf{se.dec}(k,\\mathsf{se.enc}(k,m))=m\\).<\a> \\(\\textbf{Security.}\\) The ciphertext \\(c\\leftarrow^{\$}\\mathsf{se.enc}(k,m)\\) should not leak anything beyond the length of \\(m\\). We model this as indistinguishability under chosen plaintext attacks (IND-CPA), which is a game that exposes an \\(\\mathsf{ENC}\\) oracle to the adversary who can then (repeatedly) submit two messages \\(m_0\\) and \\(m_1\\) of the same length and will receive an encryption of \\(m_b\\). After querying the \\(\\mathsf{ENC}\\) oracle a polynomial number of times, the adversary needs to guess whether \\(b=0\\) or \\(b=1\\)."
@@ -129,13 +141,19 @@ function driver() {
 	    "parent": "ExplanationStepTemplate",
 	    "contents": [
 		{
-		    "text": "A symmetric encryption scheme \\(\\mathsf{se}\\) achieves Indistinguishability under Chosen Plaintext Attacks (IND-CPA) if for all PPT adversaries \\(\\mathcal{A}\\), \\mathsf{Adv}(\\mathcal{A};\\mathsf{IND\\text{-}CPA}^0(se), \\mathsf{IND\\text{-}CPA}^1(se)) is negligible.",
+		    "text": "Text"
 		},
-	    ]
+		{
+		    "graphs": [["IND-CPA^b"]]
+		}
+	    ],
+	    "type": {
+		"unstructured": true
+	    }
 	},
 
 	"Lemma": {
-	    "parent": "ExplanationStepTemplate",
+	    "parent": "Preface",
 	    "contents": [
 		{
 		    "text": "Let \\(se\\) be a symmetric encryption scheme. For reduction \\(\\mathcal{R}_{cpa} := \\mathsf{RED}\\), it holds that for any PPT adversary \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{2CPA}^0(se), \\mathsf{2CPA}^1(se)) \\leq \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}_{cpa}; \\mathsf{IND\\text{-}CPA}^0(se), \\mathsf{IND\\text{-}CPA}^1(se)).$$"
@@ -353,14 +371,8 @@ function driver() {
 	"modular_pkgs": modular_pkgs
     }
 
-    var wnd_width = 300;
-    var wnd_height = 300;
-    var wnd_x = (window.innerWidth - wnd_width) - wnd_width/10;
-    var wnd_y = window.innerHeight - wnd_height;
-
-    var wnd_pos = {wnd_height: 300, width: wnd_width, x: wnd_x, y: wnd_y}
-    var wrapper_width = {proof_width: '51%', oracle_width: '30%'}
-    add_proof(proof, wnd_pos, wrapper_width);
+    var wrapper_width = {proof_width: '70%', oracle_width: '28%'}
+    add_def(proof, wrapper_width);
 
     return proof;
 }
