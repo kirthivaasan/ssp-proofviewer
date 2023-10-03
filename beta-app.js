@@ -237,6 +237,7 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
     style[mxConstants.STYLE_ROUNDED] = true;
     style[mxConstants.STYLE_FILLCOLOR] = 'white';
     style[mxConstants.STYLE_FONTCOLOR] = 'black';
+    style[mxConstants.STYLE_FONTFAMILY] = 'serif';
     style[mxConstants.STYLE_FONTSIZE] = '12';
     style[mxConstants.STYLE_SPACING] = 4;
 
@@ -1136,7 +1137,6 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 
 	// 								      }
 	// 			       );
-
 	// 	    graph.addCellOverlay(cell, overlay);
 	// 	} else {
 	// 	    graph.removeCellOverlays(cell);

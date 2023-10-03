@@ -547,7 +547,7 @@ Where the first and last advantage are obtained by reduction to simulation secur
     var wnd_y = window.innerHeight - wnd_height;
 
     var wnd_pos = {wnd_height: 300, width: wnd_width, x: wnd_x, y: wnd_y}
-    var wrapper_width = {proof_width: '51%', oracle_width: '30%'}
+    var wrapper_width = {proof_width: '65%', oracle_width: '30%'}
     add_proof(proof, wnd_pos, wrapper_width);
 
     return proof;
