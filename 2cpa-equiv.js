@@ -102,7 +102,7 @@ function driver() {
 	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":50},"IND-CPA^b":{"x":100,"y":0,"width":90,"height":50}},"edges":{"@oracles_interface":{"IND-CPA^b":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[]}}
 	},
 
-	"2CPA":
+	"2CPA^b":
 	{
 	    "oracles": [["KEYS", "SETBIT,GETA^{out}"], ["ENC^b", "ENC"]],
 	    "graph":
@@ -122,7 +122,7 @@ function driver() {
 		"IND-CPA^b": []
 	    },
 	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":50},"RED":{"x":80,"y":0,"width":90,"height":50},"IND-CPA^b":{"x":250,"y":0,"width":90,"height":50}},"edges":{"@oracles_interface":{"RED":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"RED":{"IND-CPA^b":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"RED":[]}}
-	}
+	},
     };
 
     var prooftree = {
@@ -131,7 +131,7 @@ function driver() {
 	    "parent": null,
 	    "contents": [
 		{
-		    "text": "Text"
+		    "text": "A symmetric encryption scheme \\(\\mathsf{se}\\) consists of two PPT algorithms \\(\\mathsf{se.enc}\\) and \\(\\mathsf{se.dec}\\) such that for all messages \\(m\\), keys \\(k\\) and (implicit) randomness of encryption, it holds that \\(\\mathsf{se.dec}(k,\\mathsf{se.enc}(k,m))=m\\).<\a> \\(\\textbf{Security.}\\) The ciphertext \\(c\\leftarrow^{\$}\\mathsf{se.enc}(k,m)\\) should not leak anything beyond the length of \\(m\\). We model this as indistinguishability under chosen plaintext attacks (IND-CPA), which is a game that exposes an \\(\\mathsf{ENC}\\) oracle to the adversary who can then (repeatedly) submit two messages \\(m_0\\) and \\(m_1\\) of the same length and will receive an encryption of \\(m_b\\). After querying the \\(\\mathsf{ENC}\\) oracle a polynomial number of times, the adversary needs to guess whether \\(b=0\\) or \\(b=1\\). Additionally, before querying \\(\\mathsf{ENC}\\) for the first time, the adversary needs to call \\(\\mathsf{SMP}\\) to instruct the game to sample the key."
 		}
 	    ],
 	    "type": {
@@ -139,40 +139,49 @@ function driver() {
 	    }
 	},
 
-	"Def1":
+	"Definition (Indistinguishability under Chosen Plaintext Attacks (IND-CPA))":
 	{
-	    "parent": null,
+	    "parent": "ExplanationStepTemplate",
 	    "contents": [
 		{
-		    "text": "Text"
+		    "text": "A symmetric encryption scheme \\(\\mathsf{se}\\) achieves indistinguishability under chosen plaintext attacks (IND-CPA) if for all PPT adversaries \\(\\mathcal{A}\\), the advantage \\(\\mathsf{Adv}(\\mathcal{A};\\mathrm{IND\\text{-}CPA}^0, \\mathrm{IND\\text{-}CPA}^1)\\) is negligible."
 		},
 		{
 		    "graphs": [["IND-CPA^b"]]
-		}
-	    ],
-	},
-
-	"Def2":
-	{
-	    "parent": "Def1",
-	    "contents": [
-		{
-		    "text": "More text"
 		},
 		{
-		    "graphs": [["2CPA"]]
+		    "text": "We now modularize the above \\(\\mathrm{IND\\text{-}CPA}^b\\) game into a \\(\\textbf{stateless}\\) encryption package \\(\\mathrm{ENC}^b\\) and a \\(\\textbf{stateful}\\) package \\(\\mathrm{KEYS}\\) which stores the key. In order to make this modularization more useful for our later proof of Yao's garbling scheme, \\(\\mathrm{KEYS}\\) actually stores two keys, one of which the adversary can obtain and one which the adversary cannot obtain, i.e., the adversary can make a \\(\\mathsf{SETBIT}(d)\\) query with a bit \\(z\\) to choose whether they want to learn the \\(0\\)-key \\(k_0\\) or the \\(1\\)-key \\(k_1\\). Then, the adversary can make a \\(\\mathsf{GETA}\\) query to obtain \\(k_z\\). The name \\(\\mathsf{GETA}\\) is inspired by the fact that in the analysis of Yao's garbling scheme the insecure keys is usually called the \\(\\textbf{active}\\) key. Subsequently, the adversary can make encryption queries to \\(\\mathsf{ENC}\\) by submitting two messages \\(m_0\\) and \\(m_1\\) of equal length as well as a bit \\(d\\) indicating that this is a query for \\(k_d\\). The oracle \\(\\mathsf{ENC}\\) returns always an encryption of \\(m_0\\) if \\(k_d\\) is the active (=insecure) key. Else, \\(\\mathsf{ENC}\\) returns an encryption of \\(m_b\\). We call this security notion 2CPA-security to hint at the fact that the game stores two keys (even if only one of them is secure)."
 		}
-	    ],
+	],
+	},
+
+	"Definition (2CPA security)":
+	{
+	    "parent": "Definition (Indistinguishability under Chosen Plaintext Attacks (IND-CPA))",
+	    "contents": [
+		{
+		    "text": "A symmetric encryption scheme achieves \\(\\mathsf{se}\\) 2CPA-security if for all PPT adversaries \\(\\mathcal{A}\\), the advantage \\(\\mathsf{Adv}(\\mathcal{A};\\mathrm{2CPA}^0, \\mathrm{2CPA}^1)\\) is negligible."
+		},
+		{
+		    "graphs": [["2CPA^b"]]
+		},
+		{
+		"text": "We next show that IND-CPA security implies 2CPA security by giving a reduction \\(\\mathrm{RED}\\) such that \\(\\mathrm{RED}\\rightarrow\\mathsf{IND\\text{-}CPA}^b\\) has identical input-output behaviour to \\(\\mathsf{2CPA}^b \\)."
+	    }
+	],
 	},
 
 	"Lemma": {
 	    "parent": "Preface",
 	    "contents": [
 		{
-		    "text": "Let \\(se\\) be a symmetric encryption scheme. For reduction \\(\\mathcal{R}_{cpa} := \\mathsf{RED}\\), it holds that for any PPT adversary \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{2CPA}^0(se), \\mathsf{2CPA}^1(se)) \\leq \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}_{cpa}; \\mathsf{IND\\text{-}CPA}^0(se), \\mathsf{IND\\text{-}CPA}^1(se)).$$"
+		    "text": "Let \\(se\\) be a symmetric encryption scheme. For reduction \\(\\mathsf{RED}\\), it holds that for any PPT adversary \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{2CPA}^0, \\mathrm{2CPA}^1) \\leq \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathsf{RED}; \\mathrm{IND\\text{-}CPA}^0, \\mathrm{IND\\text{-}CPA}^1).$$"
 		},
 		{
-		    "graphs": [["2CPA", "RED->IND-CPA^b(se)"]]
+		    "graphs": [["2CPA^b", "RED->IND-CPA^b(se)"]]
+		},
+		{
+		    "text": "We compare the behaviour of the two games by inlining. Concretely, to understand the behaviour of \\(\\mathrm{RED}\\rightarrow\\mathsf{IND\\text{-}CPA}^b(se)\\), we inline the code of \\(\\mathsf{IND\\text{-}CPA}^b(se)\\) into reduction \\(\\mathrm{RED}\\), and analogously, we inline the code of \\(\\mathrm{KEYS}\\) into \\(\\mathrm{ENC}^b\\) and then compare the behaviour and see, via small, successive code changes that it is identical."
 		}
 	    ],
 	    "type":
