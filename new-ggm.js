@@ -181,7 +181,7 @@ function ggm_driver() {
             "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":50},"Gprf-cons":{"x":50,"y":0,"width":90,"height":50},"Key":{"x":200,"y":0,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Gprf-cons":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprf-cons":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Gprf-cons":[]}}
 
         },
-        "Real-Gprf":
+        "\\mathrm{Gprf}^0":
         {
             "oracles": [["Gprf-cons", "EVAL"]],
             "graph":
@@ -192,7 +192,7 @@ function ggm_driver() {
             "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":10,"height":50},"Gprf-cons":{"x":50,"y":0,"width":90,"height":50},"Key":{"x":200,"y":0,"width":90,"height":50, "color":"blue"}},"edges":{"@oracles_interface":{"Gprf-cons":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"Gprf-cons":{"Key":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"Gprf-cons":[]}}
 
         },
-        "Ideal-Gprf":
+        "\\mathrm{Gprf}^1":
         {
             "oracles": [["RO", "EVAL"]],
             "graph":
@@ -203,7 +203,7 @@ function ggm_driver() {
                                 "Key":{"x":200,"y":0,"width":90,"height":50, "color":"blue"}},
                        "edges":{"@oracles_interface":{"RO":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}}}
         },
-        "Real-Gprg":
+        "\\mathrm{Gprg}^0":
         {
             "oracles": [["Prg-0", "GET"], ["Prg-1", "GET"]],
 
@@ -225,7 +225,7 @@ function ggm_driver() {
                        "edge_points":{"@oracles_interface":[],"Mod-prf":[],"Prg-000":[],"Prg-001":[],"Prg-010":[],"Prg-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[],"Prg-00":[],"Prg-01":[],"Prg-10":[],"Prg-11":[],"Prg-0":[],"Prg-1":[]}}
 
         },
-        "Ideal-Gprg":
+        "\\mathrm{Gprg}^1":
         {
             "oracles": [["Key-0", "GET"], ["Key-1", "GET"]],
 
@@ -595,13 +595,13 @@ function ggm_driver() {
                     text: "We write the PRF security game in a manner which aides the SSP based prove: Instead of supplying a package for the PRF experiment which just calls its PRF \\(f\\) internally we opt to describe the construction in terms of SSP packages -- and use a \\(\\mathrm{Key}\\) package to take care of the <em>state</em> of the experiment."
                 },
                 {
-                    text: "The \\(\\mathbf{Gprf_\\mathsf{cons}}\\) package in the definition can of course be realised by a composition of multiple packages which can formally be integrated into one package by <em>inlining</em>"
+                    text: "The \\(\\mathrm{Gprf}_\\mathsf{cons}\\) package in the definition can of course be realised by a composition of multiple packages which can formally be integrated into one package by <em>inlining</em>"
                 },
                 {
-                    graphs: [["Real-Gprf", "Ideal-Gprf"]]
+                    graphs: [["\\mathrm{Gprf}^0", "\\mathrm{Gprf}^1"]]
                 },
                 {
-                    text: "The construction \\(\\mathbf{Gprf_\\mathsf{cons}}\\) is a PRF if for any PPT adversary \\(\\mathcal{A}\\) if the following holds: $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Gprf}_{\\mathsf{cons}}\\rightarrow\\mathsf{Key},\\mathsf{RO}) \\leq \\mathsf{negl}$$"
+                    text: "The PRF advantage for a construction \\(\\mathrm{Gprf}_\\mathsf{cons}\\) is defined as $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Gprf}_{\\mathsf{cons}}\\rightarrow\\mathrm{Key},\\mathrm{RO})$$ We say a PRF is secure if for any PPT adversary \\(\\mathcal{A}\\) the advantage is neglegible."
                 }
             ]
         },
@@ -613,10 +613,10 @@ function ggm_driver() {
                     text: "In contrast, the PRG experiment is formulated in a more traditional manner where the \((\\mathrm{Prg-}\\) packages call a candidate PRG \\(g\\). Giving the adversary separate access to the output halves aides the further proof without changing the notion of security. One could proof equivalence between such constructions if desired."
                 },
                 {
-                    graphs: [["Real-Gprg", "Ideal-Gprg"]]
+                    graphs: [["\\mathrm{Gprg}^0", "\\mathrm{Gprg}^1"]]
                 },
                 {
-                    text: "\\(g\\) is a secre PRG if for any PPT adversary \\(\\mathcal{A}\\) if the following holds: $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Real-Gprg},\\mathsf{Ideal-Gprg}) \\leq \\mathsf{negl}$$"
+                    text: "The PRG advantage for a function \\(g\\) is defined as: $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Gprg}^0,\\mathrm{Gprg}^1)$$ We say a PRG is secure if for any PPT adversary \\(\\mathcal{A}\\) the advantage is neglegible."
                 }
             ]
         },
