@@ -660,7 +660,7 @@ function ggm_driver() {
             "parent": "Theorem",
             "contents": [
                 {
-                    "text":`Let \\(\\mathrm{R}_{[]}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
+                    "text":`Let \\(\\mathrm{R}_{[]}\\) be the reduction defined by the packages hatched in red in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
 $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Prf_{GGM}}\\rightarrow\\mathrm{Key},\\mathrm{Hybrid_{0}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{[]},\\mathrm{Gprg}_{[]}^0,\\mathrm{Gprg}_{[]}^1)$$.`
                 },
                 {
@@ -689,7 +689,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Prf_{GGM}}\\rightarrow\\mathrm{Key},\\math
             "parent": "Theorem",
             "contents": [
                 {
-                    "text":`Let \\(\\mathrm{R}_{0}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
+                    "text":`Let \\(\\mathrm{R}_{0}\\) be the reduction defined by the packages hatched in red in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
 $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{0}},\\mathrm{Hybrid_{1}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_0,\\mathrm{Gprg}_{0}^0,\\mathrm{Gprg}_{0}^1)$$.`
                 },
                 {
@@ -718,7 +718,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{0}},\\mathrm{Hybrid_{1}}) = \\math
             "parent": "Theorem",
             "contents": [
                 {
-                    "text":`Let \\(\\mathrm{R}_{1}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
+                    "text":`Let \\(\\mathrm{R}_{1}\\) be the reduction defined by the packages hatched in red in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
 $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{1}},\\mathrm{Hybrid_{00}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_1,\\mathrm{Gprg}_{1}^0,\\mathrm{Gprg}_{1}^1)$$.`
                 },
                 {
@@ -747,7 +747,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{1}},\\mathrm{Hybrid_{00}}) = \\mat
             "parent": "Theorem",
             "contents": [
                 {
-                    "text":`Let \\(\\mathrm{R}_{00}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
+                    "text":`Let \\(\\mathrm{R}_{00}\\) be the reduction defined by the packages hatched in red in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
 $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{00}},\\mathrm{Hybrid_{01}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{00},\\mathrm{Gprg}_{00}^0,\\mathrm{Gprg}_{00}^1)$$.`
                 },
                 {
@@ -776,7 +776,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{00}},\\mathrm{Hybrid_{01}}) = \\ma
             "parent": "Theorem",
             "contents": [
                 {
-                    "text":`Let \\(\\mathrm{R}_{01}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
+                    "text":`Let \\(\\mathrm{R}_{01}\\) be the reduction defined by the packages hatched in red in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
 $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{01}},\\mathrm{Hybrid_{10}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{01},\\mathrm{Gprg}_{01}^0,\\mathrm{Gprg}_{01}^1)$$.`
                 },
                 {
@@ -805,7 +805,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{01}},\\mathrm{Hybrid_{10}}) = \\ma
             "parent": "Theorem",
             "contents": [
                 {
-                    "text":`Let \\(\\mathrm{R}_{10}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
+                    "text":`Let \\(\\mathrm{R}_{10}\\) be the reduction defined by the packages hatched in red in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
 $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{10}},\\mathrm{Hybrid_{11}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{10},\\mathrm{Gprg}_{10}^0,\\mathrm{Gprg}_{10}^1)$$.`
                 },
                 {
@@ -834,7 +834,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{10}},\\mathrm{Hybrid_{11}}) = \\ma
             "parent": "Theorem",
             "contents": [
                 {
-                    "text":`Let \\(\\mathrm{R}_{11}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
+                    "text":`Let \\(\\mathrm{R}_{11}\\) be the reduction defined by the packages hatched in red in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
 $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{11}},\\mathrm{Hybrid_{000}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{11},\\mathrm{Gprg}_{11}^0,\\mathrm{Gprg}_{11}^1)$$.`
                 },
                 {
