@@ -389,7 +389,7 @@ $$\\begin{align}
             "parent": "Lemma 2",
             "contents": [
                 {
-                    "text": "\\(\\mathrm{Genc}^1\\stackrel{code}{\\equiv}\\mathrm{Genc}(\\mathrm{Sim}_{Lemma2})\\)"
+                    "text": "$$\\mathrm{Genc}^1\\stackrel{code}{\\equiv}\\mathrm{Genc}(\\mathrm{Sim}_{Lemma2})$$"
                 },
                 {
                     "text": "<p class=\"proofstep-title\">Proof of Claim 1</p><p>Below, in \\(\\mathrm{Genc(Sim_{Lemma2})}\\), we replace \\(\\mathrm{Sim}_{Lemma2}\\) by its definition and thereby obtain \\(\\mathrm{Hybrid\\text{-}Claim\\text{-}1}\\). We mark the definition of \\(\\mathrm{Genc(Sim_{Lemma2})}\\) by a dashed line, Removing the dashed line yields \\(\\mathrm{Genc^1}\\).</p>"
