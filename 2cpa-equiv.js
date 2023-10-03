@@ -113,15 +113,24 @@ function driver() {
 		"IND-CPA^b": []
 	    },
 	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":50},"RED":{"x":80,"y":0,"width":90,"height":50},"IND-CPA^b":{"x":250,"y":0,"width":90,"height":50}},"edges":{"@oracles_interface":{"RED":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"RED":{"IND-CPA^b":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}},"edge_points":{"@oracles_interface":[],"RED":[]}}
-	}
+	},
     };
 
     var prooftree = {
 	"ExplanationStepTemplate": {
 	    "contents": [
+			{
+				"text":	"A symmetric encryption scheme \\(\\mathsf{se}\\) consists of two PPT algorithms \\(\\mathsf{se.enc}\\) and \\(\\mathsf{se.dec}\\) such that for all messages \\(m\\), keys \\(k\\) and (implicit) randomness of encryption, it holds that \\(\\mathsf{se.dec}(k,\\mathsf{se.enc}(k,m))=m\\).<\a> \\(\\textbf{Security.}\\) The ciphertext \\(c\\leftarrow^{\$}\\mathsf{se.enc}(k,m)\\) should not leak anything beyond the length of \\(m\\). We model this as indistinguishability under chosen plaintext attacks (IND-CPA), which is a game that exposes an \\(\\mathsf{ENC}\\) oracle to the adversary who can then (repeatedly) submit two messages \\(m_0\\) and \\(m_1\\) of the same length and will receive an encryption of \\(m_b\\). After querying the \\(\\mathsf{ENC}\\) oracle a polynomial number of times, the adversary needs to guess whether \\(b=0\\) or \\(b=1\\)."
+			},	    ]
+	},
+
+	"Definition (Indistinguishability under Chosen Plaintext Attacks (IND-CPA))":
+	{
+	    "parent": "ExplanationStepTemplate",
+	    "contents": [
 		{
-		    "text": ""
-		}
+		    "text": "A symmetric encryption scheme \\(\\mathsf{se}\\) achieves Indistinguishability under Chosen Plaintext Attacks (IND-CPA) if for all PPT adversaries \\(\\mathcal{A}\\), \\mathsf{Adv}(\\mathcal{A};\\mathsf{IND\\text{-}CPA}^0(se), \\mathsf{IND\\text{-}CPA}^1(se)) is negligible.",
+		},
 	    ]
 	},
 
