@@ -592,10 +592,16 @@ function ggm_driver() {
 			parent : null,
 			contents: [
 				{
+					text: "We write the PRF security game in a manner which aides the SSP based prove: Instead of supplying a package for the PRF experiment which just calls its PRF \\(f\\) internally we opt to describe the construction in terms of SSP packages -- and use a \\(\\mathrm{Key}\\) package to take care of the <em>state</em> of the experiment."
+				},
+				{
+					text: "The \\(\\mathbf{Gprf_\\mathsf{cons}}\\) package in the definition can of course be realised by a composition of multiple packages which can formally be integrated into one package by <em>inlining</em>"
+				},
+				{
 					graphs: [["Real-Gprf", "Ideal-Gprf"]]
 				},
 				{
-					text: "The construction \\(\\mathbf{Gprf_\\mathsf{cons}}\\) is a prf if for any PPT adversary \\(\\mathcal{A}\\) if the following holds: $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Gprf}_{\\mathsf{cons}}\\rightarrow\\mathsf{Key},\\mathsf{RO}) \\leq \\mathsf{negl}$$"
+					text: "The construction \\(\\mathbf{Gprf_\\mathsf{cons}}\\) is a PRF if for any PPT adversary \\(\\mathcal{A}\\) if the following holds: $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Gprf}_{\\mathsf{cons}}\\rightarrow\\mathsf{Key},\\mathsf{RO}) \\leq \\mathsf{negl}$$"
 				}
 			]
 		},
@@ -604,10 +610,13 @@ function ggm_driver() {
 			parent : null,
 			contents: [
 				{
+					text: "In contrast, the PRG experiment is formulated in a more traditional manner where the \((\\mathrm{Prg-}\\) packages call a candidate PRG \\(g\\). Giving the adversary separate access to the output halves aides the further proof without changing the notion of security. One could proof equivalence between such constructions if desired."
+				},
+				{
 					graphs: [["Real-Gprg", "Ideal-Gprg"]]
 				},
 				{
-					text: "The construction \\(\\mathbf{Gprf_\\mathsf{cons}}\\) is a prf if for any PPT adversary \\(\\mathcal{A}\\) if the following holds: $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Gprf}_{\\mathsf{cons}}\\rightarrow\\mathsf{Key},\\mathsf{RO}) \\leq \\mathsf{negl}$$"
+					text: "\\(g\\) is a secre PRG if for any PPT adversary \\(\\mathcal{A}\\) if the following holds: $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Real-Gprg},\\mathsf{Ideal-Gprg}) \\leq \\mathsf{negl}$$"
 				}
 			]
 		},
@@ -616,7 +625,7 @@ function ggm_driver() {
 	    "parent": null,
 	    "contents": [
 		{
-		    "text": "We define the stateless \\(\\mathsf{Prf}_{GGM}\\)  package as follows. <br>(The leaf \\(\\mathsf{Prg}\\) packages make \\(\\mathsf{GET}\\) calls too, but due to a current limitation of the proof viewer it is not rendered)."
+		    "text": "We define the stateless \\(\\mathsf{Prf}_{GGM}\\)  package as follows. <!--<br>(The leaf \\(\\mathsf{Prg}\\) packages make \\(\\mathsf{GET}\\) calls too, but due to a current limitation of the proof viewer it is not rendered).-->"
 		},
 		{
 		    "graphs": [["PRF_{GGM}"]]
