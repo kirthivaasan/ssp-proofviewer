@@ -624,19 +624,17 @@ function ggm_driver() {
         {
             "parent": null,
             "contents": [
-
-
                 {
                     "graphs": [["Modular-Gprf", "Modular-Gprf-cons"]]
                 },
                 {
-                    "text": "We define the stateless \\(\\mathsf{Prf}_{GGM}\\)  package as follows. <!--<br>(The leaf \\(\\mathsf{Prg}\\) packages make \\(\\mathsf{GET}\\) calls too, but due to a current limitation of the proof viewer it is not rendered).-->"
+                    "text": "Recall that we defined PRF security relative to a construction package. Thus we have to provide a composition which satisfies the interfaces of \\(\\mathbf{Gprf_\\mathsf{cons}}\\) reproduced here for convenience. We define the stateless \\(\\mathsf{Prf}_{GGM}\\)  composition as follows. <!--<br>(The leaf \\(\\mathsf{Prg}\\) packages make \\(\\mathsf{GET}\\) calls too, but due to a current limitation of the proof viewer it is not rendered).-->"
                 },
                 {
                     "graphs": [["PRF_{GGM}"]]
                 },
                 {
-                    "text": "Recall that in SSPs we tend to define security games modularly. Similarly we can think of the security of a PRF as the standard monolithic PRF game, but with the key requested from a \\(\\mathsf{Key}\\) package. Now, that we have abstracted out the key/randomness, we can consider the \\(\\mathsf{Gprf\\text{-}cons}\\) package alone, as a stateless package that represents the PRF construction alone. This is useful, since now our construction is a re-usable and can be plugged into other places which satisfy the GET interface and security properties of the \\(\\mathsf{Key}\\) package."
+                    "text": "One can verify that this composition satisfies the interfaces of \\(\\mathbf{Gprf_\\mathsf{cons}}\\), in particular it exposes an \\(\\mathsf{EVAL}\\) oracle (at \\(\\mathrm{Mod-prf}\\)) and only calls a \\(\\mathsf{GET}\\) oracle (where both \\(\\mathrm{Prg-0}\\) and \\(\\mathrm{Prg-1}\\) call the <em>same</em> \\(\\mathsf{GET}\\) oracle)."
                 },
                 {
                     "graphs": [["Modular-Gprf", "Modular-Gprf-cons"]]
