@@ -138,7 +138,7 @@ function newyao_driver() {
 	    {
 		"GBL":
 		{
-		    "code": "(defined by the garbling scheme)",
+		    "code": "## (defined by the garbling scheme)",
 		    "params": ["C"]
 		}
 	    }
@@ -174,7 +174,7 @@ function newyao_driver() {
 	    "instance": "SIM_{tdyao}"
 	},
 
-	"DINF_{tdyao}":
+	"DINF_{tdyao,n,d}":
 	{
 	    "oracles":
 	    {
@@ -197,12 +197,12 @@ function newyao_driver() {
 	    {
 		"SETDINF":
 		{
-		    "code": "(defined by the garbling scheme)",
+		    "code": "##(defined by the garbling scheme)",
 		    "params": ["\\text{dinf}"]
 		},
 		"GETDINF":
 		{
-		    "code": "(defined by the garbling scheme)",
+		    "code": "##(defined by the garbling scheme)",
 		    "params": []
 		}
 	    }
@@ -218,13 +218,13 @@ function newyao_driver() {
 	    "oracles": [["EN_{1,..,n}", "SETBIT"], ["GEV_{n,d}", "EVAL"]],
 	    "graph":
 	    {
-		"GEV_{n,d}": [["GB_{n,d}", "GBL"], ["EN_{1,..,n}", "GETA^{out}_{1..n}"], ["DINF", "GETDINF"]],
+		"GEV_{n,d}": [["GB", "GBL"], ["EN_{1,..,n}", "GETA^{out}_{1..n}"], ["DINF", "GETDINF"]],
 		"EN_{1,..,n}": [["EKEYS_{1..n}", "GETKEYS"]],
-		"GB_{n,d}": [["EKEYS_{1..n}", "SETKEYS_{1..n}"], ["DINF", "SETDINF"]],
+		"GB": [["EKEYS_{1..n}", "SETKEYS_{1..n}"], ["DINF", "SETDINF"]],
 		"EKEYS_{1..n}": [],
 		"DINF": []
 	    },
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":40,"height":170},"GEV_{n,d}":{"x":90,"y":40,"width":90,"height":100},"EN_{1,..,n}":{"x":280,"y":0,"width":90,"height":50},"GB_{n,d}":{"x":280,"y":60,"width":90,"height":50},"EKEYS_{1..n}":{"x":480,"y":20,"width":90,"height":50},"DINF":{"x":480,"y":90,"width":90,"height":50}},"edges":{"@oracles_interface":{"EN_{1,..,n}":"exitX=1;exitY=0.15;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","GEV_{n,d}":"exitX=1;exitY=0.525;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"GEV_{n,d}":{"GB_{n,d}":"exitX=1;exitY=0.45;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","EN_{1,..,n}":"exitX=1;exitY=0.05;entryX=0;entryY=0.85;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","DINF":"exitX=0.85;exitY=0.75;entryX=0.05;entryY=0.7;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EN_{1,..,n}":{"EKEYS_{1..n}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.1;entryDx=0;entryDy=0;"},"GB_{n,d}":{"EKEYS_{1..n}":"exitX=0.65;exitY=0.4;entryX=0;entryY=0.95;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","DINF":"exitX=0.65;exitY=0.6;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"GEV_{n,d}":[],"EN_{1,..,n}":[],"GB_{n,d}":[]}}
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":40,"height":170},"GEV_{n,d}":{"x":90,"y":40,"width":90,"height":100},"EN_{1,..,n}":{"x":280,"y":0,"width":90,"height":50},"GB":{"x":280,"y":60,"width":90,"height":50},"EKEYS_{1..n}":{"x":480,"y":20,"width":90,"height":50},"DINF":{"x":480,"y":90,"width":90,"height":50}},"edges":{"@oracles_interface":{"EN_{1,..,n}":"exitX=1;exitY=0.15;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","GEV_{n,d}":"exitX=1;exitY=0.525;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"GEV_{n,d}":{"GB":"exitX=1;exitY=0.45;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","EN_{1,..,n}":"exitX=1;exitY=0.05;entryX=0;entryY=0.85;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","DINF":"exitX=0.85;exitY=0.75;entryX=0.05;entryY=0.7;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EN_{1,..,n}":{"EKEYS_{1..n}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.1;entryDx=0;entryDy=0;"},"GB":{"EKEYS_{1..n}":"exitX=0.65;exitY=0.4;entryX=0;entryY=0.95;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","DINF":"exitX=0.65;exitY=0.6;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"GEV_{n,d}":[],"EN_{1,..,n}":[],"GB":[]}}
 	},
 
 	"Composition2":
