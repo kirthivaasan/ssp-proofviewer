@@ -1307,7 +1307,7 @@ function add_proof(proof, wnd_pos, wrapper_width) {
 
 function add_def(proof, wrapper_width) {
     var title_div = document.getElementById("proof_title");
-    title_div.innerHTML = escapeFunnyChars(name);
+    title_div.innerHTML = escapeFunnyChars(proof["name"]);
 
     var proof_wrapper = document.getElementById('proof_wrapper');
     var oracle_wrapper = document.getElementById('oracle_wrapper');
@@ -1319,11 +1319,7 @@ function add_def(proof, wrapper_width) {
 
     // Add all contents
     for (step in contents) {
-	// if ("type" in contents[step] && contents[step]["type"] == "unstructured") {
-	//     add_unstructured(contents[step]);
-	// } else {
-	    add_proofstep(null, null, step, proof);
-	// }
+	add_proofstep(null, null, step, proof);
     }
 
     var pkg_defs_sofar = {};
