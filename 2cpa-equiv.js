@@ -126,6 +126,18 @@ function driver() {
     };
 
     var prooftree = {
+	"Preface":
+	{
+	    "parent": null,
+	    "contents": [
+		{
+		    "text": "Text"
+		}
+	    ],
+	    "type": {
+		"unstructured": true
+	    }
+	},
 
 	"Def1":
 	{
