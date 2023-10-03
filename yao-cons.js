@@ -8,7 +8,7 @@ function newyao_driver() {
 	    {
 		"GARBLE":
 		{
-		    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{SETBIT}_j(x_j);@if b = 1 @then \\mathsf{EVAL(C)};\\tilde{C} @gets \\mathsf{GBL}(C);\\text{dinf} @gets \\mathsf{GETDINF};@for j = 1..n @do;@> \\tilde{x}[j] @gets \\mathsf{GETA}^{out}_j;@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
+		    "code": "@assert \\(\\tilde{C}\\) = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{SETBIT}_j(x_j);@if b = 1 @then \\mathsf{EVAL(C)};\\(\\tilde{C}\\) @gets \\mathsf{GBL}(C);\\text{dinf} @gets \\mathsf{GETDINF};@for j = 1..n @do;@> \\(\\tilde{x}\\)[j] @gets \\mathsf{GETA}^{out}_j;@return (\\(\\tilde{C}\\), \\(\\tilde{x}\\), \\text{dinf})",
 		    "params": ["C", "x"]
 		}
 	    }
@@ -30,7 +30,7 @@ function newyao_driver() {
 	    {
 		"EVAL" :
 		{
-		    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{GETBIT}_j;@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];      @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j)); @> @> z_{i,j} @gets op(z_{i-1,\\ell},z_{i-1,r});@for j = 1..d @do;@> \\mathsf{SETBIT}_j(z_{d,j});@return ()",
+		    "code": "@assert \\(\\tilde{C}\\) = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{GETBIT}_j;@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];      @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j)); @> @> z_{i,j} @gets op(z_{i-1,\\ell},z_{i-1,r});@for j = 1..d @do;@> \\mathsf{SETBIT}_j(z_{d,j});@return ()",
 		    "params": ["j", "\\ell", "r", "op"]
 		}
 
@@ -115,7 +115,7 @@ function newyao_driver() {
 
 	},
 
-	"EN":
+	"EN_{1,..,n}":
 	{
 	    "instance": "EN_j"
 	},
@@ -126,7 +126,7 @@ function newyao_driver() {
 	    {
 		"GBL":
 		{
-		    "code": "@for i = 0..d @do;@> @for j = 1..n @do;@> @> Z_{i,j}(0) @sample \\{0,1\\}^{\\lambda};@> @> Z_{i,j}(1) @sample \\{0,1\\}^{\\lambda};@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];      @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> \\tilde{g}_j @gets \\bot;@> @> @for (b_{\\ell},b_r) \\in \\{0,1\\}^2;@> @> @> b_j @gets op(b_{\\ell}, b_r);@> @> @> k_j @gets Z_{i,j}(b_j);@> @> @> c_{in} @sample enc(Z_{i,\\ell}(b_{\\ell}, k_j));@> @> @> c @sample enc(Z_{i,r}(b_r), c_{in});@> @> @> \\tilde{g}_j @gets \\tilde{g}_j \\cup c; @> @> \\tilde{C}[i,j] @gets \\tilde{g}_j;@for j = 1..n @do;@> \\mathsf{SETKEYS}_j(Z_{0,j});\\mathsf{SETDINF}(Z_{d,1}, \\cdots, Z_{d,n});@return \\tilde{C}",
+		    "code": "@for i = 0..d @do;@> @for j = 1..n @do;@> @> Z_{i,j}(0) @sample \\{0,1\\}^{\\lambda};@> @> Z_{i,j}(1) @sample \\{0,1\\}^{\\lambda};@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];      @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> \\tilde{g}_j @gets \\bot;@> @> @for (b_{\\ell},b_r) \\in \\{0,1\\}^2;@> @> @> b_j @gets op(b_{\\ell}, b_r);@> @> @> k_j @gets Z_{i,j}(b_j);@> @> @> c_{in} @sample enc(Z_{i,\\ell}(b_{\\ell}, k_j));@> @> @> c @sample enc(Z_{i,r}(b_r), c_{in});@> @> @> \\tilde{g}_j @gets \\tilde{g}_j \\cup c; @> @> \\(\\tilde{C}\\)[i,j] @gets \\tilde{g}_j;@for j = 1..n @do;@> \\mathsf{SETKEYS}_j(Z_{0,j});\\mathsf{SETDINF}(Z_{d,1}, \\cdots, Z_{d,n});@return \\(\\tilde{C}\\)",
 		    "params": ["C"]
 		}
 	    }
@@ -143,7 +143,7 @@ function newyao_driver() {
 	    {
 		"GBL":
 		{
-		    "code": "@for i = 0..d @do;@> @for j = 1..n @do;@> @> S_{i,j}(0) @sample \\{0,1\\}^{\\lambda};@> @> S_{i,j}(1) @sample \\{0,1\\}^{\\lambda};@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];      @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> \\tilde{g}_j @gets \\bot;@> @> @for (d_{\\ell},d_r) \\in \\{0,1\\}^2;@> @> @> k_{i-1,\\ell} @gets S_{i-1,\\ell}(d_{\\ell});@> @> @> k_{i-1,r} @gets S_{i-1,r}(d_{r});@> @> @> @if d_{\\ell} = d_r = 0:;@> @> @> @> k_{i,j} @gets S_{i,j}(0);@> @> @> @else k_{i,j} @gets 0^{\\lambda};@> @> @> c_{in} @sample enc(k_{i-1,r}, k_{i,j}));@> @> @> c @sample enc(k_{i-1,\\ell}, c_{in});@> @> @> \\tilde{g}_j @gets \\tilde{g}_j \\cup c; @> @> \\tilde{C}_j @gets \\tilde{g}_j;\\tilde{C}[i] @gets \\tilde{C}_{1,..n};@return \\tilde{C}",
+		    "code": "@for i = 0..d @do;@> @for j = 1..n @do;@> @> S_{i,j}(0) @sample \\{0,1\\}^{\\lambda};@> @> S_{i,j}(1) @sample \\{0,1\\}^{\\lambda};@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];      @for j = 1..n @do;@> @> (\\ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j));@> @> \\tilde{g}_j @gets \\bot;@> @> @for (d_{\\ell},d_r) \\in \\{0,1\\}^2;@> @> @> k_{i-1,\\ell} @gets S_{i-1,\\ell}(d_{\\ell});@> @> @> k_{i-1,r} @gets S_{i-1,r}(d_{r});@> @> @> @if d_{\\ell} = d_r = 0:;@> @> @> @> k_{i,j} @gets S_{i,j}(0);@> @> @> @else k_{i,j} @gets 0^{\\lambda};@> @> @> c_{in} @sample enc(k_{i-1,r}, k_{i,j}));@> @> @> c @sample enc(k_{i-1,\\ell}, c_{in});@> @> @> \\tilde{g}_j @gets \\tilde{g}_j \\cup c; @> @> \\(\\tilde{C}\\)_j @gets \\tilde{g}_j;\\(\\tilde{C}\\)[i] @gets \\(\\tilde{C}\\)_{1,..n};@return \\(\\tilde{C}\\)",
 		    "params": ["C"]
 		},
 
@@ -196,18 +196,18 @@ function newyao_driver() {
 
 
     var modular_pkgs = {
-	"GC-correctness":
+	"Composition":
 	{
-	    "oracles": [["EN_n", "SETBIT"], ["GEV_{n,d}", "EVAL"]],
+	    "oracles": [["EN_{1,..,n}", "SETBIT"], ["GEV_{n,d}", "EVAL"]],
 	    "graph":
 	    {
-		"GEV_{n,d}": [["GB_{n,d}", "GBL"], ["EN_n", "GETA^{out}_{1..n}"], ["DINF", "GETDINF"]],
-		"EN_n": [["EKEYS_{1..n}", "GETKEYS"]],
+		"GEV_{n,d}": [["GB_{n,d}", "GBL"], ["EN_{1,..,n}", "GETA^{out}_{1..n}"], ["DINF", "GETDINF"]],
+		"EN_{1,..,n}": [["EKEYS_{1..n}", "GETKEYS"]],
 		"GB_{n,d}": [["EKEYS_{1..n}", "SETKEYS_{1..n}"], ["DINF", "SETDINF"]],
 		"EKEYS_{1..n}": [],
 		"DINF": []
 	    },
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":40,"height":170},"GEV_{n,d}":{"x":90,"y":40,"width":90,"height":100},"EN_n":{"x":280,"y":0,"width":90,"height":50},"GB_{n,d}":{"x":280,"y":60,"width":90,"height":50},"EKEYS_{1..n}":{"x":480,"y":20,"width":90,"height":50},"DINF":{"x":480,"y":90,"width":90,"height":50}},"edges":{"@oracles_interface":{"EN_n":"exitX=1;exitY=0.15;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","GEV_{n,d}":"exitX=1;exitY=0.525;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"GEV_{n,d}":{"GB_{n,d}":"exitX=1;exitY=0.45;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","EN_n":"exitX=1;exitY=0.05;entryX=0;entryY=0.85;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","DINF":"exitX=0.85;exitY=0.75;entryX=0.05;entryY=0.7;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EN_n":{"EKEYS_{1..n}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.1;entryDx=0;entryDy=0;"},"GB_{n,d}":{"EKEYS_{1..n}":"exitX=0.65;exitY=0.4;entryX=0;entryY=0.95;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","DINF":"exitX=0.65;exitY=0.6;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"GEV_{n,d}":[],"EN_n":[],"GB_{n,d}":[]}}
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":40,"height":170},"GEV_{n,d}":{"x":90,"y":40,"width":90,"height":100},"EN_{1,..,n}":{"x":280,"y":0,"width":90,"height":50},"GB_{n,d}":{"x":280,"y":60,"width":90,"height":50},"EKEYS_{1..n}":{"x":480,"y":20,"width":90,"height":50},"DINF":{"x":480,"y":90,"width":90,"height":50}},"edges":{"@oracles_interface":{"EN_{1,..,n}":"exitX=1;exitY=0.15;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","GEV_{n,d}":"exitX=1;exitY=0.525;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"GEV_{n,d}":{"GB_{n,d}":"exitX=1;exitY=0.45;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;","EN_{1,..,n}":"exitX=1;exitY=0.05;entryX=0;entryY=0.85;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","DINF":"exitX=0.85;exitY=0.75;entryX=0.05;entryY=0.7;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EN_{1,..,n}":{"EKEYS_{1..n}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.1;entryDx=0;entryDy=0;"},"GB_{n,d}":{"EKEYS_{1..n}":"exitX=0.65;exitY=0.4;entryX=0;entryY=0.95;entryDx=0;entryDy=0;exitDx=0;exitDy=0;","DINF":"exitX=0.65;exitY=0.6;entryX=0;entryY=0.2;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"}},"edge_points":{"@oracles_interface":[],"GEV_{n,d}":[],"EN_{1,..,n}":[],"GB_{n,d}":[]}}
 	},
 
 	"2CPA":
@@ -237,14 +237,14 @@ function newyao_driver() {
 	    "oracles": [["MOD-PRIVSIM^0", "GARBLE"]],
 	    "graph":
 	    {
-		"MOD-PRIVSIM^0": [["EN", "SETBIT_{1,...,n}|GETA^{out}_{1,...,n}"], ["GB", "GBL"], ["DINF", "GETDINF"]],
-		"EN": [["EKEYS_{1,...,n}", "GETKEYS_{1,...,n}"]],
+		"MOD-PRIVSIM^0": [["EN_{1,..,n}", "SETBIT_{1,...,n}|GETA^{out}_{1,...,n}"], ["GB", "GBL"], ["DINF", "GETDINF"]],
+		"EN_{1,..,n}": [["EKEYS_{1,...,n}", "GETKEYS_{1,...,n}"]],
 		"GB": [["EKEYS_{1,...,n}", "SETKEYS_{1,...,n}"], ["DINF", "SETDINF"]],
 		"DINF": [],
 		"EKEYS_{1,...,n}": []
 	    },
 
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":130},"MOD-PRIVSIM^0":{"x":80,"y":0,"width":90,"height":130},"EN":{"x":260,"y":0,"width":90,"height":50},"GB":{"x":260,"y":60,"width":90,"height":50},"DINF":{"x":500,"y":80,"width":90,"height":50},"EKEYS_{1,...,n}":{"x":500,"y":20,"width":90,"height":50}},"edges":{"@oracles_interface":{"MOD-PRIVSIM^0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"MOD-PRIVSIM^0":{"EN":"exitX=0.65;exitY=0.4;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","GB":"exitX=1;exitY=0.65;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","DINF":"exitX=0.8;exitY=0.75;entryX=0.1;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EN":{"EKEYS_{1,...,n}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.15;entryY=0.25;entryDx=0;entryDy=0;"},"GB":{"EKEYS_{1,...,n}":"exitX=0.85;exitY=0.3;entryX=0.05;entryY=0.85;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","DINF":"exitX=0.85;exitY=0.7;entryX=0;entryY=0.4;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[],"MOD-PRIVSIM^0":[],"EN":[],"GB":[]}}
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":130},"MOD-PRIVSIM^0":{"x":80,"y":0,"width":90,"height":130},"EN_{1,..,n}":{"x":260,"y":0,"width":90,"height":50},"GB":{"x":260,"y":60,"width":90,"height":50},"DINF":{"x":500,"y":80,"width":90,"height":50},"EKEYS_{1,...,n}":{"x":500,"y":20,"width":90,"height":50}},"edges":{"@oracles_interface":{"MOD-PRIVSIM^0":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"MOD-PRIVSIM^0":{"EN_{1,..,n}":"exitX=0.65;exitY=0.4;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","GB":"exitX=1;exitY=0.65;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","DINF":"exitX=0.8;exitY=0.75;entryX=0.1;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EN_{1,..,n}":{"EKEYS_{1,...,n}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.15;entryY=0.25;entryDx=0;entryDy=0;"},"GB":{"EKEYS_{1,...,n}":"exitX=0.85;exitY=0.3;entryX=0.05;entryY=0.85;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","DINF":"exitX=0.85;exitY=0.7;entryX=0;entryY=0.4;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[],"MOD-PRIVSIM^0":[],"EN_{1,..,n}":[],"GB":[]}}
 	},
 
 	"PRVSIM^1(SIM)":
@@ -272,7 +272,7 @@ function newyao_driver() {
 		"KEYS_{d+1}": []
 	    },
 
-	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":130},"MOD":{"x":80,"y":0,"width":90,"height":130},"GB_{yao,n,d}":{"x":260,"y":60,"width":90,"height":50},"KEYS_{d+1}":{"x":500,"y":80,"width":90,"height":50},"KEYS_{1,...,d}":{"x":500,"y":20,"width":90,"height":50}},"edges":{"@oracles_interface":{"MOD":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"MOD":{"KEYS_{1,...,d}":"exitX=0.65;exitY=0.415;entryX=0;entryY=0.15;entryPerimeter=1;exitDx=0;exitDy=0;","GB_{yao,n,d}":"exitX=1;exitY=0.65;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","KEYS_{d+1}":"exitX=0.8;exitY=0.75;entryX=0.1;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EN":{"KEYS_{1,...,d}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.15;entryY=0.25;entryDx=0;entryDy=0;"},"GB_{yao,n,d}":{"KEYS_{1,...,d}":"exitX=0.85;exitY=0.3;entryX=0.05;entryY=0.85;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","KEYS_{d+1}":"exitX=0.85;exitY=0.7;entryX=0;entryY=0.4;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[],"MOD":[],"EN":[],"GB_{yao,n,d}":[]}}
+	    "layout": {"nodes":{"@oracles_interface":{"x":0,"y":0,"width":1,"height":130},"MOD":{"x":80,"y":0,"width":90,"height":130},"GB_{yao,n,d}":{"x":260,"y":60,"width":90,"height":50},"KEYS_{d+1}":{"x":500,"y":80,"width":90,"height":50},"KEYS_{1,...,d}":{"x":500,"y":20,"width":90,"height":50}},"edges":{"@oracles_interface":{"MOD":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"},"MOD":{"KEYS_{1,...,d}":"exitX=0.65;exitY=0.415;entryX=0;entryY=0.15;entryPerimeter=1;exitDx=0;exitDy=0;","GB_{yao,n,d}":"exitX=1;exitY=0.65;entryX=0;entryY=0.5;entryPerimeter=1;exitDx=0;exitDy=0;","KEYS_{d+1}":"exitX=0.8;exitY=0.75;entryX=0.1;entryY=0.75;exitDx=0;exitDy=0;entryDx=0;entryDy=0;"},"EN_{1,..,n}":{"KEYS_{1,...,d}":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.15;entryY=0.25;entryDx=0;entryDy=0;"},"GB_{yao,n,d}":{"KEYS_{1,...,d}":"exitX=0.85;exitY=0.3;entryX=0.05;entryY=0.85;exitDx=0;exitDy=0;entryDx=0;entryDy=0;","KEYS_{d+1}":"exitX=0.85;exitY=0.7;entryX=0;entryY=0.4;entryDx=0;entryDy=0;exitDx=0;exitDy=0;"}},"edge_points":{"@oracles_interface":[],"MOD":[],"EN_{1,..,n}":[],"GB_{yao,n,d}":[]}}
 	},
 
 	"MOD_{n,d}->SEC^1_{n,d}(SIM_{yao,n,d})":
@@ -467,10 +467,13 @@ function newyao_driver() {
 	    "parent": null,
 	    "contents": [
 		{
-		    "text": "A garbling scheme allows a garbler to garble a circuit C into  \\tilde{C}, and it additionally also returns input encoding information Z and output encoding information \\mathsf{dinf}. Given an input x and input garbling encoding information Z, the garbling scheme produces an input encoding \\tilde{x}, and an evaluator can run garbled evaluation on \\tilde{C}, \\tilde{x} and \\mathsf{dinf} and correctness of a garbling scheme requires that the evaluator obtains C(x) as output. Selective security of a garbling scheme requires that \\tilde{C}, \\tilde{x} and \\mathsf{dinf} do not leak more information than C(x) and the public information C which is modelled by a simulator who can simulate \\tilde{C}, \\tilde{x} and \\mathsf{dinf} given only C(x) and C. We now discuss syntax and security of garbling schemes in SSPs. <p\> Syntax. A garbling scheme consists of 3 packages (EN,GB,GEV): The garbling package GB exposes a GBL query and makes a SETKEYS query and a SETDINF query to output Z and decoding information dinf, respectively. The input encoding package EN exposes a SETBIT query which allows to choose the input, makes a GETKEYS query to retrieve Z and exposes a GETA^{out} query which returns the input encoding \\tilde{x}. Here, we only consider projective garbling schemes and thus consider Z to have a pair of keys for each bit of x and EN will just return Z_i(x_i) for all i. We subsequently omit EN from the garbling scheme syntax and consider it fixed in this way. The garbled evaluation package GEV exposes an EVAL query (which takes as input a circuit C), makes a GBL(C) query to obtain \\tilde{C}, a GETA^{out} query to retrieve \\tilde{x}, and a GETDINF query to obtain dinf. We omit the modelling of correctness here (but see Brzuska-Oechser) and now focus on security. The real game has two additional packages EKEYS and DINF which store the input and output encoding information, respectively.	Security states that there exists a simulation package SIM which makes GETBIT queries to retrieve C(x) and can simulate (\\tilde{C},\\tilde{x},dinf). The real game PRVSIM^0(EN,GB) and the ideal game PRVSIM^1(SIM) are parametrized by the packages (EN,GB) and SIM, respectively, and additionally have an adaptor package MODPRVSIM^b which ensures that the adversary's interface is identical in the real and the ideal game.",
+		    "text": "A garbling scheme allows a garbler to garble a circuit \\(C\\) into  \\(\\tilde{C}\\), and it additionally also returns input encoding information \\(Z\\) and output encoding information \\(\\mathsf{dinf}\\). Given an input \\(x\\) and input garbling encoding information \\(Z\\), the garbling scheme produces an input encoding \\(\\tilde{x}\\), and an evaluator can run garbled evaluation on \\(\\tilde{C}\\), \\(\\tilde{x}\\) and \\(\\mathsf{dinf}\\) and correctness of a garbling scheme requires that the evaluator obtains \\(C(x)\\) as output. Selective security of a garbling scheme requires that \\(\\tilde{C}\\), \\(\\tilde{x}\\) and \\(\\mathsf{dinf}\\) do not leak more information than C(x) and the public information C which is modelled by a simulator who can simulate \\(\\tilde{C}\\), \\(\\tilde{x}\\) and \\(\\mathsf{dinf}\\) given only \\(C(x)\\) and \\(C\\). We now discuss syntax and security of garbling schemes in SSPs. <p\> \\(\\textbf{Syntax and correctness.}\\) A garbling scheme consists of 4 packages \\((\\textrm{EN},\\textrm{GB},\\textrm{GEV},\\textrm{DINF})\\): The garbling package \\(\\textrm{GB}\\) exposes a \\(\\mathsf{GBL}\\) query and makes a \\(\\mathsf{SETKEYS}\\) query and a \\(\\mathsf{SETDINF}\\) query to output \\(Z\\) and decoding information \\(\\mathsf{dinf}\\), respectively. The input encoding package \\(\\textrm{EN}\\) exposes a \\(\\mathsf{SETBIT}\\) query which allows to choose the input, makes a \\(\\mathsf{GETKEYS}\\) query to retrieve \\(Z\\) and exposes a \\(\\mathsf{GETA}^{\\text{out}}\\) query which returns the input encoding \\(\\tilde{x}\\). Here, we only consider projective garbling schemes and thus consider \\(Z\\) to have a pair of keys for each bit of \\(x\\) and \\(\textrm{EN}\\) will just return \\(Z_i(x_i)\\) for all  \\(i\\). We subsequently omit \\(\\textrm{EN}\\) from the garbling scheme syntax and consider it fixed in this way. The garbled evaluation package \\(\\textrm{GEV}\\) exposes an \\(\mathsf{EVAL}\\) query (which takes as input a circuit \\(C\\)), makes a \\(\\mathsf{GBL}(C)\\) query to obtain \\(\\tilde{C}\\), a \\(\\mathsf{GETA}^{\\text{out}}\\) query to retrieve \\(\\tilde{x}\\), and a \\(\\mathsf{GETDINF}\\) query to obtain \\(\\mathsf{dinf}\\). The packages \\((\\textrm{GB},\\textrm{GEV},\\textrm{DINF})\\) of a garbling scheme with input encoding package \\(\\textrm{EN}\\) and storage packages \\(\\textrm{EKEYS}\\) and \\(\\textrm{DINF}\\)	can then be composed to the following graph.",
 		},
 		{
-		    "graphs": [["GC-correctness"]]
+		    "graphs": [["Composition"]]
+		},
+        {
+			"text": "Correctness of a garbling scheme requires that calling \\(\\mathsf{SETBIT}\\) with all the bits of \\(x\\) and then \\(\\mathsf{EVAL}\\) with circuit \\(C\\) yields \\(C(x)\\) as an answer. See Brzuska-Oechsner for details of how to model correctness in SSPs. <p\> \\(\\textbf{Security.}\\) We model security as indistinguishability between a real game and an ideal game, which both expose the \\(\\tilde{C}\\), \\(\\tilde{x}\\) and \\(\\mathsf{dinf}\\) to the adversary. Concretely, the real game \\(\\textrm{PRVSIM}^0(\\textrm{GB},\\textrm{DINF})\\) composes the input encoding package \\(\\textrm{EN}\\) and the garbling scheme packages \\(\\textrm{GB}\\)\\ and(\\textrm{DINF}\\) packages again with the two packages \\textrm{EKEYS} and \\textrm{DINF} which store the input and output encoding information, respectively.	Security states that there exists a simulation package \\(\\textrm{SIM}\\) which makes \\(\\mathsf{GETBIT}\\) queries to retrieve \\(C(x)\\) and can simulate (\\(\\tilde{C}\\),\\(\\tilde{x}\\),\\(\\mathsf{dinf}\\)), which means the the real game \\(\\textrm{PRVSIM}^0(\\textrm{EN},\\textrm{GB})\\) and the ideal game \\(\\textrm{PRVSIM}^1(\\textrm{SIM})\\) are indistinguishable. Both games have an adaptor package \\(\\textrm{MODPRVSIM}^b\\) which ensures that the adversary's interface is identical in the real and the ideal game."
 		}
 	    ],
 	    "type": {
@@ -478,12 +481,13 @@ function newyao_driver() {
 	    }
 	},
 
+
 	"Definition (Simluation-based security of garbling schemes)":
 	{
 	    "parent": "Preface",
 	    "contents": [
 		{
-		    "text": "A garbling scheme (GB,DINF,GEV) achieves simulation-based security if there exists a PPT simulator package \\mathsf{SIM} such that for all PPT adversaries \\mathcal{A}, $$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{PRVSIM}^0(\\mathsf{GB}, \\mathsf{DINF}), \\mathsf{PRVSIM}^1(\\mathsf{SIM}))$$ is negligible.",
+		    "text": "A garbling scheme \\((\\textrm{GB},\\textrm{DINF},\\textrm{GEV})\\) achieves simulation-based security if there exists a PPT simulator package \\(\\textrm{SIM}\\) such that for all PPT adversaries \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{PRVSIM}^0(\\mathrm{GB}, \\mathrm{DINF}), \\mathrm{PRVSIM}^1(\\mathrm{SIM}))$$ is negligible.",
 		},
 		{
 		    "graphs": [["PRVSIM^0(GB, DINF)"], ["PRVSIM^1(SIM)"]]
