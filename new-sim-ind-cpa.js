@@ -306,6 +306,7 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Genc}^0,\\mathrm{Genc}^1)$$
 While advantage against the simulator is defined as
 $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Genc}^0,\\mathrm{Genc}(\\mathrm{Sim}))$$
 and we say an encryption scheme is IND-CPA secure if for any PPT adversary \\(\\mathcal{A}\\), the advantage is neglegible (resp. there exist a PPT simulator \\(\\mathrm{Sim}\\) such that the advantage is neglegible).
+The \\(\\mathrm{Zeroer}\\) package here can be seen as <em>leackage</em> of the encryption, i.e. the <em>length</em> of the message is passed on to the simulator while all other information is removed (and thus hidden from the adversary).
 One can, in fact, show that the two notions are equivalent:
 `
                 },
@@ -317,11 +318,13 @@ One can, in fact, show that the two notions are equivalent:
             "parent": null,
             "contents": [
                 {
-                    text: `There exists a PPT simulator \\(\\mathrm{Sim}\\)
+                    text: `There <em>exists</em> a PPT simulator \\(\\mathrm{Sim}\\)
 such that for all PPT adversaries \\(\\mathcal{A}\\),
-$$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim})) = \\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}^1)$$
-and conversely, there exists a PPT reduction \\(\\mathsf{R}\\) such that for all PPT simulators \\(\\mathsf{Sim}\\) and PPT adversaries \\(\\mathcal{A}\\),
-$$\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}^1) \\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}, \\mathsf{Genc}^0, \\mathsf{Genc}(\\mathsf{Sim}))+\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}(\\mathsf{Sim})).$$`
+$$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Genc}^0,\\mathrm{Genc}(\\mathrm{Sim})) = \\mathsf{Adv}(\\mathcal{A},\\mathrm{Genc}^0,\\mathrm{Genc}^1)$$
+additionally, there exists a PPT reduction \\(\\mathrm{R}\\) such that for <em>all</em> PPT simulators \\(\\mathrm{Sim}\\) and PPT adversaries \\(\\mathcal{A}\\),
+$$\\mathsf{Adv}(\\mathcal{A}, \\mathrm{Genc}^0, \\mathrm{Genc}^1) \\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}, \\mathrm{Genc}^0, \\mathrm{Genc}(\\mathrm{Sim}))+\\mathrm{Adv}(\\mathcal{A}, \\mathrm{Genc}^0, \\mathrm{Genc}(\\mathrm{Sim})).$$
+Loosely, there exist a simulator which precisely models the game based IND-CPA notion and this simulator is optimal up to a factor of two.
+`
                 },
                 // {
                 //     "text": "Recall that the game-base notion of \\(\\mathsf{IND\\text{-}CPA}\\) states that \\(\\mathsf{Gind\\text{-}cpa^0}\\) ≅ \\(\\mathsf{Gind\\text{-}cpa^1}\\)"
@@ -337,7 +340,7 @@ $$\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}^1) \\leq \\mathsf
                 //     "graphs": [["Genc^0", "Genc(Sim)"]]
                 // },
                 {
-                    "text": "<p class=\"proofstep-title\">Proof of Theorem</p><p>We now first state the two lemmas which constitute the theorem separately and then first prove Lemma 1 and then Lemma 2. As the advantage bounds suggest, we need to use the simulation-based assumption twice to prove standard IND-CPA security, while IND-CPA security directly implies simulation-based security.</p>"
+                    "text": "<p class=\"proofstep-title\">Proof of Theorem</p><p>We now first state the two lemmas which constitute the theorem separately and then first prove Lemma 1 and then Lemma 2.</p>"
                 }
             ]
         },
@@ -348,7 +351,7 @@ $$\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}^1) \\leq \\mathsf
             "parent": "Theorem",
             "contents": [
                 {
-                    "text": "Simulation-based security of ENC implies the <a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC , i.e., for all PPT simulators \\(\\mathsf{Sim}\\) and PPT adversaries \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}^1) \\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}, \\mathsf{Genc}^0, \\mathsf{Genc}(\\mathsf{Sim}))+\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}(\\mathsf{Sim})).$$"
+                    "text": "There exists a reduction \\(\\mathrm{R}\\), such that for all PPT simulators \\(\\mathrm{Sim}\\) and PPT adversaries \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}, \\mathrm{Genc}^0, \\mathrm{Genc}^1) \\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}, \\mathrm{Genc}^0, \\mathrm{Genc}(\\mathrm{Sim}))+\\mathsf{Adv}(\\mathcal{A}, \\mathrm{Genc}^0, \\mathrm{Genc}(\\mathrm{Sim})).$$"
                 },
             ]
         },
@@ -359,7 +362,7 @@ $$\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}^1) \\leq \\mathsf
             "parent": "Theorem",
             "contents": [
                 {
-                    "text": "<a href=\"ind-cpa-def.html\">IND-CPA security</a> of ENC implies the simulation-based security of ENC, i.e., there exists a PPT simulator \\(\\mathsf{Sim_{Lemma2}}\\) such that for all PPT adversaries \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim_{Lemma2}})) = \\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}^1),$$ where \\(\\mathsf{Sim_{Lemma2}}\\) is defined as follows:"
+                    "text": "There exists a PPT simulator \\(\\mathrm{Sim_{Lemma2}}\\) such that for all PPT adversaries \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Genc}^0,\\mathrm{Genc}(\\mathrm{Sim_{Lemma2}})) = \\mathsf{Adv}(\\mathcal{A},\\mathrm{Genc}^0,\\mathrm{Genc}^1),$$ where \\(\\mathrm{Sim_{Lemma2}}\\) is defined as follows:"
                 },
                 {
                     "graphs": [["Sim_{Lemma2}"]]
@@ -368,14 +371,14 @@ $$\\mathsf{Adv}(\\mathcal{A}, \\mathsf{Genc}^0, \\mathsf{Genc}^1) \\leq \\mathsf
                     "text": "<p class=\"proofstep-title\">Proof of Lemma 2</p>"
                 },
                 {
-                    "text":`Claim 1 establishes that \\(\\mathsf{Genc}(\\mathsf{Sim_{Lemma2}})\\) is code-equivalent to \\(\\mathsf{Genc}^1\\). We then directly obtain Lemma 2 as follows. Let \\(\\mathcal{A}\\) be a PPT adversary. Then,
+                    "text":`Claim 1 establishes that \\(\\mathrm{Genc}(\\mathrm{Sim_{Lemma2}})\\) is code-equivalent to \\(\\mathrm{Genc}^1\\). We then directly obtain Lemma 2 as follows. Let \\(\\mathcal{A}\\) be a PPT adversary. Then,
 $$\\begin{align}
-  \\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim_{Lemma2}})) \\stackrel{\\text{def}}{=}
-  &|\\text{Pr}[1=\\mathcal{A}\\rightarrow \\mathsf{Genc}^0]-
-   \\text{Pr}[1=\\mathcal{A}\\rightarrow \\mathsf{Genc}(\\mathsf{Sim_{Lemma2}})]|\\\\
-=&|\\text{Pr}[1=\\mathcal{A}\\rightarrow \\mathsf{Genc}^0]-
-   \\text{Pr}[1=\\mathcal{A}\\rightarrow \\mathsf{Genc}^1]|\\\\
-\\stackrel{\\text{def}}{=}& \\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^0,\\mathsf{Genc}^1)\\\\
+  \\mathsf{Adv}(\\mathcal{A},\\mathrm{Genc}^0,\\mathrm{Genc}(\\mathrm{Sim_{Lemma2}})) \\stackrel{\\text{def}}{=}
+  &|\\text{Pr}[1=\\mathcal{A}\\rightarrow \\mathrm{Genc}^0]-
+   \\text{Pr}[1=\\mathcal{A}\\rightarrow \\mathrm{Genc}(\\mathrm{Sim_{Lemma2}})]|\\\\
+=&|\\text{Pr}[1=\\mathcal{A}\\rightarrow \\mathrm{Genc}^0]-
+   \\text{Pr}[1=\\mathcal{A}\\rightarrow \\mathrm{Genc}^1]|\\\\
+\\stackrel{\\text{def}}{=}& \\mathsf{Adv}(\\mathcal{A},\\mathrm{Genc}^0,\\mathrm{Genc}^1)\\\\
 \\end{align}$$`
                 },
             ]
@@ -386,10 +389,10 @@ $$\\begin{align}
             "parent": "Lemma 2",
             "contents": [
                 {
-                    "text": "\\(\\mathsf{Genc}^1\\stackrel{code}{\\equiv}\\mathsf{Genc}(\\mathsf{Sim}_{Lemma2})\\)"
+                    "text": "\\(\\mathrm{Genc}^1\\stackrel{code}{\\equiv}\\mathrm{Genc}(\\mathrm{Sim}_{Lemma2})\\)"
                 },
                 {
-                    "text": "<p class=\"proofstep-title\">Proof of Claim 1</p><p>Below, in \\(\\mathsf{Genc(Sim_{Lemma2})}\\), we replace \\(\\mathsf{Sim}_{Lemma2}\\) by its definition and thereby obtain \\(\\mathsf{Hybrid\\text{-}Claim\\text{-}1}\\). We mark the definition of \\(\\mathsf{Genc(Sim_{Lemma2})}\\) by a dashed line, Removing the dashed line yields \\(\\mathsf{Genc^1}\\).</p>"
+                    "text": "<p class=\"proofstep-title\">Proof of Claim 1</p><p>Below, in \\(\\mathrm{Genc(Sim_{Lemma2})}\\), we replace \\(\\mathrm{Sim}_{Lemma2}\\) by its definition and thereby obtain \\(\\mathrm{Hybrid\\text{-}Claim\\text{-}1}\\). We mark the definition of \\(\\mathrm{Genc(Sim_{Lemma2})}\\) by a dashed line, Removing the dashed line yields \\(\\mathrm{Genc^1}\\).</p>"
                 },
                 {
                     "graphs": [["Genc(Sim_{Lemma2})"], ["Hybrid-Claim-1"], ["Genc^1"], ]
@@ -400,20 +403,16 @@ $$\\begin{align}
                 {
                     "text": `Let \\(\\mathcal{A}\\) be a PPT adversary. We prove Lemma 1 via three game-hops and bound the advantage of \\(\\mathcal{A}\\) via the triangle inequality.
 $$\\begin{align}
-\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Genc}^0)\\leq
-&\\;\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Hybrid\\text{-}Lemma1}) \\\\
-&+\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid\\text{-}Lemma1},\\mathsf{Genc}(\\mathsf{Sim}))\\\\
-&+\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}(\\mathsf{Sim}),\\mathsf{Genc}^0)\\\\
+\\mathsf{Adv}(\\mathcal{A},\\mathrm{Genc}^1,\\mathrm{Genc}^0)\\leq
+&\\;\\mathsf{Adv}(\\mathcal{A},\\mathrm{Genc}^1,\\mathrm{Hybrid\\text{-}Lemma1}) \\\\
+&+\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid\\text{-}Lemma1},\\mathrm{Genc}(\\mathsf{Sim}))\\\\
+&+\\mathsf{Adv}(\\mathcal{A},\\mathrm{Genc}(\\mathrm{Sim}),\\mathrm{Genc}^0)\\\\
 \\end{align}$$
-Lemma 1 then follows by Claim 2 and Claim 3. Namely, Claim 3 establishes that
-\\(\\mathsf{Adv}(\\mathsf{Hybrid\\text{-}Lemma1},\\mathcal{A},\\mathsf{Genc}^0)\\)
-is \\(0\\) and Claim 2 constructs a PPT reduction \\(\\mathsf{R}\\) such that $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Hybrid\\text{-}Lemma1})= \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim})).$$.`
+Where the first and last advantage are obtained by reduction to simulation security while the middle term follows from code equivalence and thus is 0. The proof is visualized by the following sequence of games:
+`
                 },
                 {
                     "graphs": [["Genc^1"], ["Hybrid-Lemma-1"], ["Genc(Sim)"], ["Genc^0"]]
-                },
-                {
-                    "text": "We now state and prove Claim 2 and Claim 3."
                 },
             ],
             "type":
@@ -430,10 +429,10 @@ is \\(0\\) and Claim 2 constructs a PPT reduction \\(\\mathsf{R}\\) such that $$
             "parent": "Lemma 1",
             "contents": [
                 {
-                    "text": "\\(\\mathsf{Adv}(\\mathcal{A},\\mathsf{Genc}^1,\\mathsf{Hybrid\\text{-}Lemma1}) =  \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{Zeroer},\\mathsf{Genc}^0,\\mathsf{Genc}(\\mathsf{Sim})) \\)"
+                    "text": `For all simulators \\(\\mathrm{Sim}\\) and all adversary \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Genc}^1,\\mathrm{Hybrid\\text{-}Lemma1}) =  \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{Zeroer},\\mathrm{Genc}^0,\\mathrm{Genc}(\\mathrm{Sim}))$$`
                 },
                 {
-                    "text": "<p class=\"proofstep-title\">Proof of Claim 2</p> Using \\(\\mathsf{R}:=\\mathsf{Zeroer}\\) as a reduction (marked in grey in the pictures below), we observe that the remaining part of the graph (marked in white) constitute exactly \\(\\mathsf{Genc}^0\\) and  \\(\\mathsf{Genc}^1\\), respectively, and Claim 2 follows."
+                    "text": "<p class=\"proofstep-title\">Proof of Claim 2</p> Using \\(\\mathrm{Zeroer}\\) as a reduction, we observe that the remaining part of the graph constitute exactly \\(\\mathrm{Genc}^0\\) and  \\(\\mathrm{Genc}(\\mathrm{Sim})\\), respectively, and Claim 2 follows."
                 },
                 {
                     "graphs": [["Genc^1"], ["Hybrid-Lemma-1"]]
@@ -457,7 +456,7 @@ is \\(0\\) and Claim 2 constructs a PPT reduction \\(\\mathsf{R}\\) such that $$
             "parent": "Lemma 1",
             "contents": [
                 {
-                    "text": "\\(\\mathsf{Zeroer}\\rightarrow \\mathsf{Zeroer} \\stackrel{\\text{code}}{\\equiv}\\mathsf{Zeroer}\\)"
+                    "text": "\\(\\mathrm{Zeroer}\\) is idempotent, that is applying \\(\\mathrm{Zeroer}\\) twice does not change the output: $$\\mathrm{Zeroer}\\rightarrow \\mathrm{Zeroer} \\stackrel{\\text{code}}{\\equiv}\\mathrm{Zeroer}$$"
                 },
                 {
                     "text": "<p class=\"proofstep-title\">Proof of Claim 3</p>"
