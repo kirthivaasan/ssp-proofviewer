@@ -203,7 +203,7 @@ function ggm_driver() {
                                 "Key":{"x":200,"y":0,"width":90,"height":50, "color":"blue"}},
                        "edges":{"@oracles_interface":{"RO":"exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"}}}
         },
-        "\\mathrm{Gprg}^0":
+        "GPrg^0_\\text{id}":
         {
             "oracles": [["Prg-0", "GET"], ["Prg-1", "GET"]],
 
@@ -225,7 +225,7 @@ function ggm_driver() {
                        "edge_points":{"@oracles_interface":[],"Mod-prf":[],"Prg-000":[],"Prg-001":[],"Prg-010":[],"Prg-011":[],"Prg-100":[],"Prg-101":[],"Prg-110":[],"Prg-111":[],"Prg-00":[],"Prg-01":[],"Prg-10":[],"Prg-11":[],"Prg-0":[],"Prg-1":[]}}
 
         },
-        "\\mathrm{Gprg}^1":
+        "GPrg^1_\\text{id}":
         {
             "oracles": [["Key-0", "GET"], ["Key-1", "GET"]],
 
@@ -610,13 +610,13 @@ function ggm_driver() {
             parent : null,
             contents: [
                 {
-                    text: "In contrast, the PRG experiment is formulated in a more traditional manner where the \((\\mathrm{Prg-}\\) packages call a candidate PRG \\(g\\). Giving the adversary separate access to the output halves aides the further proof without changing the notion of security. One could proof equivalence between such constructions if desired."
+                    text: "In contrast, the PRG experiment is formulated in a more traditional manner where the \\(\\mathrm{Prg\\text{-}id}\\) packages call a candidate PRG \\(g\\). Giving the adversary separate access to the output halves aides the further proof without changing the notion of security. One could proof equivalence between such constructions if desired."
                 },
                 {
-                    graphs: [["\\mathrm{Gprg}^0", "\\mathrm{Gprg}^1"]]
+                    graphs: [["GPrg^0_\\text{id}", "GPrg^1_\\text{id}"]]
                 },
                 {
-                    text: "The PRG advantage for a function \\(g\\) is defined as: $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Gprg}^0,\\mathrm{Gprg}^1)$$ We say a PRG is secure if for any PPT adversary \\(\\mathcal{A}\\) the advantage is neglegible."
+                    text: "The PRG advantage for a function \\(g\\) is defined as: $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Gprg}^0_\\text{id},\\mathrm{Gprg}^1_\\text{id})$$ We say a PRG is secure if for any PPT adversary \\(\\mathcal{A}\\) the advantage is neglegible."
                 }
             ]
         },
@@ -625,20 +625,20 @@ function ggm_driver() {
             "parent": null,
             "contents": [
                 {
+                    "text": "Recall that we defined PRF security relative to a construction package. Thus we have to provide a composition which satisfies the interfaces of \\(\\mathrm{Gprf}_\\mathsf{cons}\\) reproduced here for convenience."
+                },
+                {
                     "graphs": [["Modular-Gprf", "Modular-Gprf-cons"]]
                 },
                 {
-                    "text": "Recall that we defined PRF security relative to a construction package. Thus we have to provide a composition which satisfies the interfaces of \\(\\mathbf{Gprf_\\mathsf{cons}}\\) reproduced here for convenience. We define the stateless \\(\\mathsf{Prf}_{GGM}\\)  composition as follows. <!--<br>(The leaf \\(\\mathsf{Prg}\\) packages make \\(\\mathsf{GET}\\) calls too, but due to a current limitation of the proof viewer it is not rendered).-->"
+                    "text": "We define the stateless \\(\\mathrm{Prf}_{GGM}\\)  composition as follows. <!--<br>(The leaf \\(\\mathsf{Prg}\\) packages make \\(\\mathsf{GET}\\) calls too, but due to a current limitation of the proof viewer it is not rendered).-->"
                 },
                 {
                     "graphs": [["PRF_{GGM}"]]
                 },
                 {
-                    "text": "One can verify that this composition satisfies the interfaces of \\(\\mathbf{Gprf_\\mathsf{cons}}\\), in particular it exposes an \\(\\mathsf{EVAL}\\) oracle (at \\(\\mathrm{Mod-prf}\\)) and only calls a \\(\\mathsf{GET}\\) oracle (where both \\(\\mathrm{Prg-0}\\) and \\(\\mathrm{Prg-1}\\) call the <em>same</em> \\(\\mathsf{GET}\\) oracle)."
+                    "text": "One can verify that this composition satisfies the interfaces of \\(\\mathrm{Gprf}_\\mathsf{cons}\\), in particular it exposes an \\(\\mathsf{EVAL}\\) oracle (at \\(\\mathrm{Mod\\text{-}prf}\\)) and only calls a \\(\\mathsf{GET}\\) oracle (where both \\(\\mathrm{Prg\\text{-}0}\\) and \\(\\mathrm{Prg\\text{-}1}\\) call the <em>same</em> \\(\\mathsf{GET}\\) oracle)."
                 },
-                {
-                    "graphs": [["Modular-Gprf", "Modular-Gprf-cons"]]
-                }
             ]
         },
 
@@ -647,10 +647,10 @@ function ggm_driver() {
             "parent": "Construction",
             "contents": [
                 {
-                    "text": "There exist PPT reductions \\(\\mathsf{R}_{[]}\\), \\(\\mathsf{R}_0\\), \\(\\mathsf{R}_1\\), \\(\\mathsf{R}_{00}\\), \\(\\mathsf{R}_{01}\\), \\(\\mathsf{R}_{10}\\), and \\(\\mathsf{R}_{11}\\), such that for all PPT adversaries  \\(\\mathcal{A}\\), we have that $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Prf}_{\\mathsf{GGM}}\\rightarrow\\mathsf{Key},\\mathsf{RO})\\leq \\sum_{\\text{id}\\in\\{[],0,1,00,01,10,11\\}}\\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{\\text{id}},\\mathsf{GPrg}_{\\text{id}}^0,\\mathsf{GPrg}_{\\text{id}}^1)$$."
+                    "text": "There exist PPT reductions \\(\\mathrm{R}_{[]}\\), \\(\\mathrm{R}_0\\), \\(\\mathrm{R}_1\\), \\(\\mathrm{R}_{00}\\), \\(\\mathrm{R}_{01}\\), \\(\\mathrm{R}_{10}\\), and \\(\\mathrm{R}_{11}\\), such that for all PPT adversaries  \\(\\mathcal{A}\\), we have that $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Prf}_{\\mathsf{GGM}}\\rightarrow\\mathrm{Key},\\mathrm{RO})\\leq \\sum_{\\text{id}\\in\\{[],0,1,00,01,10,11\\}}\\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{\\text{id}},\\mathrm{GPrg}_{\\text{id}}^0,\\mathrm{GPrg}_{\\text{id}}^1)$$."
                 },
                 {
-                    "text": "<p class=\"proofstep-title\">Proof of Theorem</p><p> The proof proceeds via a hybrid argument. We now first define the hybrid games and then state claims which construct a reduction between each subsequent pair of games. The PPT reductions \\(\\mathsf{R}_{[]}\\), \\(\\mathsf{R}_0\\), \\(\\mathsf{R}_1\\), \\(\\mathsf{R}_{00}\\), \\(\\mathsf{R}_{01}\\), \\(\\mathsf{R}_{10}\\), and \\(\\mathsf{R}_{11}\\) will be defined in Claim [], Claim 0, Claim 1, Claim 00, Claim 01, Claim 10, and Claim 11, respectively. In addition, the claims establish that for all PPT adversaries \\(\\mathcal{A}\\), it holds that $$ \\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid}_{[]},\\mathsf{Hybrid}_{0})\\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{[]},\\mathsf{Gprg}_{[]}^0,\\mathsf{Gprg}_{[]}^1)$$  $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid}_{0},\\mathsf{Hybrid}_{1})\\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{0},\\mathsf{Gprg}_{0}^0,\\mathsf{Gprg}_{0}^1)$$ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid}_{1},\\mathsf{Hybrid}_{00})\\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{1},\\mathsf{Gprg}_{1}^0,\\mathsf{Gprg}_{1}^1)$$ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid}_{00},\\mathsf{Hybrid}_{01})\\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{00},\\mathsf{Gprg}_{00}^0,\\mathsf{Gprg}_{00}^1)$$                 $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid}_{01},\\mathsf{Hybrid}_{10})\\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{01},\\mathsf{Gprg}_{01}^0,\\mathsf{Gprg}_{01}^1)$$ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid}_{10},\\mathsf{Hybrid}_{11})\\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{10},\\mathsf{Gprg}_{10}^0,\\mathsf{Gprg}_{10}^1)$$ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid}_{11},\\mathsf{Hybrid}_{000})\\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{11},\\mathsf{Gprg}_{11}^0,\\mathsf{Gprg}_{11}^1)$$ By the triangle inequality, we obtain that $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid}_{[]},\\mathsf{Hybrid}_{000})\\leq \\sum_{\\text{id}\\in\\{[],0,1,00,01,10,11\\}}\\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{\\text{id}},\\mathsf{GPrg}_{\\text{id}}^0,\\mathsf{GPrg}_{\\text{id}}^1)     (1).$$ Claim 2 then establishes that $$\\mathsf{RO}\\stackrel{\\text{code}}{\\equiv}\\mathsf{Hybrid}_{11}.$$ Using Inequality (1), we then obtain that $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Prf}_{\\mathsf{GGM}}\\rightarrow\\mathsf{Key},\\mathsf{RO})$$ $$\\leq\\mathsf{Adv}(\\mathcal{A},\\mathsf{Prf}_{\\mathsf{GGM}}\\rightarrow\\mathsf{Key},\\mathsf{Hybrid}_{000})$$ $$\\leq\\sum_{\\text{id}\\in\\{[],0,1,00,01,10,11\\}}\\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{\\text{id}},\\mathsf{GPrg}_{\\text{id}}^0,\\mathsf{GPrg}_{\\text{id}}^1),$$ as required by the Theorem. We now state and prove each of the claims in turn.</p>"
+                    "text": "<p class=\"proofstep-title\">Proof of Theorem</p><p> The proof proceeds via a hybrid argument. We now first define the hybrid games and then state claims which construct a reduction between each subsequent pair of games. The PPT reductions \\(\\mathrm{R}_{[]}\\), \\(\\mathrm{R}_0\\), \\(\\mathrm{R}_1\\), \\(\\mathrm{R}_{00}\\), \\(\\mathrm{R}_{01}\\), \\(\\mathrm{R}_{10}\\), and \\(\\mathrm{R}_{11}\\) will be defined in Claim [], Claim 0, Claim 1, Claim 00, Claim 01, Claim 10, and Claim 11, respectively. In addition, the claims establish that for all PPT adversaries \\(\\mathcal{A}\\), it holds that $$ \\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid}_{[]},\\mathrm{Hybrid}_{0})\\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{[]},\\mathrm{Gprg}_{[]}^0,\\mathrm{Gprg}_{[]}^1)$$  $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid}_{0},\\mathrm{Hybrid}_{1})\\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{0},\\mathrm{Gprg}_{0}^0,\\mathrm{Gprg}_{0}^1)$$ $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid}_{1},\\mathrm{Hybrid}_{00})\\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{1},\\mathrm{Gprg}_{1}^0,\\mathrm{Gprg}_{1}^1)$$ $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid}_{00},\\mathrm{Hybrid}_{01})\\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{00},\\mathrm{Gprg}_{00}^0,\\mathrm{Gprg}_{00}^1)$$                 $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid}_{01},\\mathrm{Hybrid}_{10})\\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{01},\\mathrm{Gprg}_{01}^0,\\mathrm{Gprg}_{01}^1)$$ $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid}_{10},\\mathrm{Hybrid}_{11})\\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{10},\\mathrm{Gprg}_{10}^0,\\mathrm{Gprg}_{10}^1)$$ $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid}_{11},\\mathrm{Hybrid}_{000})\\leq \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{11},\\mathrm{Gprg}_{11}^0,\\mathrm{Gprg}_{11}^1)$$ By the triangle inequality, we obtain that $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid}_{[]},\\mathrm{Hybrid}_{000})\\leq \\sum_{\\text{id}\\in\\{[],0,1,00,01,10,11\\}}\\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{\\text{id}},\\mathrm{GPrg}_{\\text{id}}^0,\\mathrm{GPrg}_{\\text{id}}^1)     (1).$$ Claim 2 then establishes that $$\\mathrm{RO}\\stackrel{\\text{code}}{\\equiv}\\mathrm{Hybrid}_{000}.$$ Using Inequality (1), we then obtain that $$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Prf}_{\\mathrm{GGM}}\\rightarrow\\mathrm{Key},\\mathrm{RO})$$ $$\\leq\\mathsf{Adv}(\\mathcal{A},\\mathrm{Prf}_{\\mathrm{GGM}}\\rightarrow\\mathrm{Key},\\mathrm{Hybrid}_{000})$$ $$\\leq\\sum_{\\text{id}\\in\\{[],0,1,00,01,10,11\\}}\\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{\\text{id}},\\mathrm{GPrg}_{\\text{id}}^0,\\mathrm{GPrg}_{\\text{id}}^1),$$ as required by the Theorem. We now state and prove each of the claims in turn.</p>"
                 }
             ]
         },
@@ -660,8 +660,8 @@ function ggm_driver() {
             "parent": "Theorem",
             "contents": [
                 {
-                    "text":`Let \\(\\mathsf{R}_{[]}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
-$$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Gprf(Prf_{GGM})^0},\\mathsf{Hybrid_{[]}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{[]},\\mathsf{Gprg}_{[]}^0,\\mathsf{Gprg}_{[]}^1)$$.`
+                    "text":`Let \\(\\mathrm{R}_{[]}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
+$$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Prf_{GGM}}\\rightarrow\\mathrm{Key},\\mathrm{Hybrid_{0}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{[]},\\mathrm{Gprg}_{[]}^0,\\mathrm{Gprg}_{[]}^1)$$.`
                 },
                 {
                     "graphs": [["Gprf(PRF_{GGM})"],["Hybrid_{0}"]]
@@ -689,8 +689,8 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Gprf(Prf_{GGM})^0},\\mathsf{Hybrid_{[]}}) 
             "parent": "Theorem",
             "contents": [
                 {
-                    "text":`Let \\(\\mathsf{R}_{0}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
-$$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{[]}},\\mathsf{Hybrid_{0}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_0,\\mathsf{Gprg}_{0}^0,\\mathsf{Gprg}_{0}^1)$$.`
+                    "text":`Let \\(\\mathrm{R}_{0}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
+$$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{0}},\\mathrm{Hybrid_{1}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_0,\\mathrm{Gprg}_{0}^0,\\mathrm{Gprg}_{0}^1)$$.`
                 },
                 {
                     "graphs": [["Hybrid_{0}"],["Hybrid_{1}"]]
@@ -718,8 +718,8 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{[]}},\\mathsf{Hybrid_{0}}) = \\mat
             "parent": "Theorem",
             "contents": [
                 {
-                    "text":`Let \\(\\mathsf{R}_{1}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
-$$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{0}},\\mathsf{Hybrid_{1}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_1,\\mathsf{Gprg}_{1}^0,\\mathsf{Gprg}_{1}^1)$$.`
+                    "text":`Let \\(\\mathrm{R}_{1}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
+$$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{1}},\\mathrm{Hybrid_{00}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_1,\\mathrm{Gprg}_{1}^0,\\mathrm{Gprg}_{1}^1)$$.`
                 },
                 {
                     "graphs": [["Hybrid_{1}"],["Hybrid_{00}"]]
@@ -747,8 +747,8 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{0}},\\mathsf{Hybrid_{1}}) = \\math
             "parent": "Theorem",
             "contents": [
                 {
-                    "text":`Let \\(\\mathsf{R}_{00}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
-$$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{1}},\\mathsf{Hybrid_{00}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{00},\\mathsf{Gprg}_{00}^0,\\mathsf{Gprg}_{00}^1)$$.`
+                    "text":`Let \\(\\mathrm{R}_{00}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
+$$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{00}},\\mathrm{Hybrid_{01}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{00},\\mathrm{Gprg}_{00}^0,\\mathrm{Gprg}_{00}^1)$$.`
                 },
                 {
                     "graphs": [["Hybrid_{00}"],["Hybrid_{01}"]]
@@ -776,8 +776,8 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{1}},\\mathsf{Hybrid_{00}}) = \\mat
             "parent": "Theorem",
             "contents": [
                 {
-                    "text":`Let \\(\\mathsf{R}_{01}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
-$$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{00}},\\mathsf{Hybrid_{01}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{01},\\mathsf{Gprg}_{01}^0,\\mathsf{Gprg}_{01}^1)$$.`
+                    "text":`Let \\(\\mathrm{R}_{01}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
+$$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{01}},\\mathrm{Hybrid_{10}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{01},\\mathrm{Gprg}_{01}^0,\\mathrm{Gprg}_{01}^1)$$.`
                 },
                 {
                     "graphs": [["Hybrid_{01}"],["Hybrid_{10}"]]
@@ -805,8 +805,8 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{00}},\\mathsf{Hybrid_{01}}) = \\ma
             "parent": "Theorem",
             "contents": [
                 {
-                    "text":`Let \\(\\mathsf{R}_{10}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
-$$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{01}},\\mathsf{Hybrid_{10}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{10},\\mathsf{Gprg}_{10}^0,\\mathsf{Gprg}_{10}^1)$$.`
+                    "text":`Let \\(\\mathrm{R}_{10}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
+$$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{10}},\\mathrm{Hybrid_{11}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{10},\\mathrm{Gprg}_{10}^0,\\mathrm{Gprg}_{10}^1)$$.`
                 },
                 {
                     "graphs": [["Hybrid_{10}"],["Hybrid_{11}"]]
@@ -834,8 +834,8 @@ $$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{01}},\\mathsf{Hybrid_{10}}) = \\ma
             "parent": "Theorem",
             "contents": [
                 {
-                    "text":`Let \\(\\mathsf{R}_{11}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
-$$\\mathsf{Adv}(\\mathcal{A},\\mathsf{Hybrid_{10}},\\mathsf{Hybrid_{11}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathsf{R}_{11},\\mathsf{Gprg}_{11}^0,\\mathsf{Gprg}_{11}^1)$$.`
+                    "text":`Let \\(\\mathrm{R}_{11}\\) be the reduction defined by the grey packages in the graphs below and \\(\\mathcal{A}\\) be a PPT adversary, then
+$$\\mathsf{Adv}(\\mathcal{A},\\mathrm{Hybrid_{11}},\\mathrm{Hybrid_{000}}) = \\mathsf{Adv}(\\mathcal{A}\\rightarrow\\mathrm{R}_{11},\\mathrm{Gprg}_{11}^0,\\mathrm{Gprg}_{11}^1)$$.`
                 },
                 {
                     "graphs": [["Hybrid_{11}"],["Hybrid_{000}"]]
