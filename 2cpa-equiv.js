@@ -104,7 +104,7 @@ function driver() {
 
 	"2CPA":
 	{
-	    "oracles": [["KEYS", "SETBIT|GETA^{out}"], ["ENC^b", "ENC"]],
+	    "oracles": [["KEYS", "SETBIT,GETA^{out}"], ["ENC^b", "ENC"]],
 	    "graph":
 	    {
 		"ENC^b": [["KEYS", "GETBIT|GETKEYS^{in}"]],
