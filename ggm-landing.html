@@ -1,0 +1,139 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="opensans_regular_macroman/stylesheet.css" type="text/css" charset="utf-8" />
+
+    <link rel="stylesheet" href="styles.css" type="text/css" charset="utf-8" />
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      MathJax = {
+	  options: {
+	      renderActions: {
+		  addMenu: []
+	      }
+	  }
+      };
+    </script>
+
+    <script type="text/javascript">
+      mxBasePath = 'mxgraph/src';
+    </script>
+    <script src="mxgraph/mxClient.min.js"></script>
+
+    <script src="pdfkit/pdfkit.standalone.js"></script>
+    <script src="pdfkit/svg-pdfkit.js"></script>
+
+  </head>
+
+  <body onkeydown='key_handler(event, this)'>
+    <div id="navbar">
+      <ul>
+	<li><a class="active" href="index.html">Home</a></li>
+	<!--<li><a href="definitions.html">Definitions</a></li>-->
+	<!--<li><a href="proofs_index.html">Proofs</a></li>-->
+      </ul>
+    </div>
+
+    <div id="proof_title"></div>
+
+    <div id="proof_wrapper"></div>
+
+    <div id="tooltip_wrapper" class="tooltip" style="height: 0%; float: left; width: 0%;">
+      <div id="tooltiptext_wrapper" class="tooltiptext" style="display: block"></div>
+    </div>
+
+
+    <div id="oracle_wrapper"></div>
+
+    <script src="ssp.js"></script>
+    <script src="mxgraphtree.js"></script>
+    <script src="beta-app.js"></script>
+    <script src="new-ggm.js"></script>
+ <script>
+      // experimental feature to hide/show prooftexts
+      function key_handler(e) {
+	  if (e.key === 'h') {
+	      var proofstep_texts = document.getElementsByClassName('proofstep-text');
+	      for (let text of proofstep_texts) {
+		  text.style.display = 'none';
+	      }
+
+	      var game_titles = document.getElementsByClassName('game-title');
+	      for (let title of game_titles) {
+		  title.style.display = 'none';
+	      }
+
+	      var proofstep_titles = document.getElementsByClassName('proofstep-title');
+	      for (let title of proofstep_titles) {
+		  var step_title_str = title.innerHTML;
+		  var prooftree = game_to_sim_notion_se_proof.prooftree;
+		  if (step_title_str in prooftree) {
+		      var proofstep = prooftree[step_title_str];
+		      if ("type" in proofstep) {
+			  var type = proofstep.type;
+			  if ('reduction' in type) {
+			      title.style.display = 'none';
+			      var div = document.createElement('div');
+			      div.innerHTML = 'reduction\n≅';
+			      div.setAttribute('class', 'reduction');
+			      title.parentNode.appendChild(div);
+
+      			  } else if ('codeq' in type) {
+			      title.style.display = 'none';
+			      var div = document.createElement('div');
+			      div.innerHTML = 'codeq\n≡';
+			      div.setAttribute('class', 'codeq');
+			      title.parentNode.appendChild(div);
+
+			  }
+		      }
+		  }
+	      }
+
+
+	  } else if (e.key === 's') {
+	      var proofstep_texts = document.getElementsByClassName('proofstep-text');
+	      for (let text of proofstep_texts) {
+		  text.style.display = 'block';
+	      }
+
+	      var game_titles = document.getElementsByClassName('game-title');
+	      for (let title of game_titles) {
+		  title.style.display = 'block';
+	      }
+
+	      var proofstep_titles = document.getElementsByClassName('proofstep-title');
+	      for (let title of proofstep_titles) {
+		  var step_title_str = title.innerHTML;
+		  var prooftree = game_to_sim_notion_se_proof.prooftree;
+		  if (step_title_str in prooftree) {
+		      var proofstep = prooftree[step_title_str];
+		      if ("type" in proofstep) {
+			  var type = proofstep.type;
+			  if ('reduction' in type) {
+			      title.style.display = 'block';
+			      var red = title.parentNode.getElementsByClassName('reduction');
+			      red[0].remove();
+      			  } else if ('codeq' in type) {
+			      title.style.display = 'block';
+			      var codeq = title.parentNode.getElementsByClassName('codeq');
+			      codeq[0].remove();
+			  }
+		      }
+		  }
+	      }
+	  } else if (e.key == 'E') {
+	      var answer = alert('export');
+	      export_graphs_svg();
+	  }
+
+
+      }
+ </script>
+ <script> convert_pkg_names_latex(); </script>
+
+  </body>
+</html>
