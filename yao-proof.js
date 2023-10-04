@@ -1417,7 +1417,7 @@ function newyao_driver() {
 		    "text": "Let \\(se\\) be a symmetric encryption scheme. For reduction \\(\\mathcal{R}_{cpa} := \\mathsf{RED}\\), it holds that for any PPT adversary \\(\\mathcal{A}\\), $$\\mathsf{Adv}(\\mathcal{A}; \\mathsf{2CPA}^0(se), \\mathsf{2CPA}^1(se)) \\leq \\mathsf{Adv}(\\mathcal{A} \\rightarrow \\mathcal{R}_{cpa}; \\mathsf{IND\\text{-}CPA}^0(se), \\mathsf{IND\\text{-}CPA}^1(se)).$$"
 		},
 		{
-		    "text": "Full proof/definition: <a href=\"2cpa-equiv.html\">2CPA and (standard IND-CPA equivalence</a>"
+		    "text": "Full proof/definition: <a href=\"yao-se.html\">2CPA and (standard IND-CPA equivalence</a>"
 		},
 		{
 		    "graphs": [["2CPA", "RED->IND-CPA^b(se)"]]
