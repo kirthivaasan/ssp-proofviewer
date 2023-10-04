@@ -8,7 +8,7 @@ function driver() {
             {
                 "ENC":
                 {
-                    "code": "k @gets \\mathtt{GET}(); c @sample \\mathsf{se}.\\mathsf{enc}(k,m); @return c",
+                    "code": "k @gets \\mathsf{GET}(); c @sample \\mathsf{se}.\\mathsf{enc}(k,m); @return c",
                     "params": ["m"],
                 }
             }
@@ -20,7 +20,7 @@ function driver() {
             {
                 "ENC" :
                 {
-                    "code": "k @gets \\mathtt{GET}(); c @sample enc_k(0^{|m|}); @return c",
+                    "code": "k @gets \\mathsf{GET}(); c @sample enc_k(0^{|m|}); @return c",
                     "params": ["m"]
                 }
             }
@@ -47,7 +47,7 @@ function driver() {
             {
                 "ENC":
                 {
-                    "code": "c @gets \mathtt{ENC}(|m|);@return c;",
+                    "code": "c @gets \mathsf{ENC}(|m|);@return c;",
                     "params": ["m"]
                 }
             }
@@ -72,7 +72,7 @@ function driver() {
             {
                 "ENC":
                 {
-                    "code": "m' @gets 0^{|m|};c @gets \\mathtt{ENC}(m');@return c",
+                    "code": "m' @gets 0^{|m|};c @gets \\mathsf{ENC}(m');@return c",
                     "params": ["m"]
                 }
             }
@@ -478,7 +478,7 @@ Where the first and last advantage are obtained by reduction to simulation secur
                                     {
                                         "ENC":
                                         {
-                                            "code": "m' @gets 0^{|m|};c @gets \\mathtt{ENC}(m');;;@return c",
+                                            "code": "m' @gets 0^{|m|};c @gets \\mathsf{ENC}(m');;;@return c",
                                             "params": ["m"]
                                         }
                                     }
@@ -495,7 +495,7 @@ Where the first and last advantage are obtained by reduction to simulation secur
                                     {
                                         "ENC":
                                         {
-                                            "code": "m' @gets 0^{|m|};m'' @gets 0^{|m'|};c' @gets \\mathtt{ENC}(m'');c @gets c';@return c",
+                                            "code": "m' @gets 0^{|m|};m'' @gets 0^{|m'|};c' @gets \\mathsf{ENC}(m'');c @gets c';@return c",
                                             "params": ["m"]
                                         }
                                     }
@@ -512,7 +512,7 @@ Where the first and last advantage are obtained by reduction to simulation secur
                                     {
                                         "ENC":
                                         {
-                                            "code": "m' @gets 0^{|m|};c @gets \\mathtt{ENC}(m');;;@return c",
+                                            "code": "m' @gets 0^{|m|};c @gets \\mathsf{ENC}(m');;;@return c",
                                             "params": ["m"]
                                         }
                                     }
