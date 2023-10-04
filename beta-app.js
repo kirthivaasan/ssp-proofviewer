@@ -582,10 +582,10 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 	    return -1;
 	}
 
-	var result = document.querySelectorAll(`[id*="package_def_container_"]`);
-	for (var i = 0; i < result.length; i++) {
-	    result[i].style.display = "none";
-	}
+	// var result = document.querySelectorAll(`[id*="package_def_container_"]`);
+	// for (var i = 0; i < result.length; i++) {
+	//     result[i].style.display = "none";
+	// }
 
 
 	if (pkg_name in mono_pkgs) {
@@ -600,10 +600,10 @@ function draw_graph(container, pkg_callgraph, mono_pkgs, config, cut=null, type=
 	    setTimeout(function () {
 		pkg_def_div.className = "package_def_container";
 		graph.selectionModel.setCells([]);
-	    }, 2000);
+	    }, 500);
 
-	    // pkg_def_div.scrollIntoView({ behavior: 'smooth'});
-	    pkg_def_div.style.display = "block";
+	    pkg_def_div.scrollIntoView({ behavior: 'smooth'});
+	    // pkg_def_div.style.display = "block";
 
 	} else {
 	    // console.log(pkg_name + " was not found in mono_pkgs")
