@@ -8,7 +8,7 @@ function newyao_driver() {
 	    {
 		"GARBLE":
 		{
-		    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{SETBIT}_j(x_j);@if b = 1 @then \\mathsf{EVAL(C)};\\tilde{C} @gets \\mathsf{GBL}(C);\\text{dinf} @gets \\mathsf{GETDINF};@for j = 1..n @do;@> \\tilde{x}[j] @gets \\mathsf{GETA}^{out}_j;@return tilde{C}, \\tilde{x}, \\text{dinf})",
+		    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{SETBIT}_j(x_j);@if b = 1 @then \\mathsf{EVAL(C)};\\tilde{C} @gets \\mathsf{GBL}(C);\\text{dinf} @gets \\mathsf{GETDINF};@for j = 1..n @do;@> \\tilde{x}[j] @gets \\mathsf{GETA}^{out}_j;@return (\\tilde{C}, \\tilde{x}, \\text{dinf})",
 		    "params": ["C", "x"]
 		}
 	    }
@@ -30,7 +30,7 @@ function newyao_driver() {
 	    {
 		"EVAL" :
 		{
-		    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{GETBIT}_j;@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];      @for j = 1..n @do;@> @> ell, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j)); @> @> z_{i,j} @gets op(z_{i-1,\\ell},z_{i-1,r});@for j = 1..d @do;@> \\mathsf{SETBIT}_j(z_{d,j});@return ()",
+		    "code": "@assert \\tilde{C} = \\bot;@assert \\mathsf{width}(C) = n;@assert \\mathsf{depth}(C) = d;@for j = 1..n @do;@> \\mathsf{GETBIT}_j;@for i = 1..d @do;@> (\\boldsymbol{\\ell},\\boldsymbol{r},\\boldsymbol{op}) @gets C[i];      @for j = 1..n @do;@> @> (\\boldsymbol{ell}, r, op) @gets (\\boldsymbol{\\ell}(j),\\boldsymbol{r}(j),\\boldsymbol{op}(j)); @> @> z_{i,j} @gets op(z_{i-1,\\ell},z_{i-1,r});@for j = 1..d @do;@> \\mathsf{SETBIT}_j(z_{d,j});@return ()",
 		    "params": ["j", "\\ell", "r", "op"]
 		}
 
@@ -90,7 +90,7 @@ function newyao_driver() {
 
 	},
 
-	"EKEYS_{1,...,n}":
+	"EKEYS_{1,..,n}":
 	{
 	    "instance": "EKEYS_j"
 	},
